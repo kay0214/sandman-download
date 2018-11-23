@@ -1,0 +1,63 @@
+server:
+  port: 8080
+
+#多数据源配置
+datasource:
+   # 使用druid数据源
+  type: com.alibaba.druid.pool.DruidDataSource
+  #"下载"数据库
+  sandman-download:
+    url: jdbc:mysql://localhost:3306/sandman_download?useUnicode=true&characterEncoding=utf-8
+    username: sandman
+    password: spkzq521
+    driver-class-name: com.mysql.jdbc.Driver
+    filters: stat
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQueryTimeout: 900000
+    validationQuery: SELECT SYSDATE() from dual
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+  #"系统"数据库
+  sandman-sys:
+    url: jdbc:mysql://localhost:3306/sandman_sys?useUnicode=true&characterEncoding=utf-8
+    username: sandman
+    password: spkzq521
+    driver-class-name: com.mysql.jdbc.Driver
+    filters: stat
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQueryTimeout: 900000
+    validationQuery: SELECT SYSDATE() from dual
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+
+# Redis
+redis:
+  ip: 123.56.216.212
+  port: 6666
+  pool:
+    maxActive:  1024
+    maxIdle: 200
+    maxWait: 10000
+    testOnBorrow: true
+    testOnReturn: true
+    password: RH06863b3e6
+
+# swagger
+swagger:
+ enable: true
