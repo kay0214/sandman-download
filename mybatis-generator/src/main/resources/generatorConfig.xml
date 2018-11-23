@@ -4,7 +4,7 @@
 <generatorConfiguration>
 
     <!-- 引入配置文件 -->
-    <properties resource="init_trade.properties"/>
+    <properties resource="init_system.properties"/>
 
     <classPathEntry location="${classPath}"/>
 
@@ -12,10 +12,10 @@
         <property name="autoDelimitKeywords" value="true"/>
         <property name="beginningDelimiter" value="`"/>
         <property name="endingDelimiter" value="`"/>
-        <plugin type="org.hyjf.mybatis.generator.plugins.MysqlPagingPlugin"/>
+        <plugin type="com.personal.mybatisgenerator.MysqlPagingPlugin"/>
         <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
 
-        <commentGenerator type="org.hyjf.mybatis.generator.plugins.RemarksCommentGenerator">
+        <commentGenerator type="com.personal.mybatisgenerator.RemarksCommentGenerator">
             <property name="suppressAllComments" value="true"/>
             <property name="suppressDate" value="true"/>
         </commentGenerator>
@@ -46,10 +46,29 @@
 
 
         <!-- 表结构 -->
-
-        <table tableName="t_tools_id_card_first_six" domainObjectName="IdCard">
+        <!-- 用户表 -->
+        <table tableName="t_user" domainObjectName="User">
+            <generatedKey column="user_id" sqlStatement="MySql" type="post" identity="true" />
+        </table>
+        <!-- 用户登录日志表 -->
+        <table tableName="t_user_login_log" domainObjectName="UserLoginLog">
             <generatedKey column="id" sqlStatement="MySql" type="post" identity="true" />
         </table>
-
+        <!-- 验证码表 -->
+        <table tableName="t_validate_code" domainObjectName="ValidateCode">
+            <generatedKey column="id" sqlStatement="MySql" type="post" identity="true" />
+        </table>
+        <!-- 资源表 -->
+        <table tableName="t_resource" domainObjectName="Resource">
+            <generatedKey column="id" sqlStatement="MySql" type="post" identity="true" />
+        </table>
+        <!-- 资源操作表 -->
+        <table tableName="t_resource_log" domainObjectName="ResourceLog">
+            <generatedKey column="id" sqlStatement="MySql" type="post" identity="true" />
+        </table>
+        <!-- 积分操作表 -->
+        <table tableName="t_gold_log" domainObjectName="GoldLog">
+            <generatedKey column="id" sqlStatement="MySql" type="post" identity="true" />
+        </table>
     </context>
 </generatorConfiguration>
