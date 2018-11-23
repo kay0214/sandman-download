@@ -6,14 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="keywords" content="sandman,download,资源共享">
     <meta name="description" content="sandman资源共享平台">
-    <link rel="stylesheet" href="../static/layui/css/layui.css">
+    <link rel="stylesheet" href="/layui/css/layui.css">
 </head>
 <body>
 
 <div class="fly-header layui-bg-black">
     <div class="layui-container">
         <a class="fly-logo" href="/">
-            <img src="../res/images/logo.png" alt="layui">
+            <img src="/images/logo.png" alt="layui">
         </a>
         <ul class="layui-nav fly-nav layui-hide-xs">
             <li class="layui-nav-item layui-this">
@@ -77,7 +77,7 @@
     </p>
 </div>
 
-<script src="../res/layui/layui.js"></script>
+<script src="/layui/layui.js"></script>
 <script>
     layui.cache.page = '';
     layui.cache.user = {
@@ -89,7 +89,7 @@
     };
     layui.config({
         version: "3.0.0"
-        ,base: '../res/mods/' //这里实际使用时，建议改成绝对路径
+        ,base: '/js/' //这里实际使用时，建议改成绝对路径
     }).extend({
         fly: 'index'
     }).use('fly');

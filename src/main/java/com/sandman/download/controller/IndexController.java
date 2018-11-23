@@ -18,6 +18,7 @@ public class IndexController extends BaseController {
 
     @RequestMapping(value = "/init")
     public ModelAndView init(){
+        logger.info("从controller进入");
         return new ModelAndView("/index");
     }
 }
