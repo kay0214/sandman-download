@@ -5,19 +5,30 @@
     <title>header</title>
 </head>
 <body>
-<div th:fragment="~{'common/header'::html}">
-    <ul class="layui-nav" lay-filter="">
-        <li class="layui-nav-item layui-this"><a href="">首页</a></li>
-        <li class="layui-nav-item">
-            <a href="javascript:;">解决方案</a>
-            <dl class="layui-nav-child"> <!-- 二级菜单 -->
-                <dd><a href="">移动模块</a></dd>
-                <dd><a href="">后台模版</a></dd>
-                <dd><a href="">电商平台</a></dd>
-            </dl>
-        </li>
-        <li class="layui-nav-item"><a href="">社区</a></li>
-    </ul>
+<div th:fragment="~{'common/header'::html}" class="layui-bg-black">
+    <div class="layui-container">
+        <!-- logo -->
+        <a class="sandman-logo" href="/"><img src="/images/logo.png" alt="sandman下载"></a>
+        <!-- 菜单 -->
+        <ul class="layui-nav sandman-nav layui-hide-xs">
+            <li class="layui-nav-item layui-this"><a href="/">首页</a></li>
+            <li class="layui-nav-item"><a href="">社区</a></li>
+            <li class="layui-nav-item"><a href="">社区</a></li>
+        </ul>
+        <ul class="layui-nav sandman-nav-user">
+            <!-- 未登入的状态 -->
+<!--            <li class="layui-nav-item">
+                <a class="iconfont icon-touxiang layui-hide-xs" href="user/login.html"></a>
+            </li>-->
+            <li class="layui-nav-item">
+                <a href="user/login.html">登入</a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="/register/init">注册</a>
+            </li>
+        </ul>
+    </div>
+
 </div>
 </body>
 </html>
