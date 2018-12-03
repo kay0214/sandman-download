@@ -9,6 +9,10 @@ package com.sandman.download.constant;
  */
 public enum ReturnMessage {
 
+    // 正确信息
+    SUCESS_USER_USERNAME_AVAILABLE("SUS000001","可使用的用户名"),
+
+
     //通用错误信息
     // 通用错误信息
     ERR_OBJECT_REQUIRED("ETY000001","{0}不能为空"),

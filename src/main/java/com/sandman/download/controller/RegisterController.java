@@ -50,4 +50,18 @@ public class RegisterController extends BaseController {
         boolean valid = (user == null);
         return new BaseResult(valid);
     }
+
+    /**
+     * 查询email是否已被占用
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    @ResponseBody
+    @GetMapping(value = "/email_valid")
+    public BaseResult emailValid(String email){
+        User user = registerService.getUserByEmail(email);
+        boolean valid = (user == null);
+        return new BaseResult(valid);
+    }
 }
