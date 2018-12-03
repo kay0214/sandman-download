@@ -18,7 +18,7 @@ import javax.sql.DataSource;
 @MapperScan(basePackages = "com.sandman.download.dao.mysql.download", sqlSessionFactoryRef = "mysqlSqlSessionFactory")
 public class MysqlDataDaoConfig {
     @Bean(name = "mysqlDataSource")
-    @ConfigurationProperties(prefix = "datasource.sandman-download") // application.properteis中对应属性的前缀
+    @ConfigurationProperties(prefix = "spring.datasource.mysql.download") // application.properteis中对应属性的前缀
     public DataSource mysqlDataSource() {
         return DataSourceBuilder.create().type(HikariDataSource.class).build();
     }

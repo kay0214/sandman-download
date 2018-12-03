@@ -1,7 +1,7 @@
 //jQuery time
 var current_fs, next_fs, previous_fs; //fieldsets
 var left, opacity, scale; //fieldset properties which we will animate
-var animating; //flag to prevent quick multi-click glitches
+var animating = true; //flag to prevent quick multi-click glitches
 
 $(".next").click(function(){
 	if(animating) return false;
@@ -75,4 +75,17 @@ $(".previous").click(function(){
 
 $(".submit").click(function(){
 	return false;
-})
+});
+function username_valid() {
+	//验证username是否有重复
+	var username = $("#username").val();
+	if(username == null || username == undefined || username == ''){
+		return;
+	}
+    $.get("/register/username_valid?username=" + username,function(data,status){
+        console.info("数据：" + data + "\n状态：" + status);
+        console.info(data);
+    });
+	console.error("error");
+	animating = true;
+}

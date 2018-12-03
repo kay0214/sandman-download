@@ -3,6 +3,7 @@
  */
 package com.sandman.download.base;
 
+import com.sandman.download.dao.mysql.system.model.auto.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
