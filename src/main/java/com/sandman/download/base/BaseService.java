@@ -3,6 +3,7 @@
  */
 package com.sandman.download.base;
 
+import com.sandman.download.dao.mysql.system.model.auto.Template;
 import com.sandman.download.dao.mysql.system.model.auto.User;
 
 /**
@@ -17,4 +18,12 @@ public interface BaseService {
      * @return
      */
     User getUserByUsername(String username);
+
+    /**
+     * 根据code获取信息模板
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    Template getTemplateByCode(String tplCode);
 }

@@ -37,4 +37,12 @@ public interface RegisterService extends BaseService {
      * @return
      */
     boolean sendEmail(String email);
+
+    /**
+     * 根据邮箱删除一个账户
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    int deleteUserByEmail(String email);
 }

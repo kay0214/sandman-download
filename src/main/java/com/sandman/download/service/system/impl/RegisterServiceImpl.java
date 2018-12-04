@@ -25,6 +25,12 @@ import java.util.List;
  */
 @Service
 public class RegisterServiceImpl extends BaseServiceImpl implements RegisterService {
+    /**
+     * 根据email查询user信息
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
     @Override
     public User getUserByEmail(String email) {
         UserExample userExample = new UserExample();
@@ -35,7 +41,12 @@ public class RegisterServiceImpl extends BaseServiceImpl implements RegisterServ
         }
         return null;
     }
-
+    /**
+     * 创建一个账号
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
     @Override
     public int register(RegisterBean registerBean, HttpServletRequest request) {
         User user = BeanUtils.convertBean(registerBean,User.class);
@@ -54,9 +65,27 @@ public class RegisterServiceImpl extends BaseServiceImpl implements RegisterServ
         user.setDelFlag(0);
         return userMapper.insertSelective(user);
     }
-
+    /**
+     * 发送邮件
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
     @Override
     public boolean sendEmail(String email) {
         return false;
+    }
+
+    /**
+     * 根据邮箱删除一个账户
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    @Override
+    public int deleteUserByEmail(String email) {
+        UserExample userExample = new UserExample();
+        userExample.createCriteria().andEmailEqualTo(email);
+        return userMapper.deleteByExample(userExample);
     }
 }
