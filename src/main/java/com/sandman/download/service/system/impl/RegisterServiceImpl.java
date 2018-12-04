@@ -5,6 +5,7 @@ package com.sandman.download.service.system.impl;
 
 import com.sandman.download.base.BaseServiceImpl;
 import com.sandman.download.bean.system.RegisterBean;
+import com.sandman.download.config.SystemConfig;
 import com.sandman.download.constant.MessageTemplateConstant;
 import com.sandman.download.dao.mysql.system.model.auto.*;
 import com.sandman.download.service.system.RegisterService;
@@ -78,8 +79,8 @@ public class RegisterServiceImpl extends BaseServiceImpl implements RegisterServ
         ValidateCode validateCode = new ValidateCode();
         validateCode.setContact(user.getEmail());
         validateCode.setCode(RandomUtils.getValidateCode());
-        // 设置过期时间为5分钟后
-        validateCode.setDeadLine(DateUtils.getMinutesAfter(new Date(),5));
+        // 设置过期时间为48小时后
+        validateCode.setDeadLine(DateUtils.getHoursAfter(new Date(),48));
         // 0:此验证码无效,1:此验证码有效
         validateCode.setValid(1);
         // 0:未发送,1:已发送
@@ -88,11 +89,14 @@ public class RegisterServiceImpl extends BaseServiceImpl implements RegisterServ
         validateCode.setUpdateTime(new Date());
         validateCode.setDelFlag(0);
         validateCodeMapper.insertSelective(validateCode);
+        //拼装激活链接
+        String activeUrl = SystemConfig.getServerHost() + "/register/active_account?userId=" + user.getUserId() + "&validateCode=" + validateCode.getCode();
         //获取EMAIL注册模板
-        Template emailTemplate = getTemplateByCode(MessageTemplateConstant.TPL_EMAIL_REGISTER);
+        Template emailTemplate = getTemplateByCode(MessageTemplateConstant.TPL_EMAIL_ACTIVE);
         Map<String,String> replace = new HashMap<>();
         replace.put("recipient",user.getUsername());
         replace.put("emailCode",validateCode.getCode());
+        replace.put("activeUrl",activeUrl);
         return EmailSendUtils.sendEmail("注册",EmailSendUtils.emailContentReplace(emailTemplate.getTplContent(),replace),user.getEmail());
     }
 
@@ -120,7 +124,8 @@ public class RegisterServiceImpl extends BaseServiceImpl implements RegisterServ
      * @param
      * @return
      */
-    private void deleteByContact(String contact){
+    @Override
+    public void deleteByContact(String contact){
         ValidateCodeExample validateCodeExample = new ValidateCodeExample();
         validateCodeExample.createCriteria().andContactEqualTo(contact);
         validateCodeMapper.deleteByExample(validateCodeExample);

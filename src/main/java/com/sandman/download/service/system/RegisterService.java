@@ -54,4 +54,12 @@ public interface RegisterService extends BaseService {
      * @return
      */
     int deleteUserByEmail(String email);
+
+    /**
+     * 根据contact删除验证码数据
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    void deleteByContact(String contact);
 }

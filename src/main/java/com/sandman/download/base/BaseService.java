@@ -21,6 +21,22 @@ public interface BaseService {
     User getUserByUsername(String username);
 
     /**
+     * 根据userId获取用户
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    User getUserByUserId(Integer userId);
+
+    /**
+     * 更新user表
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    int updateUserByUserId(User user);
+
+    /**
      * 根据code获取信息模板
      * @auth sunpeikai
      * @param

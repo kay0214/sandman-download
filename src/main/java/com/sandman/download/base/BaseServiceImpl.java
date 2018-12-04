@@ -38,6 +38,28 @@ public class BaseServiceImpl extends CustomizeMapper implements BaseService {
     }
 
     /**
+     * 根据userId获取用户
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    @Override
+    public User getUserByUserId(Integer userId) {
+        return userMapper.selectByPrimaryKey(userId);
+    }
+
+    /**
+     * 更新user表
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    @Override
+    public int updateUserByUserId(User user) {
+        return userMapper.updateByPrimaryKeySelective(user);
+    }
+
+    /**
      * 根据code获取信息模板
      * @auth sunpeikai
      * @param
@@ -63,7 +85,7 @@ public class BaseServiceImpl extends CustomizeMapper implements BaseService {
     @Override
     public ValidateCode getValidateCodeByContact(String contact) {
         ValidateCodeExample validateCodeExample = new ValidateCodeExample();
-        validateCodeExample.createCriteria().andContactEqualTo(contact).andDelFlagEqualTo(0);
+        validateCodeExample.createCriteria().andContactEqualTo(contact).andValidEqualTo(1).andDelFlagEqualTo(0);
         List<ValidateCode> validateCodeList = validateCodeMapper.selectByExample(validateCodeExample);
         if(!CollectionUtils.isEmpty(validateCodeList)){
             return validateCodeList.get(0);

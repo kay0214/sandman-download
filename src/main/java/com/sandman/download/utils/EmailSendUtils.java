@@ -76,6 +76,10 @@ public class EmailSendUtils {
         for(String key:replace.keySet()){
             content = content.replace("${" + key + "}$",replace.get(key));
         }
+        // 公共替换,替换sandman logo,sandman客服电话，sandman首页
+        content = content.replace("${sandman_logo}$",SystemConfig.getSandmanLogo());
+        content = content.replace("${sandman_mobile}$",SystemConfig.getSandmanMobile());
+        content = content.replace("${sandman_home}$",SystemConfig.getSandmanHome());
         return content;
     }
 

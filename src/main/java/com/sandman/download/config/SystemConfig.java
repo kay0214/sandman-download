@@ -24,12 +24,20 @@ public class SystemConfig {
     // 域名
     private static String SERVER_HOST;
 
+
     // 邮件配置
     private static String SMTP_HOST;
     private static String SMTP_PORT;
     private static String SENDER_ACCOUNT;
     private static String SENDER_PASSWORD;
     private static String MY_NICK_NAME;
+    //LOGO
+    private static String SANDMAN_LOGO;
+    //首页
+    private static String SANDMAN_HOME;
+    //客服电话
+    private static String SANDMAN_MOBILE;
+
 
     private static String BLOGGER_DEFAULT_IMG;
     private static String TEMPLATES_PATH;
@@ -104,7 +112,20 @@ public class SystemConfig {
         MY_NICK_NAME = myNickName;
     }
 
+    @Value("${sandman.logo}")
+    public void setSandmanLogo(String sandmanLogo) {
+        SANDMAN_LOGO = sandmanLogo;
+    }
 
+    @Value("${sandman.home}")
+    public void setSandmanHome(String sandmanHome) {
+        SANDMAN_HOME = sandmanHome;
+    }
+
+    @Value("${sandman.mobile}")
+    public void setSandmanMobile(String sandmanMobile) {
+        SANDMAN_MOBILE = sandmanMobile;
+    }
 
     //get方法位置
     public static String getSmtpHost() {
@@ -166,4 +187,15 @@ public class SystemConfig {
         return TEMPLATES_PATH;
     }
 
+    public static String getSandmanHome() {
+        return SANDMAN_HOME;
+    }
+
+    public static String getSandmanMobile() {
+        return SANDMAN_MOBILE;
+    }
+
+    public static String getSandmanLogo() {
+        return SANDMAN_LOGO;
+    }
 }

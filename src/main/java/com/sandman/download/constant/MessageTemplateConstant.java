@@ -9,8 +9,11 @@ package com.sandman.download.constant;
  */
 public class MessageTemplateConstant {
     /** 邮箱模板名 */
-    /** 注册 */
-    public static final String TPL_EMAIL_REGISTER = "TPL_EMAIL_REGISTER";
+    /** 激活账户 */
+    public static final String TPL_EMAIL_ACTIVE = "TPL_EMAIL_ACTIVE";
+    /** 注册完成 */
+    public static final String TPL_EMAIL_REGISTER_SUCCESS = "TPL_EMAIL_REGISTER_SUCCESS";
+
 
     /** 短信模板名 */
     /** 注册 */
