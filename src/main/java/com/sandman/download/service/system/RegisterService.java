@@ -31,12 +31,12 @@ public interface RegisterService extends BaseService {
     int register(RegisterBean registerBean, HttpServletRequest request);
 
     /**
-     * 发送邮件
+     * 发送激活邮件
      * @auth sunpeikai
      * @param
      * @return
      */
-    boolean sendEmail(String email);
+    boolean sendActiveEmail(String email);
 
     /**
      * 根据邮箱删除一个账户

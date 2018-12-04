@@ -3,6 +3,7 @@
  */
 package com.sandman.download.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.sandman.download.base.BaseController;
 import com.sandman.download.base.BaseResult;
 import com.sandman.download.bean.system.RegisterBean;
@@ -78,11 +79,16 @@ public class RegisterController extends BaseController {
         int register = registerService.register(registerBean,request);
         if(register>0){
             // 创建账号成功
-
-            return new BaseResult();
+            User user = registerService.getUserByEmail(registerBean.getEmail());
+            logger.info("用户创建成功 -> user:[{}]", JSON.toJSONString(user));
+            boolean isSend = registerService.sendActiveEmail(user.getEmail());
+            if(isSend){
+                return new BaseResult();
+            }
+            return new BaseResult(BaseResult.FAIL,BaseResult.FAIL_DESC);
         }else{
             // 创建账号失败
-            return new BaseResult();
+            return new BaseResult(BaseResult.FAIL,BaseResult.FAIL_DESC);
         }
     }
 }

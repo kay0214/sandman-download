@@ -148,13 +148,17 @@ function send_email() {
     $("#emailConfirm").html("<b><i>" + email + "</i></b>");
     // ajax发送邮件
     $.ajax({
-        type: "get",
-        url: "/register/email_valid",
-        data: "email=" + email,
+        type: "post",
+        url: "/register/register",
+        data: {
+            username:$("#username").val(),
+            password:$("#password").val(),
+            email:email
+        },
         async: false,
         success: function (data) {
+            console.info(data)
             if(data.data){
-                // 可以发送邮件
 
             }
         }

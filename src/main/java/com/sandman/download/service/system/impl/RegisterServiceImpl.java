@@ -5,19 +5,17 @@ package com.sandman.download.service.system.impl;
 
 import com.sandman.download.base.BaseServiceImpl;
 import com.sandman.download.bean.system.RegisterBean;
-import com.sandman.download.dao.mysql.system.model.auto.User;
-import com.sandman.download.dao.mysql.system.model.auto.UserExample;
+import com.sandman.download.constant.MessageTemplateConstant;
 import com.sandman.download.service.system.RegisterService;
-import com.sandman.download.utils.BeanUtils;
-import com.sandman.download.utils.ClientIpAddress;
-import com.sandman.download.utils.PasswordEncrypt;
-import com.sandman.download.utils.RandomUtils;
+import com.sandman.download.utils.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author sunpeikai
@@ -66,14 +64,19 @@ public class RegisterServiceImpl extends BaseServiceImpl implements RegisterServ
         return userMapper.insertSelective(user);
     }
     /**
-     * 发送邮件
+     * 发送激活邮件
      * @auth sunpeikai
      * @param
      * @return
      */
     @Override
-    public boolean sendEmail(String email) {
-        return false;
+    public boolean sendActiveEmail(String email) {
+        //获取EMAIL注册模板
+        Template emailTemplate = getTemplateByCode(MessageTemplateConstant.TPL_EMAIL_REGISTER);
+        Map<String,String> replace = new HashMap<>();
+        replace.put("recipient","孙沛凯");
+        replace.put("emailCode",RandomUtils.getValidateCode());
+        return EmailSendUtils.sendEmail("注册",EmailSendUtils.emailContentReplace(emailTemplate.getTplContent(),replace),email);
     }
 
     /**

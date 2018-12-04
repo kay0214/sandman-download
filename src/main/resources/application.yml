@@ -1,6 +1,5 @@
 server:
   port: 8080
-
 #多数据源配置
 spring:
   #数据库配置
@@ -18,18 +17,5 @@ spring:
         username: sandman
         password: spkzq521
         driver-class-name: com.mysql.jdbc.Driver
-# Redis
-#redis:
-#  ip: 123.56.216.212
-#  port: 6666
-#  pool:
-#    maxActive:  1024
-#    maxIdle: 200
-#    maxWait: 10000
-#    testOnBorrow: true
-#    testOnReturn: true
-#    password: RH06863b3e6
-
-# swagger
-#swagger:
-# enable: true
+  profiles:
+    active: prod
