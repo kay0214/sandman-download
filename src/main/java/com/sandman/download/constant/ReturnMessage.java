@@ -12,6 +12,7 @@ public enum ReturnMessage {
     // 正确信息
     SUCESS_USER_USERNAME_AVAILABLE("SUS000001","可使用的用户名"),
 
+    SUCESS_EMAIL_SEND("SUS000002","邮件发送成功"),
 
     //通用错误信息
     // 通用错误信息
@@ -30,11 +31,12 @@ public enum ReturnMessage {
 
     // 用户相关错误ERR_USER_
     ERR_USER_USERNAME_EXIST("EUS000001","用户名已存在"),
+    ERR_USER_REGISTER("EUS000002","用户注册失败"),
 
     // 邮件相关错误信息ERR_EMAIL_
     ERR_EMAIL_USED("EEM000001", "邮箱已被占用"),
-    ERR_EMAIL_FMT("EFM000104", "邮箱格式不正确"),
-
+    ERR_EMAIL_FMT("EEM000002", "邮箱格式不正确"),
+    ERR_EMAIL_SEND("EEM000003", "邮件发送失败"),
 
 
 

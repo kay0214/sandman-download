@@ -145,23 +145,20 @@ function email_valid() {
 
 function send_email() {
     var email = $("#email").val();
+    var username = $("#username").val();
+    var password = $("#password").val();
+    console.info("准备发送邮件::::username=" + username + ";;;password=" + password + ";;;;email = " + email);
     $("#emailConfirm").html("<b><i>" + email + "</i></b>");
     // ajax发送邮件
     $.ajax({
         type: "post",
         url: "/register/register",
-        data: {
-            username:$("#username").val(),
-            password:$("#password").val(),
-            email:email
-        },
-        async: false,
-        success: function (data) {
-            console.info(data)
-            if(data.data){
-
-            }
-        }
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify({
+            "username": username,
+            "password": password,
+            "email":email
+        })
     });
     return true;
 

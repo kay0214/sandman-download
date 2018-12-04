@@ -5,6 +5,7 @@ package com.sandman.download.base;
 
 import com.sandman.download.dao.mysql.system.model.auto.Template;
 import com.sandman.download.dao.mysql.system.model.auto.User;
+import com.sandman.download.dao.mysql.system.model.auto.ValidateCode;
 
 /**
  * @author sunpeikai
@@ -26,4 +27,12 @@ public interface BaseService {
      * @return
      */
     Template getTemplateByCode(String tplCode);
+
+    /**
+     * 根据contact查询验证码
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    ValidateCode getValidateCodeByContact(String contact);
 }

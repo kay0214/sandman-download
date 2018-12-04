@@ -7,7 +7,9 @@ import com.alibaba.fastjson.JSON;
 import com.sandman.download.base.BaseController;
 import com.sandman.download.base.BaseResult;
 import com.sandman.download.bean.system.RegisterBean;
+import com.sandman.download.constant.ReturnMessage;
 import com.sandman.download.dao.mysql.system.model.auto.User;
+import com.sandman.download.dao.mysql.system.model.auto.ValidateCode;
 import com.sandman.download.service.system.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -81,14 +83,20 @@ public class RegisterController extends BaseController {
             // 创建账号成功
             User user = registerService.getUserByEmail(registerBean.getEmail());
             logger.info("用户创建成功 -> user:[{}]", JSON.toJSONString(user));
-            boolean isSend = registerService.sendActiveEmail(user.getEmail());
+            boolean isSend = registerService.sendActiveEmail(user);
             if(isSend){
-                return new BaseResult();
+                // 更新验证码状态为已发送
+                ValidateCode validateCode = registerService.getValidateCodeByContact(user.getEmail());
+                validateCode.setSend(1);
+                registerService.updateValidateCode(validateCode);
+                return new BaseResult(ReturnMessage.SUCESS_EMAIL_SEND);
             }
-            return new BaseResult(BaseResult.FAIL,BaseResult.FAIL_DESC);
+            //邮件发送失败
+            registerService.deleteUserByEmail(user.getEmail());
+            return new BaseResult(ReturnMessage.ERR_EMAIL_SEND);
         }else{
-            // 创建账号失败
-            return new BaseResult(BaseResult.FAIL,BaseResult.FAIL_DESC);
+            // 用户注册失败
+            return new BaseResult(ReturnMessage.ERR_USER_REGISTER);
         }
     }
 }

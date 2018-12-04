@@ -6,6 +6,7 @@ package com.sandman.download.service.system;
 import com.sandman.download.base.BaseService;
 import com.sandman.download.bean.system.RegisterBean;
 import com.sandman.download.dao.mysql.system.model.auto.User;
+import com.sandman.download.dao.mysql.system.model.auto.ValidateCode;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -36,7 +37,15 @@ public interface RegisterService extends BaseService {
      * @param
      * @return
      */
-    boolean sendActiveEmail(String email);
+    boolean sendActiveEmail(User user);
+
+    /**
+     * 更新验证码状态为 1 已发送
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    void updateValidateCode(ValidateCode validateCode);
 
     /**
      * 根据邮箱删除一个账户

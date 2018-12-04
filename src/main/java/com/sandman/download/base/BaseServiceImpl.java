@@ -4,10 +4,7 @@
 package com.sandman.download.base;
 
 import com.sandman.download.dao.mysql.mapper.CustomizeMapper;
-import com.sandman.download.dao.mysql.system.model.auto.Template;
-import com.sandman.download.dao.mysql.system.model.auto.TemplateExample;
-import com.sandman.download.dao.mysql.system.model.auto.User;
-import com.sandman.download.dao.mysql.system.model.auto.UserExample;
+import com.sandman.download.dao.mysql.system.model.auto.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -56,4 +53,22 @@ public class BaseServiceImpl extends CustomizeMapper implements BaseService {
         }
         return null;
     }
+
+    /**
+     * 根据contact查询验证码
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    @Override
+    public ValidateCode getValidateCodeByContact(String contact) {
+        ValidateCodeExample validateCodeExample = new ValidateCodeExample();
+        validateCodeExample.createCriteria().andContactEqualTo(contact).andDelFlagEqualTo(0);
+        List<ValidateCode> validateCodeList = validateCodeMapper.selectByExample(validateCodeExample);
+        if(!CollectionUtils.isEmpty(validateCodeList)){
+            return validateCodeList.get(0);
+        }
+        return null;
+    }
+
 }

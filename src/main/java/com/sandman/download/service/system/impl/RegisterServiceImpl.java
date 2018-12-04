@@ -6,9 +6,7 @@ package com.sandman.download.service.system.impl;
 import com.sandman.download.base.BaseServiceImpl;
 import com.sandman.download.bean.system.RegisterBean;
 import com.sandman.download.constant.MessageTemplateConstant;
-import com.sandman.download.dao.mysql.system.model.auto.Template;
-import com.sandman.download.dao.mysql.system.model.auto.User;
-import com.sandman.download.dao.mysql.system.model.auto.UserExample;
+import com.sandman.download.dao.mysql.system.model.auto.*;
 import com.sandman.download.service.system.RegisterService;
 import com.sandman.download.utils.*;
 import org.springframework.stereotype.Service;
@@ -73,13 +71,34 @@ public class RegisterServiceImpl extends BaseServiceImpl implements RegisterServ
      * @return
      */
     @Override
-    public boolean sendActiveEmail(String email) {
+    public boolean sendActiveEmail(User user) {
+        // 先删除所有跟email有关的验证码
+        deleteByContact(user.getEmail());
+        // 重新写入验证码表
+        ValidateCode validateCode = new ValidateCode();
+        validateCode.setContact(user.getEmail());
+        validateCode.setCode(RandomUtils.getValidateCode());
+        // 设置过期时间为5分钟后
+        validateCode.setDeadLine(DateUtils.getMinutesAfter(new Date(),5));
+        // 0:此验证码无效,1:此验证码有效
+        validateCode.setValid(1);
+        // 0:未发送,1:已发送
+        validateCode.setSend(0);
+        validateCode.setCreateTime(new Date());
+        validateCode.setUpdateTime(new Date());
+        validateCode.setDelFlag(0);
+        validateCodeMapper.insertSelective(validateCode);
         //获取EMAIL注册模板
         Template emailTemplate = getTemplateByCode(MessageTemplateConstant.TPL_EMAIL_REGISTER);
         Map<String,String> replace = new HashMap<>();
-        replace.put("recipient","孙沛凯");
-        replace.put("emailCode",RandomUtils.getValidateCode());
-        return EmailSendUtils.sendEmail("注册",EmailSendUtils.emailContentReplace(emailTemplate.getTplContent(),replace),email);
+        replace.put("recipient",user.getUsername());
+        replace.put("emailCode",validateCode.getCode());
+        return EmailSendUtils.sendEmail("注册",EmailSendUtils.emailContentReplace(emailTemplate.getTplContent(),replace),user.getEmail());
+    }
+
+    @Override
+    public void updateValidateCode(ValidateCode validateCode) {
+        validateCodeMapper.updateByPrimaryKey(validateCode);
     }
 
     /**
@@ -93,5 +112,17 @@ public class RegisterServiceImpl extends BaseServiceImpl implements RegisterServ
         UserExample userExample = new UserExample();
         userExample.createCriteria().andEmailEqualTo(email);
         return userMapper.deleteByExample(userExample);
+    }
+
+    /**
+     * 根据contact删除验证码数据
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    private void deleteByContact(String contact){
+        ValidateCodeExample validateCodeExample = new ValidateCodeExample();
+        validateCodeExample.createCriteria().andContactEqualTo(contact);
+        validateCodeMapper.deleteByExample(validateCodeExample);
     }
 }

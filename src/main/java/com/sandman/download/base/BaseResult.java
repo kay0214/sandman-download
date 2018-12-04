@@ -43,6 +43,12 @@ public class BaseResult<T> implements Serializable {
         this.statusDesc = e.toString();
     }
 
+    public BaseResult(ReturnMessage returnMessage){
+        super();
+        this.status = returnMessage.getCode();
+        this.statusDesc = returnMessage.getMessage();
+    }
+
     public BaseResult(String status, String statusDesc) {
         super();
         this.status = status;
