@@ -5,14 +5,15 @@ package com.sandman.download.controller;
 
 import com.sandman.download.base.BaseController;
 import com.sandman.download.base.BaseResult;
+import com.sandman.download.bean.system.RegisterBean;
 import com.sandman.download.dao.mysql.system.model.auto.User;
 import com.sandman.download.service.system.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author sunpeikai
@@ -63,5 +64,25 @@ public class RegisterController extends BaseController {
         User user = registerService.getUserByEmail(email);
         boolean valid = (user == null);
         return new BaseResult(valid);
+    }
+
+    /**
+     * 注册
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    @ResponseBody
+    @PostMapping(value = "/register")
+    public BaseResult register(@RequestBody RegisterBean registerBean, HttpServletRequest request){
+        int register = registerService.register(registerBean,request);
+        if(register>0){
+            // 创建账号成功
+
+            return new BaseResult();
+        }else{
+            // 创建账号失败
+            return new BaseResult();
+        }
     }
 }

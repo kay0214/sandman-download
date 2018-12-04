@@ -21,7 +21,6 @@ $(".next").click(function(){
     }else{
         // 绑定邮箱页
         var email = secondPageConfirm();
-        console.info("email::" + email);
         if(!email){
             animating = false;
             return false;
@@ -94,6 +93,7 @@ $(".previous").click(function(){
 $(".submit").click(function(){
 	return false;
 });
+
 // 第一个页面检查
 function firstPageConfirm() {
     // 检查两次password是否一致
@@ -109,14 +109,6 @@ function firstPageConfirm() {
     // 密码和用户名全都验证通过return true
     return true;
 }
-
-/*function clickSecondPage() {
-    var email = secondPageConfirm();
-    console.info("email::" + email);
-    if(email){
-
-    }
-}*/
 
 //第二个页面检查
 function secondPageConfirm() {
@@ -134,7 +126,6 @@ function email_valid() {
     var email_regex = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
     var email = $("#email").val();
     if(email_regex.test(email)){
-        console.info("is email");
         $.ajax({
             type: "get",
             url: "/register/email_valid",
@@ -148,24 +139,28 @@ function email_valid() {
             }
         });
     }else{
-        console.info("nope");
         layer.msg('邮箱不正确',{icon: 5});
     }
 }
 
 function send_email() {
     var email = $("#email").val();
-    layer.confirm('发送激活邮件到<b><i>' + email + "</i></b> ?", function(index){
-        console.info("发送邮件");
-        layer.close(index);
-        return true;
-    },function (index) {
-        console.info("取消发送");
-        layer.close(index);
-        return false;
+    $("#emailConfirm").html("<b><i>" + email + "</i></b>");
+    // ajax发送邮件
+    $.ajax({
+        type: "get",
+        url: "/register/email_valid",
+        data: "email=" + email,
+        async: false,
+        success: function (data) {
+            if(data.data){
+                // 可以发送邮件
+
+            }
+        }
     });
-    //console.info("未发送邮件");
-    //return false;
+    return true;
+
 }
 
 function password_same() {

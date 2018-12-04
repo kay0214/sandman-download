@@ -70,5 +70,9 @@
         <table tableName="t_gold_log" domainObjectName="GoldLog">
             <generatedKey column="id" sqlStatement="MySql" type="post" identity="true" />
         </table>
+        <!-- 模板表 -->
+        <table tableName="t_template" domainObjectName="Template">
+            <generatedKey column="id" sqlStatement="MySql" type="post" identity="true" />
+        </table>
     </context>
 </generatorConfiguration>
