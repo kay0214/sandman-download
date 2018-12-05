@@ -20,6 +20,8 @@ $("#login").click(function () {
                 }else{
                     console.info("登录成功，跳转");
                     layer.msg(data.statusDesc,{icon: 6});
+                    //TODO:这里改成动态的
+                    location.href = "http://localhost:8080/";
                     //var retUrl = [[${session.retUrl}]];
                     //console.info("retUrl=" + retUrl);
                     //location.href=retUrl;
