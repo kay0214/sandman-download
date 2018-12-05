@@ -16,16 +16,27 @@
             <li class="layui-nav-item"><a href="">社区</a></li>
         </ul>
         <ul class="layui-nav sandman-nav-user">
-            <!-- 未登入的状态 -->
-<!--            <li class="layui-nav-item">
-                <a class="iconfont icon-touxiang layui-hide-xs" href="user/login.html"></a>
-            </li>-->
-            <li class="layui-nav-item">
-                <a href="user/login.html">登入</a>
-            </li>
-            <li class="layui-nav-item">
-                <a href="/register/init">注册</a>
-            </li>
+            <!-- 登录状态 -->
+            <div th:if="${session.user}">
+                <li class="layui-nav-item">
+                    <a href="javascript:;" th:text="${session.user.username}"></a>
+                    <dl class="layui-nav-child"> <!-- 二级菜单 -->
+                        <dd><a href="">个人中心</a></dd>
+                        <dd><a href="">修改密码</a></dd>
+                        <dd><a href="">退出登录</a></dd>
+                    </dl>
+                </li>
+            </div>
+            <!-- 未登录状态 -->
+            <div th:unless="${session.user}">
+                <li class="layui-nav-item">
+                    <a href="/login/init">登录</a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="/register/init">注册</a>
+                </li>
+            </div>
+
         </ul>
     </div>
 

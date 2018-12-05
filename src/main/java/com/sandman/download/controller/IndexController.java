@@ -4,7 +4,10 @@
 package com.sandman.download.controller;
 
 import com.sandman.download.base.BaseController;
+import com.sandman.download.dao.mysql.system.model.auto.User;
+import com.sandman.download.utils.SessionUtils;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -13,12 +16,17 @@ import org.springframework.web.servlet.ModelAndView;
  * @version IndexController, v0.1 2018/11/23 14:47
  */
 @Controller
-@RequestMapping(value = "/index")
+@RequestMapping(value = "/")
 public class IndexController extends BaseController {
 
-    @RequestMapping(value = "/init")
+    @GetMapping(value = "/")
     public ModelAndView init(){
+        User user = new User();
+        user.setUsername("sunpeikai");
+        user.setPassword("asdasd");
         logger.info("从controller进入");
-        return new ModelAndView("/index");
+        SessionUtils.setSessionAttribute("message","this is index page");
+        //SessionUtils.setSessionAttribute("user",user);
+        return new ModelAndView("/index").addObject("hello","hello me");
     }
 }

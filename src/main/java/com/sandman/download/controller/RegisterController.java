@@ -91,7 +91,7 @@ public class RegisterController extends BaseController {
                 ValidateCode validateCode = registerService.getValidateCodeByContact(user.getEmail());
                 validateCode.setSend(1);
                 registerService.updateValidateCode(validateCode);
-                return new BaseResult(ReturnMessage.SUCESS_EMAIL_SEND);
+                return new BaseResult(ReturnMessage.SUCCESS_EMAIL_SEND);
             }
             //邮件发送失败
             registerService.deleteUserByEmail(user.getEmail());

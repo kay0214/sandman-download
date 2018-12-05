@@ -16,6 +16,15 @@
 
 <div th:replace="common/footer::html"></div>
 
+<font th:if="${session.user}!=null" th:text="${session.user.username}"></font>
+
+<font th:if="${session.user}==null">session中没有user对象</font>
+
+<p th:text="'hello,' + ${message}"></p>
+
+<p th:text="'hello,' + ${hello}"></p>
+
+
 <!--<div th:replace="common/css3::html"></div>-->
 <script src="/layui/layui.js"></script>
 <script>

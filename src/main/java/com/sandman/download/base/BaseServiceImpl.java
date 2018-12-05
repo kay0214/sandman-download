@@ -29,7 +29,7 @@ public class BaseServiceImpl extends CustomizeMapper implements BaseService {
     @Override
     public User getUserByUsername(String username) {
         UserExample userExample = new UserExample();
-        userExample.createCriteria().andUsernameEqualTo(username);
+        userExample.createCriteria().andUsernameEqualTo(username).andAvailableEqualTo(1);
         List<User> userList = userMapper.selectByExample(userExample);
         if(!CollectionUtils.isEmpty(userList)){
             return userList.get(0);

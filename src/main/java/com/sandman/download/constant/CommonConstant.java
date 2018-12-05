@@ -7,6 +7,11 @@ package com.sandman.download.constant;
 public class CommonConstant {
 
     /**
+     * 登录失效时间(秒)
+     * */
+    public static final int LOGIN_EXPIRE = 3600;
+
+    /**
      * 状态
      */
     public static final String SUCCESS = "success";
