@@ -5,6 +5,7 @@ package com.sandman.download.base;
 
 import com.sandman.download.dao.mysql.system.model.auto.Template;
 import com.sandman.download.dao.mysql.system.model.auto.User;
+import com.sandman.download.dao.mysql.system.model.auto.UserLoginLog;
 import com.sandman.download.dao.mysql.system.model.auto.ValidateCode;
 
 /**
@@ -51,4 +52,12 @@ public interface BaseService {
      * @return
      */
     ValidateCode getValidateCodeByContact(String contact);
+
+    /**
+     * 根据userId查询登录日志
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    UserLoginLog getLoginLogByUserId(int userId);
 }

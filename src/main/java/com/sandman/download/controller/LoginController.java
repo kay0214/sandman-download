@@ -43,6 +43,10 @@ public class LoginController extends BaseController {
             String passwordEncrypt = PasswordEncrypt.getPasswordEncrypt(loginBean.getPassword(),user.getSalt());
             if(passwordEncrypt.equals(user.getPassword())){
                 logger.info("与数据库密码一致，允许登录");
+                int success = loginService.updateLoginLog(user.getUserId());
+                if(success == 0){
+                    logger.error("收集登录日志失败,更新或插入失败");
+                }
                 SessionUtils.setSessionAttribute("user",user);
                 SessionUtils.setSessionExpireTime(CommonConstant.LOGIN_EXPIRE);
                 return new BaseResult(ReturnMessage.SUCCESS_USER_LOGIN);
@@ -54,6 +58,21 @@ public class LoginController extends BaseController {
             logger.info("该用户不存在");
             return new BaseResult(ReturnMessage.ERR_USER_NOT_EXIST);
         }
-
     }
+
+    @GetMapping(value = "/logOut")
+    public ModelAndView logOut(){
+        try{
+            User user = (User) SessionUtils.getSessionAttribute("user");
+            if(user != null){
+                logger.info("用户请求logout,username:[{}]",user.getUsername());
+                SessionUtils.getSession().removeAttribute("user");
+                // 是否需要收集日志?
+            }
+        }catch (Exception e){
+            logger.info("退出登录失败，一般是非法请求");
+        }
+        return new ModelAndView("redirect:/");
+    }
+
 }

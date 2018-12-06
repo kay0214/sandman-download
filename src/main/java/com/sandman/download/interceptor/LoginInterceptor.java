@@ -31,14 +31,13 @@ public class LoginInterceptor implements HandlerInterceptor {
             // 如果session中还有值，充值超时时间
             if(user != null){
                 request.getSession().setMaxInactiveInterval(CommonConstant.LOGIN_EXPIRE);
-                return true;
             }else{
                 // 清空值
                 request.getSession().removeAttribute("user");
                 return false;
             }
         }catch(Exception e) {
-            request.getSession().setAttribute("retUrl",request.getRequestURI());
+            logger.error("拦截器中出现错误");
             response.setContentType("application/json; charset=utf-8");
             JSONObject res = new JSONObject();
             res.put("status", "EUS000010");
@@ -47,6 +46,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             out.append(res.toString());
             return false;
         }
+        return true;
     }
 
     @Override

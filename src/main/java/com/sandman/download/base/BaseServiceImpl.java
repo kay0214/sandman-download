@@ -93,4 +93,21 @@ public class BaseServiceImpl extends CustomizeMapper implements BaseService {
         return null;
     }
 
+    /**
+     * 根据userId查询登录日志
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    @Override
+    public UserLoginLog getLoginLogByUserId(int userId) {
+        UserLoginLogExample userLoginLogExample = new UserLoginLogExample();
+        userLoginLogExample.createCriteria().andUserIdEqualTo(userId);
+        List<UserLoginLog> userLoginLogList = userLoginLogMapper.selectByExample(userLoginLogExample);
+        if(!CollectionUtils.isEmpty(userLoginLogList)){
+            return userLoginLogList.get(0);
+        }
+        return null;
+    }
+
 }

@@ -1,4 +1,4 @@
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <title>登录-sandman资源共享平台</title>
@@ -41,6 +41,10 @@
         </p>
     </footer>
 </div>
+<script th:inline="javascript">
+    var retUrl = [[${session.retUrl}]];
+    //console.info("retUrl=" + retUrl);
+</script>
 <script src="/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
 <script src="/js/login.js" type="text/javascript"></script>
 <script src="/layui/lay/modules/layer.js" type="text/javascript"></script>

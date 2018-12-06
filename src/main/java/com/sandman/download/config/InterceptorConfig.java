@@ -4,6 +4,7 @@
 package com.sandman.download.config;
 
 import com.sandman.download.interceptor.LoginInterceptor;
+import com.sandman.download.interceptor.RetUrlInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -21,7 +22,9 @@ public class InterceptorConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		//InterceptorRegistration addIn= registry.addInterceptor(new LoginInterceptor());
+		InterceptorRegistration addIn= registry.addInterceptor(new LoginInterceptor());
+		addIn.excludePathPatterns("/**");
+		registry.addInterceptor(new RetUrlInterceptor()).addPathPatterns("/**").excludePathPatterns("/**/**.js","/**/**.css");
 		//所有都拦截
 		/*addIn.addPathPatterns("/**");*/
 		//不拦截的请求
