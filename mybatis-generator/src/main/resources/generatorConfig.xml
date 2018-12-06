@@ -4,7 +4,7 @@
 <generatorConfiguration>
 
     <!-- 引入配置文件 -->
-    <properties resource="init_download.properties"/>
+    <properties resource="init_system.properties"/>
 
     <classPathEntry location="${classPath}"/>
 
@@ -58,6 +58,24 @@
         <table tableName="t_validate_code" domainObjectName="ValidateCode">
             <generatedKey column="id" sqlStatement="MySql" type="post" identity="true" />
         </table>
+        <!-- 模板表 -->
+        <table tableName="t_template" domainObjectName="Template">
+            <generatedKey column="id" sqlStatement="MySql" type="post" identity="true" />
+        </table>
+        <!-- 公告表 -->
+        <table tableName="t_notice" domainObjectName="Notice">
+            <generatedKey column="id" sqlStatement="MySql" type="post" identity="true" />
+        </table>
+        <!-- 友情链接表 -->
+        <table tableName="t_friendly_link" domainObjectName="FriendlyLink">
+            <generatedKey column="id" sqlStatement="MySql" type="post" identity="true" />
+        </table>
+        <!-- 轮播图表 -->
+        <table tableName="t_carousel" domainObjectName="Carousel">
+            <generatedKey column="id" sqlStatement="MySql" type="post" identity="true" />
+        </table>
+
+
         <!-- 资源表 -->
         <table tableName="t_resource" domainObjectName="Resource">
             <generatedKey column="id" sqlStatement="MySql" type="post" identity="true" />
@@ -68,10 +86,6 @@
         </table>
         <!-- 积分操作表 -->
         <table tableName="t_gold_log" domainObjectName="GoldLog">
-            <generatedKey column="id" sqlStatement="MySql" type="post" identity="true" />
-        </table>
-        <!-- 模板表 -->
-        <table tableName="t_template" domainObjectName="Template">
             <generatedKey column="id" sqlStatement="MySql" type="post" identity="true" />
         </table>
     </context>
