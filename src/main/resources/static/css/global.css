@@ -10,7 +10,7 @@
 /* 全局 */
 html,body{overflow-x: hidden;}
 html body{margin-top: 0px;} /* 原61px */
-html{background-color: #F2F2F2;}
+html{background-color: white;}
 i{font-style: normal;}
 
 /* 图标 */
@@ -552,4 +552,17 @@ body .sandman-user-main{position: relative; min-height: 600px;}
   .site-mobile .site-tree-mobile{display: none !important;}
   .site-mobile .sandman-user-main>.layui-nav{left: 0;}
   .site-mobile .site-mobile-shade{content: ''; position: fixed; top: 0; bottom: 0; left: 0; right: 0; background-color: rgba(0,0,0,.9); z-index: 999;}
+}
+.sandman-content{
+  margin-top: 1%;
+}
+
+.padding-left-4p{
+  padding-left: 4%;
+}
+.padding-right-4p{
+  padding-right: 4%;
+}
+.margin-top-2p{
+  margin-top: 2%;
 }
