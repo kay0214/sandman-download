@@ -27,6 +27,7 @@ public class BaseResult<T> implements Serializable {
     private String status = SUCCESS;
     private String statusDesc = SUCCESS_DESC;
     private T data;
+    private int totalCount;
 
     public BaseResult() {
         super();
@@ -35,6 +36,12 @@ public class BaseResult<T> implements Serializable {
     public BaseResult(T data) {
         super();
         this.data = data;
+    }
+
+    public BaseResult(T data,int totalCount) {
+        super();
+        this.data = data;
+        this.totalCount = totalCount;
     }
 
     public BaseResult(Throwable e) {
@@ -127,6 +134,14 @@ public class BaseResult<T> implements Serializable {
      */
     public void setData(T data) {
         this.data = data;
+    }
+
+    public int getTotalCount() {
+        return totalCount;
+    }
+
+    public void setTotalCount(int totalCount) {
+        this.totalCount = totalCount;
     }
 
     /**

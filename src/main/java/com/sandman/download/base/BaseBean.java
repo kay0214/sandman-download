@@ -8,6 +8,13 @@ package com.sandman.download.base;
  * @version BaseBean, v0.1 2018/12/6 17:11
  */
 public class BaseBean {
+    public BaseBean(){
+
+    }
+    public BaseBean(int currPage,int pageSize){
+        this.currPage = currPage;
+        this.pageSize = pageSize;
+    }
     /**
      * 当前页码
      */

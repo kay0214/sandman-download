@@ -16,10 +16,26 @@ import java.util.List;
 public interface ResourceService extends BaseService {
 
     /**
-     * 获取资源信息
+     * 获取资源信息（type：1 -> 按照下载次数倒叙排序，else -> 按照创建时间倒叙)
      * @auth sunpeikai
      * @param
      * @return
      */
-    List<Resource> getResource(ResourceBean resourceBean);
+    List<Resource> getResourceByType(ResourceBean resourceBean);
+
+    /**
+     * 获取资源count（type：1 -> 按照下载次数倒叙排序，else -> 按照创建时间倒叙)
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    int getResourceCountByType(ResourceBean resourceBean);
+
+    /**
+     * 搜索资源
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    List<Resource> searchResource(String search);
 }

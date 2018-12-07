@@ -25,75 +25,90 @@
         <!-- 中间内容 -->
         <div>
             <!-- 搜索功能 -->
-            <form action="#" method="get">
-
+            <div>
                 <div class="layui-row">
                     <div class="layui-col-md1">
                         <label class="layui-form-label" style="text-align: center;">关键词：</label>
                     </div>
                     <div class="layui-col-md9">
-                        <input type="text" name="search" required lay-verify="required" placeholder="请输入您要搜索的内容" autocomplete="off" class="layui-input">
+                        <input type="text" id="search" name="search" required lay-verify="required" placeholder="请输入您要搜索的内容" autocomplete="off" class="layui-input">
                     </div>
                     <div class="layui-col-md1" style="padding-left: 4%;">
-                        <button type="submit" class="layui-btn layui-btn-radius layui-btn-normal"><i class="layui-icon">    &#xe615;  </i>搜 索      </button>
+                        <button id="searchBtn" type="button" class="layui-btn layui-btn-radius layui-btn-normal"><i class="layui-icon">    &#xe615;  </i>搜 索      </button>
                     </div>
                 </div>
-
-            </form>
+            </div>
+            <!-- 搜索功能结束 -->
         </div>
-        <!-- 搜索功能结束 -->
 
         <div class="margin-top-2p">
-            <div class="layui-tab layui-tab-card">
+            <div class="layui-tab layui-tab-card" lay-filter="res">
                 <ul class="layui-tab-title">
-                    <li class="layui-this">最新上传</li>
-                    <li>最多下载</li>
+                    <li lay-id="1" class="layui-this">最新上传</li>
+                    <li lay-id="2">最多下载</li>
                 </ul>
-                <div class="layui-tab-content" style="height: 100px;">
-                    <div class="layui-tab-item layui-show">
+                <div class="layui-tab-content"><!--  style="height: 100px;" -->
+                    <div id="newResources" class="layui-tab-item layui-show">
+
                         <!-- 最新上传 -->
-                        <div class="row" style="margin-top: 1%;padding: 0px 2%;">
-                            <!-- 资源类型的图标 -->
-                            <div class="layui-col-md1">
-                                <img src="/images/zip.svg">
+                        <div th:each="resource :${newResources}" class="row">
+                            <div class="margin-0-2p">
+                                <!-- 资源类型的图标 -->
+                                <div class="layui-col-md1">
+                                    <img src="/images/zip.svg">
+                                </div>
+                                <div class="layui-col-md11">
+                                    <div class="res-title">
+                                        <!-- 资源标题 -->
+                                        <h2 th:text="${resource.resourceName}"></h2>
+                                    </div>
+                                    <div class="res-content">
+                                        <!-- 资源描述 -->
+                                        <h6 th:text="${resource.resourceDesc}"></h6>
+                                    </div>
+                                    <div class="layui-row res-info">
+                                        <!-- 资源信息 -->
+                                        <div class="layui-col-md2">上传者 : <span th:text="${resource.username}"></span></div>
+                                        <div class="layui-col-md3">上传时间 : <span th:text="${#dates.format(resource.createTime,'yyyy-MM-dd')}"></span></div>
+                                        <div class="layui-col-md2">资源大小 : <span th:text="${#size.fileSizeFormat(resource.resourceSize)}"></span></div>
+                                        <div class="layui-col-md2">下载次数 : <span th:text="${resource.downloadCount}"></span></div>
+                                        <div class="layui-col-md1">积分 : <span th:text="${resource.resourceGold}"></span></div>
+                                    </div>
+                                </div>
+
                             </div>
-                            <div class="layui-col-md11">
-                                <div>
-                                    <!-- 资源标题 -->
-                                    最新上传-资源标题
-                                </div>
-                                <div>
-                                    <!-- 资源描述 -->
-                                    最新上传-资源描述
-                                </div>
-                                <div>
-                                    <!-- 资源信息 -->
-                                    最新上传-资源信息
-                                </div>
-                            </div>
+                            <div><hr class="layui-bg-gray"></div>
                         </div>
                     </div>
-                    <div class="layui-tab-item">
+                    <div id="hotResources" class="layui-tab-item">
                         <!-- 最多下载 -->
-                        <div class="row">
-                            <!-- 资源类型的图标 -->
-                            <div class="layui-col-md1">
-                                最多下载-zip
+                        <div th:each="resource :${hotResources}" class="row">
+                            <div class="margin-0-2p">
+                                <!-- 资源类型的图标 -->
+                                <div class="layui-col-md1">
+                                    <img src="/images/zip.svg">
+                                </div>
+                                <div class="layui-col-md11">
+                                    <div class="res-title">
+                                        <!-- 资源标题 -->
+                                        <h2 th:text="${resource.resourceName}"></h2>
+                                    </div>
+                                    <div class="res-content">
+                                        <!-- 资源描述 -->
+                                        <h6 th:text="${resource.resourceDesc}"></h6>
+                                    </div>
+                                    <div class="layui-row res-info">
+                                        <!-- 资源信息 -->
+                                        <div class="layui-col-md2">上传者 : <span th:text="${resource.username}"></span></div>
+                                        <div class="layui-col-md3">上传时间 : <span th:text="${#dates.format(resource.createTime,'yyyy-MM-dd')}"></span></div>
+                                        <div class="layui-col-md2">资源大小 : <span th:text="${#size.fileSizeFormat(resource.resourceSize)}"></span></div>
+                                        <div class="layui-col-md2">下载次数 : <span th:text="${resource.downloadCount}"></span></div>
+                                        <div class="layui-col-md1">积分 : <span class="res-gold" th:text="${resource.resourceGold}"></span></div>
+                                    </div>
+                                </div>
+
                             </div>
-                            <div class="layui-col-md11">
-                                <div>
-                                    <!-- 资源标题 -->
-                                    最多下载-资源标题
-                                </div>
-                                <div>
-                                    <!-- 资源描述 -->
-                                    最多下载-资源描述
-                                </div>
-                                <div>
-                                    <!-- 资源信息 -->
-                                    最多下载-资源信息
-                                </div>
-                            </div>
+                            <div><hr class="layui-bg-gray"></div>
                         </div>
                     </div>
                 </div>
@@ -102,7 +117,7 @@
         </div>
     </div>
 
-    <div class="layui-col-md2">
+    <div class="layui-col-md1">
         <!-- 右边内容(签到，热门资源列表) -->
         <div th:replace="common/notice::html"></div>
     </div>
@@ -124,44 +139,117 @@
         fly: 'index'
     }).use('fly');
 </script>
+<script th:inline="javascript">
+    var newCount = [[${newCount}]];
+    var hotCount = [[${hotCount}]];
+    var nowTab = newCount;
+    var new_curr = 1;
+    var hot_curr = 1;
+    var curr_tab = '1';
+</script>
 <script>
-    var resources;
+    layui.use('element', function(){
+        var element = layui.element;
+        var laypage = layui.laypage;
+        //获取hash来切换选项卡，假设当前地址的hash为lay-id对应的值
+        var layid = location.hash.replace(/^#res=/, '');
+        element.tabChange('res', layid); //假设当前地址为：http://a.com#test1=222，那么选项卡会自动切换到“发送消息”这一项
+
+        //监听Tab切换，以改变地址hash值
+        element.on('tab(res)', function(){
+            var id = this.getAttribute('lay-id');
+            if(id !== curr_tab){
+                curr_tab = id;
+                if(id === '1'){
+                    console.info("切换到了最新上传");
+                    nowTab = newCount;
+                    laypage = layui.laypage;
+
+                    //执行一个laypage实例
+                    laypage.render({
+                        elem: 'page', //注意，这里的 test1 是 ID，不用加 # 号
+                        count: nowTab, //数据总数，从服务端得到
+                        curr: new_curr,
+                        layout: ['count', 'prev', 'page', 'next', 'skip'],
+                        jump: function(obj, first){
+                            new_curr = obj.curr;
+                            //首次不执行,其他的执行
+                            if(!first){
+                                getResources(obj,2,$("#search").val());
+                            }
+                        }
+                    });
+                }else{
+                    console.info("切换到了最多下载");
+                    nowTab = hotCount;
+                    laypage = layui.laypage;
+
+                    //执行一个laypage实例
+                    laypage.render({
+                        elem: 'page', //注意，这里的 test1 是 ID，不用加 # 号
+                        count: nowTab, //数据总数，从服务端得到
+                        curr: hot_curr,
+                        layout: ['count', 'prev', 'page', 'next', 'skip'],
+                        jump: function(obj, first){
+                            hot_curr = obj.curr;
+                            //首次不执行,其他的执行
+                            if(!first){
+                                getResources(obj,1,$("#search").val());
+                            }
+                        }
+                    });
+                }
+            }
+
+
+        });
+    });
+</script>
+<script>
     layui.use('laypage', function(){
         var laypage = layui.laypage;
-
-        ajax(0,20);
-
         //执行一个laypage实例
         laypage.render({
             elem: 'page', //注意，这里的 test1 是 ID，不用加 # 号
-            count: 5000, //数据总数，从服务端得到
-            curr: 1,
-            layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
-            limit: 20,
-            limits: [10, 20, 30, 40, 50],
+            count: nowTab, //数据总数，从服务端得到
+            curr: new_curr,
+            layout: ['count', 'prev', 'page', 'next', 'skip'],
             jump: function(obj, first){
-                //obj包含了当前分页的所有参数，比如：
-                console.info(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
-                console.info(obj.limit); //得到每页显示的条数
-                ajax(obj.curr,obj.limit);
-        }
+                new_curr = obj.curr;
+                //首次不执行,其他的执行
+                if(!first){
+                    getResources(obj,2,$("#search").val());
+                }
+            }
         });
     });
-    function ajax(currPage,limit) {
-        console.info(currPage + ":::" + limit);
+    function getResources(obj,type,search) {
         $.ajax({
             type: "post",
             url: "/resource/getResource",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify({
-                "currPage": currPage,
-                "pageSize": limit
+                "currPage": obj.curr,
+                "pageSize": obj.limit,
+                "search": search,
+                "type": type
             }),
             async: false,
             success: function (data) {
                 console.info(data);
+                setResources(data,type);
             }
         });
+    }
+    function setResources(data,type) {
+        if(type === 1){
+            // 最多下载
+            $("#hotResources").html("最多下载" + data);
+
+        }else{
+            // 最新上传
+            $("#newResources").html("最新上传" + data);
+        }
     }
 </script>
 </body>

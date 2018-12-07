@@ -9,9 +9,12 @@ import com.sandman.download.base.BaseResult;
 import com.sandman.download.bean.download.ResourceBean;
 import com.sandman.download.dao.mysql.download.model.auto.Resource;
 import com.sandman.download.service.download.ResourceService;
+import com.sandman.download.utils.SessionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -26,12 +29,31 @@ public class ResourceController extends BaseController {
     @Autowired
     private ResourceService resourceService;
 
+    /**
+     * 获取资源信息（type：1 -> 按照下载次数倒叙排序，else -> 按照创建时间倒叙)
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
     @ResponseBody
     @PostMapping(value = "/getResource")
     public BaseResult getResource(@RequestBody ResourceBean resourceBean){
-        logger.info("获取资源信息 -> currPage:[{}],pageSize:[{}]",resourceBean.getCurrPage(),resourceBean.getPageSize());
-        List<Resource> resourceList = resourceService.getResource(resourceBean);
+        logger.info("获取资源信息 -> currPage:[{}],pageSize:[{}],type:[{}],search:[{}]",resourceBean.getCurrPage(),resourceBean.getPageSize(),resourceBean.getType(),resourceBean.getSearch());
+        if(StringUtils.isBlank(resourceBean.getSearch()) || "undefined".equals(resourceBean.getSearch())){
+            resourceBean.setSearch(null);
+        }
+        List<Resource> resourceList = resourceService.getResourceByType(resourceBean);
+        //TODO:确认一下是否需要设置session
+        SessionUtils.setSessionAttribute("resources",resourceList);
         logger.info("获取到的数据:[{}]", JSON.toJSONString(resourceList));
         return new BaseResult(resourceList);
+    }
+
+    @GetMapping(value = "/search")
+    public ModelAndView searchResource(String search){
+        logger.info("搜索资源 -> search:[{}]",search);
+        List<Resource> resourceList = resourceService.searchResource(search);
+
+        return new ModelAndView("/sear");
     }
 }

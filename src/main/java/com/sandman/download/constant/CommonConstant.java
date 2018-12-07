@@ -12,6 +12,14 @@ public class CommonConstant {
     public static final int LOGIN_EXPIRE = 3600;
 
     /**
+     * 默认分页大小
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    public static final int DEFAULT_LIMIT = 20;
+
+    /**
      * 状态
      */
     public static final String SUCCESS = "success";

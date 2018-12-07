@@ -566,3 +566,33 @@ body .sandman-user-main{position: relative; min-height: 600px;}
 .margin-top-2p{
   margin-top: 2%;
 }
+.margin-top-4p{
+  margin-top: 4%;
+}
+.padding-1p-2p{
+  padding: 1% 2%;
+}
+.margin-1p-0{
+  margin: 1% 0px;
+}
+.margin-1p-2p{
+  margin: 1% 2%;
+}
+.margin-0-2p{
+  margin: 0 2%;
+}
+.res-title{
+  font: bold;
+}
+.res-content{
+  font-style: italic;
+  color: #666666;
+}
+.res-info{
+  color: #999999;
+  font-size: 16px;
+}
+.res-info>.res-gold{
+  font-size: 24px;
+  color: #ff9358;
+}
