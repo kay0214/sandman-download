@@ -51,8 +51,9 @@ public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServ
      * @return
      */
     @Override
-    public List<Resource> searchResource(String search) {
-        return null;
+    public List<Resource> searchResource(ResourceBean resourceBean) {
+        ResourceExample resourceExample = convertExample(resourceBean);
+        return resourceMapper.selectByExample(resourceExample);
     }
 
 

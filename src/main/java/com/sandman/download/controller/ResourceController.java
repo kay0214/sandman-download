@@ -49,11 +49,23 @@ public class ResourceController extends BaseController {
         return new BaseResult(resourceList);
     }
 
-    @GetMapping(value = "/search")
-    public ModelAndView searchResource(String search){
-        logger.info("搜索资源 -> search:[{}]",search);
-        List<Resource> resourceList = resourceService.searchResource(search);
+    @GetMapping(value = "/list")
+    public ModelAndView getList(){
 
-        return new ModelAndView("/sear");
+        return new ModelAndView("/list");
+    }
+
+    @GetMapping(value = "/search")
+    public ModelAndView searchResource(ResourceBean resourceBean){
+        logger.info("搜索资源 -> search:[{}]",resourceBean.getSearch());
+        if(StringUtils.isBlank(resourceBean.getSearch()) || "undefined".equals(resourceBean.getSearch())){
+            resourceBean.setSearch(null);
+        }
+        // 按照创建时间排序
+        resourceBean.setType(0);
+        int count = resourceService.getResourceCountByType(resourceBean);
+        List<Resource> resourceList = resourceService.searchResource(resourceBean);
+        logger.info("搜索到的 -> [{}]",JSON.toJSONString(resourceList));
+        return new ModelAndView("/search").addObject("searchResource",resourceList).addObject("search",resourceBean.getSearch()).addObject("newCount",count);
     }
 }

@@ -31,6 +31,11 @@ public class ResourceBean extends BaseBean {
         super(currPage, pageSize);
         this.type = type;
     }
+    public ResourceBean(int currPage,int pageSize,int type,String search){
+        super(currPage, pageSize);
+        this.type = type;
+        this.search = search;
+    }
     private int type = 0;
 
     public int getType() {

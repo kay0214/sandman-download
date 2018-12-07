@@ -37,5 +37,5 @@ public interface ResourceService extends BaseService {
      * @param
      * @return
      */
-    List<Resource> searchResource(String search);
+    List<Resource> searchResource(ResourceBean resourceBean);
 }
