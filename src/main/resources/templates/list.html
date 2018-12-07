@@ -197,48 +197,12 @@
         laypage.render({
             elem: 'page', //注意，这里的 test1 是 ID，不用加 # 号
             count: nowTab, //数据总数，从服务端得到
-            curr: new_curr,
             layout: ['count', 'prev', 'page', 'next', 'skip'],
-            jump: function(obj, first){
-                new_curr = obj.curr;
-                //首次不执行,其他的执行
-                if(!first){
-                    getResources(obj.curr,obj.limit,2,null);
-                }
-            }
+            curr: location.hash.replace('#!fenye=', '') //获取起始页
+            ,hash: 'fenye' //自定义hash值
+
         });
     });
-    function getResources(currPage,limit,type,search) {
-        console.info(currPage + ":::" + limit);
-        $.ajax({
-            type: "post",
-            url: "/resource/getResource",
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify({
-                "currPage": currPage,
-                "pageSize": limit,
-                "search": search,
-                "type": type
-            }),
-            async: false,
-            success: function (data) {
-                console.info(data);
-                setResources(data,type);
-            }
-        });
-    }
-    function setResources(data,type) {
-        var dom;
-        if(type === 1){
-            // 最多下载
-            dom = $("#hotResources");
-
-        }else{
-            // 最新上传
-            dom = $("#newResources");
-        }
-        dom.html()
-    }
 </script>
 </body>
 </html>
