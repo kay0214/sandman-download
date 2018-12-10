@@ -3,6 +3,7 @@
  */
 package com.sandman.download.utils;
 
+import com.sandman.download.dao.mysql.system.model.auto.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -18,6 +19,24 @@ import javax.servlet.http.HttpSession;
 public class SessionUtils {
 
     private static final Logger logger = LoggerFactory.getLogger(SessionUtils.class);
+
+    public static Integer getUserId(){
+        User user = getUser();
+        if(user != null){
+            return user.getUserId();
+        }
+        return null;
+    }
+
+    public static User getUser(){
+        User user = null;
+        try{
+            user = (User)getSessionAttribute("user");
+        }catch (Exception e){
+            logger.error("从session中获取用户信息失败!");
+        }
+        return user;
+    }
 
     /**
      * 往session里面设置值

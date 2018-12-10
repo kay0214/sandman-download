@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="/css/global.css">
 </head>
 <body>
-<div th:replace="common/header::html"></div>
+<div th:replace="common/header :: home"></div>
 
 <div class="layui-row sandman-content">
 
@@ -32,38 +32,7 @@
                 <div class="layui-card-header"><i class="layui-icon">    &#xe62a;  </i>资源列表</div>
                 <div class="layui-card-body">
 
-                    <div id="newResources" class="layui-tab-item layui-show">
-
-                        <!-- 最新上传 -->
-                        <div th:each="resource :${resourceList}" class="row">
-                            <div class="margin-0-2p">
-                                <!-- 资源类型的图标 -->
-                                <div class="layui-col-md1">
-                                    <img src="/images/zip.svg">
-                                </div>
-                                <div class="layui-col-md11">
-                                    <div class="res-title">
-                                        <!-- 资源标题 -->
-                                        <h2 th:text="${resource.resourceName}"></h2>
-                                    </div>
-                                    <div class="res-content">
-                                        <!-- 资源描述 -->
-                                        <h6 th:text="${resource.resourceDesc}"></h6>
-                                    </div>
-                                    <div class="layui-row res-info">
-                                        <!-- 资源信息 -->
-                                        <div class="layui-col-md2">上传者 : <span th:text="${resource.username}"></span></div>
-                                        <div class="layui-col-md3">上传时间 : <span th:text="${#dates.format(resource.createTime,'yyyy-MM-dd')}"></span></div>
-                                        <div class="layui-col-md2">资源大小 : <span th:text="${#size.fileSizeFormat(resource.resourceSize)}"></span></div>
-                                        <div class="layui-col-md2">下载次数 : <span th:text="${resource.downloadCount}"></span></div>
-                                        <div class="layui-col-md1">积分 : <span th:text="${resource.resourceGold}"></span></div>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div><hr class="layui-bg-gray"></div>
-                        </div>
-                    </div>
+                    <div th:replace="common/resource_list::html"></div>
 
                     <div align="center" id="page"></div>
 

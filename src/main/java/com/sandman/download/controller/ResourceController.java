@@ -45,7 +45,7 @@ public class ResourceController extends BaseController {
         }
         List<Resource> resourceList = resourceService.getResourceByType(resourceBean);
         //TODO:确认一下是否需要设置session
-        SessionUtils.setSessionAttribute("resources",resourceList);
+        SessionUtils.setSessionAttribute("resourceList",resourceList);
         logger.info("获取到的数据:[{}]", JSON.toJSONString(resourceList));
         return new BaseResult(resourceList);
     }
@@ -82,7 +82,7 @@ public class ResourceController extends BaseController {
         List<Resource> resourceList = resourceService.searchResource(resourceBean);
         logger.info("搜索到的 -> [{}]",JSON.toJSONString(resourceList));
         return new ModelAndView("/search")
-                .addObject("searchResource",resourceList)
+                .addObject("resourceList",resourceList)
                 .addObject("search",resourceBean.getSearch())
                 .addObject("count",count)
                 .addObject("currPage",resourceBean.getCurrPage());

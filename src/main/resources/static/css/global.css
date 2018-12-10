@@ -581,6 +581,9 @@ body .sandman-user-main{position: relative; min-height: 600px;}
 .margin-0-2p{
   margin: 0 2%;
 }
+.margin-0-12p{
+  margin: 0 12%;
+}
 .res-title{
   font: bold;
 }
@@ -595,4 +598,10 @@ body .sandman-user-main{position: relative; min-height: 600px;}
 .res-info>.res-gold{
   font-size: 24px;
   color: #ff9358;
+}
+.width-40p{
+  width: 40%;
+}
+.width-38p{
+  width: 38%;
 }
