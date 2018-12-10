@@ -14,16 +14,17 @@ public class BaseBean {
     public BaseBean(int currPage,int pageSize){
         this.currPage = currPage;
         this.pageSize = pageSize;
+        this.computeLimit();
     }
     /**
      * 当前页码
      */
-    private int currPage;
+    private Integer currPage = 0;
 
     /**
      * 当前页条数
      */
-    private int pageSize = 20;
+    private Integer pageSize = 10;
 
     /**
      * 数据库用limitStart
@@ -31,43 +32,50 @@ public class BaseBean {
      * @param
      * @return
      */
-    private int limitStart = -1;
+    private Integer limitStart = -1;
     /**
      * 数据库用limitEnd
      * @auth sunpeikai
      * @param
      * @return
      */
-    private int limitEnd = -1;
-    public int getCurrPage() {
+    private Integer limitEnd = -1;
+
+    public void computeLimit(){
+        limitStart = (currPage-1) * pageSize;
+        limitEnd = pageSize;
+        System.out.println("计算分页:limitStart=" + limitStart + "::limitEnd=" + limitEnd);
+    }
+
+    public Integer getCurrPage() {
         return currPage;
     }
 
-    public void setCurrPage(int currPage) {
+    public void setCurrPage(Integer currPage) {
         this.currPage = currPage;
     }
 
-    public int getPageSize() {
+    public Integer getPageSize() {
         return pageSize;
     }
 
-    public void setPageSize(int pageSize) {
+    public void setPageSize(Integer pageSize) {
         this.pageSize = pageSize;
     }
 
-    public int getLimitStart() {
+    public Integer getLimitStart() {
         return limitStart;
     }
 
-    public void setLimitStart(int limitStart) {
+    public void setLimitStart(Integer limitStart) {
         this.limitStart = limitStart;
     }
 
-    public int getLimitEnd() {
+    public Integer getLimitEnd() {
         return limitEnd;
     }
 
-    public void setLimitEnd(int limitEnd) {
+    public void setLimitEnd(Integer limitEnd) {
         this.limitEnd = limitEnd;
     }
 }

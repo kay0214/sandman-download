@@ -38,4 +38,12 @@ public interface ResourceService extends BaseService {
      * @return
      */
     List<Resource> searchResource(ResourceBean resourceBean);
+
+    /**
+     * 资源分页
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    List<Resource> getList(ResourceBean resourceBean);
 }

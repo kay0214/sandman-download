@@ -83,6 +83,8 @@ public class Resource implements Serializable {
      */
     private Integer status;
 
+    private String statusDesc;
+
     /**
      * 创建时间
      *
@@ -200,6 +202,14 @@ public class Resource implements Serializable {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getStatusDesc() {
+        return statusDesc;
+    }
+
+    public void setStatusDesc(String statusDesc) {
+        this.statusDesc = statusDesc == null ? null : statusDesc.trim();
     }
 
     public Date getCreateTime() {

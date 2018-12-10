@@ -5,6 +5,7 @@ package com.sandman.download.controller;
 
 import com.sandman.download.base.BaseController;
 import com.sandman.download.bean.download.ResourceBean;
+import com.sandman.download.constant.CommonConstant;
 import com.sandman.download.dao.mysql.system.model.auto.User;
 import com.sandman.download.service.download.ResourceService;
 import com.sandman.download.utils.SessionUtils;
@@ -30,13 +31,13 @@ public class IndexController extends BaseController {
         ModelAndView modelAndView = new ModelAndView("/index");
         // 获取资源信息（type：1 -> 按照下载次数倒叙排序，else -> 按照创建时间倒叙)
         // 最新上传
-        modelAndView.addObject("newResources",resourceService.getResourceByType(new ResourceBean(1,20,0)));
+        modelAndView.addObject("newResources",resourceService.getResourceByType(new ResourceBean(1, CommonConstant.DEFAULT_LIMIT,0)));
         // 最多下载
-        modelAndView.addObject("hotResources",resourceService.getResourceByType(new ResourceBean(1,20,1)));
+        modelAndView.addObject("hotResources",resourceService.getResourceByType(new ResourceBean(1,CommonConstant.DEFAULT_LIMIT,1)));
         // 最新上传count
-        modelAndView.addObject("newCount",resourceService.getResourceCountByType(new ResourceBean(1,20,0)));
+        modelAndView.addObject("count",resourceService.getResourceCountByType(new ResourceBean(1,CommonConstant.DEFAULT_LIMIT,0)));
         // 最多下载count
-        modelAndView.addObject("hotCount",resourceService.getResourceCountByType(new ResourceBean(1,20,0)));
+        modelAndView.addObject("hotCount",resourceService.getResourceCountByType(new ResourceBean(1,CommonConstant.DEFAULT_LIMIT,0)));
         return modelAndView;
     }
 }

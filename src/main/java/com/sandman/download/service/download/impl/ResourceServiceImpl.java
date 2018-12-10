@@ -56,6 +56,18 @@ public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServ
         return resourceMapper.selectByExample(resourceExample);
     }
 
+    /**
+     * 获取资源列表分页显示
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    @Override
+    public List<Resource> getList(ResourceBean resourceBean) {
+        ResourceExample resourceExample = convertExample(resourceBean);
+        return resourceMapper.selectByExample(resourceExample);
+    }
+
 
     private ResourceExample convertExample(ResourceBean resourceBean){
         ResourceExample resourceExample = new ResourceExample();
@@ -64,7 +76,7 @@ public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServ
             resourceExample.or().andResourceNameLike("%" + resourceBean.getSearch() + "%");
             resourceExample.or().andResourceDescLike("%" + resourceBean.getSearch() + "%");
         }
-        if(resourceBean.getLimitStart()>0){
+        if(resourceBean.getLimitStart()>=0){
             resourceExample.setLimitStart(resourceBean.getLimitStart());
             resourceExample.setLimitEnd(resourceBean.getLimitEnd());
         }

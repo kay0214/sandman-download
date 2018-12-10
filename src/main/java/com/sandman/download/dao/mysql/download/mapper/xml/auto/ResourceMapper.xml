@@ -14,6 +14,7 @@
     <result column="resource_desc" property="resourceDesc" jdbcType="VARCHAR" />
     <result column="download_count" property="downloadCount" jdbcType="INTEGER" />
     <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="status_desc" property="statusDesc" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="del_flag" property="delFlag" jdbcType="INTEGER" />
@@ -78,8 +79,8 @@
   </sql>
   <sql id="Base_Column_List" >
     id, user_id, username, nickname, resource_name, resource_url, resource_gold, resource_size, 
-    resource_type, resource_desc, download_count, `status`, create_time, update_time, 
-    del_flag
+    resource_type, resource_desc, download_count, `status`, status_desc, create_time, 
+    update_time, del_flag
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sandman.download.dao.mysql.download.model.auto.ResourceExample" >
     select
@@ -121,13 +122,15 @@
     insert into t_resource (user_id, username, nickname, 
       resource_name, resource_url, resource_gold, 
       resource_size, resource_type, resource_desc, 
-      download_count, `status`, create_time, 
-      update_time, del_flag)
+      download_count, `status`, status_desc, 
+      create_time, update_time, del_flag
+      )
     values (#{userId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
       #{resourceName,jdbcType=VARCHAR}, #{resourceUrl,jdbcType=VARCHAR}, #{resourceGold,jdbcType=VARCHAR}, 
       #{resourceSize,jdbcType=DOUBLE}, #{resourceType,jdbcType=VARCHAR}, #{resourceDesc,jdbcType=VARCHAR}, 
-      #{downloadCount,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP}, #{delFlag,jdbcType=INTEGER})
+      #{downloadCount,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{statusDesc,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{delFlag,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.sandman.download.dao.mysql.download.model.auto.Resource" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
@@ -167,6 +170,9 @@
       </if>
       <if test="status != null" >
         `status`,
+      </if>
+      <if test="statusDesc != null" >
+        status_desc,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -211,6 +217,9 @@
       </if>
       <if test="status != null" >
         #{status,jdbcType=INTEGER},
+      </if>
+      <if test="statusDesc != null" >
+        #{statusDesc,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -268,6 +277,9 @@
       <if test="record.status != null" >
         `status` = #{record.status,jdbcType=INTEGER},
       </if>
+      <if test="record.statusDesc != null" >
+        status_desc = #{record.statusDesc,jdbcType=VARCHAR},
+      </if>
       <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
@@ -296,6 +308,7 @@
       resource_desc = #{record.resourceDesc,jdbcType=VARCHAR},
       download_count = #{record.downloadCount,jdbcType=INTEGER},
       `status` = #{record.status,jdbcType=INTEGER},
+      status_desc = #{record.statusDesc,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       del_flag = #{record.delFlag,jdbcType=INTEGER}
@@ -339,6 +352,9 @@
       <if test="status != null" >
         `status` = #{status,jdbcType=INTEGER},
       </if>
+      <if test="statusDesc != null" >
+        status_desc = #{statusDesc,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -364,6 +380,7 @@
       resource_desc = #{resourceDesc,jdbcType=VARCHAR},
       download_count = #{downloadCount,jdbcType=INTEGER},
       `status` = #{status,jdbcType=INTEGER},
+      status_desc = #{statusDesc,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       del_flag = #{delFlag,jdbcType=INTEGER}

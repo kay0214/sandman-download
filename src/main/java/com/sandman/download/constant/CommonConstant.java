@@ -17,7 +17,7 @@ public class CommonConstant {
      * @param
      * @return
      */
-    public static final int DEFAULT_LIMIT = 20;
+    public static final int DEFAULT_LIMIT = 10;
 
     /**
      * 状态

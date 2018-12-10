@@ -28,16 +28,14 @@
         <!-- 搜索功能结束 -->
 
         <div class="margin-top-2p">
-            <div class="layui-tab layui-tab-card" lay-filter="res">
-                <ul class="layui-tab-title">
-                    <li lay-id="1" class="layui-this">最新上传</li>
-                    <li lay-id="2">最多下载</li>
-                </ul>
-                <div class="layui-tab-content"><!--  style="height: 100px;" -->
+            <div class="layui-card">
+                <div class="layui-card-header"><i class="layui-icon">    &#xe62a;  </i>资源列表</div>
+                <div class="layui-card-body">
+
                     <div id="newResources" class="layui-tab-item layui-show">
 
                         <!-- 最新上传 -->
-                        <div th:each="resource :${newResources}" class="row">
+                        <div th:each="resource :${resourceList}" class="row">
                             <div class="margin-0-2p">
                                 <!-- 资源类型的图标 -->
                                 <div class="layui-col-md1">
@@ -66,39 +64,10 @@
                             <div><hr class="layui-bg-gray"></div>
                         </div>
                     </div>
-                    <div id="hotResources" class="layui-tab-item">
-                        <!-- 最多下载 -->
-                        <div th:each="resource :${hotResources}" class="row">
-                            <div class="margin-0-2p">
-                                <!-- 资源类型的图标 -->
-                                <div class="layui-col-md1">
-                                    <img src="/images/zip.svg">
-                                </div>
-                                <div class="layui-col-md11">
-                                    <div class="res-title">
-                                        <!-- 资源标题 -->
-                                        <h2 th:text="${resource.resourceName}"></h2>
-                                    </div>
-                                    <div class="res-content">
-                                        <!-- 资源描述 -->
-                                        <h6 th:text="${resource.resourceDesc}"></h6>
-                                    </div>
-                                    <div class="layui-row res-info">
-                                        <!-- 资源信息 -->
-                                        <div class="layui-col-md2">上传者 : <span th:text="${resource.username}"></span></div>
-                                        <div class="layui-col-md3">上传时间 : <span th:text="${#dates.format(resource.createTime,'yyyy-MM-dd')}"></span></div>
-                                        <div class="layui-col-md2">资源大小 : <span th:text="${#size.fileSizeFormat(resource.resourceSize)}"></span></div>
-                                        <div class="layui-col-md2">下载次数 : <span th:text="${resource.downloadCount}"></span></div>
-                                        <div class="layui-col-md1">积分 : <span class="res-gold" th:text="${resource.resourceGold}"></span></div>
-                                    </div>
-                                </div>
 
-                            </div>
-                            <div><hr class="layui-bg-gray"></div>
-                        </div>
-                    </div>
+                    <div align="center" id="page"></div>
+
                 </div>
-                <div align="center" id="page"></div>
             </div>
         </div>
     </div>
@@ -126,69 +95,9 @@
     }).use('fly');
 </script>
 <script th:inline="javascript">
-    var newCount = [[${newCount}]];
-    var hotCount = [[${hotCount}]];
-    var nowTab = newCount;
-    var new_curr = 1;
-    var hot_curr = 1;
-    var curr_tab = '1';
-</script>
-<script>
-    layui.use('element', function(){
-        var element = layui.element;
-        var laypage = layui.laypage;
-        //获取hash来切换选项卡，假设当前地址的hash为lay-id对应的值
-        var layid = location.hash.replace(/^#res=/, '');
-        element.tabChange('res', layid); //假设当前地址为：http://a.com#test1=222，那么选项卡会自动切换到“发送消息”这一项
-
-        //监听Tab切换，以改变地址hash值
-        element.on('tab(res)', function(){
-            var id = this.getAttribute('lay-id');
-            if(id !== curr_tab){
-                curr_tab = id;
-                if(id === '1'){
-                    console.info("切换到了最新上传");
-                    nowTab = newCount;
-                    laypage = layui.laypage;
-
-                    //执行一个laypage实例
-                    laypage.render({
-                        elem: 'page', //注意，这里的 test1 是 ID，不用加 # 号
-                        count: nowTab, //数据总数，从服务端得到
-                        curr: new_curr,
-                        layout: ['count', 'prev', 'page', 'next', 'skip'],
-                        jump: function(obj, first){
-                            new_curr = obj.curr;
-                            //首次不执行,其他的执行
-                            if(!first){
-                                getResources(obj.curr,obj.limit,2,null);
-                            }
-                        }
-                    });
-                }else{
-                    console.info("切换到了最多下载");
-                    nowTab = hotCount;
-                    laypage = layui.laypage;
-
-                    //执行一个laypage实例
-                    laypage.render({
-                        elem: 'page', //注意，这里的 test1 是 ID，不用加 # 号
-                        count: nowTab, //数据总数，从服务端得到
-                        curr: hot_curr,
-                        layout: ['count', 'prev', 'page', 'next', 'skip'],
-                        jump: function(obj, first){
-                            hot_curr = obj.curr;
-                            //首次不执行,其他的执行
-                            if(!first){
-                                getResources(obj.curr,obj.limit,1,null);
-                            }
-                        }
-                    });
-                }
-            }
-
-        });
-    });
+    var count = [[${count}]];
+    var currPage = [[${currPage}]];
+    currPage = (currPage == null || currPage == undefined || currPage == 0)?1:currPage;
 </script>
 <script>
     layui.use('laypage', function(){
@@ -196,11 +105,16 @@
         //执行一个laypage实例
         laypage.render({
             elem: 'page', //注意，这里的 test1 是 ID，不用加 # 号
-            count: nowTab, //数据总数，从服务端得到
+            count: count, //数据总数，从服务端得到
+            curr: currPage,
             layout: ['count', 'prev', 'page', 'next', 'skip'],
-            curr: location.hash.replace('#!fenye=', '') //获取起始页
-            ,hash: 'fenye' //自定义hash值
+            jump: function(obj, first){
 
+                //首次不执行,其他的执行
+                if(!first){
+                    location.href = "/resource/list?currPage=" + obj.curr;
+                }
+            }
         });
     });
 </script>
