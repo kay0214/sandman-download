@@ -9,7 +9,6 @@ import com.sandman.download.bean.download.MyResourceBean;
 import com.sandman.download.dao.mysql.download.model.auto.Resource;
 import com.sandman.download.service.download.MyResourceService;
 import com.sandman.download.utils.SessionUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,18 +38,57 @@ public class MyResourceController extends BaseController {
             myResourceBean.setCurrPage(1);
             myResourceBean.computeLimit();
         }
-        if(userId != null){
-            myResourceBean.setUserId(userId);
-            logger.info("myResourceBean=【{}】", JSON.toJSONString(myResourceBean));
-            int count = myResourceService.getMyResourceListCount(myResourceBean);
-            List<Resource> resourceList = myResourceService.getMyResourceList(myResourceBean);
-            return new ModelAndView("/my_resource")
-                    .addObject("resourceList",resourceList)
-                    .addObject("count",count)
-                    .addObject("status", myResourceBean.getStatus())
-                    .addObject("resourceName",myResourceBean.getResourceName())
-                    .addObject("currPage",myResourceBean.getCurrPage());
+        myResourceBean.setUserId(userId);
+        logger.info("myResourceBean=【{}】", JSON.toJSONString(myResourceBean));
+        int count = myResourceService.getMyResourceListCount(myResourceBean);
+        List<Resource> resourceList = myResourceService.getMyResourceList(myResourceBean);
+        return new ModelAndView("/my_resource")
+                .addObject("resourceList",resourceList)
+                .addObject("count",count)
+                .addObject("status", myResourceBean.getStatus())
+                .addObject("resourceName",myResourceBean.getResourceName())
+                .addObject("currPage",myResourceBean.getCurrPage());
+    }
+
+    /**
+     * 根据id删除这个资源
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    @GetMapping(value = "/deleteById")
+    public ModelAndView deleteById(Integer id){
+        logger.info("删除资源 -> id:[{}]",id);
+        Integer userId = SessionUtils.getUserId();
+        Resource resource = myResourceService.searchById(id);
+        if(resource != null){
+            //资源存在
+            if(null != userId && userId.equals(resource.getUserId())){
+                //开始假删
+                myResourceService.deleteById(resource);
+            }
         }
-        return new ModelAndView("/login");
+        return new ModelAndView("redirect:/my_resource/search");
+    }
+
+    /**
+     * 编辑资源
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    @GetMapping(value = "/editById")
+    public ModelAndView editById(Integer id){
+        logger.info("编辑资源 -> id:[{}]",id);
+        Integer userId = SessionUtils.getUserId();
+        Resource resource = myResourceService.searchById(id);
+        if(resource != null){
+            //资源存在
+            if(null != userId && userId.equals(resource.getUserId())){
+                //开始编辑
+                return new ModelAndView("").addObject("resource",resource);
+            }
+        }
+        return new ModelAndView("redirect:/my_resource/search");
     }
 }

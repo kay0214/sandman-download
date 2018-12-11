@@ -3,10 +3,7 @@ package com.sandman.download.dao.mysql.mapper;
 import com.sandman.download.dao.mysql.download.mapper.auto.GoldLogMapper;
 import com.sandman.download.dao.mysql.download.mapper.auto.ResourceLogMapper;
 import com.sandman.download.dao.mysql.download.mapper.auto.ResourceMapper;
-import com.sandman.download.dao.mysql.system.mapper.auto.TemplateMapper;
-import com.sandman.download.dao.mysql.system.mapper.auto.UserLoginLogMapper;
-import com.sandman.download.dao.mysql.system.mapper.auto.UserMapper;
-import com.sandman.download.dao.mysql.system.mapper.auto.ValidateCodeMapper;
+import com.sandman.download.dao.mysql.system.mapper.auto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,5 +24,7 @@ public class AutoMapper {
     protected ResourceLogMapper resourceLogMapper;
     @Autowired
     protected TemplateMapper templateMapper;
+    @Autowired
+    protected SecureConfigMapper secureConfigMapper;
 }
 

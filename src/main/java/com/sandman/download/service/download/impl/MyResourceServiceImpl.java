@@ -44,6 +44,29 @@ public class MyResourceServiceImpl extends BaseServiceImpl implements MyResource
         return resourceMapper.countByExample(resourceExample);
     }
 
+    /**
+     * 根据id获取资源
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    @Override
+    public Resource searchById(Integer id) {
+        return resourceMapper.selectByPrimaryKey(id);
+    }
+
+    /**
+     * 根据id假删
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    @Override
+    public int deleteById(Resource resource) {
+        resource.setDelFlag(1);
+        return resourceMapper.updateByPrimaryKeySelective(resource);
+    }
+
     private ResourceExample convertExample(MyResourceBean myResourceBean){
         ResourceExample resourceExample = new ResourceExample();
         ResourceExample.Criteria criteria = resourceExample.createCriteria();

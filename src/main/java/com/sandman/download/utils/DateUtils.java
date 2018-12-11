@@ -52,4 +52,15 @@ public class DateUtils {
         return date;
     }
 
+    /**
+     * 获取当前时间的String类型
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    public static String getNowStryyyyMMddHHmmss(){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+        return simpleDateFormat.format(new Date());
+    }
+
 }

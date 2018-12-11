@@ -3,10 +3,9 @@
  */
 package com.sandman.download.base;
 
-import com.sandman.download.dao.mysql.system.model.auto.Template;
-import com.sandman.download.dao.mysql.system.model.auto.User;
-import com.sandman.download.dao.mysql.system.model.auto.UserLoginLog;
-import com.sandman.download.dao.mysql.system.model.auto.ValidateCode;
+import com.sandman.download.dao.mysql.system.model.auto.*;
+
+import java.util.List;
 
 /**
  * @author sunpeikai
@@ -60,4 +59,12 @@ public interface BaseService {
      * @return
      */
     UserLoginLog getLoginLogByUserId(int userId);
+
+    /**
+     * 获取控制访问权限list
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    List<SecureConfig> getSecureConfigList();
 }

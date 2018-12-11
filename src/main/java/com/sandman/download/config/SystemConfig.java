@@ -21,6 +21,9 @@ public class SystemConfig {
     private static String PATH_PREFIX;
     private static String TEMP_FILE_PATH;
 
+    private static String FILE_PREFIX;
+    private static String ICON_PREFIX;
+
     // 域名
     private static String SERVER_HOST;
 
@@ -127,6 +130,17 @@ public class SystemConfig {
         SANDMAN_MOBILE = sandmanMobile;
     }
 
+    @Value("${sftpServer.prefix.file}")
+    public void setFilePrefix(String filePrefix) {
+        FILE_PREFIX = filePrefix;
+    }
+
+    @Value("${sftpServer.prefix.icon}")
+    public void setIconPrefix(String iconPrefix) {
+        ICON_PREFIX = iconPrefix;
+    }
+
+
     //get方法位置
     public static String getSmtpHost() {
         return SMTP_HOST;
@@ -197,5 +211,13 @@ public class SystemConfig {
 
     public static String getSandmanLogo() {
         return SANDMAN_LOGO;
+    }
+
+    public static String getFilePrefix() {
+        return FILE_PREFIX;
+    }
+
+    public static String getIconPrefix() {
+        return ICON_PREFIX;
     }
 }

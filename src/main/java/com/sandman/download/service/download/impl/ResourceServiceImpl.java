@@ -71,10 +71,11 @@ public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServ
 
     private ResourceExample convertExample(ResourceBean resourceBean){
         ResourceExample resourceExample = new ResourceExample();
-        ResourceExample.Criteria criteria = resourceExample.createCriteria();
         if(StringUtils.isNotBlank(resourceBean.getSearch())){
-            resourceExample.or().andResourceNameLike("%" + resourceBean.getSearch() + "%");
-            resourceExample.or().andResourceDescLike("%" + resourceBean.getSearch() + "%");
+            resourceExample.or().andStatusEqualTo(1).andDelFlagEqualTo(0).andResourceNameLike("%" + resourceBean.getSearch() + "%");
+            resourceExample.or().andStatusEqualTo(1).andDelFlagEqualTo(0).andResourceDescLike("%" + resourceBean.getSearch() + "%");
+        }else{
+            resourceExample.createCriteria().andStatusEqualTo(1).andDelFlagEqualTo(0);
         }
         if(resourceBean.getLimitStart()>=0){
             resourceExample.setLimitStart(resourceBean.getLimitStart());

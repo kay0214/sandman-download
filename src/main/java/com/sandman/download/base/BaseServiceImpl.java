@@ -110,5 +110,18 @@ public class BaseServiceImpl extends CustomizeMapper implements BaseService {
         return null;
     }
 
+    /**
+     * 获取控制访问权限list
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    @Override
+    public List<SecureConfig> getSecureConfigList() {
+        SecureConfigExample secureConfigExample = new SecureConfigExample();
+        secureConfigExample.createCriteria().andStatusEqualTo(1).andDelFlagEqualTo(0);
+        return secureConfigMapper.selectByExample(secureConfigExample);
+    }
+
 
 }

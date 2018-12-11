@@ -605,3 +605,15 @@ body .sandman-user-main{position: relative; min-height: 600px;}
 .width-38p{
   width: 38%;
 }
+.color-red{
+  color: red;
+}
+.color-green{
+  color: green;
+}
+.color-blue{
+  color: blue;
+}
+.margin-left-4p{
+  margin-left: 4%;
+}

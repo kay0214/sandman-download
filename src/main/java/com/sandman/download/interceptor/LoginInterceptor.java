@@ -34,16 +34,12 @@ public class LoginInterceptor implements HandlerInterceptor {
             }else{
                 // 清空值
                 request.getSession().removeAttribute("user");
+                response.sendRedirect("/login/init");
                 return false;
             }
         }catch(Exception e) {
             logger.error("拦截器中出现错误");
-            response.setContentType("application/json; charset=utf-8");
-            JSONObject res = new JSONObject();
-            res.put("status", "EUS000010");
-            res.put("statusDesc", "登录失效，请重新登陆");
-            PrintWriter out = response.getWriter();
-            out.append(res.toString());
+            response.sendRedirect("/login/init");
             return false;
         }
         return true;

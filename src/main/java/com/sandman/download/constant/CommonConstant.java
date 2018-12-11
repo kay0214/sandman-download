@@ -12,6 +12,14 @@ public class CommonConstant {
     public static final int LOGIN_EXPIRE = 3600;
 
     /**
+     * 文件限制大小
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    //public static final int
+
+    /**
      * 默认分页大小
      * @auth sunpeikai
      * @param

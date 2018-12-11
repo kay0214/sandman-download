@@ -21,8 +21,11 @@ public class RetUrlInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        logger.info("retUrl收到请求，路径为:[{}]",request.getRequestURI());
         String uri = request.getRequestURI();
+        logger.info("retUrl收到请求，路径为:[{}]",uri);
+
+
+/*        String uri = request.getRequestURI();
         try{
             String lastUri = request.getSession().getAttribute("uri").toString();
             request.getSession().setAttribute("uri",uri);
@@ -32,7 +35,7 @@ public class RetUrlInterceptor implements HandlerInterceptor {
         }catch (Exception e){
             logger.error("url拦截器报错，error:[{}]",e.toString());
             request.getSession().setAttribute("uri",uri);
-        }
+        }*/
         return true;
     }
 

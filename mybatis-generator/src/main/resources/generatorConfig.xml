@@ -4,7 +4,7 @@
 <generatorConfiguration>
 
     <!-- 引入配置文件 -->
-    <properties resource="init_download.properties"/>
+    <properties resource="init_system.properties"/>
 
     <classPathEntry location="${classPath}"/>
 
@@ -72,6 +72,10 @@
         </table>
         <!-- 轮播图表 -->
         <table tableName="t_carousel" domainObjectName="Carousel">
+            <generatedKey column="id" sqlStatement="MySql" type="post" identity="true" />
+        </table>
+        <!-- 访问控制表 -->
+        <table tableName="t_secure_config" domainObjectName="SecureConfig">
             <generatedKey column="id" sqlStatement="MySql" type="post" identity="true" />
         </table>
 

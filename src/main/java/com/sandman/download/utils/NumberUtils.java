@@ -37,4 +37,14 @@ public class NumberUtils {//四舍五入保留小数处理，默认保留2位小
     public static String getStringByDouble(Double number,int point){
         return getStringByStr(String.valueOf(number),point);
     }
+
+    /**
+     * long转double
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    public static Double getDoubleByLong(Long num){
+        return Double.parseDouble(String.valueOf(num));
+    }
 }

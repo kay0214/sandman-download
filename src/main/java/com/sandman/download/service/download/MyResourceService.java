@@ -30,4 +30,20 @@ public interface MyResourceService extends BaseService {
      * @return
      */
     int getMyResourceListCount(MyResourceBean myResourceBean);
+
+    /**
+     * 根据id获取资源
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    Resource searchById(Integer id);
+
+    /**
+     * 根据id假删
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    int deleteById(Resource resource);
 }
