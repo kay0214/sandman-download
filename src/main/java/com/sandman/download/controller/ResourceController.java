@@ -88,4 +88,17 @@ public class ResourceController extends BaseController {
                 .addObject("currPage",resourceBean.getCurrPage());
     }
 
+    /**
+     * 查看资源详细信息
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    @GetMapping(value = "/get_info")
+    public ModelAndView getInfo(Integer id){
+        Resource resource = resourceService.getResourceById(id);
+        return new ModelAndView("/resource_info")
+                .addObject("resource",resource);
+    }
+
 }

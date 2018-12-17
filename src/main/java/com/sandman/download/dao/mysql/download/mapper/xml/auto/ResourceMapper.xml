@@ -8,7 +8,7 @@
     <result column="nickname" property="nickname" jdbcType="VARCHAR" />
     <result column="resource_name" property="resourceName" jdbcType="VARCHAR" />
     <result column="resource_url" property="resourceUrl" jdbcType="VARCHAR" />
-    <result column="resource_gold" property="resourceGold" jdbcType="VARCHAR" />
+    <result column="resource_gold" property="resourceGold" jdbcType="INTEGER" />
     <result column="resource_size" property="resourceSize" jdbcType="DOUBLE" />
     <result column="resource_type" property="resourceType" jdbcType="VARCHAR" />
     <result column="resource_desc" property="resourceDesc" jdbcType="VARCHAR" />
@@ -126,7 +126,7 @@
       create_time, update_time, del_flag
       )
     values (#{userId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
-      #{resourceName,jdbcType=VARCHAR}, #{resourceUrl,jdbcType=VARCHAR}, #{resourceGold,jdbcType=VARCHAR}, 
+      #{resourceName,jdbcType=VARCHAR}, #{resourceUrl,jdbcType=VARCHAR}, #{resourceGold,jdbcType=INTEGER}, 
       #{resourceSize,jdbcType=DOUBLE}, #{resourceType,jdbcType=VARCHAR}, #{resourceDesc,jdbcType=VARCHAR}, 
       #{downloadCount,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{statusDesc,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{delFlag,jdbcType=INTEGER}
@@ -201,7 +201,7 @@
         #{resourceUrl,jdbcType=VARCHAR},
       </if>
       <if test="resourceGold != null" >
-        #{resourceGold,jdbcType=VARCHAR},
+        #{resourceGold,jdbcType=INTEGER},
       </if>
       <if test="resourceSize != null" >
         #{resourceSize,jdbcType=DOUBLE},
@@ -260,7 +260,7 @@
         resource_url = #{record.resourceUrl,jdbcType=VARCHAR},
       </if>
       <if test="record.resourceGold != null" >
-        resource_gold = #{record.resourceGold,jdbcType=VARCHAR},
+        resource_gold = #{record.resourceGold,jdbcType=INTEGER},
       </if>
       <if test="record.resourceSize != null" >
         resource_size = #{record.resourceSize,jdbcType=DOUBLE},
@@ -302,7 +302,7 @@
       nickname = #{record.nickname,jdbcType=VARCHAR},
       resource_name = #{record.resourceName,jdbcType=VARCHAR},
       resource_url = #{record.resourceUrl,jdbcType=VARCHAR},
-      resource_gold = #{record.resourceGold,jdbcType=VARCHAR},
+      resource_gold = #{record.resourceGold,jdbcType=INTEGER},
       resource_size = #{record.resourceSize,jdbcType=DOUBLE},
       resource_type = #{record.resourceType,jdbcType=VARCHAR},
       resource_desc = #{record.resourceDesc,jdbcType=VARCHAR},
@@ -335,7 +335,7 @@
         resource_url = #{resourceUrl,jdbcType=VARCHAR},
       </if>
       <if test="resourceGold != null" >
-        resource_gold = #{resourceGold,jdbcType=VARCHAR},
+        resource_gold = #{resourceGold,jdbcType=INTEGER},
       </if>
       <if test="resourceSize != null" >
         resource_size = #{resourceSize,jdbcType=DOUBLE},
@@ -374,7 +374,7 @@
       nickname = #{nickname,jdbcType=VARCHAR},
       resource_name = #{resourceName,jdbcType=VARCHAR},
       resource_url = #{resourceUrl,jdbcType=VARCHAR},
-      resource_gold = #{resourceGold,jdbcType=VARCHAR},
+      resource_gold = #{resourceGold,jdbcType=INTEGER},
       resource_size = #{resourceSize,jdbcType=DOUBLE},
       resource_type = #{resourceType,jdbcType=VARCHAR},
       resource_desc = #{resourceDesc,jdbcType=VARCHAR},

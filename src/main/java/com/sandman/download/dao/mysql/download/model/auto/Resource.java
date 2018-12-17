@@ -46,7 +46,7 @@ public class Resource implements Serializable {
      *
      * @mbggenerated
      */
-    private String resourceGold;
+    private Integer resourceGold;
 
     /**
      * 资源大小
@@ -156,12 +156,12 @@ public class Resource implements Serializable {
         this.resourceUrl = resourceUrl == null ? null : resourceUrl.trim();
     }
 
-    public String getResourceGold() {
+    public Integer getResourceGold() {
         return resourceGold;
     }
 
-    public void setResourceGold(String resourceGold) {
-        this.resourceGold = resourceGold == null ? null : resourceGold.trim();
+    public void setResourceGold(Integer resourceGold) {
+        this.resourceGold = resourceGold;
     }
 
     public Double getResourceSize() {

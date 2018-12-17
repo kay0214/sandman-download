@@ -535,62 +535,52 @@ public class ResourceExample {
             return (Criteria) this;
         }
 
-        public Criteria andResourceGoldEqualTo(String value) {
+        public Criteria andResourceGoldEqualTo(Integer value) {
             addCriterion("resource_gold =", value, "resourceGold");
             return (Criteria) this;
         }
 
-        public Criteria andResourceGoldNotEqualTo(String value) {
+        public Criteria andResourceGoldNotEqualTo(Integer value) {
             addCriterion("resource_gold <>", value, "resourceGold");
             return (Criteria) this;
         }
 
-        public Criteria andResourceGoldGreaterThan(String value) {
+        public Criteria andResourceGoldGreaterThan(Integer value) {
             addCriterion("resource_gold >", value, "resourceGold");
             return (Criteria) this;
         }
 
-        public Criteria andResourceGoldGreaterThanOrEqualTo(String value) {
+        public Criteria andResourceGoldGreaterThanOrEqualTo(Integer value) {
             addCriterion("resource_gold >=", value, "resourceGold");
             return (Criteria) this;
         }
 
-        public Criteria andResourceGoldLessThan(String value) {
+        public Criteria andResourceGoldLessThan(Integer value) {
             addCriterion("resource_gold <", value, "resourceGold");
             return (Criteria) this;
         }
 
-        public Criteria andResourceGoldLessThanOrEqualTo(String value) {
+        public Criteria andResourceGoldLessThanOrEqualTo(Integer value) {
             addCriterion("resource_gold <=", value, "resourceGold");
             return (Criteria) this;
         }
 
-        public Criteria andResourceGoldLike(String value) {
-            addCriterion("resource_gold like", value, "resourceGold");
-            return (Criteria) this;
-        }
-
-        public Criteria andResourceGoldNotLike(String value) {
-            addCriterion("resource_gold not like", value, "resourceGold");
-            return (Criteria) this;
-        }
-
-        public Criteria andResourceGoldIn(List<String> values) {
+        public Criteria andResourceGoldIn(List<Integer> values) {
             addCriterion("resource_gold in", values, "resourceGold");
             return (Criteria) this;
         }
 
-        public Criteria andResourceGoldNotIn(List<String> values) {
+        public Criteria andResourceGoldNotIn(List<Integer> values) {
             addCriterion("resource_gold not in", values, "resourceGold");
             return (Criteria) this;
         }
 
-        public Criteria andResourceGoldBetween(String value1, String value2) {
+        public Criteria andResourceGoldBetween(Integer value1, Integer value2) {
             addCriterion("resource_gold between", value1, value2, "resourceGold");
             return (Criteria) this;
         }
 
-        public Criteria andResourceGoldNotBetween(String value1, String value2) {
+        public Criteria andResourceGoldNotBetween(Integer value1, Integer value2) {
             addCriterion("resource_gold not between", value1, value2, "resourceGold");
             return (Criteria) this;
         }

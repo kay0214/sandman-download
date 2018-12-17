@@ -29,12 +29,14 @@
             <div class="layui-col-md9">
 
                 <div class="layui-card">
-                    <div class="layui-card-header">上传资源</div>
+                    <div class="layui-card-header"><i class="layui-icon">    &#xe62f;  </i>上传资源</div>
                     <div class="layui-card-body">
-                        <form class="layui-form" action="" method="post">
+                        <form class="layui-form" action="/upload/upload_resource" method="post">
 
-                            <div class="layui-form-item margin-left-4p">
-                                <div class="layui-upload-drag" id="file">
+                            <input type="hidden" th:value="${resourceUrl}" id="resourceUrl" name="resourceUrl">
+
+                            <div class="layui-form-item margin-4p">
+                                <div class="layui-form-item sandman-upload-file" id="file">
                                     <i class="layui-icon"></i>
                                     <p>点击上传，或将文件拖拽到此处</p>
                                 </div>
@@ -43,27 +45,20 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label">资源名称</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="resourceName" required lay-verify="required"
+                                    <input type="text" name="resourceName" th:value="${resourceName}" required lay-verify="required"
                                            placeholder="请输入资源名称" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label">资源积分</label>
                                 <div class="layui-input-block">
-                                    <select name="resourceGold" lay-verify="required">
-                                        <option value=""></option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                    </select>
+                                    <div th:replace="common/resource_gold_select::html"></div>
                                 </div>
                             </div>
                             <div class="layui-form-item layui-form-text">
                                 <label class="layui-form-label">资源描述</label>
                                 <div class="layui-input-block">
-                                    <textarea name="resourceDesc" placeholder="请输入资源描述" class="layui-textarea"></textarea>
+                                    <textarea name="resourceDesc" th:text="${resourceDesc}" placeholder="请输入资源描述" class="layui-textarea"></textarea>
                                 </div>
                             </div>
                             <div class="layui-form-item">
@@ -128,9 +123,10 @@
     }).use('fly');
 </script>
 <script th:inline="javascript">
-    var count = [[${count}]];
-    var currPage = [[${currPage}]];
-    currPage = (currPage == null || currPage == undefined || currPage == 0) ? 1 : currPage;
+    var fileType = [[${resourceType}]];
+    var fileName = [[${fileName}]];
+    console.info("加载进来的fileType:" + fileType + ":::::fileName" + fileName);
+    //TODO:这里加载fileType和fileName是要把上传框的样式改变
 </script>
 <script>
     layui.use('upload', function () {
@@ -142,7 +138,27 @@
             ,accept: 'file' //普通文件
             ,size: 220000 //限制文件大小，单位 KB
             ,done: function(res){
-                console.log(res)
+                if(res.status !== '000'){
+                    // 出问题了
+                    layer.msg(res.statusDesc,{icon: 5});
+                }else{
+                    // 上传成功了
+                    $("#resourceUrl").val(res.data.url);
+                    console.info(res.data.fileName + ";;;;;;;;" + res.data.fileType);
+                    var text = "<img src='/images/zip.svg'>    " + res.data.fileName;
+                    switch (res.data.fileType) {
+                        case "zip":console.info("zip");break;
+                        case "rar":console.info("rar");break;
+                        case "png":console.info("png");break;
+                        case "jpg":console.info("jpg");break;
+                        case "txt":console.info("txt");break;
+                        case "exe":console.info("exe");break;
+                    }
+
+                    $("#file").html(text);
+                    layer.msg(res.statusDesc,{icon: 6});
+
+                }
             }
         });
     });

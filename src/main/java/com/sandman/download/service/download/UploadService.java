@@ -5,6 +5,7 @@ package com.sandman.download.service.download;
 
 import com.alibaba.fastjson.JSONObject;
 import com.sandman.download.base.BaseService;
+import com.sandman.download.dao.mysql.download.model.auto.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -20,4 +21,12 @@ public interface UploadService extends BaseService {
      * @return
      */
     JSONObject uploadFile(MultipartFile multipartFile);
+
+    /**
+     * 发布资源
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    int uploadResource(Resource resource);
 }

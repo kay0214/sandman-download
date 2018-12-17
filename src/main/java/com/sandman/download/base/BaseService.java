@@ -3,6 +3,8 @@
  */
 package com.sandman.download.base;
 
+import com.sandman.download.dao.mysql.download.model.auto.GoldLog;
+import com.sandman.download.dao.mysql.download.model.auto.Resource;
 import com.sandman.download.dao.mysql.system.model.auto.*;
 
 import java.util.List;
@@ -67,4 +69,35 @@ public interface BaseService {
      * @return
      */
     List<SecureConfig> getSecureConfigList();
+
+    /**
+     * 添加资源操作日志
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    int insertResourceLog(Integer userId,Integer resourceId,Integer type);
+
+    /**
+     * 根据资源id获取详细信息
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    Resource getResourceById(Integer id);
+
+    /**
+     * 积分操作记录
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    GoldLog goldOperation(Integer userId,
+                    Integer resourceId,
+                    String resourceName,
+                    Integer originalGold,
+                    Integer resourceGold,
+                    Integer currentGold,
+                    String desc,
+                    Integer type);
 }

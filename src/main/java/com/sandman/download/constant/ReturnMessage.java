@@ -35,6 +35,12 @@ public enum ReturnMessage {
     ERR_USER_REGISTER("EUS000002","用户注册失败"),
     ERR_USER_NOT_EXIST("EUS000003","用户不存在"),
     ERR_USER_LOGIN_INVALID("EUS000004","登录失效，请重新登录"),
+    ERR_USER_GOLD_NOT_ENOUGH("EUS000005","积分不足"),
+    ERR_USER_NOT_VIP("EUS000006","抱歉，您不是VIP用户"),
+
+    // 资源相关错误ERR_RESOURCE_
+    ERR_RESOURCE_NOT_EXIST("ERS000001","资源不存在"),
+
 
     // 邮件相关错误信息ERR_EMAIL_
     ERR_EMAIL_USED("EEM000001", "邮箱已被占用"),

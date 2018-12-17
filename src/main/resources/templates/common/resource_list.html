@@ -18,7 +18,7 @@
                 <div class="layui-col-md11">
                     <div class="res-title">
                         <!-- 资源标题 -->
-                        <h2 th:text="${resource.resourceName}"></h2>
+                        <a th:href="'/resource/get_info?id=' + ${resource.id}" target="_blank"><h2 th:text="${resource.resourceName}"></h2></a>
                     </div>
                     <div class="res-content">
                         <!-- 资源描述 -->

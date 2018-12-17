@@ -3,11 +3,13 @@
  */
 package com.sandman.download.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.sandman.download.base.BaseController;
 import com.sandman.download.base.BaseResult;
 import com.sandman.download.dao.mysql.download.model.auto.Resource;
 import com.sandman.download.service.download.UploadService;
+import com.sandman.download.utils.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -51,5 +53,23 @@ public class UploadController extends BaseController {
         logger.info("用户上传资源:[{}]",file.getOriginalFilename());
         JSONObject result = uploadService.uploadFile(file);
         return new BaseResult(result);
+    }
+
+    @PostMapping(value = "/upload_resource")
+    public ModelAndView uploadResource(Resource resource){
+        logger.info("上传资源 -> [{}]", JSON.toJSONString(resource));
+        int result = uploadService.uploadResource(resource);
+        if(result > 0){
+            return new ModelAndView("redirect:/my_resource/search");
+        }else{
+            return new ModelAndView("/upload")
+                    .addObject("resourceUrl",resource.getResourceUrl())
+                    .addObject("resourceType",resource.getResourceType())
+                    .addObject("fileName", FileUtils.getFileNameByUrl(resource.getResourceUrl()))
+                    .addObject("resourceName",resource.getResourceName())
+                    .addObject("resourceGold",resource.getResourceGold())
+                    .addObject("resourceDesc",resource.getResourceDesc())
+                    .addObject("errorMsg","上传失败,原因:[保存数据库失败]");
+        }
     }
 }

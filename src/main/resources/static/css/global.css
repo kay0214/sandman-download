@@ -617,3 +617,24 @@ body .sandman-user-main{position: relative; min-height: 600px;}
 .margin-left-4p{
   margin-left: 4%;
 }
+.margin-4p{
+  margin: 4%;
+}
+.sandman-upload-file{
+  display: inline-block;
+  width: 100%;
+  position: relative;
+  padding: 2%;
+  border: 1px dashed #e2e2e2;
+  background-color: #fff;
+  text-align: center;
+  cursor: pointer;
+  color: #999;
+}
+.sandman-upload-file .layui-icon {
+  font-size: 50px;
+  color: #009688;
+}
+.margin-left-2p{
+  margin-left: 2%;
+}

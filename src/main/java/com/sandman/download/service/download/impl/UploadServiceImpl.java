@@ -15,10 +15,12 @@ import com.sandman.download.utils.FileUtils;
 import com.sandman.download.utils.NumberUtils;
 import com.sandman.download.utils.SessionUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author sunpeikai
@@ -69,8 +71,48 @@ public class UploadServiceImpl extends BaseServiceImpl implements UploadService 
         tempFile.delete();
         if(uploadSuccess){//如果上传远程服务器成功
             result.put("url",resource.getResourceUrl());
+            result.put("fileName",multipartFile.getOriginalFilename());
+            result.put("fileType",fileType);
         }
 
+        return result;
+    }
+
+    /**
+     * 发布资源
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    @Override
+    public int uploadResource(Resource resource) {
+        int result = 0;
+        Integer userId = SessionUtils.getUserId();
+        ResourceExample resourceExample = new ResourceExample();
+        resourceExample.createCriteria().andUserIdEqualTo(userId).andResourceUrlEqualTo(resource.getResourceUrl()).andDelFlagEqualTo(1);
+        List<Resource> resourceList = resourceMapper.selectByExample(resourceExample);
+        Resource res = new Resource();
+        if(!CollectionUtils.isEmpty(resourceList)){
+            res = resourceList.get(0);
+            // 赋值,赋值到resource是因为html页面要用
+            resource.setId(res.getId());
+            resource.setUserId(res.getUserId());
+            resource.setUsername(res.getUsername());
+            resource.setNickname(res.getNickname());
+            resource.setResourceSize(res.getResourceSize());
+            resource.setResourceType(res.getResourceType());
+            resource.setDownloadCount(res.getDownloadCount());
+            resource.setStatus(res.getStatus());
+            resource.setStatusDesc(res.getStatusDesc());
+            resource.setCreateTime(res.getCreateTime());
+            resource.setUpdateTime(res.getUpdateTime());
+            // 删除标记置为0
+            resource.setDelFlag(0);
+
+            result = resourceMapper.updateByPrimaryKeySelective(resource);
+            //收集用户操作日志 1:上传 2:下载
+            insertResourceLog(userId,res.getId(),1);
+        }
         return result;
     }
 }
