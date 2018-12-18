@@ -61,8 +61,8 @@
                             <div class="layui-col-md1 layui-col-md-offset9">
                                 <button class="layui-btn layui-btn-radius" th:onclick="'return checkInfo(' + ${resource.id} + ',1)'">立即下载</button>
                             </div>
-                            <div class="layui-col-md2">
-                                <button th:onclick="'return checkInfo(' + ${resource.id} + ',2)'" class="layui-btn layui-btn-danger layui-btn-radius"><i class="layui-icon">    &#xe735;  </i>VIP免积分下载</button>
+                            <div class="layui-col-md1 margin-left-2p">
+                                <button th:onclick="'return checkInfo(' + ${resource.id} + ',2)'" class="layui-btn layui-btn-danger layui-btn-radius"><i class="layui-icon">    &#xe735;  </i>VIP下载</button>
                             </div>
 
                         </div>
@@ -98,8 +98,11 @@
 <script th:inline="javascript">
     var fileType = [[${resourceType}]];
     var fileName = [[${fileName}]];
-    console.info("加载进来的fileType:" + fileType + ":::::fileName" + fileName);
-
+    var errorMsg = [[${errorMsg}]];
+    console.info("加载进来的fileType:" + fileType + ":::::fileName" + fileName + ";;;;;;errorMsg:" + errorMsg);
+    if(errorMsg !== null && errorMsg !== undefined && errorMsg !== ''){
+        layer.msg(errorMsg,{icon: 5});
+    }
 </script>
 <script>
     function checkInfo(id,type) {

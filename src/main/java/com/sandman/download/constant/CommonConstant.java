@@ -7,6 +7,22 @@ package com.sandman.download.constant;
 public class CommonConstant {
 
     /**
+     * 积分操作-下载资源默认描述desc
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    public static final String GOLD_REDUCE_DESC = "下载资源，积分扣除";
+
+    /**
+     * 积分操作-下载资源默认描述desc
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    public static final String GOLD_ADD_DESC = "其他用户下载该资源，积分增加";
+
+    /**
      * 登录失效时间(秒)
      * */
     public static final int LOGIN_EXPIRE = 3600;

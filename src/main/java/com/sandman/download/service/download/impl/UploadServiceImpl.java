@@ -45,7 +45,7 @@ public class UploadServiceImpl extends BaseServiceImpl implements UploadService 
         fileType = (fileType==null || "".equals(fileType))?"file":fileType;//如果utils给出的文件类型为null，将file赋值给fileType
         String filePath = SystemConfig.getPathPrefix() + SystemConfig.getFilePrefix() + "/" + userId + "/";//  /root/sandman/download/file + / + userId + /
 
-        String fileName = DateUtils.getNowStryyyyMMddHHmmss() + multipartFile.getOriginalFilename();
+        String fileName = FileUtils.getFileNameByTime(multipartFile.getOriginalFilename());
 
         resource.setUserId(userId);
         resource.setUsername(user.getUsername());

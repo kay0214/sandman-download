@@ -6,15 +6,21 @@ package com.sandman.download.controller;
 import com.sandman.download.base.BaseController;
 import com.sandman.download.base.BaseResult;
 import com.sandman.download.bean.download.CheckInfoBean;
+import com.sandman.download.constant.CommonConstant;
 import com.sandman.download.constant.ReturnMessage;
+import com.sandman.download.dao.mysql.download.model.auto.GoldLog;
 import com.sandman.download.dao.mysql.download.model.auto.Resource;
+import com.sandman.download.dao.mysql.download.model.auto.ResourceLog;
 import com.sandman.download.dao.mysql.system.model.auto.User;
 import com.sandman.download.service.download.DownloadService;
+import com.sandman.download.utils.FileUtils;
 import com.sandman.download.utils.SessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author sunpeikai
@@ -28,7 +34,7 @@ public class DownloadController extends BaseController {
     private DownloadService downloadService;
 
     @GetMapping(value = "/download")
-    public ModelAndView download(Integer id){
+    public ModelAndView download(Integer id, HttpServletResponse response){
         logger.info("download -> id:[{}]",id);
         // 当前登录用户
         Integer userId = SessionUtils.getUserId();
@@ -36,15 +42,72 @@ public class DownloadController extends BaseController {
         User user = downloadService.getUserByUserId(userId);
         Resource resource = downloadService.getResourceById(id);
         if(resource != null){
+
+            String fileNameWithoutType = FileUtils.getFileNameByUrl(resource.getResourceUrl());
+            String fileName = ("file".equals(resource.getResourceType()))?fileNameWithoutType:(fileNameWithoutType + "." + resource.getResourceType());
+
             //当前登录用户与资源拥有者不是同一人
             if(!resource.getUserId().equals(user.getUserId())){
-                logger.info("上传下载不同人");
+                logger.info("上传下载不同人,fileName:[{}]",fileName);
                 //下载前的检查已经判断过用户积分是否足够
+                //下载者写入积分详情
+                GoldLog downloadUserRecord = downloadService.goldOperation(userId,resource.getId(),resource.getResourceName(),user.getGold(),resource.getResourceGold(),(user.getGold()-resource.getResourceGold()), CommonConstant.GOLD_REDUCE_DESC,1);
+                //资源拥有者写入积分详情
+                User owner = downloadService.getUserByUserId(resource.getUserId());
+                GoldLog ownerRecord = downloadService.goldOperation(owner.getUserId(),resource.getId(),resource.getResourceName(),owner.getGold(),resource.getResourceGold(),(owner.getGold()+resource.getResourceGold()), CommonConstant.GOLD_ADD_DESC,2);
+                //下载者写入下载记录
+                ResourceLog downloadRecord = downloadService.insertResourceLog(user.getUserId(),resource.getId(),2);
+
+                response.setHeader("content-type", "application/octet-stream");
+                response.setContentType("application/force-download");// 设置强制下载不打开
+                response.addHeader("Content-Disposition", "attachment;fileName=\"" + FileUtils.getRightFileNameUseCode(FileUtils.getFileNameRemoveTime(fileName)) + "\"");// 设置文件名
+                boolean success = FileUtils.download(FileUtils.getFilePathByUrl(resource.getResourceUrl()),fileName,response);
+                if(success){//如果下载成功
+                    logger.info("上传下载不同人，下载成功");
+                    //资源下载次数++
+                    logger.info("id:{}的资源下载次数+1。原下载次数:{}",resource.getId(),resource.getDownloadCount());
+                    resource.setDownloadCount(resource.getDownloadCount()+1);
+                    logger.info("现下载次数:{}",resource.getDownloadCount());
+                    //更新数据库
+                    downloadService.updateResource(resource);
+                    // 资源更新成功才会去更新用户积分
+                    //用户积分操作: 下载者扣除积分，上传者加上积分
+                    logger.info("curUserGold={},resGold={},ownerGold={}",user.getGold(),resource.getResourceGold(),owner.getGold());
+                    //如果积分足够，扣除相应积分
+                    user.setGold(user.getGold() - resource.getResourceGold());
+                    //资源拥有者加上相应积分
+                    owner.setGold(owner.getGold() + resource.getResourceGold());
+                    downloadService.updateUser(user);
+                    downloadService.updateUser(owner);
+
+                }else{//下载失败，两个用户信息还没有保存，所以只需要删除日志记录和积分记录即可
+                    logger.info("上传下载不同人,下载失败");
+                    //删除下载者积分记录
+                    downloadUserRecord.setDelFlag(1);
+                    downloadService.updateGoldLog(downloadUserRecord);
+                    //删除资源拥有者积分记录
+                    ownerRecord.setDelFlag(1);
+                    downloadService.updateGoldLog(ownerRecord);
+                    //删除下载记录
+                    downloadRecord.setDelFlag(1);
+                    downloadService.updateResourceLog(downloadRecord);
+                    return new ModelAndView("redirect:/resource/get_info?id=" + id).addObject("errorMsg","下载出错");
+                }
 
             }else{
-                logger.info("上传下载同一人");
+                logger.info("上传下载同一人,fileName:[{}]",fileName);
+                response.setHeader("content-type", "application/octet-stream");
+                // 设置强制下载不打开
+                response.setContentType("application/force-download");
+                // 设置文件名
+                response.addHeader("Content-Disposition", "attachment;fileName=\"" + FileUtils.getRightFileNameUseCode(FileUtils.getFileNameRemoveTime(fileName)) + "\"");
+                boolean success = FileUtils.download(FileUtils.getFilePathByUrl(resource.getResourceUrl()),fileName,response);
+                if(!success){
+                    // 下载出错
+                    return new ModelAndView("redirect:/resource/get_info?id=" + id).addObject("errorMsg","下载出错");
+                }
             }
-            return new ModelAndView("redirect:/resource/get_info?id=" + id);
+            return new ModelAndView("redirect:/resource/get_info?id=" + id).addObject("errorMsg","操作出错");
         }
         // 没有这个资源就定向到首页
         return new ModelAndView("redirect:/");

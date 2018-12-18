@@ -1,9 +1,17 @@
-package com.sandman.download.dao.mysql.download.model.auto;
+/*
+ * @Copyright: 2005-2018 www.hyjf.com. All rights reserved.
+ */
+package com.sandman.download.bean.download;
 
-import java.io.Serializable;
+import com.sandman.download.dao.mysql.download.model.auto.Resource;
+
 import java.util.Date;
 
-public class ResourceLog implements Serializable {
+/**
+ * @author sunpeikai
+ * @version MyDownloadResultBean, v0.1 2018/12/18 17:14
+ */
+public class MyDownloadResultBean {
     private Integer id;
 
     /**
@@ -19,8 +27,6 @@ public class ResourceLog implements Serializable {
      * @mbggenerated
      */
     private Integer resourceId;
-
-    private String resourceName;
 
     /**
      * 日志类型(1:上传,2:下载)
@@ -57,7 +63,13 @@ public class ResourceLog implements Serializable {
      */
     private Integer delFlag;
 
-    private static final long serialVersionUID = 1L;
+    /**
+     * 资源详情
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    private Resource resource;
 
     public Integer getId() {
         return id;
@@ -83,14 +95,6 @@ public class ResourceLog implements Serializable {
         this.resourceId = resourceId;
     }
 
-    public String getResourceName() {
-        return resourceName;
-    }
-
-    public void setResourceName(String resourceName) {
-        this.resourceName = resourceName == null ? null : resourceName.trim();
-    }
-
     public Integer getType() {
         return type;
     }
@@ -104,7 +108,7 @@ public class ResourceLog implements Serializable {
     }
 
     public void setDesc(String desc) {
-        this.desc = desc == null ? null : desc.trim();
+        this.desc = desc;
     }
 
     public Date getCreateTime() {
@@ -129,5 +133,13 @@ public class ResourceLog implements Serializable {
 
     public void setDelFlag(Integer delFlag) {
         this.delFlag = delFlag;
+    }
+
+    public Resource getResource() {
+        return resource;
+    }
+
+    public void setResource(Resource resource) {
+        this.resource = resource;
     }
 }

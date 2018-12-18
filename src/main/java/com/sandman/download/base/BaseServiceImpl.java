@@ -3,11 +3,10 @@
  */
 package com.sandman.download.base;
 
-import com.sandman.download.dao.mysql.download.model.auto.GoldLog;
-import com.sandman.download.dao.mysql.download.model.auto.Resource;
-import com.sandman.download.dao.mysql.download.model.auto.ResourceLog;
+import com.sandman.download.dao.mysql.download.model.auto.*;
 import com.sandman.download.dao.mysql.mapper.CustomizeMapper;
 import com.sandman.download.dao.mysql.system.model.auto.*;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -134,7 +133,7 @@ public class BaseServiceImpl extends CustomizeMapper implements BaseService {
      * @return
      */
     @Override
-    public int insertResourceLog(Integer userId, Integer resourceId, Integer type) {
+    public ResourceLog insertResourceLog(Integer userId, Integer resourceId, Integer type) {
         ResourceLog resourceLog = new ResourceLog();
         Date now = new Date();
         resourceLog.setUserId(userId);
@@ -147,7 +146,16 @@ public class BaseServiceImpl extends CustomizeMapper implements BaseService {
         resourceLog.setCreateTime(now);
         resourceLog.setUpdateTime(now);
         resourceLog.setDelFlag(0);
-        return resourceLogMapper.insertSelective(resourceLog);
+        int result = resourceLogMapper.insertSelective(resourceLog);
+        if(result>0){
+            ResourceLogExample resourceLogExample = new ResourceLogExample();
+            resourceLogExample.createCriteria().andUserIdEqualTo(userId).andResourceIdEqualTo(resourceId).andTypeEqualTo(type).andCreateTimeEqualTo(now);
+            List<ResourceLog> resourceLogList = resourceLogMapper.selectByExample(resourceLogExample);
+            if(!CollectionUtils.isEmpty(resourceLogList)){
+                return resourceLogList.get(0);
+            }
+        }
+        return null;
     }
 
     /**
@@ -172,11 +180,70 @@ public class BaseServiceImpl extends CustomizeMapper implements BaseService {
                                  String resourceName, Integer originalGold,
                                  Integer resourceGold, Integer currentGold,
                                  String desc, Integer type) {
+        Date now = new Date();
         GoldLog goldLog = new GoldLog();
         goldLog.setUserId(userId);
-        if(resourceId != null){
-            goldLog.setResourceId(resourceId);
+        goldLog.setResourceId(resourceId);
+        goldLog.setResourceName(resourceName);
+        goldLog.setOriginalGold(originalGold);
+        goldLog.setResourceGold(resourceGold);
+        goldLog.setCurrentGold(currentGold);
+        goldLog.setOperationDesc(desc);
+        goldLog.setCreateTime(now);
+        goldLog.setUpdateTime(now);
+        int result = goldLogMapper.insert(goldLog);
+        if(result>0){
+            GoldLogExample example = new GoldLogExample();
+            example.createCriteria().andUserIdEqualTo(userId).andResourceNameEqualTo(resourceName).andCreateTimeEqualTo(now);
+            List<GoldLog> goldLogList = goldLogMapper.selectByExample(example);
+            if(!CollectionUtils.isEmpty(goldLogList)){
+                return goldLogList.get(0);
+            }
         }
         return null;
+    }
+
+    /**
+     * 更新资源信息
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    @Override
+    public int updateResource(Resource resource) {
+        return resourceMapper.updateByPrimaryKeySelective(resource);
+    }
+
+    /**
+     * 更新用户信息
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    @Override
+    public int updateUser(User user) {
+        return userMapper.updateByPrimaryKeySelective(user);
+    }
+
+    /**
+     * 更新积分记录
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    @Override
+    public int updateGoldLog(GoldLog goldLog) {
+        return goldLogMapper.updateByPrimaryKeySelective(goldLog);
+    }
+
+    /**
+     * 更新下载记录
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    @Override
+    public int updateResourceLog(ResourceLog resourceLog) {
+        return resourceLogMapper.updateByPrimaryKeySelective(resourceLog);
     }
 }

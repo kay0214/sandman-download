@@ -3,6 +3,7 @@ package com.sandman.download.utils;
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.SftpException;
 import com.sandman.download.config.SystemConfig;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -258,4 +259,30 @@ public class FileUtils {
     public static String getCompleteFileNameByUrl(String resUrl){
         return resUrl.substring(resUrl.lastIndexOf("/")+1);
     }
+
+    /**
+     * 传入fileName 返回时间戳fileName
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    public static String getFileNameByTime(String fileName){
+        return DateUtils.getNowStryyyyMMddHHmmss() + fileName;
+    }
+
+    /**
+     * 传入fileName 返回去掉时间戳的fileName
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    public static String getFileNameRemoveTime(String fileName){
+        if(StringUtils.isNotBlank(fileName)){
+            return fileName.substring(14);
+        }else{
+            return null;
+        }
+
+    }
+
 }

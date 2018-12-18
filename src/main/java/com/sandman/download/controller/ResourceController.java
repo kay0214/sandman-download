@@ -95,10 +95,12 @@ public class ResourceController extends BaseController {
      * @return
      */
     @GetMapping(value = "/get_info")
-    public ModelAndView getInfo(Integer id){
+    public ModelAndView getInfo(Integer id,String errorMsg){
         Resource resource = resourceService.getResourceById(id);
+        errorMsg = (StringUtils.isNotBlank(errorMsg))?errorMsg:"";
         return new ModelAndView("/resource_info")
-                .addObject("resource",resource);
+                .addObject("resource",resource)
+                .addObject("errorMsg",errorMsg);
     }
 
 }

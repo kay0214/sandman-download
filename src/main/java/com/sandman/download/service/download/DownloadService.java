@@ -11,4 +11,11 @@ import com.sandman.download.base.BaseService;
  */
 public interface DownloadService extends BaseService {
 
+    /**
+     * 写入下载记录表
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+
 }
