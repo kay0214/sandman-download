@@ -2,90 +2,51 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>首页-sandman资源共享平台</title>
+    <title>emmmoe爬取</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="icon" href="/icon/favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="/icon/favicon.ico" type="image/x-icon"/>
-    <meta name="keywords" content="sandman,download,资源共享">
-    <meta name="description" content="sandman资源共享平台">
+    <meta name="keywords" content="emmmoe,爬取,emmmoe爬取">
+    <meta name="description" content="emmmoe爬取">
     <link rel="stylesheet" href="/layui/css/layui.css">
     <link rel="stylesheet" href="/css/global.css">
 </head>
 <body>
-<div th:replace="common/header :: home"></div>
-
-<div class="layui-row sandman-content">
-
-    <div class="layui-col-md1 layui-col-md-offset1">
-        <!-- 左边内容(公告，友情链接等) -->
-        <div th:replace="common/notice::html"></div>
-    </div>
-
-    <div class="layui-col-md8" style="padding-left: 4%;padding-right: 4%;">
-        <!-- 中间内容 -->
+    <div class="layui-container" style="margin-top: 10%;">
         <!-- 搜索功能 -->
-        <div th:replace="common/search_form::html"></div>
-        <!-- 搜索功能结束 -->
-
-        <div class="margin-top-2p">
-            <div class="layui-card">
-                <div class="layui-card-header"><i class="layui-icon">    &#xe62a;  </i>资源列表</div>
-                <div class="layui-card-body">
-
-                    <div th:replace="common/resource_list::html"></div>
-
-                    <div align="center" id="page"></div>
-
+        <form action="/getPageList" method="get">
+            <div class="layui-row">
+                <div class="layui-col-md1">
+                    <label class="layui-form-label" style="text-align: center;">emmmoe：</label>
+                </div>
+                <div class="layui-col-md9">
+                    <input type="text" id="emmmoe" name="emmmoe" th:value="${emmmoe}" placeholder="请输入emmmoe站点现在的根目录" autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-col-md1" style="padding-left: 4%;">
+                    <button type="submit" class="layui-btn layui-btn-radius layui-btn-normal"><i class="layui-icon">    &#xe615;  </i>搜 索      </button>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <div class="layui-col-md1">
-        <!-- 右边内容(签到，热门资源列表) -->
-        <div th:replace="common/notice::html"></div>
+        </form>
     </div>
 
 
-</div>
-
-
-<div th:replace="common/footer::html"></div>
-
-<!--<div th:replace="common/css3::html"></div>-->
-<script src="/layui/layui.js"></script>
-<script src="/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
-<script>
-    layui.config({
-        version: "3.0.0"
-        ,base: '/js/' //这里实际使用时，建议改成绝对路径
-    }).extend({
-        fly: 'index'
-    }).use('fly');
-</script>
-<script th:inline="javascript">
-    var count = [[${count}]];
-    var currPage = [[${currPage}]];
-    currPage = (currPage == null || currPage == undefined || currPage == 0)?1:currPage;
-</script>
-<script>
-    layui.use('laypage', function(){
-        var laypage = layui.laypage;
-        //执行一个laypage实例
-        laypage.render({
-            elem: 'page', //注意，这里的 test1 是 ID，不用加 # 号
-            count: count, //数据总数，从服务端得到
-            curr: currPage,
-            layout: ['count', 'prev', 'page', 'next', 'skip'],
-            jump: function(obj, first){
-
-                //首次不执行,其他的执行
-                if(!first){
-                    location.href = "/resource/list?currPage=" + obj.curr;
-                }
-            }
-        });
-    });
-</script>
+    <script src="/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="/layui/layui.js"></script>
+    <script src="/layui/lay/modules/layer.js" type="text/javascript"></script>
+    <script>
+        layui.config({
+            version: "3.0.0"
+            , base: '/js/' //这里实际使用时，建议改成绝对路径
+        }).extend({
+            fly: 'index'
+        }).use('fly');
+    </script>
+    <script th:inline="javascript">
+        var count = [[${count}]];
+        if(count !== null && count !== undefined && count !== ''){
+            layer.msg("一共找到了" + count + "个链接",{icon: 6});
+        }
+    </script>
 </body>
 </html>

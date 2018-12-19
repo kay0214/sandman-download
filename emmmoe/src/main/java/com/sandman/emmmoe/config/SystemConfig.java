@@ -45,6 +45,8 @@ public class SystemConfig {
     private static String BLOGGER_DEFAULT_IMG;
     private static String TEMPLATES_PATH;
 
+    private static String EMMMOE_PREFIX;
+
     @Value("${sftpServer.userName}")
     private void setUSERNAME(String USERNAME) {
         SystemConfig.USERNAME = USERNAME;
@@ -140,6 +142,10 @@ public class SystemConfig {
         ICON_PREFIX = iconPrefix;
     }
 
+    @Value("${emmmoe.prefix}")
+    public void setEmmmoePrefix(String emmmoePrefix) {
+        EMMMOE_PREFIX = emmmoePrefix;
+    }
 
     //get方法位置
     public static String getSmtpHost() {
@@ -219,5 +225,9 @@ public class SystemConfig {
 
     public static String getIconPrefix() {
         return ICON_PREFIX;
+    }
+
+    public static String getEmmmoePrefix() {
+        return EMMMOE_PREFIX;
     }
 }

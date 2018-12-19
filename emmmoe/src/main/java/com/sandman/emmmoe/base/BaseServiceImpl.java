@@ -19,6 +19,6 @@ import java.util.List;
 @Service
 public class BaseServiceImpl extends CustomizeMapper implements BaseService {
 
-    private static final Logger logger = LoggerFactory.getLogger(BaseServiceImpl.class);
+    protected static final Logger logger = LoggerFactory.getLogger(BaseServiceImpl.class);
 
 }
