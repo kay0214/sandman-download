@@ -16,6 +16,9 @@ public class BaseBean {
         this.pageSize = pageSize;
         this.computeLimit();
     }
+
+    private String errorMsg = "";
+
     /**
      * 当前页码
      */
@@ -77,5 +80,13 @@ public class BaseBean {
 
     public void setLimitEnd(Integer limitEnd) {
         this.limitEnd = limitEnd;
+    }
+
+    public String getErrorMsg() {
+        return errorMsg;
+    }
+
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
     }
 }

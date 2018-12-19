@@ -4,7 +4,7 @@
 <generatorConfiguration>
 
     <!-- 引入配置文件 -->
-    <properties resource="init_download.properties"/>
+    <properties resource="init_emmmoe.properties"/>
 
     <classPathEntry location="${classPath}"/>
 
@@ -92,5 +92,16 @@
         <table tableName="t_gold_log" domainObjectName="GoldLog">
             <generatedKey column="id" sqlStatement="MySql" type="post" identity="true" />
         </table>
+
+        <!-- emmmoe -->
+        <!-- 积分操作表 -->
+        <table tableName="t_page_info" domainObjectName="PageInfo">
+            <generatedKey column="id" sqlStatement="MySql" type="post" identity="true" />
+        </table>
+        <!-- 积分操作表 -->
+        <table tableName="t_net_disk" domainObjectName="NetDisk">
+            <generatedKey column="id" sqlStatement="MySql" type="post" identity="true" />
+        </table>
+
     </context>
 </generatorConfiguration>

@@ -43,7 +43,7 @@ public class UploadServiceImpl extends BaseServiceImpl implements UploadService 
         User user = getUserByUserId(userId);
         String fileType = FileUtils.getSuffixNameByFileName(multipartFile.getOriginalFilename());
         fileType = (fileType==null || "".equals(fileType))?"file":fileType;//如果utils给出的文件类型为null，将file赋值给fileType
-        String filePath = SystemConfig.getPathPrefix() + SystemConfig.getFilePrefix() + "/" + userId + "/";//  /root/sandman/download/file + / + userId + /
+        String filePath = SystemConfig.getPathPrefix() + SystemConfig.getFilePrefix() + "/" + userId + "/";//  /root/sandman/emmmoe/file + / + userId + /
 
         String fileName = FileUtils.getFileNameByTime(multipartFile.getOriginalFilename());
 
@@ -111,7 +111,7 @@ public class UploadServiceImpl extends BaseServiceImpl implements UploadService 
 
             result = resourceMapper.updateByPrimaryKeySelective(resource);
             //收集用户操作日志 1:上传 2:下载
-            insertResourceLog(userId,res.getId(),1);
+            insertResourceLog(userId,res.getId(),resource.getResourceName(),1);
         }
         return result;
     }

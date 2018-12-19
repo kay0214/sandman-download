@@ -15,6 +15,8 @@ public enum ReturnMessage {
 
     SUCCESS_EMAIL_SEND("000","邮件发送成功"),
 
+    SUCCESS_DOWNLOAD("000","下载成功"),
+
     //通用错误信息
     // 通用错误信息
     ERR_OBJECT_REQUIRED("ETY000001","{0}不能为空"),
@@ -40,7 +42,10 @@ public enum ReturnMessage {
 
     // 资源相关错误ERR_RESOURCE_
     ERR_RESOURCE_NOT_EXIST("ERS000001","资源不存在"),
+    ERR_RESOURCE_DOWNLOAD_CHECK("ERS000002","未通过资格检查"),
 
+    // 下载相关错误ERR_DOWNLOAD_
+    ERR_DOWNLOAD("EDL000001","下载出错"),
 
     // 邮件相关错误信息ERR_EMAIL_
     ERR_EMAIL_USED("EEM000001", "邮箱已被占用"),

@@ -58,7 +58,7 @@ public class MyDownloadServiceImpl extends BaseServiceImpl implements MyDownload
         return null;
     }
 
-    // TODO:这里还没完成
+
     private ResourceLogExample convertExample(MyDownloadBean myDownloadBean){
         ResourceLogExample resourceLogExample = new ResourceLogExample();
         ResourceLogExample.Criteria criteria = resourceLogExample.createCriteria();
@@ -68,7 +68,6 @@ public class MyDownloadServiceImpl extends BaseServiceImpl implements MyDownload
             resourceLogExample.setLimitEnd(myDownloadBean.getLimitEnd());
         }
         if(StringUtils.isNotBlank(myDownloadBean.getResourceName())){
-            // TODO:这里需要冗余一个resourceName，要不然不大好搜索
             criteria.andResourceNameLike("%" + myDownloadBean.getResourceName() + "%");
         }
         return resourceLogExample;

@@ -35,7 +35,14 @@ public class DownloadController extends BaseController {
 
     @GetMapping(value = "/download")
     public ModelAndView download(Integer id, HttpServletResponse response){
-        logger.info("download -> id:[{}]",id);
+        logger.info("emmmoe -> id:[{}]",id);
+        // 检查是否通过
+        int checkSuccess = checkIfSuccess(id);
+        if(checkSuccess == 0){
+            // 未通过检查
+            return new ModelAndView("redirect:/resource/get_info?id=" + id).addObject("errorMsg","检查未通过");
+        }
+
         // 当前登录用户
         Integer userId = SessionUtils.getUserId();
         // 防止积分没有刷新过来
@@ -45,6 +52,18 @@ public class DownloadController extends BaseController {
 
             String fileNameWithoutType = FileUtils.getFileNameByUrl(resource.getResourceUrl());
             String fileName = ("file".equals(resource.getResourceType()))?fileNameWithoutType:(fileNameWithoutType + "." + resource.getResourceType());
+
+            if(checkSuccess == 2){
+                // 通过检查，且resourceLogId不为空.说明该用户已下载过该资源，直接放行下载
+                logger.info("用户已下载过该资源 -> resourceId:[{}]",resource.getId());
+                response.setHeader("content-type", "application/octet-stream");
+                response.setContentType("application/force-emmmoe");// 设置强制下载不打开
+                response.addHeader("Content-Disposition", "attachment;fileName=\"" + FileUtils.getRightFileNameUseCode(FileUtils.getFileNameRemoveTime(fileName)) + "\"");// 设置文件名
+                boolean success = FileUtils.download(FileUtils.getFilePathByUrl(resource.getResourceUrl()),fileName,response);
+                if(!success){
+                    return new ModelAndView("redirect:/resource/get_info?id=" + id).addObject("errorMsg",ReturnMessage.ERR_DOWNLOAD.getMessage());
+                }
+            }
 
             //当前登录用户与资源拥有者不是同一人
             if(!resource.getUserId().equals(user.getUserId())){
@@ -56,10 +75,10 @@ public class DownloadController extends BaseController {
                 User owner = downloadService.getUserByUserId(resource.getUserId());
                 GoldLog ownerRecord = downloadService.goldOperation(owner.getUserId(),resource.getId(),resource.getResourceName(),owner.getGold(),resource.getResourceGold(),(owner.getGold()+resource.getResourceGold()), CommonConstant.GOLD_ADD_DESC,2);
                 //下载者写入下载记录
-                ResourceLog downloadRecord = downloadService.insertResourceLog(user.getUserId(),resource.getId(),2);
+                ResourceLog downloadRecord = downloadService.insertResourceLog(user.getUserId(),resource.getId(),resource.getResourceName(),2);
 
                 response.setHeader("content-type", "application/octet-stream");
-                response.setContentType("application/force-download");// 设置强制下载不打开
+                response.setContentType("application/force-emmmoe");// 设置强制下载不打开
                 response.addHeader("Content-Disposition", "attachment;fileName=\"" + FileUtils.getRightFileNameUseCode(FileUtils.getFileNameRemoveTime(fileName)) + "\"");// 设置文件名
                 boolean success = FileUtils.download(FileUtils.getFilePathByUrl(resource.getResourceUrl()),fileName,response);
                 if(success){//如果下载成功
@@ -91,20 +110,20 @@ public class DownloadController extends BaseController {
                     //删除下载记录
                     downloadRecord.setDelFlag(1);
                     downloadService.updateResourceLog(downloadRecord);
-                    return new ModelAndView("redirect:/resource/get_info?id=" + id).addObject("errorMsg","下载出错");
+                    return new ModelAndView("redirect:/resource/get_info?id=" + id).addObject("errorMsg",ReturnMessage.ERR_DOWNLOAD.getMessage());
                 }
 
             }else{
                 logger.info("上传下载同一人,fileName:[{}]",fileName);
                 response.setHeader("content-type", "application/octet-stream");
                 // 设置强制下载不打开
-                response.setContentType("application/force-download");
+                response.setContentType("application/force-emmmoe");
                 // 设置文件名
                 response.addHeader("Content-Disposition", "attachment;fileName=\"" + FileUtils.getRightFileNameUseCode(FileUtils.getFileNameRemoveTime(fileName)) + "\"");
                 boolean success = FileUtils.download(FileUtils.getFilePathByUrl(resource.getResourceUrl()),fileName,response);
                 if(!success){
                     // 下载出错
-                    return new ModelAndView("redirect:/resource/get_info?id=" + id).addObject("errorMsg","下载出错");
+                    return new ModelAndView("redirect:/resource/get_info?id=" + id).addObject("errorMsg",ReturnMessage.ERR_DOWNLOAD.getMessage());
                 }
             }
             return new ModelAndView("redirect:/resource/get_info?id=" + id).addObject("errorMsg","操作出错");
@@ -130,17 +149,30 @@ public class DownloadController extends BaseController {
             return new BaseResult(ReturnMessage.ERR_RESOURCE_NOT_EXIST);
         }
         Integer userId = SessionUtils.getUserId();
-        User user = downloadService.getUserByUserId(userId);
-        int curUserGold = user.getGold();//当前用户积分
-        int resGold = resource.getResourceGold();//资源积分
-        if(curUserGold<resGold){
-            //积分不足
-            return new BaseResult(ReturnMessage.ERR_USER_GOLD_NOT_ENOUGH);
+        // 判断是否下载过
+        ResourceLog resourceLog = downloadService.getResourceLogByResourceIdAndUserId(checkInfoBean.getId(),userId);
+        if(resourceLog != null){
+            // 如果已经下载过了
+            checkSuccess(checkInfoBean.getId(),resourceLog.getId());
+        }else{
+            // 如果还没下载过
+            User user = downloadService.getUserByUserId(userId);
+            int curUserGold = user.getGold();//当前用户积分
+            int resGold = resource.getResourceGold();//资源积分
+            if(curUserGold<resGold){
+                //积分不足,判断资源是否是该用户的
+                if(!resource.getUserId().equals(userId)){
+                    return new BaseResult(ReturnMessage.ERR_USER_GOLD_NOT_ENOUGH);
+                }
+                logger.info("走到这里说明该资源是登录用户上传的资源");
+            }
+            if(checkInfoBean.getType() == 2 && user.getRole() != 2){
+                // 用户不是VIP
+                return new BaseResult(ReturnMessage.ERR_USER_NOT_VIP);
+            }
+            checkSuccess(checkInfoBean.getId(),null);
         }
-        if(checkInfoBean.getType() == 2 && user.getRole() != 2){
-            // 用户不是VIP
-            return new BaseResult(ReturnMessage.ERR_USER_NOT_VIP);
-        }
+
         return new BaseResult();
     }
 }

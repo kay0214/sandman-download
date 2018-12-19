@@ -77,7 +77,7 @@ public interface BaseService {
      * @param
      * @return
      */
-    ResourceLog insertResourceLog(Integer userId, Integer resourceId, Integer type);
+    ResourceLog insertResourceLog(Integer userId, Integer resourceId,String resourceName, Integer type);
 
     /**
      * 根据资源id获取详细信息
@@ -133,4 +133,12 @@ public interface BaseService {
      * @return
      */
     int updateResourceLog(ResourceLog resourceLog);
+
+    /**
+     * 根据id获取到资源操作记录
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    ResourceLog getResourceLogById(Integer id);
 }

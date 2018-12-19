@@ -18,7 +18,7 @@ import javax.sql.DataSource;
  */
 @Configuration
 // 指定dao的地址，指定sqlSessionFactory的名称
-@MapperScan(basePackages = "com.sandman.download.dao.mysql.system", sqlSessionFactoryRef = "mysqlSqlSessionSystemFactory")
+@MapperScan(basePackages = "com.sandman.emmmoe.dao.mysql.system", sqlSessionFactoryRef = "mysqlSqlSessionSystemFactory")
 public class MysqlDataDaoSystemConfig {
     @Bean(name = "mysqlDataSystemSource")
     @ConfigurationProperties(prefix = "spring.datasource.mysql.system") // application.properteis中对应属性的前缀
@@ -31,7 +31,7 @@ public class MysqlDataDaoSystemConfig {
         /*@Qualifier("mysqlDataSystemSource") DataSource mysqlDataSystemSource*/
         SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
         factoryBean.setDataSource(mysqlDataSystemSource());
-        factoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:com/sandman/download/dao/mysql/system/mapper/xml/**/*.xml"));
+        factoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:com/sandman/emmmoe/dao/mysql/system/mapper/xml/**/*.xml"));
         return factoryBean.getObject();
     }
     @Bean(name = "sqlSessionSystemTemplate")

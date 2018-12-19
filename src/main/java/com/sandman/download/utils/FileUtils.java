@@ -168,7 +168,6 @@ public class FileUtils {
                 os.flush();
                 i = bis.read(buff);
             }
-            return true;
 
         }catch (SftpException e) {
             System.out.println(e);
@@ -192,7 +191,7 @@ public class FileUtils {
                 }
             }
             SftpPool.returnSftp(sftp);//将一个连接归还连接池
-
+            return true;
         }
 
     }

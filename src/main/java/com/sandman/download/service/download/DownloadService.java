@@ -4,6 +4,7 @@
 package com.sandman.download.service.download;
 
 import com.sandman.download.base.BaseService;
+import com.sandman.download.dao.mysql.download.model.auto.ResourceLog;
 
 /**
  * @author sunpeikai
@@ -12,10 +13,11 @@ import com.sandman.download.base.BaseService;
 public interface DownloadService extends BaseService {
 
     /**
-     * 写入下载记录表
+     * 根据resourceId 和 userId查询是否存在记录
      * @auth sunpeikai
      * @param
      * @return
      */
+    ResourceLog getResourceLogByResourceIdAndUserId(Integer resourceId,Integer userId);
 
 }

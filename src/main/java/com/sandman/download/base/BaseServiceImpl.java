@@ -133,11 +133,12 @@ public class BaseServiceImpl extends CustomizeMapper implements BaseService {
      * @return
      */
     @Override
-    public ResourceLog insertResourceLog(Integer userId, Integer resourceId, Integer type) {
+    public ResourceLog insertResourceLog(Integer userId, Integer resourceId,String resourceName, Integer type) {
         ResourceLog resourceLog = new ResourceLog();
         Date now = new Date();
         resourceLog.setUserId(userId);
         resourceLog.setResourceId(resourceId);
+        resourceLog.setResourceName(resourceName);
         resourceLog.setType(type);
         switch (type){
             case 1:resourceLog.setDesc("用户上传资源");break;
@@ -245,5 +246,16 @@ public class BaseServiceImpl extends CustomizeMapper implements BaseService {
     @Override
     public int updateResourceLog(ResourceLog resourceLog) {
         return resourceLogMapper.updateByPrimaryKeySelective(resourceLog);
+    }
+
+    /**
+     * 根据id获取到资源操作记录
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    @Override
+    public ResourceLog getResourceLogById(Integer id) {
+        return resourceLogMapper.selectByPrimaryKey(id);
     }
 }

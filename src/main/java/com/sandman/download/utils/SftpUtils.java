@@ -318,7 +318,7 @@ public class SftpUtils {
         // System.out.println("删除完成，开始校验本地文件...");
         // if (!file.exists()) {
         // System.out.println("文件不存在，开始从远程服务器获取...");
-        // download(pathString, pathString, sftp);
+        // emmmoe(pathString, pathString, sftp);
         // System.out.println("下载完成");
         // } else {
         // System.out.println("在本地找到文件");
