@@ -15,18 +15,15 @@ $("#login").click(function () {
             async: false,
             success: function (data) {
                 console.info(data);
-                if(data.status !== '000'){
-                    layer.msg(data.statusDesc,{icon: 5});
+                if(data.code !== 0){
+                    layer.msg("登录失败",{icon: 5});
                 }else{
-                    console.info("登录成功，跳转");
-                    layer.msg(data.statusDesc,{icon: 6});
-                    //console.info("retUrl=" + retUrl);
+                    layer.msg("登录成功",{icon: 6});
                     location.href = "/";
                 }
             }
         });
     }
-    console.info("login click -> username:" + username + ";password:" + password);
 });
 function loginConfirm(username,password) {
     if(username === null || username === undefined || username === ''){

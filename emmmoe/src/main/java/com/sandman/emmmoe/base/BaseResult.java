@@ -6,7 +6,6 @@ package com.sandman.emmmoe.base;
 import com.alibaba.fastjson.JSON;
 import org.springframework.util.CollectionUtils;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -21,6 +20,11 @@ public class BaseResult{
 
     public BaseResult(){
 
+    }
+
+    public BaseResult(int code,String msg){
+        this.code = code;
+        this.msg = msg;
     }
 
     public BaseResult(String msg){

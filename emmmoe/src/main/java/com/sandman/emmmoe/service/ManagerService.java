@@ -38,6 +38,7 @@ public class ManagerService extends BaseServiceImpl {
     public void updateUnzipPass(Integer id,String unzipPass){
         NetDisk netDisk = netDiskMapper.selectByPrimaryKey(id);
         netDisk.setUnzipPass(unzipPass);
+        netDisk.setSuccess(1);
         netDiskMapper.updateByPrimaryKeySelective(netDisk);
     }
 }
