@@ -641,3 +641,6 @@ body .sandman-user-main{position: relative; min-height: 600px;}
 .text-align-center{
   text-align: center;
 }
+.layui-table-page{
+  text-align: center;
+}

@@ -4,8 +4,8 @@
   <resultMap id="BaseResultMap" type="com.sandman.emmmoe.dao.mysql.emmmoe.model.auto.NetDisk" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="title" property="title" jdbcType="VARCHAR" />
-    <result column="page" property="page" jdbcType="INTEGER" />
     <result column="net_disk" property="netDisk" jdbcType="VARCHAR" />
+    <result column="page" property="page" jdbcType="INTEGER" />
     <result column="pass" property="pass" jdbcType="VARCHAR" />
     <result column="unzip_pass" property="unzipPass" jdbcType="VARCHAR" />
     <result column="success" property="success" jdbcType="INTEGER" />
@@ -70,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, title, page, net_disk, pass, unzip_pass, success, create_time
+    id, title, net_disk, page, pass, unzip_pass, success, create_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sandman.emmmoe.dao.mysql.emmmoe.model.auto.NetDiskExample" >
     select
@@ -109,10 +109,10 @@
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into t_net_disk (title, page, net_disk, 
+    insert into t_net_disk (title, net_disk, page, 
       pass, unzip_pass, success, 
       create_time)
-    values (#{title,jdbcType=VARCHAR}, #{page,jdbcType=INTEGER}, #{netDisk,jdbcType=VARCHAR}, 
+    values (#{title,jdbcType=VARCHAR}, #{netDisk,jdbcType=VARCHAR}, #{page,jdbcType=INTEGER}, 
       #{pass,jdbcType=VARCHAR}, #{unzipPass,jdbcType=VARCHAR}, #{success,jdbcType=INTEGER}, 
       #{createTime,jdbcType=TIMESTAMP})
   </insert>
@@ -125,11 +125,11 @@
       <if test="title != null" >
         title,
       </if>
-      <if test="page != null" >
-        page,
-      </if>
       <if test="netDisk != null" >
         net_disk,
+      </if>
+      <if test="page != null" >
+        page,
       </if>
       <if test="pass != null" >
         pass,
@@ -148,11 +148,11 @@
       <if test="title != null" >
         #{title,jdbcType=VARCHAR},
       </if>
-      <if test="page != null" >
-        #{page,jdbcType=INTEGER},
-      </if>
       <if test="netDisk != null" >
         #{netDisk,jdbcType=VARCHAR},
+      </if>
+      <if test="page != null" >
+        #{page,jdbcType=INTEGER},
       </if>
       <if test="pass != null" >
         #{pass,jdbcType=VARCHAR},
@@ -183,11 +183,11 @@
       <if test="record.title != null" >
         title = #{record.title,jdbcType=VARCHAR},
       </if>
-      <if test="record.page != null" >
-        page = #{record.page,jdbcType=INTEGER},
-      </if>
       <if test="record.netDisk != null" >
         net_disk = #{record.netDisk,jdbcType=VARCHAR},
+      </if>
+      <if test="record.page != null" >
+        page = #{record.page,jdbcType=INTEGER},
       </if>
       <if test="record.pass != null" >
         pass = #{record.pass,jdbcType=VARCHAR},
@@ -210,8 +210,8 @@
     update t_net_disk
     set id = #{record.id,jdbcType=INTEGER},
       title = #{record.title,jdbcType=VARCHAR},
-      page = #{record.page,jdbcType=INTEGER},
       net_disk = #{record.netDisk,jdbcType=VARCHAR},
+      page = #{record.page,jdbcType=INTEGER},
       pass = #{record.pass,jdbcType=VARCHAR},
       unzip_pass = #{record.unzipPass,jdbcType=VARCHAR},
       success = #{record.success,jdbcType=INTEGER},
@@ -226,11 +226,11 @@
       <if test="title != null" >
         title = #{title,jdbcType=VARCHAR},
       </if>
-      <if test="page != null" >
-        page = #{page,jdbcType=INTEGER},
-      </if>
       <if test="netDisk != null" >
         net_disk = #{netDisk,jdbcType=VARCHAR},
+      </if>
+      <if test="page != null" >
+        page = #{page,jdbcType=INTEGER},
       </if>
       <if test="pass != null" >
         pass = #{pass,jdbcType=VARCHAR},
@@ -250,8 +250,8 @@
   <update id="updateByPrimaryKey" parameterType="com.sandman.emmmoe.dao.mysql.emmmoe.model.auto.NetDisk" >
     update t_net_disk
     set title = #{title,jdbcType=VARCHAR},
-      page = #{page,jdbcType=INTEGER},
       net_disk = #{netDisk,jdbcType=VARCHAR},
+      page = #{page,jdbcType=INTEGER},
       pass = #{pass,jdbcType=VARCHAR},
       unzip_pass = #{unzipPass,jdbcType=VARCHAR},
       success = #{success,jdbcType=INTEGER},

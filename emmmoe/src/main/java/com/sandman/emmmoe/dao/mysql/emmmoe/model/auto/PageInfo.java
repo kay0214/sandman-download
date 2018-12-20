@@ -10,7 +10,9 @@ public class PageInfo implements Serializable {
 
     private Integer page;
 
-    private String url;
+    private String uri;
+
+    private Integer success;
 
     private Date createTime;
 
@@ -40,12 +42,20 @@ public class PageInfo implements Serializable {
         this.page = page;
     }
 
-    public String getUrl() {
-        return url;
+    public String getUri() {
+        return uri;
     }
 
-    public void setUrl(String url) {
-        this.url = url == null ? null : url.trim();
+    public void setUri(String uri) {
+        this.uri = uri == null ? null : uri.trim();
+    }
+
+    public Integer getSuccess() {
+        return success;
+    }
+
+    public void setSuccess(Integer success) {
+        this.success = success;
     }
 
     public Date getCreateTime() {

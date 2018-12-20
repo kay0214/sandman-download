@@ -12,181 +12,34 @@
         <!-- 菜单 -->
         <ul class="layui-nav sandman-nav layui-hide-xs">
             <li class="layui-nav-item layui-this"><a href="/">首页</a></li>
-            <li class="layui-nav-item"><a href="/my_resource/search">我的资源</a></li>
-            <li class="layui-nav-item"><a href="/my_download/init">已下载</a></li>
-            <li class="layui-nav-item"><a href="">我的收藏</a></li>
-            <li class="layui-nav-item"><a href="/upload/init">上传</a></li>
-        </ul>
-        <ul class="layui-nav sandman-nav-user">
-            <!-- 登录状态 -->
-            <div th:if="${session.user}">
-                <li class="layui-nav-item">
-                    <a href="javascript:;" th:text="${session.user.username}"></a>
-                    <dl class="layui-nav-child"> <!-- 二级菜单 -->
-                        <dd><a href="">个人中心</a></dd>
-                        <dd><a href="">修改密码</a></dd>
-                        <dd><a href="/login/logOut">退出登录</a></dd>
-                    </dl>
-                </li>
-            </div>
-            <!-- 未登录状态 -->
-            <div th:unless="${session.user}">
-                <li class="layui-nav-item">
-                    <a href="/login/init">登录</a>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="/register/init">注册</a>
-                </li>
-            </div>
-
+            <li class="layui-nav-item"><a href="/manage/complete">完善解压密码</a></li>
+            <li class="layui-nav-item"><a href="/work/init">爬取</a></li>
         </ul>
     </div>
 </div>
-<div th:fragment="myresource" class="layui-bg-black">
+
+<div th:fragment="complete" class="layui-bg-black">
     <div class="layui-container">
         <!-- logo -->
         <a class="sandman-logo" href="/"><img src="/images/logo.png" alt="sandman下载"></a>
         <!-- 菜单 -->
         <ul class="layui-nav sandman-nav layui-hide-xs">
             <li class="layui-nav-item"><a href="/">首页</a></li>
-            <li class="layui-nav-item layui-this"><a href="/my_resource/search">我的资源</a></li>
-            <li class="layui-nav-item"><a href="/my_download/init">已下载</a></li>
-            <li class="layui-nav-item"><a href="">我的收藏</a></li>
-            <li class="layui-nav-item"><a href="/upload/init">上传</a></li>
-        </ul>
-        <ul class="layui-nav sandman-nav-user">
-            <!-- 登录状态 -->
-            <div th:if="${session.user}">
-                <li class="layui-nav-item">
-                    <a href="javascript:;" th:text="${session.user.username}"></a>
-                    <dl class="layui-nav-child"> <!-- 二级菜单 -->
-                        <dd><a href="">个人中心</a></dd>
-                        <dd><a href="">修改密码</a></dd>
-                        <dd><a href="/login/logOut">退出登录</a></dd>
-                    </dl>
-                </li>
-            </div>
-            <!-- 未登录状态 -->
-            <div th:unless="${session.user}">
-                <li class="layui-nav-item">
-                    <a href="/login/init">登录</a>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="/register/init">注册</a>
-                </li>
-            </div>
-
+            <li class="layui-nav-item layui-this"><a href="/manage/complete">完善解压密码</a></li>
+            <li class="layui-nav-item"><a href="/work/init">爬取</a></li>
         </ul>
     </div>
 </div>
-<div th:fragment="download" class="layui-bg-black">
+
+<div th:fragment="crawl" class="layui-bg-black">
     <div class="layui-container">
         <!-- logo -->
         <a class="sandman-logo" href="/"><img src="/images/logo.png" alt="sandman下载"></a>
         <!-- 菜单 -->
         <ul class="layui-nav sandman-nav layui-hide-xs">
             <li class="layui-nav-item"><a href="/">首页</a></li>
-            <li class="layui-nav-item"><a href="/my_resource/search">我的资源</a></li>
-            <li class="layui-nav-item layui-this"><a href="/my_download/init">已下载</a></li>
-            <li class="layui-nav-item"><a href="">我的收藏</a></li>
-            <li class="layui-nav-item"><a href="/upload/init">上传</a></li>
-        </ul>
-        <ul class="layui-nav sandman-nav-user">
-            <!-- 登录状态 -->
-            <div th:if="${session.user}">
-                <li class="layui-nav-item">
-                    <a href="javascript:;" th:text="${session.user.username}"></a>
-                    <dl class="layui-nav-child"> <!-- 二级菜单 -->
-                        <dd><a href="">个人中心</a></dd>
-                        <dd><a href="">修改密码</a></dd>
-                        <dd><a href="/login/logOut">退出登录</a></dd>
-                    </dl>
-                </li>
-            </div>
-            <!-- 未登录状态 -->
-            <div th:unless="${session.user}">
-                <li class="layui-nav-item">
-                    <a href="/login/init">登录</a>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="/register/init">注册</a>
-                </li>
-            </div>
-
-        </ul>
-    </div>
-</div>
-<div th:fragment="favorites" class="layui-bg-black">
-    <div class="layui-container">
-        <!-- logo -->
-        <a class="sandman-logo" href="/"><img src="/images/logo.png" alt="sandman下载"></a>
-        <!-- 菜单 -->
-        <ul class="layui-nav sandman-nav layui-hide-xs">
-            <li class="layui-nav-item"><a href="/">首页</a></li>
-            <li class="layui-nav-item"><a href="/my_resource/search">我的资源</a></li>
-            <li class="layui-nav-item"><a href="/my_download/init">已下载</a></li>
-            <li class="layui-nav-item layui-this"><a href="">我的收藏</a></li>
-            <li class="layui-nav-item"><a href="/upload/init">上传</a></li>
-        </ul>
-        <ul class="layui-nav sandman-nav-user">
-            <!-- 登录状态 -->
-            <div th:if="${session.user}">
-                <li class="layui-nav-item">
-                    <a href="javascript:;" th:text="${session.user.username}"></a>
-                    <dl class="layui-nav-child"> <!-- 二级菜单 -->
-                        <dd><a href="">个人中心</a></dd>
-                        <dd><a href="">修改密码</a></dd>
-                        <dd><a href="/login/logOut">退出登录</a></dd>
-                    </dl>
-                </li>
-            </div>
-            <!-- 未登录状态 -->
-            <div th:unless="${session.user}">
-                <li class="layui-nav-item">
-                    <a href="/login/init">登录</a>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="/register/init">注册</a>
-                </li>
-            </div>
-
-        </ul>
-    </div>
-</div>
-<div th:fragment="upload" class="layui-bg-black">
-    <div class="layui-container">
-        <!-- logo -->
-        <a class="sandman-logo" href="/"><img src="/images/logo.png" alt="sandman下载"></a>
-        <!-- 菜单 -->
-        <ul class="layui-nav sandman-nav layui-hide-xs">
-            <li class="layui-nav-item"><a href="/">首页</a></li>
-            <li class="layui-nav-item"><a href="/my_resource/search">我的资源</a></li>
-            <li class="layui-nav-item"><a href="/my_download/init">已下载</a></li>
-            <li class="layui-nav-item"><a href="">我的收藏</a></li>
-            <li class="layui-nav-item layui-this"><a href="/upload/init">上传</a></li>
-        </ul>
-        <ul class="layui-nav sandman-nav-user">
-            <!-- 登录状态 -->
-            <div th:if="${session.user}">
-                <li class="layui-nav-item">
-                    <a href="javascript:;" th:text="${session.user.username}"></a>
-                    <dl class="layui-nav-child"> <!-- 二级菜单 -->
-                        <dd><a href="">个人中心</a></dd>
-                        <dd><a href="">修改密码</a></dd>
-                        <dd><a href="/login/logOut">退出登录</a></dd>
-                    </dl>
-                </li>
-            </div>
-            <!-- 未登录状态 -->
-            <div th:unless="${session.user}">
-                <li class="layui-nav-item">
-                    <a href="/login/init">登录</a>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="/register/init">注册</a>
-                </li>
-            </div>
-
+            <li class="layui-nav-item"><a href="/manage/complete">完善解压密码</a></li>
+            <li class="layui-nav-item layui-this"><a href="/work/init">爬取</a></li>
         </ul>
     </div>
 </div>

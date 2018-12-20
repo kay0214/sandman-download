@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>emmmoe爬取</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="icon" href="/icon/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/icon/favicon.ico" type="image/x-icon"/>
+    <meta name="keywords" content="emmmoe,爬取,emmmoe爬取">
+    <meta name="description" content="emmmoe爬取">
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/global.css">
+</head>
+<body>
+    <div th:replace="common/header :: complete"></div>
+
+    <div class="layui-container"><!--  th:each="netDisk :${netDisk}" -->
+        <div>
+            <table class="layui-table">
+                <thead>
+                    <tr>
+                        <th>标题</th>
+                        <th>网盘地址</th>
+                    </tr>
+                </thead>
+                <tbody th:if="${netDisk}">
+                    <tr>
+                        <td th:text="${netDisk.title}"></td>
+                        <td th:text="${netDisk.netDisk}"></td>
+                    </tr>
+                </tbody>
+                <tbody th:if="not ${netDisk}">
+                    <tr>
+                        <td colspan="2" class="text-align-center">
+                            暂时没有需要处理的数据
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- 搜索功能 -->
+        <form class="layui-form" action="/manage/complete" method="get">
+            <input type="hidden" name="id" th:value="${netDisk.id}">
+            <div class="layui-row margin-top-4p">
+                <div class="layui-col-md1">
+                    <label class="layui-form-label">解压密码：</label>
+                </div>
+                <div class="layui-col-md10">
+                    <input type="text" name="unzipPass" placeholder="请输入您找到的解压密码" autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-col-md1">
+                    <button type="submit" class="layui-btn layui-btn-radius layui-btn-normal"><i class="layui-icon">    &#xe615;  </i>完 善      </button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</body>
+<script src="/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/layui/layui.js"></script>
+<script src="/layui/lay/modules/layer.js" type="text/javascript"></script>
+<script>
+    layui.config({
+        version: "3.0.0"
+        , base: '/js/' //这里实际使用时，建议改成绝对路径
+    }).extend({
+        fly: 'index'
+    }).use('fly');
+</script>
+</html>

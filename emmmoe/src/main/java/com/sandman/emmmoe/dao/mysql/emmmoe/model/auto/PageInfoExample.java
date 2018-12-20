@@ -315,73 +315,133 @@ public class PageInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andUrlIsNull() {
-            addCriterion("url is null");
+        public Criteria andUriIsNull() {
+            addCriterion("uri is null");
             return (Criteria) this;
         }
 
-        public Criteria andUrlIsNotNull() {
-            addCriterion("url is not null");
+        public Criteria andUriIsNotNull() {
+            addCriterion("uri is not null");
             return (Criteria) this;
         }
 
-        public Criteria andUrlEqualTo(String value) {
-            addCriterion("url =", value, "url");
+        public Criteria andUriEqualTo(String value) {
+            addCriterion("uri =", value, "uri");
             return (Criteria) this;
         }
 
-        public Criteria andUrlNotEqualTo(String value) {
-            addCriterion("url <>", value, "url");
+        public Criteria andUriNotEqualTo(String value) {
+            addCriterion("uri <>", value, "uri");
             return (Criteria) this;
         }
 
-        public Criteria andUrlGreaterThan(String value) {
-            addCriterion("url >", value, "url");
+        public Criteria andUriGreaterThan(String value) {
+            addCriterion("uri >", value, "uri");
             return (Criteria) this;
         }
 
-        public Criteria andUrlGreaterThanOrEqualTo(String value) {
-            addCriterion("url >=", value, "url");
+        public Criteria andUriGreaterThanOrEqualTo(String value) {
+            addCriterion("uri >=", value, "uri");
             return (Criteria) this;
         }
 
-        public Criteria andUrlLessThan(String value) {
-            addCriterion("url <", value, "url");
+        public Criteria andUriLessThan(String value) {
+            addCriterion("uri <", value, "uri");
             return (Criteria) this;
         }
 
-        public Criteria andUrlLessThanOrEqualTo(String value) {
-            addCriterion("url <=", value, "url");
+        public Criteria andUriLessThanOrEqualTo(String value) {
+            addCriterion("uri <=", value, "uri");
             return (Criteria) this;
         }
 
-        public Criteria andUrlLike(String value) {
-            addCriterion("url like", value, "url");
+        public Criteria andUriLike(String value) {
+            addCriterion("uri like", value, "uri");
             return (Criteria) this;
         }
 
-        public Criteria andUrlNotLike(String value) {
-            addCriterion("url not like", value, "url");
+        public Criteria andUriNotLike(String value) {
+            addCriterion("uri not like", value, "uri");
             return (Criteria) this;
         }
 
-        public Criteria andUrlIn(List<String> values) {
-            addCriterion("url in", values, "url");
+        public Criteria andUriIn(List<String> values) {
+            addCriterion("uri in", values, "uri");
             return (Criteria) this;
         }
 
-        public Criteria andUrlNotIn(List<String> values) {
-            addCriterion("url not in", values, "url");
+        public Criteria andUriNotIn(List<String> values) {
+            addCriterion("uri not in", values, "uri");
             return (Criteria) this;
         }
 
-        public Criteria andUrlBetween(String value1, String value2) {
-            addCriterion("url between", value1, value2, "url");
+        public Criteria andUriBetween(String value1, String value2) {
+            addCriterion("uri between", value1, value2, "uri");
             return (Criteria) this;
         }
 
-        public Criteria andUrlNotBetween(String value1, String value2) {
-            addCriterion("url not between", value1, value2, "url");
+        public Criteria andUriNotBetween(String value1, String value2) {
+            addCriterion("uri not between", value1, value2, "uri");
+            return (Criteria) this;
+        }
+
+        public Criteria andSuccessIsNull() {
+            addCriterion("success is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSuccessIsNotNull() {
+            addCriterion("success is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSuccessEqualTo(Integer value) {
+            addCriterion("success =", value, "success");
+            return (Criteria) this;
+        }
+
+        public Criteria andSuccessNotEqualTo(Integer value) {
+            addCriterion("success <>", value, "success");
+            return (Criteria) this;
+        }
+
+        public Criteria andSuccessGreaterThan(Integer value) {
+            addCriterion("success >", value, "success");
+            return (Criteria) this;
+        }
+
+        public Criteria andSuccessGreaterThanOrEqualTo(Integer value) {
+            addCriterion("success >=", value, "success");
+            return (Criteria) this;
+        }
+
+        public Criteria andSuccessLessThan(Integer value) {
+            addCriterion("success <", value, "success");
+            return (Criteria) this;
+        }
+
+        public Criteria andSuccessLessThanOrEqualTo(Integer value) {
+            addCriterion("success <=", value, "success");
+            return (Criteria) this;
+        }
+
+        public Criteria andSuccessIn(List<Integer> values) {
+            addCriterion("success in", values, "success");
+            return (Criteria) this;
+        }
+
+        public Criteria andSuccessNotIn(List<Integer> values) {
+            addCriterion("success not in", values, "success");
+            return (Criteria) this;
+        }
+
+        public Criteria andSuccessBetween(Integer value1, Integer value2) {
+            addCriterion("success between", value1, value2, "success");
+            return (Criteria) this;
+        }
+
+        public Criteria andSuccessNotBetween(Integer value1, Integer value2) {
+            addCriterion("success not between", value1, value2, "success");
             return (Criteria) this;
         }
 

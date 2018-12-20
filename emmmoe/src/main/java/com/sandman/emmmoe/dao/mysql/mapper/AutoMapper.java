@@ -2,6 +2,7 @@ package com.sandman.emmmoe.dao.mysql.mapper;
 
 import com.sandman.emmmoe.dao.mysql.emmmoe.mapper.auto.NetDiskMapper;
 import com.sandman.emmmoe.dao.mysql.emmmoe.mapper.auto.PageInfoMapper;
+import com.sandman.emmmoe.dao.mysql.emmmoe.mapper.auto.RootUrlMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,5 +12,7 @@ public class AutoMapper {
     protected PageInfoMapper pageInfoMapper;
     @Autowired
     protected NetDiskMapper netDiskMapper;
+    @Autowired
+    protected RootUrlMapper rootUrlMapper;
 }
 

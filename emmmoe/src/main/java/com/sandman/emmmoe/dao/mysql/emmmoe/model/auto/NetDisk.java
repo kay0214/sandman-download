@@ -8,9 +8,9 @@ public class NetDisk implements Serializable {
 
     private String title;
 
-    private Integer page;
-
     private String netDisk;
+
+    private Integer page;
 
     private String pass;
 
@@ -38,20 +38,20 @@ public class NetDisk implements Serializable {
         this.title = title == null ? null : title.trim();
     }
 
-    public Integer getPage() {
-        return page;
-    }
-
-    public void setPage(Integer page) {
-        this.page = page;
-    }
-
     public String getNetDisk() {
         return netDisk;
     }
 
     public void setNetDisk(String netDisk) {
         this.netDisk = netDisk == null ? null : netDisk.trim();
+    }
+
+    public Integer getPage() {
+        return page;
+    }
+
+    public void setPage(Integer page) {
+        this.page = page;
     }
 
     public String getPass() {

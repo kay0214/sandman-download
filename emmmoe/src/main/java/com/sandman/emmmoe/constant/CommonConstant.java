@@ -6,6 +6,8 @@ package com.sandman.emmmoe.constant;
  */
 public class CommonConstant {
 
+    public static final String EMMMOE_GOTO = "goto=";
+
     /**
      * 积分操作-下载资源默认描述desc
      * @auth sunpeikai

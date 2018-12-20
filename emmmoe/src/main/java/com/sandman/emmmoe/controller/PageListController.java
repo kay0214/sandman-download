@@ -5,35 +5,41 @@ package com.sandman.emmmoe.controller;
 
 import com.sandman.emmmoe.bean.BaseController;
 import com.sandman.emmmoe.service.EmmmoeService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Map;
+
 /**
  * @author sunpeikai
  * @version PageListController, v0.1 2018/12/19 16:04
  */
 @Controller
-@RequestMapping(value = "/")
+@RequestMapping(value = "/work")
 public class PageListController extends BaseController {
 
     @Autowired
     private EmmmoeService emmmoeService;
 
-    @GetMapping(value = "/")
+    @GetMapping(value = "/init")
     public ModelAndView init(){
-        logger.info("entry the index");
-        return new ModelAndView("/index");
+
+        return new ModelAndView("/crawl");
     }
 
-    @GetMapping(value = "/getPageList")
-    public ModelAndView getPageList(String emmmoe){
-        emmmoe = (StringUtils.isNotBlank(emmmoe))?emmmoe:"https://qwq.emm.moe";
+    @GetMapping(value = "/crawl")
+    public ModelAndView getPageList(){
+        String emmmoe = emmmoeService.getRootUrl();
         logger.info("emmmoe:[{}]",emmmoe);
-        int result = emmmoeService.getEmmmoePageList(emmmoe);
-        return new ModelAndView("/index").addObject("count",result);
+        Map<String,Integer> result = emmmoeService.getEmmmoePageList(emmmoe);
+        int handle = emmmoeService.getNetDisk();
+        return new ModelAndView("/crawl")
+                .addObject("count",result.get("count"))
+                .addObject("insert",result.get("insert"))
+                .addObject("handle",handle);
     }
+
 }

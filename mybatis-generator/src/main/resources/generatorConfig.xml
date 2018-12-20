@@ -93,13 +93,17 @@
             <generatedKey column="id" sqlStatement="MySql" type="post" identity="true" />
         </table>
 
+
         <!-- emmmoe -->
-        <!-- 积分操作表 -->
         <table tableName="t_page_info" domainObjectName="PageInfo">
             <generatedKey column="id" sqlStatement="MySql" type="post" identity="true" />
         </table>
-        <!-- 积分操作表 -->
+        <!-- emmmoe -->
         <table tableName="t_net_disk" domainObjectName="NetDisk">
+            <generatedKey column="id" sqlStatement="MySql" type="post" identity="true" />
+        </table>
+        <!-- emmmoe -->
+        <table tableName="t_root_url" domainObjectName="RootUrl">
             <generatedKey column="id" sqlStatement="MySql" type="post" identity="true" />
         </table>
 
