@@ -9,9 +9,6 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistration
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @author dongzeshan
  * @version InterceptorConfig, v0.1 2018/6/22 10:56
@@ -24,7 +21,6 @@ public class InterceptorConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-
 		InterceptorRegistration addIn= registry.addInterceptor(new LoginInterceptor());
 		addIn.addPathPatterns("/manage/**");
 	}

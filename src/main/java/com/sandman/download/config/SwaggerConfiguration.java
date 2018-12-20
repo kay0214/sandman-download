@@ -21,7 +21,7 @@ public class SwaggerConfiguration {
 	@Bean
 	public Docket buildDocket() {
 		return new Docket(DocumentationType.SWAGGER_2).apiInfo(buildApiInf()).select()
-				.apis(RequestHandlerSelectors.basePackage("com.sandman.emmmoe.controller"))
+				.apis(RequestHandlerSelectors.basePackage("com.sandman.download.controller"))
 				.paths(PathSelectors.any()).build();
 	}
 

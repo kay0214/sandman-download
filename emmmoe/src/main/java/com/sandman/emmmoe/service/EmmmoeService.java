@@ -114,7 +114,8 @@ public class EmmmoeService extends BaseServiceImpl {
                     DomNodeList<DomElement> aList = htmlPage.getElementsByTagName("a");
                     for(DomElement a:aList){
                         String aClass = a.getAttribute("class");
-                        if(aClass.contains("downcloud")){
+                        String rel = a.getAttribute("rel");
+                        if(aClass.contains("downcloud") || "nofollow".equals(rel)){
                             String url = a.getAttribute("href");
                             if(url.contains("pan.baidu.com")){
                                 // 只保留百度网盘
@@ -128,14 +129,17 @@ public class EmmmoeService extends BaseServiceImpl {
                                 // 解压密码后续手动操作
                                 netDisk.setSuccess(0);
                                 netDisk.setCreateTime(new Date());
-                                result += netDiskMapper.insertSelective(netDisk);
+                                boolean success = netDiskMapper.insertSelective(netDisk)>0;
+                                if(success){
+                                    result += 1;
+                                    // 处理完了以后，把pageInfo的success置为1
+                                    pageInfo.setSuccess(1);
+                                    pageInfoMapper.updateByPrimaryKeySelective(pageInfo);
+                                }
                             }
 
                         }
                     }
-                    // 处理完了以后，把pageInfo的success置为1
-                    pageInfo.setSuccess(1);
-                    pageInfoMapper.updateByPrimaryKeySelective(pageInfo);
                 }catch (Exception e){
                     logger.info("获取百度网盘url失败,失败的pageInfo id:[{}]",pageInfo.getId());
                 }
