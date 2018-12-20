@@ -136,6 +136,9 @@ public class EmmmoeService extends BaseServiceImpl {
                                     pageInfo.setSuccess(1);
                                     pageInfoMapper.updateByPrimaryKeySelective(pageInfo);
                                 }
+                            }else{
+                                pageInfo.setSuccess(2);
+                                pageInfoMapper.updateByPrimaryKeySelective(pageInfo);
                             }
 
                         }

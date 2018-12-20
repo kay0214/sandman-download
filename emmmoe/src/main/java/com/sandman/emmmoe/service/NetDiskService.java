@@ -6,6 +6,7 @@ package com.sandman.emmmoe.service;
 import com.sandman.emmmoe.base.BaseServiceImpl;
 import com.sandman.emmmoe.dao.mysql.emmmoe.model.auto.NetDisk;
 import com.sandman.emmmoe.dao.mysql.emmmoe.model.auto.NetDiskExample;
+import com.sandman.emmmoe.dao.mysql.emmmoe.model.auto.PageInfoExample;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -37,5 +38,19 @@ public class NetDiskService extends BaseServiceImpl {
         netDiskExample.createCriteria().andSuccessEqualTo(1);
         return netDiskMapper.selectByExample(netDiskExample);
     }
+
+    /**
+     * 其他资源个数
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    public int getOtherListCount(){
+        PageInfoExample pageInfoExample = new PageInfoExample();
+        pageInfoExample.createCriteria().andSuccessEqualTo(2);
+        return pageInfoMapper.countByExample(pageInfoExample);
+    }
+
+
 
 }
