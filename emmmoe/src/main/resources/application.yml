@@ -1,5 +1,5 @@
 server:
-  port: 8090
+  port: 80
 #多数据源配置
 spring:
   #数据库配置
