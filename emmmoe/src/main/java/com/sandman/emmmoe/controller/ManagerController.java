@@ -32,7 +32,7 @@ public class ManagerController extends BaseController {
             managerService.updateUnzipPass(id, unzipPass);
         }
         NetDisk netDisk = managerService.getOneUnHandleNetDisk();
-        return new ModelAndView("/manage").addObject("netDisk",netDisk);
+        return new ModelAndView("manage").addObject("netDisk",netDisk);
     }
 
     @GetMapping(value = "/delete")

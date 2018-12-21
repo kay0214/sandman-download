@@ -27,7 +27,7 @@ public class PageListController extends BaseController {
     @GetMapping(value = "/init")
     public ModelAndView init(){
 
-        return new ModelAndView("/crawl");
+        return new ModelAndView("crawl");
     }
 
     @GetMapping(value = "/crawl")
@@ -36,7 +36,7 @@ public class PageListController extends BaseController {
         logger.info("emmmoe:[{}]",emmmoe);
         Map<String,Integer> result = emmmoeService.getEmmmoePageList(emmmoe);
         int handle = emmmoeService.getNetDisk();
-        return new ModelAndView("/crawl")
+        return new ModelAndView("crawl")
                 .addObject("count",result.get("count"))
                 .addObject("insert",result.get("insert"))
                 .addObject("handle",handle);

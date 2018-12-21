@@ -23,7 +23,7 @@ public class LoginController extends BaseController {
 
     @GetMapping(value = "/init")
     public ModelAndView init(){
-        return new ModelAndView("/login");
+        return new ModelAndView("login");
     }
 
     @ResponseBody

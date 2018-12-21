@@ -20,6 +20,6 @@ public class IndexController extends BaseController {
     @GetMapping(value = "/")
     public ModelAndView init(){
         logger.info("entry the index");
-        return new ModelAndView("/index");
+        return new ModelAndView("index");
     }
 }
