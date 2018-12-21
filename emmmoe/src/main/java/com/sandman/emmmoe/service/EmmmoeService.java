@@ -140,7 +140,7 @@ public class EmmmoeService extends BaseServiceImpl {
                                 if(netDiskUrl.contains("pan.baidu.com")){
                                     // 百度网盘
                                     logger.info("获取到的百度网盘url:[{}]",netDiskUrl);
-                                    boolean success = updateNetDisk(pageInfo.getTitle(),netDiskUrl,pageInfo.getPage(),"snzs",2);
+                                    boolean success = updateNetDisk(pageInfo.getTitle(),pageInfo.getUri(),netDiskUrl,pageInfo.getPage(),"snzs",2);
                                     if(success){
                                         result += 1;
                                         // 处理完了以后，把pageInfo的success置为1
@@ -150,7 +150,7 @@ public class EmmmoeService extends BaseServiceImpl {
                                 }else if(netDiskUrl.contains("openload.co")){
                                     // openload网盘
                                     logger.info("获取到的openload网盘url:[{}]",netDiskUrl);
-                                    boolean success = updateNetDisk(pageInfo.getTitle(),netDiskUrl,pageInfo.getPage(),"其他网盘资源",3);
+                                    boolean success = updateNetDisk(pageInfo.getTitle(),pageInfo.getUri(),netDiskUrl,pageInfo.getPage(),"其他网盘资源",3);
                                     if(success){
                                         result += 1;
                                         // 处理完了以后，把pageInfo的success置为1
@@ -160,7 +160,7 @@ public class EmmmoeService extends BaseServiceImpl {
                                 }else if(netDiskUrl.contains("i.loli.net")){
                                     // 恶魔喵地址
                                     logger.info("获取到的恶魔喵url:[{}]",netDiskUrl);
-                                    boolean success = updateNetDisk(pageInfo.getTitle(),netDiskUrl,pageInfo.getPage(),"其他网盘资源",3);
+                                    boolean success = updateNetDisk(pageInfo.getTitle(),pageInfo.getUri(),netDiskUrl,pageInfo.getPage(),"其他网盘资源",3);
                                     if(success){
                                         result += 1;
                                         // 处理完了以后，把pageInfo的success置为1
@@ -170,7 +170,7 @@ public class EmmmoeService extends BaseServiceImpl {
                                 }else{
                                     logger.info("获取到的其他资源url:[{}]",netDiskUrl);
                                     // success=3其他网盘及非网盘资源
-                                    boolean success = updateNetDisk(pageInfo.getTitle(),netDiskUrl,pageInfo.getPage(),"其他非网盘资源",3);
+                                    boolean success = updateNetDisk(pageInfo.getTitle(),pageInfo.getUri(),netDiskUrl,pageInfo.getPage(),"其他非网盘资源",3);
                                     if(success){
                                         result += 1;
                                         // 处理完了以后，把pageInfo的success置为1
@@ -198,7 +198,7 @@ public class EmmmoeService extends BaseServiceImpl {
                 if(canCrawlUrl(rootUrl + notSuccess.getUri()) && !checkNetDiskExist(notSuccess.getTitle(),rootUrl + notSuccess.getUri())){
                     logger.info("在线资源 -> title:[{}],url[{}]",notSuccess.getTitle(),rootUrl + notSuccess.getUri());
                     // success=4  在线资源
-                    boolean success = updateNetDisk(notSuccess.getTitle(),rootUrl + notSuccess.getUri(),notSuccess.getPage(),"在线资源无需密码",4);
+                    boolean success = updateNetDisk(notSuccess.getTitle(),notSuccess.getUri(),rootUrl + notSuccess.getUri(),notSuccess.getPage(),"在线资源无需密码",4);
                     if(success){
                         result += 1;
                     }
@@ -251,9 +251,10 @@ public class EmmmoeService extends BaseServiceImpl {
      * @param
      * @return
      */
-    private boolean updateNetDisk(String title,String url,Integer page,String pass,Integer success){
+    private boolean updateNetDisk(String title,String moe,String url,Integer page,String pass,Integer success){
         NetDisk netDisk = new NetDisk();
         netDisk.setTitle(title);
+        netDisk.setMoeUrl(moe);
         netDisk.setNetDisk(url);
         netDisk.setPage(page);
         netDisk.setPass(pass);

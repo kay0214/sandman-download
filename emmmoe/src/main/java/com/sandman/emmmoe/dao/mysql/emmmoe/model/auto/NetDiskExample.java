@@ -255,6 +255,76 @@ public class NetDiskExample {
             return (Criteria) this;
         }
 
+        public Criteria andMoeUrlIsNull() {
+            addCriterion("moe_url is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMoeUrlIsNotNull() {
+            addCriterion("moe_url is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMoeUrlEqualTo(String value) {
+            addCriterion("moe_url =", value, "moeUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andMoeUrlNotEqualTo(String value) {
+            addCriterion("moe_url <>", value, "moeUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andMoeUrlGreaterThan(String value) {
+            addCriterion("moe_url >", value, "moeUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andMoeUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("moe_url >=", value, "moeUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andMoeUrlLessThan(String value) {
+            addCriterion("moe_url <", value, "moeUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andMoeUrlLessThanOrEqualTo(String value) {
+            addCriterion("moe_url <=", value, "moeUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andMoeUrlLike(String value) {
+            addCriterion("moe_url like", value, "moeUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andMoeUrlNotLike(String value) {
+            addCriterion("moe_url not like", value, "moeUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andMoeUrlIn(List<String> values) {
+            addCriterion("moe_url in", values, "moeUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andMoeUrlNotIn(List<String> values) {
+            addCriterion("moe_url not in", values, "moeUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andMoeUrlBetween(String value1, String value2) {
+            addCriterion("moe_url between", value1, value2, "moeUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andMoeUrlNotBetween(String value1, String value2) {
+            addCriterion("moe_url not between", value1, value2, "moeUrl");
+            return (Criteria) this;
+        }
+
         public Criteria andNetDiskIsNull() {
             addCriterion("net_disk is null");
             return (Criteria) this;

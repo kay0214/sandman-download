@@ -30,7 +30,7 @@
                 <tbody th:if="${netDisk}">
                     <tr>
                         <td th:text="${netDisk.id}"></td>
-                        <td th:text="${netDisk.title}"></td>
+                        <td><a th:href="${moe} + ${netDisk.moeUrl}" th:text="${netDisk.title}" target="_blank"></a></td>
                         <td><a th:href="${netDisk.netDisk}" th:text="${netDisk.netDisk}" target="_blank"></a></td>
                         <td th:text="${netDisk.pass}"></td>
                         <td th:text="${netDisk.page}"></td>

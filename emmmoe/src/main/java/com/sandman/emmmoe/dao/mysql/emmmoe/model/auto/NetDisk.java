@@ -8,6 +8,8 @@ public class NetDisk implements Serializable {
 
     private String title;
 
+    private String moeUrl;
+
     private String netDisk;
 
     private Integer page;
@@ -36,6 +38,14 @@ public class NetDisk implements Serializable {
 
     public void setTitle(String title) {
         this.title = title == null ? null : title.trim();
+    }
+
+    public String getMoeUrl() {
+        return moeUrl;
+    }
+
+    public void setMoeUrl(String moeUrl) {
+        this.moeUrl = moeUrl == null ? null : moeUrl.trim();
     }
 
     public String getNetDisk() {

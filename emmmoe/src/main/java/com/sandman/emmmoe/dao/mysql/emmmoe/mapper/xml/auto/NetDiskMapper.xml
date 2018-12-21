@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.sandman.emmmoe.dao.mysql.emmmoe.model.auto.NetDisk" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="moe_url" property="moeUrl" jdbcType="VARCHAR" />
     <result column="net_disk" property="netDisk" jdbcType="VARCHAR" />
     <result column="page" property="page" jdbcType="INTEGER" />
     <result column="pass" property="pass" jdbcType="VARCHAR" />
@@ -70,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, title, net_disk, page, pass, unzip_pass, success, create_time
+    id, title, moe_url, net_disk, page, pass, unzip_pass, success, create_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sandman.emmmoe.dao.mysql.emmmoe.model.auto.NetDiskExample" >
     select
@@ -109,12 +110,12 @@
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into t_net_disk (title, net_disk, page, 
-      pass, unzip_pass, success, 
-      create_time)
-    values (#{title,jdbcType=VARCHAR}, #{netDisk,jdbcType=VARCHAR}, #{page,jdbcType=INTEGER}, 
-      #{pass,jdbcType=VARCHAR}, #{unzipPass,jdbcType=VARCHAR}, #{success,jdbcType=INTEGER}, 
-      #{createTime,jdbcType=TIMESTAMP})
+    insert into t_net_disk (title, moe_url, net_disk, 
+      page, pass, unzip_pass, 
+      success, create_time)
+    values (#{title,jdbcType=VARCHAR}, #{moeUrl,jdbcType=VARCHAR}, #{netDisk,jdbcType=VARCHAR}, 
+      #{page,jdbcType=INTEGER}, #{pass,jdbcType=VARCHAR}, #{unzipPass,jdbcType=VARCHAR}, 
+      #{success,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.sandman.emmmoe.dao.mysql.emmmoe.model.auto.NetDisk" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
@@ -124,6 +125,9 @@
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="title != null" >
         title,
+      </if>
+      <if test="moeUrl != null" >
+        moe_url,
       </if>
       <if test="netDisk != null" >
         net_disk,
@@ -147,6 +151,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="title != null" >
         #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="moeUrl != null" >
+        #{moeUrl,jdbcType=VARCHAR},
       </if>
       <if test="netDisk != null" >
         #{netDisk,jdbcType=VARCHAR},
@@ -183,6 +190,9 @@
       <if test="record.title != null" >
         title = #{record.title,jdbcType=VARCHAR},
       </if>
+      <if test="record.moeUrl != null" >
+        moe_url = #{record.moeUrl,jdbcType=VARCHAR},
+      </if>
       <if test="record.netDisk != null" >
         net_disk = #{record.netDisk,jdbcType=VARCHAR},
       </if>
@@ -210,6 +220,7 @@
     update t_net_disk
     set id = #{record.id,jdbcType=INTEGER},
       title = #{record.title,jdbcType=VARCHAR},
+      moe_url = #{record.moeUrl,jdbcType=VARCHAR},
       net_disk = #{record.netDisk,jdbcType=VARCHAR},
       page = #{record.page,jdbcType=INTEGER},
       pass = #{record.pass,jdbcType=VARCHAR},
@@ -225,6 +236,9 @@
     <set >
       <if test="title != null" >
         title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="moeUrl != null" >
+        moe_url = #{moeUrl,jdbcType=VARCHAR},
       </if>
       <if test="netDisk != null" >
         net_disk = #{netDisk,jdbcType=VARCHAR},
@@ -250,6 +264,7 @@
   <update id="updateByPrimaryKey" parameterType="com.sandman.emmmoe.dao.mysql.emmmoe.model.auto.NetDisk" >
     update t_net_disk
     set title = #{title,jdbcType=VARCHAR},
+      moe_url = #{moeUrl,jdbcType=VARCHAR},
       net_disk = #{netDisk,jdbcType=VARCHAR},
       page = #{page,jdbcType=INTEGER},
       pass = #{pass,jdbcType=VARCHAR},

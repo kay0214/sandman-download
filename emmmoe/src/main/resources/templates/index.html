@@ -51,7 +51,9 @@
             ,cols: [
                 [
                 {field:'id', width:80, title: 'ID', sort: true}
-                ,{field:'title', width:300, title: '标题'}
+                ,{field:'title', width:300, title: '标题',templet:function (data) {
+                        return "<a href='" + data.moeUrl + "' target='_blank'>" + data.title + "</a>";
+                    }}
                 ,{field:'netDisk', width:400, title: '网盘地址',templet:function (data) {
                         return "<a href='" + data.netDisk + "' target='_blank'>" + data.netDisk + "</a>";
                     }}

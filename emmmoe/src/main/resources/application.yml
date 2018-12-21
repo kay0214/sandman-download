@@ -8,10 +8,14 @@ spring:
     mysql:
       #用户数据库配置，存放用户数据
       emmmoe:
-        jdbcUrl: jdbc:mysql://117.48.197.114:3306/sandman_emmmoe?useUnicode=true&characterEncoding=utf8&useSSL=false
-        username: sunpeikai
+        jdbcUrl: jdbc:mysql://localhost:3306/sandman_emmmoe?useUnicode=true&characterEncoding=utf8&useSSL=false
+        username: sandman
         password: spkzq521
         driver-class-name: com.mysql.jdbc.Driver
+        #jdbcUrl: jdbc:mysql://117.48.197.114:3306/sandman_emmmoe?useUnicode=true&characterEncoding=utf8&useSSL=false
+        #username: sunpeikai
+        #password: spkzq521
+        #driver-class-name: com.mysql.jdbc.Driver
   profiles:
     active: prod
   thymeleaf:

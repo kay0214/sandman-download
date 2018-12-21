@@ -37,6 +37,10 @@ public class NetDiskController extends BaseController {
         limit = (limit==null)?10:limit;
         int count = netDiskService.getNetDiskCount();
         List<NetDisk> result = netDiskService.getNetDiskPage(page,limit);
+        String moe = netDiskService.getRootUrl();
+        for(NetDisk netDisk:result){
+            netDisk.setMoeUrl(moe + netDisk.getMoeUrl());
+        }
         return new BaseResult(count,result);
     }
 }
