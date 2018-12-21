@@ -69,13 +69,16 @@ public class RootUrlService extends BaseServiceImpl {
         // 登船地址获取页面有效
         if(rootUrl != null){
             String url = getSecondRootUrl(rootUrl.getUrl());
-            logger.info("url:[{}]",url);
-            RootUrl newUrl = new RootUrl();
-            newUrl.setTitle("恶魔喵最新登船地址");
-            newUrl.setUrl(url);
-            newUrl.setRoot(1);
-            newUrl.setCreateTime(new Date());
-            rootUrlMapper.insertSelective(newUrl);
+            String databaseUrl = getRootUrl();
+            if(!url.equals(databaseUrl)){
+                RootUrl newUrl = new RootUrl();
+                newUrl.setTitle("恶魔喵最新登船地址");
+                newUrl.setUrl(url);
+                newUrl.setRoot(1);
+                newUrl.setCreateTime(new Date());
+                rootUrlMapper.insertSelective(newUrl);
+            }
+            logger.info("恶魔喵登船地址获取成功url:[{}]",url);
         }
 
     }

@@ -3,8 +3,7 @@
  */
 package com.sandman.emmmoe.base;
 
-import com.sandman.emmmoe.dao.mysql.emmmoe.model.auto.RootUrl;
-import com.sandman.emmmoe.dao.mysql.emmmoe.model.auto.RootUrlExample;
+import com.sandman.emmmoe.dao.mysql.emmmoe.model.auto.*;
 import com.sandman.emmmoe.dao.mysql.mapper.CustomizeMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,5 +43,32 @@ public class BaseServiceImpl extends CustomizeMapper implements BaseService {
             return rootUrls.get(0).getUrl();
         }
         return null;
+    }
+
+    /**
+     * 爬取时不包含的url列表
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    @Override
+    public List<NotContains> getNotContainsUrl() {
+        NotContainsExample notContainsExample = new NotContainsExample();
+        notContainsExample.createCriteria().andEnableEqualTo(1);
+        return notContainsMapper.selectByExample(notContainsExample);
+    }
+
+    /**
+     * 获取到未完成的pageInfo
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    @Override
+    public List<PageInfo> getNotSuccessPage() {
+        PageInfoExample pageInfoExample = new PageInfoExample();
+        pageInfoExample.setOrderByClause("page ASC");
+        pageInfoExample.createCriteria().andSuccessEqualTo(0);
+        return pageInfoMapper.selectByExample(pageInfoExample);
     }
 }

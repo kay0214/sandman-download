@@ -34,4 +34,11 @@ public class ManagerController extends BaseController {
         NetDisk netDisk = managerService.getOneUnHandleNetDisk();
         return new ModelAndView("/manage").addObject("netDisk",netDisk);
     }
+
+    @GetMapping(value = "/delete")
+    public ModelAndView delete(Integer id){
+        logger.info("删除网盘资源 -> id:[{}]",id);
+        managerService.delete(id);
+        return new ModelAndView("redirect:/manage/complete");
+    }
 }

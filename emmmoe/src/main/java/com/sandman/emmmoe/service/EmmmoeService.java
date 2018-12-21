@@ -10,6 +10,7 @@ import com.sandman.emmmoe.config.SystemConfig;
 import com.sandman.emmmoe.constant.CommonConstant;
 import com.sandman.emmmoe.dao.mysql.emmmoe.model.auto.*;
 import com.sandman.emmmoe.utils.HttpUnitUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -101,10 +102,8 @@ public class EmmmoeService extends BaseServiceImpl {
         logger.info("开始获取百度网盘地址");
         String rootUrl = getRootUrl();
         int result = 0;
-        PageInfoExample pageInfoExample = new PageInfoExample();
-        pageInfoExample.setOrderByClause("page ASC");
-        pageInfoExample.createCriteria().andSuccessEqualTo(0);
-        List<PageInfo> pageInfoList = pageInfoMapper.selectByExample(pageInfoExample);
+        // 获取到未完成的pageInfo
+        List<PageInfo> pageInfoList = getNotSuccessPage();
         if(!CollectionUtils.isEmpty(pageInfoList)){
             WebClient webClient = HttpUnitUtils.getWebClient();
             for(PageInfo pageInfo:pageInfoList){
@@ -117,37 +116,94 @@ public class EmmmoeService extends BaseServiceImpl {
                         String rel = a.getAttribute("rel");
                         if(aClass.contains("downcloud") || "nofollow".equals(rel)){
                             String url = a.getAttribute("href");
-                            if(url.contains("pan.baidu.com")){
-                                // 只保留百度网盘
-                                String netDiskUrl = url.substring(url.lastIndexOf(CommonConstant.EMMMOE_GOTO)).replace(CommonConstant.EMMMOE_GOTO,"");
-                                logger.info("获取到的百度网盘url:[{}]",netDiskUrl);
-                                NetDisk netDisk = new NetDisk();
-                                netDisk.setTitle(pageInfo.getTitle());
-                                netDisk.setNetDisk(netDiskUrl);
-                                netDisk.setPage(pageInfo.getPage());
-                                netDisk.setPass("snzs");
-                                // 解压密码后续手动操作
-                                netDisk.setSuccess(0);
-                                netDisk.setCreateTime(new Date());
-                                boolean success = netDiskMapper.insertSelective(netDisk)>0;
-                                if(success){
-                                    result += 1;
-                                    // 处理完了以后，把pageInfo的success置为1
-                                    pageInfo.setSuccess(1);
-                                    pageInfoMapper.updateByPrimaryKeySelective(pageInfo);
+                            // 只保留百度网盘
+                            String netDiskUrl = "";
+                            try{
+                                if(url.contains(CommonConstant.EMMMOE_GOTO)){
+                                    netDiskUrl = url.substring(url.lastIndexOf(CommonConstant.EMMMOE_GOTO)).replace(CommonConstant.EMMMOE_GOTO,"");
+                                }else{
+                                    netDiskUrl = url;
                                 }
-                            }else{
-                                pageInfo.setSuccess(2);
-                                pageInfoMapper.updateByPrimaryKeySelective(pageInfo);
+
+                            }catch (StringIndexOutOfBoundsException e){
+                                // 如果报数组越界，则继续处理下一个a标签
+                                continue;
+                            }
+                            // 不能爬就continue
+                            if(!canCrawlUrl(netDiskUrl) || !netDiskUrl.contains("http")){
+                                continue;
+                            }
+
+                            // 判断重复
+                            boolean exist = checkNetDiskExist(pageInfo.getTitle(),netDiskUrl);
+                            if(!exist){
+                                if(netDiskUrl.contains("pan.baidu.com")){
+                                    // 百度网盘
+                                    logger.info("获取到的百度网盘url:[{}]",netDiskUrl);
+                                    boolean success = updateNetDisk(pageInfo.getTitle(),netDiskUrl,pageInfo.getPage(),"snzs",2);
+                                    if(success){
+                                        result += 1;
+                                        // 处理完了以后，把pageInfo的success置为1
+                                        pageInfo.setSuccess(1);
+                                        pageInfoMapper.updateByPrimaryKeySelective(pageInfo);
+                                    }
+                                }else if(netDiskUrl.contains("openload.co")){
+                                    // openload网盘
+                                    logger.info("获取到的openload网盘url:[{}]",netDiskUrl);
+                                    boolean success = updateNetDisk(pageInfo.getTitle(),netDiskUrl,pageInfo.getPage(),"其他网盘资源",3);
+                                    if(success){
+                                        result += 1;
+                                        // 处理完了以后，把pageInfo的success置为1
+                                        pageInfo.setSuccess(1);
+                                        pageInfoMapper.updateByPrimaryKeySelective(pageInfo);
+                                    }
+                                }else if(netDiskUrl.contains("i.loli.net")){
+                                    // 恶魔喵地址
+                                    logger.info("获取到的恶魔喵url:[{}]",netDiskUrl);
+                                    boolean success = updateNetDisk(pageInfo.getTitle(),netDiskUrl,pageInfo.getPage(),"其他网盘资源",3);
+                                    if(success){
+                                        result += 1;
+                                        // 处理完了以后，把pageInfo的success置为1
+                                        pageInfo.setSuccess(1);
+                                        pageInfoMapper.updateByPrimaryKeySelective(pageInfo);
+                                    }
+                                }else{
+                                    logger.info("获取到的其他资源url:[{}]",netDiskUrl);
+                                    // success=3其他网盘及非网盘资源
+                                    boolean success = updateNetDisk(pageInfo.getTitle(),netDiskUrl,pageInfo.getPage(),"其他非网盘资源",3);
+                                    if(success){
+                                        result += 1;
+                                        // 处理完了以后，把pageInfo的success置为1
+                                        pageInfo.setSuccess(1);
+                                        pageInfoMapper.updateByPrimaryKeySelective(pageInfo);
+                                    }
+
+                                }
+
                             }
 
                         }
                     }
                 }catch (Exception e){
-                    logger.info("获取百度网盘url失败,失败的pageInfo id:[{}]",pageInfo.getId());
+                    e.printStackTrace();
+                    logger.info("获取百度网盘url失败,失败的pageInfo id:[{}]，错误原因:[{}]",pageInfo.getId(),e.getMessage());
                 }
             }
             webClient.close();
+        }
+        // 这里处理完了以后再把所有未完成的pageinfo添加到netDisk，以为大多数是在线图片包
+        List<PageInfo> notSuccessList = getNotSuccessPage();
+        if(!CollectionUtils.isEmpty(notSuccessList)){
+            for(PageInfo notSuccess:notSuccessList){
+                if(canCrawlUrl(rootUrl + notSuccess.getUri()) && !checkNetDiskExist(notSuccess.getTitle(),rootUrl + notSuccess.getUri())){
+                    logger.info("在线资源 -> title:[{}],url[{}]",notSuccess.getTitle(),rootUrl + notSuccess.getUri());
+                    // success=4  在线资源
+                    boolean success = updateNetDisk(notSuccess.getTitle(),rootUrl + notSuccess.getUri(),notSuccess.getPage(),"在线资源无需密码",4);
+                    if(success){
+                        result += 1;
+                    }
+                }
+            }
         }
         return result;
     }
@@ -171,5 +227,59 @@ public class EmmmoeService extends BaseServiceImpl {
             return true;
         }
         return false;
+    }
+
+    /**
+     * 网盘地址防重复
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    private boolean checkNetDiskExist(String title,String uri){
+        if(StringUtils.isBlank(uri)){
+            return true;
+        }
+        NetDiskExample netDiskExample = new NetDiskExample();
+        netDiskExample.createCriteria().andTitleEqualTo(title).andNetDiskEqualTo(uri);
+        netDiskExample.or().andNetDiskEqualTo(uri);
+        return netDiskMapper.selectByExample(netDiskExample).size()>0;
+    }
+
+    /**
+     * 公共插入网盘资源表的方法
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    private boolean updateNetDisk(String title,String url,Integer page,String pass,Integer success){
+        NetDisk netDisk = new NetDisk();
+        netDisk.setTitle(title);
+        netDisk.setNetDisk(url);
+        netDisk.setPage(page);
+        netDisk.setPass(pass);
+        // 解压密码后续手动操作
+        // 待确认资源
+        netDisk.setSuccess(success);
+        netDisk.setCreateTime(new Date());
+        return netDiskMapper.insertSelective(netDisk)>0;
+    }
+
+    /**
+     * 判断是否爬取该url
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    private boolean canCrawlUrl(String url){
+        if(CollectionUtils.isEmpty(CommonConstant.notContainsList)){
+            logger.info("-- 正在从数据库中加载不爬取列表 --");
+            CommonConstant.notContainsList = getNotContainsUrl();
+        }
+        for(NotContains notContains : CommonConstant.notContainsList){
+            if(url.contains(notContains.getNotContains())){
+                return false;
+            }
+        }
+        return true;
     }
 }

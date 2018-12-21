@@ -39,21 +39,4 @@ public class NetDiskController extends BaseController {
         List<NetDisk> result = netDiskService.getNetDiskPage(page,limit);
         return new BaseResult(count,result);
     }
-
-    // TODO:其他资源，比如说是网站图片资源
-    /**
-     * 其他资源
-     * @auth sunpeikai
-     * @param
-     * @return
-     */
-    @GetMapping(value = "/getOtherList")
-    public BaseResult getOtherList(Integer page,Integer limit){
-        logger.info("查询列表分页 -> page:[{}],limit:[{}]",page,limit);
-        page = (page==null)?1:page;
-        limit = (limit==null)?10:limit;
-        int count = netDiskService.getOtherListCount();
-        List<NetDisk> result = netDiskService.getNetDiskPage(page,limit);
-        return new BaseResult(count,result);
-    }
 }

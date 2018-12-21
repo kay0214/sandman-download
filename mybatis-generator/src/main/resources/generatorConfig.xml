@@ -106,6 +106,10 @@
         <table tableName="t_root_url" domainObjectName="RootUrl">
             <generatedKey column="id" sqlStatement="MySql" type="post" identity="true" />
         </table>
+        <!-- emmmoe -->
+        <table tableName="t_not_contains" domainObjectName="NotContains">
+            <generatedKey column="id" sqlStatement="MySql" type="post" identity="true" />
+        </table>
 
     </context>
 </generatorConfiguration>

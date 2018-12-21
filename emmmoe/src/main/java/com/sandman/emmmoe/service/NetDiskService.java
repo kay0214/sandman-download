@@ -38,19 +38,4 @@ public class NetDiskService extends BaseServiceImpl {
         netDiskExample.createCriteria().andSuccessEqualTo(1);
         return netDiskMapper.selectByExample(netDiskExample);
     }
-
-    /**
-     * 其他资源个数
-     * @auth sunpeikai
-     * @param
-     * @return
-     */
-    public int getOtherListCount(){
-        PageInfoExample pageInfoExample = new PageInfoExample();
-        pageInfoExample.createCriteria().andSuccessEqualTo(2);
-        return pageInfoMapper.countByExample(pageInfoExample);
-    }
-
-
-
 }

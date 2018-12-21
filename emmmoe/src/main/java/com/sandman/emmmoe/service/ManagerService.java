@@ -26,13 +26,17 @@ public class ManagerService extends BaseServiceImpl {
      */
     public NetDisk getOneUnHandleNetDisk(){
         NetDiskExample netDiskExample = new NetDiskExample();
-        netDiskExample.setOrderByClause("page asc");
-        netDiskExample.createCriteria().andSuccessEqualTo(0);
+        // 优先选择待确认资源
+        netDiskExample.setOrderByClause("success desc,page asc");
         List<NetDisk> netDiskList = netDiskMapper.selectByExample(netDiskExample);
         if(!CollectionUtils.isEmpty(netDiskList)){
             return netDiskList.get(0);
         }
         return null;
+    }
+
+    public void delete(Integer id){
+        netDiskMapper.deleteByPrimaryKey(id);
     }
 
     public void updateUnzipPass(Integer id,String unzipPass){
