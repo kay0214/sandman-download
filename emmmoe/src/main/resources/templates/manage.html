@@ -34,7 +34,7 @@
                         <td><a th:href="${netDisk.netDisk}" th:text="${netDisk.netDisk}" target="_blank"></a></td>
                         <td th:text="${netDisk.pass}"></td>
                         <td th:text="${netDisk.page}"></td>
-                        <td><a th:href="'' + ${netDisk.netDisk}" class="layui-btn layui-btn-radius layui-btn-danger" target="_blank">删除</a></td>
+                        <td><a th:href="'/manage/delete?id=' + ${netDisk.id}" class="layui-btn layui-btn-radius layui-btn-danger">删除</a></td>
                     </tr>
                 </tbody>
                 <tbody th:if="not ${netDisk}">
