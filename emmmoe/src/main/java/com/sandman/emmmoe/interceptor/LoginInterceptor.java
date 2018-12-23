@@ -5,6 +5,7 @@ package com.sandman.emmmoe.interceptor;
 
 import com.sandman.emmmoe.bean.User;
 import com.sandman.emmmoe.constant.CommonConstant;
+import com.sandman.emmmoe.utils.ClientIpAddress;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -23,7 +24,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        logger.info("收到请求，路径为:[{}]",request.getRequestURI());
+        logger.info("收到请求，路径为:[{}],ip为:[{}]",request.getRequestURI(), ClientIpAddress.getIpAddress(request));
         try {
             User user = (User) request.getSession().getAttribute("user");
             // 如果session中还有值，充值超时时间

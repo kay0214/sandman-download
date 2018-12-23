@@ -27,15 +27,15 @@ public class RootUrlScheduledTask {
     @Autowired
     private EmmmoeService emmmoeService;
 
-    // 每12小时更新一次,获取最新登船地址
-    @Scheduled(fixedRate = 12 * 60 * 60 * 1000)
+    // 每1小时更新一次,获取最新登船地址
+    @Scheduled(fixedRate = 60 * 60 * 1000)
     public void updateRootUrl(){
         rootUrlService.getEnableRootUrl();
         logger.info("获取最新登船地址完成!");
     }
 
-    // 每24小时爬取一次恶魔喵网站
-    @Scheduled(fixedRate = 24 * 60 * 60 * 1000)
+    // 每30分钟爬取一次恶魔喵网站
+    @Scheduled(fixedRate = 30 * 60 * 1000)
     public void crawlEmmmoe(){
         String emmmoe = emmmoeService.getRootUrl();
         logger.info("emmmoe:[{}]",emmmoe);

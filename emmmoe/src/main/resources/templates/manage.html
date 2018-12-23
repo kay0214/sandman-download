@@ -39,7 +39,7 @@
                 </tbody>
                 <tbody th:if="not ${netDisk}">
                     <tr>
-                        <td colspan="2" class="text-align-center">
+                        <td colspan="6" class="text-align-center">
                             暂时没有需要处理的数据
                         </td>
                     </tr>
@@ -47,7 +47,7 @@
             </table>
         </div>
         <!-- 搜索功能 -->
-        <form class="layui-form" action="/manage/complete" method="get">
+        <form class="layui-form" action="/manage/complete" method="get" th:if="${netDisk}">
             <input type="hidden" name="id" th:value="${netDisk.id}">
             <div class="layui-row margin-top-4p">
                 <div class="layui-col-md1">

@@ -28,6 +28,7 @@ public class ManagerService extends BaseServiceImpl {
         NetDiskExample netDiskExample = new NetDiskExample();
         // 优先选择待确认资源
         netDiskExample.setOrderByClause("success desc,page asc");
+        netDiskExample.createCriteria().andSuccessNotEqualTo(1);
         List<NetDisk> netDiskList = netDiskMapper.selectByExample(netDiskExample);
         if(!CollectionUtils.isEmpty(netDiskList)){
             return netDiskList.get(0);
