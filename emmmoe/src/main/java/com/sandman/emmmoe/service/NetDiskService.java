@@ -33,6 +33,7 @@ public class NetDiskService extends BaseServiceImpl {
     public List<NetDisk> getNetDiskPage(Integer page,Integer limit){
         computePage(page, limit);
         NetDiskExample netDiskExample = new NetDiskExample();
+        netDiskExample.setOrderByClause("create_time desc");
         netDiskExample.setLimitStart(limitStart);
         netDiskExample.setLimitEnd(limitEnd);
         netDiskExample.createCriteria().andSuccessEqualTo(1);
