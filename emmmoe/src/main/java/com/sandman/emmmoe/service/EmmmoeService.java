@@ -201,6 +201,9 @@ public class EmmmoeService extends BaseServiceImpl {
                     boolean success = updateNetDisk(notSuccess.getTitle(),notSuccess.getUri(),rootUrl + notSuccess.getUri(),notSuccess.getPage(),"在线资源无需密码",4);
                     if(success){
                         result += 1;
+                        //在线资源置为2，且不再重复扫描
+                        notSuccess.setSuccess(2);
+                        pageInfoMapper.updateByPrimaryKeySelective(notSuccess);
                     }
                 }
             }
