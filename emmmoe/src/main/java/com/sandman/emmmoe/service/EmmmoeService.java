@@ -232,6 +232,10 @@ public class EmmmoeService extends BaseServiceImpl {
         return false;
     }
 
+    public boolean check(String title,String uri){
+        return checkNetDiskExist(title, uri);
+    }
+
     /**
      * 网盘地址防重复
      * @auth sunpeikai

@@ -5,6 +5,7 @@ package com.sandman.emmmoe.base;
 
 import com.sandman.emmmoe.dao.mysql.emmmoe.model.auto.*;
 import com.sandman.emmmoe.dao.mysql.mapper.CustomizeMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -40,7 +41,12 @@ public class BaseServiceImpl extends CustomizeMapper implements BaseService {
         rootUrlExample.createCriteria().andRootEqualTo(1);
         List<RootUrl> rootUrls = rootUrlMapper.selectByExample(rootUrlExample);
         if(!CollectionUtils.isEmpty(rootUrls)){
-            return rootUrls.get(0).getUrl();
+            for(RootUrl rootUrl:rootUrls){
+                if(StringUtils.isNotBlank(rootUrl.getUrl())){
+                    return rootUrl.getUrl();
+                }
+            }
+
         }
         return null;
     }

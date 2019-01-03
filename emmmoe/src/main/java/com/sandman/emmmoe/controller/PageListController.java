@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Map;
@@ -40,6 +41,14 @@ public class PageListController extends BaseController {
                 .addObject("count",result.get("count"))
                 .addObject("insert",result.get("insert"))
                 .addObject("handle",handle);
+    }
+
+    @ResponseBody
+    @GetMapping(value = "/test")
+    public void test(String title,String uri){
+        logger.info("参数title:[{}],uri:[{}]",title,uri);
+        boolean exist = emmmoeService.check(title, uri);
+        logger.info("是否存在:[{}]",exist);
     }
 
 }
