@@ -29,23 +29,16 @@
             <div class="layui-col-md9">
 
                 <div class="layui-card">
-                    <div class="layui-card-header"><i class="layui-icon">    &#xe681;  </i>上传资源</div>
+                    <div class="layui-card-header"><i class="layui-icon">    &#xe6b2;  </i>编辑资源</div>
                     <div class="layui-card-body">
-                        <form class="layui-form" action="/upload/upload_resource" method="post">
+                        <form class="layui-form" action="/my_resource/submit_edit" method="post">
 
-                            <input type="hidden" th:value="${resourceUrl}" id="resourceUrl" name="resourceUrl">
-
-                            <div class="layui-form-item margin-4p">
-                                <div class="layui-form-item sandman-upload-file" id="file">
-                                    <i class="layui-icon"></i>
-                                    <p>点击上传，或将文件拖拽到此处</p>
-                                </div>
-                            </div>
+                            <input type="hidden" th:value="${resource.id}" name="id">
 
                             <div class="layui-form-item">
                                 <label class="layui-form-label">资源名称</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="resourceName" th:value="${resourceName}" required lay-verify="required"
+                                    <input type="text" name="resourceName" th:value="${resource.resourceName}" required lay-verify="required"
                                            placeholder="请输入资源名称" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
@@ -58,7 +51,7 @@
                             <div class="layui-form-item layui-form-text">
                                 <label class="layui-form-label">资源描述</label>
                                 <div class="layui-input-block">
-                                    <textarea name="resourceDesc" th:text="${resourceDesc}" placeholder="请输入资源描述" class="layui-textarea"></textarea>
+                                    <textarea name="resourceDesc" th:text="${resource.resourceDesc}" placeholder="请输入资源描述" class="layui-textarea"></textarea>
                                 </div>
                             </div>
                             <div class="layui-form-item">

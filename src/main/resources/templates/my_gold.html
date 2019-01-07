@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>积分记录-sandman资源共享平台</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="icon" href="/icon/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/icon/favicon.ico" type="image/x-icon"/>
+    <meta name="keywords" content="sandman,download,资源共享">
+    <meta name="description" content="sandman资源共享平台">
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/global.css">
+</head>
+<body>
+<div th:replace="common/header :: gold"></div>
+
+<div class="layui-row sandman-content">
+
+    <div class="layui-col-md1 layui-col-md-offset1">
+        <!-- 左边内容(公告，友情链接等) -->
+        <div th:replace="common/notice::html"></div>
+    </div>
+
+    <div class="layui-col-md8 padding-left-4p padding-right-4p" style="text-align: center;">
+        <!-- 中间内容 -->
+        <table class="layui-hide" id="table"></table>
+    </div>
+
+    <div class="layui-col-md1">
+        <!-- 右边内容(签到，热门资源列表) -->
+        <div th:replace="common/notice::html"></div>
+    </div>
+
+
+</div>
+
+
+<div th:replace="common/footer::html"></div>
+
+<!--<div th:replace="common/css3::html"></div>-->
+<script src="/layui/layui.js"></script>
+<script src="/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+<script>
+    layui.config({
+        version: "3.0.0"
+        ,base: '/js/' //这里实际使用时，建议改成绝对路径
+    }).extend({
+        fly: 'index'
+    }).use('fly');
+</script>
+<script>
+    layui.use('table', function(){
+        var table = layui.table;
+
+        table.render({
+            elem: '#table'
+            ,url:'/my_gold/search'
+            ,page: true
+            ,limits : [10,15,20,25]
+            ,limit : 10
+            ,response:{
+                statusName:"status"
+                ,statusCode:'000'
+                ,msgName:"statusDesc"
+                ,countName:"totalCount"
+                ,dataName:"data"
+            }
+            ,cols: [
+                [
+                    {field:'id', width:70, title: 'ID', sort: true,style:'text-align: left;'}
+                    ,{field:'resourceId', minWidth:180, title: '资源',style:'text-align: left;',templet:function (data) {
+                        return "<a href='/resource/get_info?id=" + data.resourceId + "' target='_blank'>" + data.resourceName + "</a>";
+                    }}
+                    ,{field:'originalGold', width:80, title: '原积分',style:'text-align: left;'}
+                    ,{field:'resourceGold', width:100, title: '资源积分',style:'text-align: left;'}
+                    ,{field:'currentGold', width:80, title: '现积分',style:'text-align: left;'}
+                    ,{field:'operationDesc', minWidth:180, title: '操作说明',style:'text-align: left;'}
+                    ,{field:'createTime', width:150, title: '操作时间',style:'text-align: left;', sort: true,templet:function (data) {
+                        return timeFormat(data.createTime);
+                    }}
+                ]
+            ]
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    function timeFormat(v){
+        var date = new Date(v);
+        var y = date.getFullYear();
+        var m = date.getMonth()+1;
+        m = m<10?'0'+m:m;
+        var d = date.getDate();
+        d = d<10?("0"+d):d;
+        var h = date.getHours();
+        h = h<10?("0"+h):h;
+        var M = date.getMinutes();
+        M = M<10?("0"+M):M;
+        var str = y+"-"+m+"-"+d+" "+h+":"+M;
+        return str;
+    }
+</script>
+</body>
+</html>

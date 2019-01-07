@@ -23,6 +23,14 @@ import java.util.List;
 public class BaseServiceImpl extends CustomizeMapper implements BaseService {
 
     private static final Logger logger = LoggerFactory.getLogger(BaseServiceImpl.class);
+    protected int limitStart = -1;
+    protected int limitEnd = -1;
+    protected void computePage(Integer page,Integer limit){
+        if(page != null && limit != null){
+            limitStart = (page-1) * limit;
+            limitEnd = limit;
+        }
+    }
     /**
      * 根据username查询user信息
      * @auth sunpeikai

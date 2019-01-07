@@ -12,7 +12,9 @@ import com.sandman.download.utils.SessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -86,9 +88,27 @@ public class MyResourceController extends BaseController {
             //资源存在
             if(null != userId && userId.equals(resource.getUserId())){
                 //开始编辑
-                return new ModelAndView("").addObject("resource",resource);
+                return new ModelAndView("/edit").addObject("resource",resource);
             }
         }
         return new ModelAndView("redirect:/my_resource/search");
+    }
+
+    /**
+     * 编辑资源提交
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    @PostMapping(value = "/submit_edit")
+    public ModelAndView submitEdit(Resource resource){
+        logger.info("resource:[{}]",JSON.toJSONString(resource));
+        // 切换到待审核状态:0
+        resource.setStatus(0);
+        int result = myResourceService.updateResource(resource);
+        if(result>0){
+            return new ModelAndView("redirect:/my_resource/search");
+        }
+        return new ModelAndView("/edit").addObject("resource",resource);
     }
 }
