@@ -38,28 +38,4 @@ public interface RegisterService extends BaseService {
      * @return
      */
     boolean sendActiveEmail(User user);
-
-    /**
-     * 更新验证码状态为 1 已发送
-     * @auth sunpeikai
-     * @param
-     * @return
-     */
-    void updateValidateCode(ValidateCode validateCode);
-
-    /**
-     * 根据邮箱删除一个账户
-     * @auth sunpeikai
-     * @param
-     * @return
-     */
-    int deleteUserByEmail(String email);
-
-    /**
-     * 根据contact删除验证码数据
-     * @auth sunpeikai
-     * @param
-     * @return
-     */
-    void deleteByContact(String contact);
 }

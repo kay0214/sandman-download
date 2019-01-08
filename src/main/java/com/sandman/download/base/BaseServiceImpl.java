@@ -22,7 +22,7 @@ import java.util.List;
 @Service
 public class BaseServiceImpl extends CustomizeMapper implements BaseService {
 
-    private static final Logger logger = LoggerFactory.getLogger(BaseServiceImpl.class);
+    protected static final Logger logger = LoggerFactory.getLogger(BaseServiceImpl.class);
     protected int limitStart = -1;
     protected int limitEnd = -1;
     protected void computePage(Integer page,Integer limit){
@@ -96,7 +96,7 @@ public class BaseServiceImpl extends CustomizeMapper implements BaseService {
     @Override
     public ValidateCode getValidateCodeByContact(String contact) {
         ValidateCodeExample validateCodeExample = new ValidateCodeExample();
-        validateCodeExample.createCriteria().andContactEqualTo(contact).andValidEqualTo(1).andDelFlagEqualTo(0);
+        validateCodeExample.createCriteria().andContactEqualTo(contact).andValidNotEqualTo(0).andDelFlagEqualTo(0);
         List<ValidateCode> validateCodeList = validateCodeMapper.selectByExample(validateCodeExample);
         if(!CollectionUtils.isEmpty(validateCodeList)){
             return validateCodeList.get(0);
@@ -265,5 +265,37 @@ public class BaseServiceImpl extends CustomizeMapper implements BaseService {
     @Override
     public ResourceLog getResourceLogById(Integer id) {
         return resourceLogMapper.selectByPrimaryKey(id);
+    }
+
+    /**
+     * 根据contact删除验证码数据
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    @Override
+    public void deleteByContact(String contact){
+        ValidateCodeExample validateCodeExample = new ValidateCodeExample();
+        validateCodeExample.createCriteria().andContactEqualTo(contact);
+        validateCodeMapper.deleteByExample(validateCodeExample);
+    }
+
+
+    @Override
+    public void updateValidateCode(ValidateCode validateCode) {
+        validateCodeMapper.updateByPrimaryKey(validateCode);
+    }
+
+    /**
+     * 根据邮箱删除一个账户
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    @Override
+    public int deleteUserByEmail(String email) {
+        UserExample userExample = new UserExample();
+        userExample.createCriteria().andEmailEqualTo(email);
+        return userMapper.deleteByExample(userExample);
     }
 }

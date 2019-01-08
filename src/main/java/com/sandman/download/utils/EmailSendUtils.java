@@ -62,6 +62,7 @@ public class EmailSendUtils {
 
             return true;
         }catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
     }

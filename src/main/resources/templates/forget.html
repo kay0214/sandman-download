@@ -33,7 +33,7 @@
                 <h2 class="fs-title">验证身份</h2>
                 <h3 class="fs-subtitle">验证码已发送至您的邮箱,输入正确的验证码即可找回密码</h3>
                 <input type="text" id="code" name="code" placeholder="验证码" />
-                <input type="button" name="previous" class="previous action-button" value="上一步" />
+                <input type="button" name="previous" id="re_send" class="disabled-button" value="重新发送" />
                 <input type="button" name="next" class="next action-button" value="下一步"/>
             </fieldset>
             <fieldset id="three">
@@ -41,7 +41,7 @@
                 <h3 class="fs-subtitle">请填写您的新密码</h3>
                 <input type="password" id="password" name="password" placeholder="新密码"/>
                 <input type="password" id="confirm_password" name="confirm_password" placeholder="确认新密码"/>
-                <input type="button" name="next" class="next action-button" value="确认修改"/>
+                <input type="button" name="next" id="submit" class="action-button" value="确认修改"/>
             </fieldset>
         </form>
     </div>

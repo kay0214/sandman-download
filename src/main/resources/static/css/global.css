@@ -116,8 +116,13 @@ pre{padding: 10px 15px; margin: 10px 0; font-size: 12px; border-left: 6px solid 
 .sandman-loading{position: absolute; top: 50%; left: 50%; margin: -12px 0 0 -15px; font-size: 30px; color: #c2c2c2;}
 
 /* 头像 */
-.sandman-avatar{position: absolute; left: 15px; top: 15px;}
-.sandman-avatar img{display: block; width: 45px; height: 45px; margin: 0; border-radius: 2px;}
+.sandman-avatar{position: absolute;}
+.sandman-avatar img{
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
 
 /* 徽章 */
 .sandman-badge-vip{height: 16px; line-height: 16px; padding: 0 3px; background-color: #FF5722; color: #fff; border-radius: 2px;}
@@ -166,7 +171,16 @@ pre{padding: 10px 15px; margin: 10px 0; font-size: 12px; border-left: 6px solid 
 .sandman-header .sandman-nav-user .layui-nav-child{left: auto; right: 0; width: 120px; min-width: 0;}
 
 /* 底部 */
-.sandman-footer {bottom:0;margin: 50px 0 0; padding: 20px 0 30px; line-height: 30px; text-align: center; color: #737573; border-top: 1px solid #e2e2e2;}
+.sandman-footer {
+  width: 100%;
+  position:absolute;
+  margin: 50px 0 0;
+  padding: 10px 0 10px;
+  line-height: 30px;
+  text-align: center;
+  color: #737573;
+  border-top: 1px solid #e2e2e2;
+}
 .sandman-footer a{padding:0 6px; font-weight: 300; color: #333;}
 .sandman-footer a:hover{color: #777;}
 .sandman-union{margin-top: 10px; color: #999;}
@@ -521,9 +535,6 @@ body .sandman-user-main{position: relative; min-height: 600px;}
   .sandman-column-right{right: 10px;}
   .sandman-column ul li.layui-this:after{display: none;}
 
-  /* 页脚 */
-  .sandman-footer{margin-top: 0; border-top: none;}
-
   /* 分页 */
   .laypage-main a, .laypage-main span{display: none;}
   .laypage-main .laypage-prev,
@@ -634,6 +645,11 @@ body .sandman-user-main{position: relative; min-height: 600px;}
 .sandman-upload-file .layui-icon {
   font-size: 50px;
   color: #009688;
+}
+.sandman-upload-img{
+  width: 92px;
+  height: 92px;
+  margin: 0 10px 10px 0;
 }
 .margin-left-2p{
   margin-left: 2%;

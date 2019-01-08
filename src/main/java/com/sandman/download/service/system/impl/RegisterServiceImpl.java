@@ -99,35 +99,4 @@ public class RegisterServiceImpl extends BaseServiceImpl implements RegisterServ
         replace.put("activeUrl",activeUrl);
         return EmailSendUtils.sendEmail("注册",EmailSendUtils.emailContentReplace(emailTemplate.getTplContent(),replace),user.getEmail());
     }
-
-    @Override
-    public void updateValidateCode(ValidateCode validateCode) {
-        validateCodeMapper.updateByPrimaryKey(validateCode);
-    }
-
-    /**
-     * 根据邮箱删除一个账户
-     * @auth sunpeikai
-     * @param
-     * @return
-     */
-    @Override
-    public int deleteUserByEmail(String email) {
-        UserExample userExample = new UserExample();
-        userExample.createCriteria().andEmailEqualTo(email);
-        return userMapper.deleteByExample(userExample);
-    }
-
-    /**
-     * 根据contact删除验证码数据
-     * @auth sunpeikai
-     * @param
-     * @return
-     */
-    @Override
-    public void deleteByContact(String contact){
-        ValidateCodeExample validateCodeExample = new ValidateCodeExample();
-        validateCodeExample.createCriteria().andContactEqualTo(contact);
-        validateCodeMapper.deleteByExample(validateCodeExample);
-    }
 }

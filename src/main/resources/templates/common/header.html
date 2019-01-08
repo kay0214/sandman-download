@@ -20,10 +20,10 @@
         <ul class="layui-nav sandman-nav-user">
             <!-- 登录状态 -->
             <div th:if="${session.user}">
-                <li class="layui-nav-item">
-                    <a href="javascript:;" th:text="${session.user.username}"></a>
+                <li class="layui-nav-item sandman-avatar">
+                    <a href="javascript:;"><img th:src="${session.user.iconUrl}"><span th:text="${session.user.username}"></span></a>
                     <dl class="layui-nav-child"> <!-- 二级菜单 -->
-                        <dd><a href="">个人中心</a></dd>
+                        <dd><a href="/personal/init">个人中心</a></dd>
                         <dd><a href="/forget/init">修改密码</a></dd>
                         <dd><a href="/login/logOut">退出登录</a></dd>
                     </dl>
@@ -57,10 +57,10 @@
         <ul class="layui-nav sandman-nav-user">
             <!-- 登录状态 -->
             <div th:if="${session.user}">
-                <li class="layui-nav-item">
-                    <a href="javascript:;" th:text="${session.user.username}"></a>
+                <li class="layui-nav-item sandman-avatar">
+                    <a href="javascript:;"><img th:src="${session.user.iconUrl}"><span th:text="${session.user.username}"></span></a>
                     <dl class="layui-nav-child"> <!-- 二级菜单 -->
-                        <dd><a href="">个人中心</a></dd>
+                        <dd><a href="/personal/init">个人中心</a></dd>
                         <dd><a href="/forget/init">修改密码</a></dd>
                         <dd><a href="/login/logOut">退出登录</a></dd>
                     </dl>
@@ -94,10 +94,10 @@
         <ul class="layui-nav sandman-nav-user">
             <!-- 登录状态 -->
             <div th:if="${session.user}">
-                <li class="layui-nav-item">
-                    <a href="javascript:;" th:text="${session.user.username}"></a>
+                <li class="layui-nav-item sandman-avatar">
+                    <a href="javascript:;"><img th:src="${session.user.iconUrl}"><span th:text="${session.user.username}"></span></a>
                     <dl class="layui-nav-child"> <!-- 二级菜单 -->
-                        <dd><a href="">个人中心</a></dd>
+                        <dd><a href="/personal/init">个人中心</a></dd>
                         <dd><a href="/forget/init">修改密码</a></dd>
                         <dd><a href="/login/logOut">退出登录</a></dd>
                     </dl>
@@ -131,10 +131,10 @@
         <ul class="layui-nav sandman-nav-user">
             <!-- 登录状态 -->
             <div th:if="${session.user}">
-                <li class="layui-nav-item">
-                    <a href="javascript:;" th:text="${session.user.username}"></a>
+                <li class="layui-nav-item sandman-avatar">
+                    <a href="javascript:;"><img th:src="${session.user.iconUrl}"><span th:text="${session.user.username}"></span></a>
                     <dl class="layui-nav-child"> <!-- 二级菜单 -->
-                        <dd><a href="">个人中心</a></dd>
+                        <dd><a href="/personal/init">个人中心</a></dd>
                         <dd><a href="/forget/init">修改密码</a></dd>
                         <dd><a href="/login/logOut">退出登录</a></dd>
                     </dl>
@@ -168,10 +168,47 @@
         <ul class="layui-nav sandman-nav-user">
             <!-- 登录状态 -->
             <div th:if="${session.user}">
-                <li class="layui-nav-item">
-                    <a href="javascript:;" th:text="${session.user.username}"></a>
+                <li class="layui-nav-item sandman-avatar">
+                    <a href="javascript:;"><img th:src="${session.user.iconUrl}"><span th:text="${session.user.username}"></span></a>
                     <dl class="layui-nav-child"> <!-- 二级菜单 -->
-                        <dd><a href="">个人中心</a></dd>
+                        <dd><a href="/personal/init">个人中心</a></dd>
+                        <dd><a href="/forget/init">修改密码</a></dd>
+                        <dd><a href="/login/logOut">退出登录</a></dd>
+                    </dl>
+                </li>
+            </div>
+            <!-- 未登录状态 -->
+            <div th:unless="${session.user}">
+                <li class="layui-nav-item">
+                    <a href="/login/init">登录</a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="/register/init">注册</a>
+                </li>
+            </div>
+
+        </ul>
+    </div>
+</div>
+<div th:fragment="personal" class="layui-bg-black">
+    <div class="layui-container">
+        <!-- logo -->
+        <a class="sandman-logo" href="/"><img src="/images/logo.png" alt="sandman下载"></a>
+        <!-- 菜单 -->
+        <ul class="layui-nav sandman-nav layui-hide-xs">
+            <li class="layui-nav-item"><a href="/">首页</a></li>
+            <li class="layui-nav-item"><a href="/my_resource/search">我的资源</a></li>
+            <li class="layui-nav-item"><a href="/my_download/init">已下载</a></li>
+            <li class="layui-nav-item"><a href="/my_gold/init">积分记录</a></li>
+            <li class="layui-nav-item"><a href="/upload/init">上传</a></li>
+        </ul>
+        <ul class="layui-nav sandman-nav-user">
+            <!-- 登录状态 -->
+            <div th:if="${session.user}">
+                <li class="layui-nav-item layui-this sandman-avatar">
+                    <a href="javascript:;"><img th:src="${session.user.iconUrl}"><span th:text="${session.user.username}"></span></a>
+                    <dl class="layui-nav-child"> <!-- 二级菜单 -->
+                        <dd><a href="/personal/init">个人中心</a></dd>
                         <dd><a href="/forget/init">修改密码</a></dd>
                         <dd><a href="/login/logOut">退出登录</a></dd>
                     </dl>

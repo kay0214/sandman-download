@@ -13,7 +13,8 @@ public class MessageTemplateConstant {
     public static final String TPL_EMAIL_ACTIVE = "TPL_EMAIL_ACTIVE";
     /** 注册完成 */
     public static final String TPL_EMAIL_REGISTER_SUCCESS = "TPL_EMAIL_REGISTER_SUCCESS";
-
+    /** 找回密码 */
+    public static final  String TPL_EMAIL_FORGET_PASSWORD = "TPL_EMAIL_FORGET_PASSWORD";
 
     /** 短信模板名 */
     /** 注册 */

@@ -6,6 +6,7 @@ package com.sandman.download.controller;
 import com.sandman.download.base.BaseController;
 import com.sandman.download.base.BaseResult;
 import com.sandman.download.bean.system.LoginBean;
+import com.sandman.download.config.SystemConfig;
 import com.sandman.download.constant.CommonConstant;
 import com.sandman.download.constant.ReturnMessage;
 import com.sandman.download.dao.mysql.system.model.auto.User;
@@ -47,6 +48,7 @@ public class LoginController extends BaseController {
                 if(success == 0){
                     logger.error("收集登录日志失败,更新或插入失败");
                 }
+                user.setIconUrl(SystemConfig.getLinePathPrefix() + user.getIconUrl());
                 SessionUtils.setSessionAttribute("user",user);
                 SessionUtils.setSessionExpireTime(CommonConstant.LOGIN_EXPIRE);
                 return new BaseResult(ReturnMessage.SUCCESS_USER_LOGIN);

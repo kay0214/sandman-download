@@ -69,6 +69,21 @@ body {
 #msform .action-button:hover, #msform .action-button:focus {
 	box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;
 }
+
+#msform .disabled-button {
+	width: 100px;
+	background: #999999;
+	font-weight: bold;
+	color: white;
+	border: 0 none;
+	border-radius: 1px;
+	cursor: not-allowed;
+	padding: 10px 5px;
+	margin: 10px 5px;
+}
+#msform .disabled-button:hover, #msform .disabled-button:focus {
+	box-shadow: 0 0 0 2px white, 0 0 0 3px #999999;
+}
 /*headings*/
 .fs-title {
 	font-size: 15px;

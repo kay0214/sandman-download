@@ -2,8 +2,10 @@
 var current_fs, next_fs, previous_fs; //fieldsets
 var left, opacity, scale; //fieldset properties which we will animate
 var animating; //flag to prevent quick multi-click glitches
-var send_success = false;//同步请求，检查用户名是否已被占用
-var email_available = false;//同步请求，检查email是否已被占用
+var send_success = false;//同步请求，检查用户名是否存在并发送找回密码邮件
+var right_code = false;//同步请求，检查邮箱验证码是否正确
+var c = 30;//计时器
+var t;//timeOut节点
 $(".next").click(function(){
 	if(animating) return false;
 	animating = true;
@@ -13,15 +15,15 @@ $(".next").click(function(){
 
     if($("fieldset").index(current_fs) == 0){
         // 写入用户名，发送邮箱验证码
-        var send_success = firstPageConfirm();
+        firstPageConfirm();
         if(!send_success){
             animating = false;
             return false;
         }
     }else{
         // 绑定邮箱页
-        var email = secondPageConfirm();
-        if(!email){
+        secondPageConfirm();
+        if(!right_code){
             animating = false;
             return false;
         }
@@ -90,10 +92,6 @@ $(".previous").click(function(){
 	});
 });
 
-$(".submit").click(function(){
-	return false;
-});
-
 // 第一个页面检查
 function firstPageConfirm() {
     // 输入用户名发送邮件
@@ -102,6 +100,41 @@ function firstPageConfirm() {
         layer.msg('用户名不能为空',{icon: 5});
         return false;
     }
+    return send_email(username);
+}
+
+//第二个页面检查
+function secondPageConfirm() {
+    var username = $("#username").val();
+    var code = $("#code").val();
+    if(code === null || code === undefined || code === ''){
+        layer.msg('邮箱验证码不能为空',{icon: 5});
+        return false;
+    }
+    // 请求后台，校验验证码正确性
+    $.ajax({
+        type: "post",
+        url: "/forget/right_code",
+        data: {
+            "username": username,
+            "code":code
+        },
+        async: false,
+        success: function (data) {
+            if(data.status === '000'){
+                right_code = true;
+                return true;
+            }else{
+                // 给用户发送验证码失败
+                layer.msg(data.statusDesc,{icon: 5});
+                return false;
+            }
+        }
+
+    });
+}
+
+function send_email(username) {
     $.ajax({
         type: "post",
         url: "/forget/send_email",
@@ -110,7 +143,12 @@ function firstPageConfirm() {
         },
         async: false,
         success: function (data) {
-            if(data.status !== '000'){
+            if(data.status === '000'){
+                // 这里做个30s计时器，按钮disabled
+                timeCount();
+                send_success = true;
+                return true;
+            }else{
                 // 给用户发送验证码失败
                 layer.msg(data.statusDesc,{icon: 5});
                 return false;
@@ -118,63 +156,63 @@ function firstPageConfirm() {
         }
 
     });
-    // 给用户发送验证码成功 true
-    send_success = true;
-    return true;
 }
 
-//第二个页面检查
-function secondPageConfirm() {
-    //同步发送请求，检查是否可以发送邮件，也即email没有被占用
-    email_valid();
-    if(email_available){
-        //发送邮件
-        return send_email();
-    }else{
+$("#re_send").click(function () {
+    var reSend = $("#re_send");
+    if(reSend.hasClass("action-button")){
+        var username = $("#username").val();
+        send_email(username);
+    }
+});
+
+$("#submit").click(function () {
+    var pass = password_same();
+    if(!pass){
         return false;
     }
-}
-
-function email_valid() {
-    var email_regex = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
-    var email = $("#email").val();
-    if(email_regex.test(email)){
-        $.ajax({
-            type: "get",
-            url: "/register/email_valid",
-            data: "email=" + email,
-            async: false,
-            success: function (data) {
-                if(data.data){
-                    // 可以发送邮件
-                    email_available = true;
-                }
-            }
-        });
-    }else{
-        layer.msg('邮箱不正确',{icon: 5});
-    }
-}
-
-function send_email() {
-    var email = $("#email").val();
-    var username = $("#username").val();
     var password = $("#password").val();
-    console.info("准备发送邮件::::username=" + username + ";;;password=" + password + ";;;;email = " + email);
-    $("#emailConfirm").html("<b><i>" + email + "</i></b>");
-    // ajax发送邮件
+    var username = $("#username").val();
     $.ajax({
         type: "post",
-        url: "/register/register",
-        contentType: "application/json; charset=utf-8",
-        data: JSON.stringify({
+        url: "/forget/modify",
+        data: {
             "username": username,
-            "password": password,
-            "email":email
-        })
-    });
-    return true;
+            "password": password
+        },
+        async: false,
+        success: function (data) {
+            if(data.status === '000'){
+                window.location.href = "/";
+            }else{
+                // 修改密码出现错误
+                layer.msg(data.statusDesc,{icon: 5});
+                return false;
+            }
+        }
 
+    });
+});
+
+function timeCount() {
+    var reSend = $("#re_send");
+    if(c>0){
+        c = c - 1;
+        // 如果class中有action-button，就替换成禁用按钮
+        if(reSend.hasClass("action-button")){
+            reSend.attr("class","disabled-button");
+        }
+        reSend.val("(" + c + ")秒后可重发");
+        t = setTimeout(function () {timeCount();},1000);
+    }else{
+        // 如果class中有disabled-button，就替换成可用按钮
+        if(reSend.hasClass("disabled-button")){
+            reSend.attr("class","action-button");
+        }
+        reSend.val("重新发送");
+        clearTimeout(t);
+        c = 30;
+    }
 }
 
 function password_same() {
@@ -199,33 +237,4 @@ function password_same() {
         layer.msg('密码不能为空',{icon: 5});
         return false;
     }
-}
-
-function username_valid() {
-	//验证username是否有重复
-	var username = $("#username").val();
-	if(username == null || username == undefined || username == ''){
-        layer.msg('用户名不能为空',{icon: 5});
-        username_available = false;
-		return;
-	}else if(username.length < 6){
-        layer.msg('用户名必须为字母,数字或下划线组合，最低6位',{icon: 5});
-        username_available = false;
-        return;
-    }
-
-	$.ajax({
-        type: "get",
-        url: "/register/username_valid",
-        data: "username=" + username,
-        async: false,
-        success: function (data) {
-            if(!data.data){
-                layer.msg('用户名已被占用',{icon: 5});
-                username_available = false;
-            }else{
-                username_available = true;
-            }
-        }
-    });
 }

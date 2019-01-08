@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>首页-sandman资源共享平台</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="icon" href="/icon/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="/icon/favicon.ico" type="image/x-icon"/>
+    <meta name="keywords" content="sandman,download,资源共享">
+    <meta name="description" content="sandman资源共享平台">
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/global.css">
+</head>
+<body>
+<div th:replace="common/header :: personal"></div>
+
+<div class="layui-row sandman-content">
+
+    <div class="layui-col-md1 layui-col-md-offset1">
+        <!-- 左边内容(公告，友情链接等) -->
+        <div th:replace="common/notice::html"></div>
+    </div>
+
+    <div class="layui-col-md8" style="padding-left: 4%;padding-right: 4%;">
+        <!-- 中间内容 -->
+
+        <div class="layui-row">
+            <!-- 资源详情 -->
+            <div class="layui-card">
+                <div class="layui-card-header"><i class="layui-icon">    &#xe770;  </i>个人中心</div>
+                <div class="layui-card-body">
+                    <div class="layui-row">
+                        <div class="padding-1p-2p">
+
+                            <div class="layui-upload">
+                                <div class="layui-upload-list">
+                                    <img class="sandman-upload-img" th:src="${session.user.iconUrl}" id="icon">
+                                    <p id="errorText"></p>
+                                </div>
+                                <button type="button" class="layui-btn" id="uploadIcon">修改头像</button>
+                            </div>
+
+                        </div>
+                        <div class="padding-1p-2p" th:if="${session.user.username}">
+                            <h3 th:text="'用户名：' + ${session.user.username}"></h3>
+                        </div>
+                        <div class="padding-1p-2p" th:if="${session.user.mobile}">
+                            <h3 th:text="'手机号：' + ${session.user.mobile}"></h3>
+                        </div>
+                        <div class="padding-1p-2p" th:if="${session.user.email}">
+                            <h3 th:text="'邮 箱：' + ${session.user.email}"></h3>
+                        </div>
+                        <div class="padding-1p-2p" th:if="${session.user.nickname}">
+                            <h3 th:text="'昵 称：' + ${session.user.nickname}"></h3>
+                        </div>
+                        <div class="padding-1p-2p" th:if="${session.user.gold}">
+                            <h3 th:text="'积 分：' + ${session.user.gold}"></h3>
+                        </div>
+                        <div class="padding-1p-2p" th:if="${session.user.role}">
+                            <div th:switch="${session.user.role}">
+                                <h3 th:case="0" th:text="'等 级：管理员'"></h3>
+                                <h3 th:case="1" th:text="'等 级：普通用户'"></h3>
+                                <h3 th:case="2" th:text="'等 级：VIP用户'"></h3>
+                            </div>
+                        </div>
+                        <div class="padding-1p-2p" th:if="${session.user.createTime}">
+                            <h3 th:text="'注册时间：' + ${#dates.format(session.user.createTime,'yyyy-MM-dd HH:mm:ss')}"></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="layui-col-md1">
+        <!-- 右边内容(签到，热门资源列表) -->
+        <div th:replace="common/notice::html"></div>
+    </div>
+
+
+</div>
+
+
+<div th:replace="common/footer::html"></div>
+
+<script src="/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/layui/layui.js"></script>
+<script src="/layui/lay/modules/layer.js" type="text/javascript"></script>
+<script>
+    layui.config({
+        version: "3.0.0"
+        , base: '/js/' //这里实际使用时，建议改成绝对路径
+    }).extend({
+        fly: 'index'
+    }).use('fly');
+</script>
+<script>
+    layui.use('upload', function() {
+        var upload = layui.upload;
+
+        //普通图片上传
+        var uploadInst = upload.render({
+            elem: '#uploadIcon'
+            , url: '/personal/upload_icon'
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    $('#icon').attr('src', result); //图片链接（base64）
+                });
+            }
+            , done: function (res) {
+                console.info(res);
+                //如果上传失败
+                if (res.status !== '000') {
+                    return layer.msg(res.statusDesc);
+                }
+                //上传成功
+                //这里刷新页面
+                window.location.href = "/personal/init";
+            }
+            , error: function () {
+                //演示失败状态，并实现重传
+                var demoText = $('#errorText');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function () {
+                    uploadInst.upload();
+                });
+            }
+        });
+    });
+</script>
+</body>
+</html>
