@@ -16,12 +16,13 @@
 
 <div class="layui-row sandman-content">
 
-    <div class="layui-col-md1 layui-col-md-offset1">
+    <div class="layui-col-md2 margin-left-2p">
         <!-- 左边内容(公告，友情链接等) -->
         <div th:replace="common/notice::html"></div>
+        <div th:replace="common/friendly_link::html"></div>
     </div>
 
-    <div class="layui-col-md8" style="padding-left: 4%;padding-right: 4%;">
+    <div class="layui-col-md7 padding-left-4p">
         <!-- 中间内容 -->
 
         <div class="layui-form">
@@ -82,7 +83,7 @@
         </div>
 
         <div class="margin-top-2p">
-            <div class="layui-card">
+            <div class="layui-card background-FD">
                 <div class="layui-card-header"><i class="layui-icon"> &#xe62a; </i>资源列表</div>
                 <div class="layui-card-body">
 
@@ -106,7 +107,7 @@
                                     </div>
                                     <div class="layui-row res-info">
                                         <!-- 资源信息 -->
-                                        <div class="layui-col-md3">上传时间 : <span th:text="${#dates.format(resource.createTime,'yyyy-MM-dd')}"></span></div>
+                                        <div class="layui-col-md4">上传时间 : <span th:text="${#dates.format(resource.createTime,'yyyy-MM-dd')}"></span></div>
                                         <div class="layui-col-md3 layui-col-md-offset1">资源大小 : <span th:text="${#size.fileSizeFormat(resource.resourceSize)}"></span></div>
                                         <div class="layui-col-md2">下载次数 : <span th:text="${resource.downloadCount}"></span></div>
                                         <div class="layui-col-md2">积分 : <span th:text="${resource.resourceGold}"></span></div>
@@ -138,9 +139,9 @@
         </div>
     </div>
 
-    <div class="layui-col-md1">
+    <div class="layui-col-md2 margin-right-2p float-right">
         <!-- 右边内容(签到，热门资源列表) -->
-        <div th:replace="common/notice::html"></div>
+        <div th:replace="common/resource_hot::html"></div>
     </div>
 
 

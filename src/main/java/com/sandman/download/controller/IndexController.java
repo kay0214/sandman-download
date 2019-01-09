@@ -30,14 +30,16 @@ public class IndexController extends BaseController {
     public ModelAndView init(){
         ModelAndView modelAndView = new ModelAndView("index");
         // 获取资源信息（type：1 -> 按照下载次数倒叙排序，else -> 按照创建时间倒叙)
-        // 最新上传
+        // 最新上传,默认排序
         modelAndView.addObject("resourceList",resourceService.getResourceByType(new ResourceBean(1, CommonConstant.DEFAULT_LIMIT,0)));
-        // 最多下载
-        modelAndView.addObject("hotResources",resourceService.getResourceByType(new ResourceBean(1,CommonConstant.DEFAULT_LIMIT,1)));
         // 最新上传count
         modelAndView.addObject("count",resourceService.getResourceCountByType(new ResourceBean(1,CommonConstant.DEFAULT_LIMIT,0)));
+
+
+        // 最多下载
+        //modelAndView.addObject("hotResources",resourceService.getResourceByType(new ResourceBean(1,CommonConstant.DEFAULT_LIMIT,1)));
         // 最多下载count
-        modelAndView.addObject("hotCount",resourceService.getResourceCountByType(new ResourceBean(1,CommonConstant.DEFAULT_LIMIT,0)));
+        //modelAndView.addObject("hotCount",resourceService.getResourceCountByType(new ResourceBean(1,CommonConstant.DEFAULT_LIMIT,0)));
         return modelAndView;
     }
 }

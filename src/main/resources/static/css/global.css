@@ -593,6 +593,9 @@ body .sandman-user-main{position: relative; min-height: 600px;}
 .margin-top-2p{
   margin-top: 2%;
 }
+.background-FD{
+  background: #FDFDFD;
+}
 .margin-top-4p{
   margin-top: 4%;
 }
@@ -610,6 +613,18 @@ body .sandman-user-main{position: relative; min-height: 600px;}
 }
 .margin-0-12p{
   margin: 0 12%;
+}
+.margin-right-2p{
+  margin-right: 2%;
+}
+.margin-right-4p{
+  margin-right: 4%;
+}
+.float-right{
+  float: right;
+}
+.float-left{
+  float: left;
 }
 .res-title{
   font: bold;

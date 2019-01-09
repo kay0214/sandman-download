@@ -103,4 +103,9 @@ public class ResourceController extends BaseController {
                 .addObject("errorMsg",errorMsg);
     }
 
+    @ResponseBody
+    @GetMapping(value = "/hot_resource")
+    public BaseResult hotResources(){
+        return new BaseResult(CommonConstant.HOT_RESOURCES);
+    }
 }

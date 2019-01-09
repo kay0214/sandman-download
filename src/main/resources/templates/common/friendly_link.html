@@ -5,12 +5,12 @@
     <title>left-公告栏，友情链接</title>
 </head>
 <body>
-<div th:fragment="~{'common/notice'::html}">
+<div class="margin-top-4p" th:fragment="~{'common/friendly_link'::html}">
     <div class="margin-top-2p"><!-- th:each="notice : ${session.noticeList}"  -->
         <div class="layui-card background-FD">
-            <div class="layui-card-header"><i class="layui-icon"> &#xe645; </i>公告栏</div>
+            <div class="layui-card-header"><i class="layui-icon"> &#xe64c; </i>友情链接</div>
             <div class="layui-card-body">
-                <span id="notice"></span>
+                <span id="friendly"></span>
             </div>
         </div>
     </div>
@@ -19,18 +19,18 @@
 <script>
     $.ajax({
         type: "get",
-        url: "/notice/init",
+        url: "/friendly/init",
         success: function (data) {
-            var notice = "";
+            var friendly = "";
             if(data.data !== null && data.data !== undefined && data.data.length > 0){
                 for(var i=0;i<data.data.length;i++){
-                    var thisNotice = data.data[i];
-                    notice = notice + "<p class='margin-top-2p'><span class='layui-badge-dot'></span><span class='margin-left-2p'>" + thisNotice.content + "</span></p>"
+                    var thisFriendly = data.data[i];
+                    friendly = friendly + "<p class='margin-top-2p'><span class='layui-badge-dot'></span><span class='margin-left-2p'><a href='" + thisFriendly.linkUrl + "' target='_blank'>" + thisFriendly.linkName + "</a></span></p>"
                 }
             }else{
-                notice = notice + "<p class='text-align-center'>暂无公告</p>";
+                friendly = friendly + "<p class='text-align-center'>暂无友情链接数据</p>";
             }
-            $("#notice").html(notice);
+            $("#friendly").html(friendly);
         }
     });
 </script>

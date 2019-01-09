@@ -16,19 +16,20 @@
 
 <div class="layui-row sandman-content">
 
-    <div class="layui-col-md1 layui-col-md-offset1">
+    <div class="layui-col-md2 margin-left-2p">
         <!-- 左边内容(公告，友情链接等) -->
         <div th:replace="common/notice::html"></div>
+        <div th:replace="common/friendly_link::html"></div>
     </div>
 
-    <div class="layui-col-md8 padding-left-4p padding-right-4p" style="text-align: center;">
+    <div class="layui-col-md7 padding-left-4p" style="text-align: center;">
         <!-- 中间内容 -->
         <table class="layui-hide" id="table"></table>
     </div>
 
-    <div class="layui-col-md1">
+    <div class="layui-col-md2 margin-right-2p float-right">
         <!-- 右边内容(签到，热门资源列表) -->
-        <div th:replace="common/notice::html"></div>
+        <div th:replace="common/resource_hot::html"></div>
     </div>
 
 

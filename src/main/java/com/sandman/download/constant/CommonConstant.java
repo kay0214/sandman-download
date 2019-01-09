@@ -1,10 +1,31 @@
 package com.sandman.download.constant;
 
+import com.sandman.download.dao.mysql.download.model.auto.Resource;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author xiasq
  * @version CommonConstant, v0.1 2018/4/25 17:09
  */
 public class CommonConstant {
+
+    /**
+     * 热门资源列表缓存
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    public static List<Resource> HOT_RESOURCES = new ArrayList<>();
+
+    /**
+     * 热门资源默认分页大小
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    public static final int HOT_RESOURCES_LIMIT = 30;
 
     /**
      * 积分操作-下载资源默认描述desc

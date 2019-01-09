@@ -26,5 +26,10 @@ public class AutoMapper {
     protected TemplateMapper templateMapper;
     @Autowired
     protected SecureConfigMapper secureConfigMapper;
+    /** 系统组件 */
+    @Autowired
+    protected NoticeMapper noticeMapper;
+    @Autowired
+    protected FriendlyLinkMapper friendlyLinkMapper;
 }
 

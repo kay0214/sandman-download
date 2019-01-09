@@ -2,15 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>left-公告栏，友情链接</title>
+    <title>right-热门资源，签到信息</title>
 </head>
 <body>
-<div th:fragment="~{'common/notice'::html}">
+<div th:fragment="~{'common/resource_hot'::html}">
     <div class="margin-top-2p"><!-- th:each="notice : ${session.noticeList}"  -->
         <div class="layui-card background-FD">
-            <div class="layui-card-header"><i class="layui-icon"> &#xe645; </i>公告栏</div>
+            <div class="layui-card-header"><i class="layui-icon"> &#xe756; </i>热门资源</div>
             <div class="layui-card-body">
-                <span id="notice"></span>
+                <span id="hot"></span>
             </div>
         </div>
     </div>
@@ -19,18 +19,18 @@
 <script>
     $.ajax({
         type: "get",
-        url: "/notice/init",
+        url: "/resource/hot_resource",
         success: function (data) {
-            var notice = "";
+            var hot = "";
             if(data.data !== null && data.data !== undefined && data.data.length > 0){
                 for(var i=0;i<data.data.length;i++){
-                    var thisNotice = data.data[i];
-                    notice = notice + "<p class='margin-top-2p'><span class='layui-badge-dot'></span><span class='margin-left-2p'>" + thisNotice.content + "</span></p>"
+                    var thisHot = data.data[i];
+                    hot = hot + "<p class='margin-top-2p'><span class='layui-badge-dot'></span><span class='margin-left-2p'><a href='/resource/get_info?id=" + thisHot.id + "' target='_blank'>" + thisHot.resourceName + "</a></span></p>"
                 }
             }else{
-                notice = notice + "<p class='text-align-center'>暂无公告</p>";
+                hot = hot + "<p class='text-align-center'>暂无数据</p>";
             }
-            $("#notice").html(notice);
+            $("#hot").html(hot);
         }
     });
 </script>

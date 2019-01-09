@@ -19,6 +19,7 @@
     <div class="layui-col-md1 layui-col-md-offset1">
         <!-- 左边内容(公告，友情链接等) -->
         <div th:replace="common/notice::html"></div>
+        <div th:replace="common/friendly_link::html"></div>
     </div>
 
     <div class="layui-col-md8" style="padding-left: 4%;padding-right: 4%;">
@@ -28,7 +29,7 @@
         <!-- 搜索功能结束 -->
 
         <div class="margin-top-2p">
-            <div class="layui-card">
+            <div class="layui-card background-FD">
                 <div class="layui-card-header"><i class="layui-icon">    &#xe62a;  </i>资源列表</div>
                 <div class="layui-card-body">
 
@@ -43,7 +44,7 @@
 
     <div class="layui-col-md1">
         <!-- 右边内容(签到，热门资源列表) -->
-        <div th:replace="common/notice::html"></div>
+        <div th:replace="common/resource_hot::html"></div>
     </div>
 
 

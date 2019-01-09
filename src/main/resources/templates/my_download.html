@@ -16,12 +16,13 @@
 
 <div class="layui-row sandman-content">
 
-    <div class="layui-col-md1 layui-col-md-offset1">
+    <div class="layui-col-md2 margin-left-2p">
         <!-- 左边内容(公告，友情链接等) -->
         <div th:replace="common/notice::html"></div>
+        <div th:replace="common/friendly_link::html"></div>
     </div>
 
-    <div class="layui-col-md8" style="padding-left: 4%;padding-right: 4%;">
+    <div class="layui-col-md7 padding-left-4p">
         <!-- 中间内容 -->
 
         <div class="layui-form">
@@ -45,7 +46,7 @@
         </div>
 
         <div class="margin-top-2p">
-            <div class="layui-card">
+            <div class="layui-card background-FD">
                 <div class="layui-card-header"><i class="layui-icon"> &#xe62a; </i>资源列表</div>
                 <div class="layui-card-body">
 
@@ -66,7 +67,10 @@
                                         <img th:case="'doc'" src="/images/file/doc.svg">
                                         <img th:case="'docx'" src="/images/file/docx.svg">
                                         <img th:case="'exe'" src="/images/file/exe.svg">
+                                        <img th:case="'jpg'" src="/images/file/jpg.svg">
                                         <img th:case="'pdf'" src="/images/file/pdf.svg">
+                                        <img th:case="'png'" src="/images/file/png.svg">
+                                        <img th:case="'ppt'" src="/images/file/ppt.svg">
                                         <img th:case="'rar'" src="/images/file/rar.svg">
                                         <img th:case="'txt'" src="/images/file/txt.svg">
                                         <img th:case="'zip'" src="/images/file/zip.svg">
@@ -85,12 +89,12 @@
                                     </div>
                                     <div class="layui-row res-info">
                                         <!-- 资源信息 -->
-                                        <div class="layui-col-md3">下载时间 : <span th:text="${#dates.format(myDownload.createTime,'yyyy-MM-dd')}"></span></div>
+                                        <div class="layui-col-md4">下载时间 : <span th:text="${#dates.format(myDownload.createTime,'yyyy-MM-dd')}"></span></div>
                                         <div class="layui-col-md3 layui-col-md-offset1">资源大小 : <span th:text="${#size.fileSizeFormat(myDownload.resource.resourceSize)}"></span></div>
-                                        <div class="layui-col-md2">积分 : <span th:text="${myDownload.resource.resourceGold}"></span></div>
+                                        <div class="layui-col-md2 layui-col-md-offset1">积分 : <span th:text="${myDownload.resource.resourceGold}"></span></div>
                                     </div>
                                 </div>
-                                <div class="layui-col-md2 margin-top-2p">
+                                <div class="layui-col-md2 layui-col-md-offset2 margin-top-2p">
                                     <input type="button" class="layui-btn layui-btn-radius" th:onclick="'checkInfo(' + ${myDownload.resource.id} + ',' + ${myDownload.id} + ')'" value="重新下载">
                                 </div>
 
@@ -108,9 +112,9 @@
         </div>
     </div>
 
-    <div class="layui-col-md1">
+    <div class="layui-col-md2 margin-right-2p float-right">
         <!-- 右边内容(签到，热门资源列表) -->
-        <div th:replace="common/notice::html"></div>
+        <div th:replace="common/resource_hot::html"></div>
     </div>
 
 
