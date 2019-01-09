@@ -169,7 +169,7 @@ layui.define('fly', function(exports){
           if(res.status === 0){
             $('.jieda-accept').remove();
             li.addClass('jieda-daan');
-            li.find('.detail-about').append('<i class="iconfont icon-caina" title="最佳答案"></i>');
+            li.find('.detail-about').append('<i class="iconfont file-caina" title="最佳答案"></i>');
           } else {
             layer.msg(res.msg);
           }

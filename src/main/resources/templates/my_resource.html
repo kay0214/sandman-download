@@ -92,8 +92,8 @@
                         <div th:each="resource :${resourceList}" class="row">
                             <div class="margin-0-2p">
                                 <!-- 资源类型的图标 -->
-                                <div class="layui-col-md1" style="margin-top: 1%;">
-                                    <img src="/images/zip.svg">
+                                <div class="layui-col-md1">
+                                    <div th:replace="common/resource_icon :: resource_icon"></div>
                                 </div>
                                 <div class="layui-col-md7">
                                     <div class="res-title">
@@ -147,7 +147,14 @@
 </div>
 
 
-<div th:replace="common/footer::html"></div>
+<!-- >7 -->
+<div th:if="${count} gt 7">
+    <div th:replace="common/footer::stretched"></div>
+</div>
+<!-- <=7 -->
+<div th:if="${count} le 7">
+    <div th:replace="common/footer::fixed"></div>
+</div>
 
 <!--<div th:replace="common/css3::html"></div>-->
 <script src="/layui/layui.js"></script>

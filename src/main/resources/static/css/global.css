@@ -171,7 +171,7 @@ pre{padding: 10px 15px; margin: 10px 0; font-size: 12px; border-left: 6px solid 
 .sandman-header .sandman-nav-user .layui-nav-child{left: auto; right: 0; width: 120px; min-width: 0;}
 
 /* 底部 */
-.sandman-footer {
+.sandman-footer-stretched {
   width: 100%;
   position:absolute;
   margin: 50px 0 0;
@@ -181,8 +181,24 @@ pre{padding: 10px 15px; margin: 10px 0; font-size: 12px; border-left: 6px solid 
   color: #737573;
   border-top: 1px solid #e2e2e2;
 }
-.sandman-footer a{padding:0 6px; font-weight: 300; color: #333;}
-.sandman-footer a:hover{color: #777;}
+.sandman-footer-stretched a{padding:0 6px; font-weight: 300; color: #333;}
+.sandman-footer-stretched a:hover{color: #777;}
+
+/* 底部 */
+.sandman-footer-fixed {
+    width: 100%;
+    position:fixed;
+    bottom: 0;
+    margin: 50px 0 0;
+    padding: 10px 0 10px;
+    line-height: 30px;
+    text-align: center;
+    color: #737573;
+    border-top: 1px solid #e2e2e2;
+}
+.sandman-footer-fixed a{padding:0 6px; font-weight: 300; color: #333;}
+.sandman-footer-fixed a:hover{color: #777;}
+
 .sandman-union{margin-top: 10px; color: #999;}
 .sandman-union>*{display: inline-block; vertical-align: middle;}
 .sandman-union a[upyun] img{width: 80px;}

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>资源列表</title>
+</head>
+<body>
+<div th:fragment="resource_icon">
+    <div th:if="${resource}">
+        <div th:switch="${resource.resourceType}">
+            <img th:case="'doc'" src="/images/file/doc.svg">
+            <img th:case="'docx'" src="/images/file/docx.svg">
+            <img th:case="'exe'" src="/images/file/exe.svg">
+            <img th:case="'pdf'" src="/images/file/pdf.svg">
+            <img th:case="'rar'" src="/images/file/rar.svg">
+            <img th:case="'txt'" src="/images/file/txt.svg">
+            <img th:case="'zip'" src="/images/file/zip.svg">
+            <img th:case="*" src="/images/file/unknown.svg">
+        </div>
+    </div>
+</div>
+</body>
+</html>
+

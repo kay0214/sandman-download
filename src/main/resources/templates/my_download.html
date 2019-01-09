@@ -61,8 +61,17 @@
                         <div th:each="myDownload :${myDownload}" class="row">
                             <div class="margin-0-2p">
                                 <!-- 资源类型的图标 -->
-                                <div class="layui-col-md1" style="margin-top: 1%;">
-                                    <img src="/images/zip.svg">
+                                <div class="layui-col-md1">
+                                    <div th:switch="${myDownload.resource.resourceType}">
+                                        <img th:case="'doc'" src="/images/file/doc.svg">
+                                        <img th:case="'docx'" src="/images/file/docx.svg">
+                                        <img th:case="'exe'" src="/images/file/exe.svg">
+                                        <img th:case="'pdf'" src="/images/file/pdf.svg">
+                                        <img th:case="'rar'" src="/images/file/rar.svg">
+                                        <img th:case="'txt'" src="/images/file/txt.svg">
+                                        <img th:case="'zip'" src="/images/file/zip.svg">
+                                        <img th:case="*" src="/images/file/unknown.svg">
+                                    </div>
                                 </div>
                                 <div class="layui-col-md7">
                                     <div class="res-title">
@@ -107,8 +116,14 @@
 
 </div>
 
-
-<div th:replace="common/footer::html"></div>
+<!-- >7 -->
+<div th:if="${count} gt 7">
+    <div th:replace="common/footer::stretched"></div>
+</div>
+<!-- <=7 -->
+<div th:if="${count} le 7">
+    <div th:replace="common/footer::fixed"></div>
+</div>
 
 <!--<div th:replace="common/css3::html"></div>-->
 <script src="/layui/layui.js"></script>

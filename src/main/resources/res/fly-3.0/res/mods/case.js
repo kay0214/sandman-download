@@ -50,7 +50,7 @@ layui.define(['laypage', 'fly'], function(exports){
             ,'<div class="layui-input-inline" style="width:auto;">'
               ,'<input type="hidden" name="cover" lay-verify="required" class="layui-input fly-case-image">'
               ,'<button type="button" class="layui-btn layui-btn-primary" id="caseUpload">'
-                ,'<i class="layui-icon">&#xe67c;</i>上传图片'
+                ,'<i class="layui-file">&#xe67c;</i>上传图片'
               ,'</button>'
             ,'</div>'
             ,'<div class="layui-form-mid layui-word-aux" id="preview">推荐尺寸：478*300，大小不能超过 30kb</div>'

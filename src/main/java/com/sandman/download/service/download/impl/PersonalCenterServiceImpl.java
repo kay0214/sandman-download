@@ -35,7 +35,7 @@ public class PersonalCenterServiceImpl extends BaseServiceImpl implements Person
     public boolean uploadIcon(MultipartFile multipartFile) {
         Integer userId = SessionUtils.getUserId();
         User user = getUserByUserId(userId);
-        String filePath = SystemConfig.getPathPrefix() + SystemConfig.getIconPrefix() + "/" + userId + "/";//  /root/sandman/emmmoe/icon + / + userId + /
+        String filePath = SystemConfig.getPathPrefix() + SystemConfig.getIconPrefix() + "/" + userId + "/";//  /root/sandman/emmmoe/file + / + userId + /
         String fileName = FileUtils.getFileNameByTime(multipartFile.getOriginalFilename());
         String serverUrl = SystemConfig.getIconPrefix() + "/" + userId + "/" + fileName;
         user.setIconUrl(serverUrl);

@@ -96,12 +96,12 @@ layui.define(['layer', 'laytpl', 'form', 'element', 'upload', 'util'], function(
     //简易编辑器
     ,layEditor: function(options){
       var html = ['<div class="layui-unselect fly-edit">'
-        ,'<span type="face" title="插入表情"><i class="iconfont icon-yxj-expression" style="top: 1px;"></i></span>'
-        ,'<span type="picture" title="插入图片：img[src]"><i class="iconfont icon-tupian"></i></span>'
-        ,'<span type="href" title="超链接格式：a(href)[text]"><i class="iconfont icon-lianjie"></i></span>'
-        ,'<span type="code" title="插入代码或引用"><i class="iconfont icon-emwdaima" style="top: 1px;"></i></span>'
+        ,'<span type="face" title="插入表情"><i class="iconfont file-yxj-expression" style="top: 1px;"></i></span>'
+        ,'<span type="picture" title="插入图片：img[src]"><i class="iconfont file-tupian"></i></span>'
+        ,'<span type="href" title="超链接格式：a(href)[text]"><i class="iconfont file-lianjie"></i></span>'
+        ,'<span type="code" title="插入代码或引用"><i class="iconfont file-emwdaima" style="top: 1px;"></i></span>'
         ,'<span type="hr" title="插入水平线">hr</span>'
-        ,'<span type="yulan" title="预览"><i class="iconfont icon-yulan1"></i></span>'
+        ,'<span type="yulan" title="预览"><i class="iconfont file-yulan1"></i></span>'
       ,'</div>'].join('');
 
       var log = {}, mod = {
@@ -144,7 +144,7 @@ layui.define(['layer', 'laytpl', 'form', 'element', 'upload', 'util'], function(
                 ,'<div class="layui-input-inline">'
                     ,'<input required name="image" placeholder="支持直接粘贴远程图片地址" value="" class="layui-input">'
                   ,'</div>'
-                  ,'<button type="button" class="layui-btn layui-btn-primary" id="uploadImg"><i class="layui-icon">&#xe67c;</i>上传图片</button>'
+                  ,'<button type="button" class="layui-btn layui-btn-primary" id="uploadImg"><i class="layui-file">&#xe67c;</i>上传图片</button>'
               ,'</li>'
               ,'<li class="layui-form-item" style="text-align: center;">'
                 ,'<button type="button" lay-submit lay-filter="uploadImages" class="layui-btn">确认</button>'
