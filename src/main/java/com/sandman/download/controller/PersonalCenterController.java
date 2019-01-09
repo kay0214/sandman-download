@@ -37,6 +37,8 @@ public class PersonalCenterController extends BaseController {
     @GetMapping(value = "/refresh")
     public ModelAndView refresh(){
         logger.info("refresh account info");
+        // 刷新session
+        refreshUser();
         return new ModelAndView("redirect:/personal/init");
     }
 

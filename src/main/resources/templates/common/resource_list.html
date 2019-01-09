@@ -13,7 +13,7 @@
             <div class="margin-0-2p">
                 <!-- 资源类型的图标 -->
                 <div class="layui-col-md1">
-                    <div th:replace="common/resource_icon :: resource_icon"></div>
+                    <a th:href="'/resource/get_info?id=' + ${resource.id}" target="_blank"><div th:replace="common/resource_icon :: resource_icon"></div></a>
                 </div>
                 <div class="layui-col-md11">
                     <div class="res-title">

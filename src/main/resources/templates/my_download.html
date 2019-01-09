@@ -62,21 +62,23 @@
                         <div th:each="myDownload :${myDownload}" class="row">
                             <div class="margin-0-2p">
                                 <!-- 资源类型的图标 -->
-                                <div class="layui-col-md1">
-                                    <div th:switch="${myDownload.resource.resourceType}">
-                                        <img th:case="'doc'" src="/images/file/doc.svg">
-                                        <img th:case="'docx'" src="/images/file/docx.svg">
-                                        <img th:case="'exe'" src="/images/file/exe.svg">
-                                        <img th:case="'jpg'" src="/images/file/jpg.svg">
-                                        <img th:case="'pdf'" src="/images/file/pdf.svg">
-                                        <img th:case="'png'" src="/images/file/png.svg">
-                                        <img th:case="'ppt'" src="/images/file/ppt.svg">
-                                        <img th:case="'rar'" src="/images/file/rar.svg">
-                                        <img th:case="'txt'" src="/images/file/txt.svg">
-                                        <img th:case="'zip'" src="/images/file/zip.svg">
-                                        <img th:case="*" src="/images/file/unknown.svg">
+                                <a th:href="'/resource/get_info?id=' + ${myDownload.resource.id}" target="_blank">
+                                    <div class="layui-col-md1">
+                                        <div th:switch="${myDownload.resource.resourceType}">
+                                            <img th:case="'doc'" src="/images/file/doc.svg">
+                                            <img th:case="'docx'" src="/images/file/docx.svg">
+                                            <img th:case="'exe'" src="/images/file/exe.svg">
+                                            <img th:case="'jpg'" src="/images/file/jpg.svg">
+                                            <img th:case="'pdf'" src="/images/file/pdf.svg">
+                                            <img th:case="'png'" src="/images/file/png.svg">
+                                            <img th:case="'ppt'" src="/images/file/ppt.svg">
+                                            <img th:case="'rar'" src="/images/file/rar.svg">
+                                            <img th:case="'txt'" src="/images/file/txt.svg">
+                                            <img th:case="'zip'" src="/images/file/zip.svg">
+                                            <img th:case="*" src="/images/file/unknown.svg">
+                                        </div>
                                     </div>
-                                </div>
+                                </a>
                                 <div class="layui-col-md7">
                                     <div class="res-title">
                                         <!-- 资源标题 -->
@@ -132,6 +134,7 @@
 <!--<div th:replace="common/css3::html"></div>-->
 <script src="/layui/layui.js"></script>
 <script src="/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/footer.js"></script>
 <script>
     layui.config({
         version: "3.0.0"
