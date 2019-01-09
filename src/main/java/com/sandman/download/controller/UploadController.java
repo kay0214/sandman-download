@@ -38,7 +38,7 @@ public class UploadController extends BaseController {
     @GetMapping(value = "/init")
     public ModelAndView init(){
 
-        return new ModelAndView("/upload");
+        return new ModelAndView("upload");
     }
 
     /**
@@ -62,7 +62,7 @@ public class UploadController extends BaseController {
         if(result > 0){
             return new ModelAndView("redirect:/my_resource/search");
         }else{
-            return new ModelAndView("/upload")
+            return new ModelAndView("upload")
                     .addObject("resourceUrl",resource.getResourceUrl())
                     .addObject("resourceType",resource.getResourceType())
                     .addObject("fileName", FileUtils.getFileNameByUrl(resource.getResourceUrl()))

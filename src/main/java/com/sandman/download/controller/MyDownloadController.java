@@ -35,7 +35,6 @@ public class MyDownloadController extends BaseController {
 
     @GetMapping(value = "/init")
     public ModelAndView init(MyDownloadBean myDownloadBean){
-        // TODO:我的下载做成带搜索分页的
         Integer userId = SessionUtils.getUserId();
         if(null != myDownloadBean.getCurrPage()){
             myDownloadBean.setCurrPage((myDownloadBean.getCurrPage()<1)?1:myDownloadBean.getCurrPage());
@@ -48,7 +47,7 @@ public class MyDownloadController extends BaseController {
         logger.info("entry my_download view,userId:[{}]",userId);
         int count = myDownloadService.getAllMyDownloadCount(myDownloadBean);
         List<MyDownloadResultBean> myDownloadResultBeanList = myDownloadService.getAllMyDownload(myDownloadBean);
-        return new ModelAndView("/my_download")
+        return new ModelAndView("my_download")
                 .addObject("count",count)
                 .addObject("search",myDownloadBean.getResourceName())
                 .addObject("currPage",myDownloadBean.getCurrPage())

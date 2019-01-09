@@ -40,7 +40,7 @@ public class RegisterController extends BaseController {
     @GetMapping(value = "/init")
     public ModelAndView init(){
         logger.info("entry register view");
-        return new ModelAndView("/register");
+        return new ModelAndView("register");
     }
 
     /**
@@ -126,17 +126,17 @@ public class RegisterController extends BaseController {
                     // 激活成功
                     registerService.deleteByContact(activeCode.getContact());
                     modelAndView.addObject("message","激活成功");
-                    modelAndView.setViewName("/common/success");
+                    modelAndView.setViewName("common/success");
                     return modelAndView;
                 }
             }
             // 激活链接失效
             modelAndView.addObject("message","激活链接失效");
-            modelAndView.setViewName("/common/error");
+            modelAndView.setViewName("common/error");
             return modelAndView;
         }
         modelAndView.addObject("message","用户不存在");
-        modelAndView.setViewName("/common/error");
+        modelAndView.setViewName("common/error");
         return modelAndView;
     }
 

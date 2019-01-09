@@ -44,7 +44,7 @@ public class MyResourceController extends BaseController {
         logger.info("myResourceBean=【{}】", JSON.toJSONString(myResourceBean));
         int count = myResourceService.getMyResourceListCount(myResourceBean);
         List<Resource> resourceList = myResourceService.getMyResourceList(myResourceBean);
-        return new ModelAndView("/my_resource")
+        return new ModelAndView("my_resource")
                 .addObject("resourceList",resourceList)
                 .addObject("count",count)
                 .addObject("status", myResourceBean.getStatus())
@@ -88,7 +88,7 @@ public class MyResourceController extends BaseController {
             //资源存在
             if(null != userId && userId.equals(resource.getUserId())){
                 //开始编辑
-                return new ModelAndView("/edit").addObject("resource",resource);
+                return new ModelAndView("edit").addObject("resource",resource);
             }
         }
         return new ModelAndView("redirect:/my_resource/search");
@@ -109,6 +109,6 @@ public class MyResourceController extends BaseController {
         if(result>0){
             return new ModelAndView("redirect:/my_resource/search");
         }
-        return new ModelAndView("/edit").addObject("resource",resource);
+        return new ModelAndView("edit").addObject("resource",resource);
     }
 }

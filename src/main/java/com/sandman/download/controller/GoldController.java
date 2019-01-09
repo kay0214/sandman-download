@@ -31,7 +31,7 @@ public class GoldController extends BaseController {
     @GetMapping(value = "/init")
     public ModelAndView init(){
         logger.info("entry my gold");
-        return new ModelAndView("/my_gold");
+        return new ModelAndView("my_gold");
     }
 
     @ResponseBody

@@ -37,7 +37,7 @@ public class ForgetPasswordController extends BaseController {
     @GetMapping(value = "/init")
     public ModelAndView init(){
 
-        return new ModelAndView("/forget");
+        return new ModelAndView("forget");
     }
 
     @ResponseBody

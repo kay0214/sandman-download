@@ -56,7 +56,7 @@ public class ResourceController extends BaseController {
         ResourceBean resourceBean = new ResourceBean(currPage, CommonConstant.DEFAULT_LIMIT);
         int count = resourceService.getResourceCountByType(resourceBean);
         List<Resource> resourceList = resourceService.getList(resourceBean);
-        return new ModelAndView("/list")
+        return new ModelAndView("list")
                 .addObject("resourceList",resourceList)
                 .addObject("currPage",currPage)
                 .addObject("count",count);
@@ -81,7 +81,7 @@ public class ResourceController extends BaseController {
         int count = resourceService.getResourceCountByType(resourceBean);
         List<Resource> resourceList = resourceService.searchResource(resourceBean);
         logger.info("搜索到的 -> [{}]",JSON.toJSONString(resourceList));
-        return new ModelAndView("/search")
+        return new ModelAndView("search")
                 .addObject("resourceList",resourceList)
                 .addObject("search",resourceBean.getSearch())
                 .addObject("count",count)
@@ -98,7 +98,7 @@ public class ResourceController extends BaseController {
     public ModelAndView getInfo(Integer id,String errorMsg){
         Resource resource = resourceService.getResourceById(id);
         errorMsg = (StringUtils.isNotBlank(errorMsg))?errorMsg:"";
-        return new ModelAndView("/resource_info")
+        return new ModelAndView("resource_info")
                 .addObject("resource",resource)
                 .addObject("errorMsg",errorMsg);
     }

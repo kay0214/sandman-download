@@ -31,7 +31,7 @@ public class PersonalCenterController extends BaseController {
     @GetMapping(value = "/init")
     public ModelAndView init(){
         logger.info("entry personal center");
-        return new ModelAndView("/personal");
+        return new ModelAndView("personal");
     }
 
     @GetMapping(value = "/refresh")
