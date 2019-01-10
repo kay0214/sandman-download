@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>积分记录-sandman资源共享平台</title>
+    <title>首页-sandman资源共享平台</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="icon" href="/icon/favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="/icon/favicon.ico" type="image/x-icon"/>
@@ -12,36 +12,17 @@
     <link rel="stylesheet" href="/css/global.css">
 </head>
 <body>
-<div th:replace="common/header :: gold"></div>
+<div th:replace="common/header :: admin"></div>
+<div th:replace="admin/admin_header :: user"></div>
 
-<div class="layui-row sandman-content">
+<div class="layui-container sandman-background">
 
-    <div class="layui-col-md2 margin-left-2p">
-        <!-- 左边内容(公告，友情链接等) -->
-        <div th:replace="common/notice::html"></div>
-        <div th:replace="common/friendly_link::html"></div>
-    </div>
-
-    <div class="layui-col-md7 margin-left-2p sandman-background" style="text-align: center;">
-        <!-- 中间内容 -->
-        <table class="layui-hide" id="table"></table>
-    </div>
-
-    <div class="layui-col-md2 margin-right-2p float-right">
-        <!-- 右边内容(签到，热门资源列表) -->
-        <div th:replace="common/resource_hot::html"></div>
-    </div>
-
+    <table class="layui-hide" id="table"></table>
 
 </div>
-
-
-<div th:replace="common/footer::fixed"></div>
-
 <!--<div th:replace="common/css3::html"></div>-->
 <script src="/layui/layui.js"></script>
 <script src="/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
-<script src="/js/footer.js"></script>
 <script>
     layui.config({
         version: "3.0.0"

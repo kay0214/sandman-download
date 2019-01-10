@@ -13,7 +13,7 @@
 </head>
 <body>
 <div th:replace="common/header :: admin"></div>
-<div th:replace="admin/admin_header :: admin"></div>
+<div th:replace="admin/admin_header :: index"></div>
 
 <div class="layui-container">
     <div class="layui-row layui-col-space15">
@@ -24,15 +24,15 @@
                 <div class="layui-card-body">
                     <!-- 日量 -->
                     <div class="text-align-center">
-                        <p><h1>12345</h1></p>
+                        <p><h1 th:text="${upload.day}"></h1></p>
                     </div>
                     <div class="layui-row layui-col-space15">
                         <div class="layui-col-md1 layui-col-md-offset2"><span class="layui-badge layui-bg-green">周</span></div>
-                        <div class="layui-col-md4 layui-col-md-offset5">123456</div>
+                        <div class="layui-col-md4 layui-col-md-offset5" th:text="${upload.week}"></div>
                     </div>
                     <div class="layui-row layui-col-space15">
                         <div class="layui-col-md1 layui-col-md-offset2"><span class="layui-badge layui-bg-orange">月</span></div>
-                        <div class="layui-col-md4 layui-col-md-offset5">123456</div>
+                        <div class="layui-col-md4 layui-col-md-offset5" th:text="${upload.month}"></div>
                     </div>
                 </div>
             </div>
@@ -44,15 +44,15 @@
                 <div class="layui-card-body">
                     <!-- 日量 -->
                     <div class="text-align-center">
-                        <p><h1>12345</h1></p>
+                        <p><h1 th:text="${download.day}"></h1></p>
                     </div>
                     <div class="layui-row layui-col-space15">
                         <div class="layui-col-md1 layui-col-md-offset2"><span class="layui-badge layui-bg-green">周</span></div>
-                        <div class="layui-col-md4 layui-col-md-offset5">123456</div>
+                        <div class="layui-col-md4 layui-col-md-offset5" th:text="${download.week}"></div>
                     </div>
                     <div class="layui-row layui-col-space15">
                         <div class="layui-col-md1 layui-col-md-offset2"><span class="layui-badge layui-bg-orange">月</span></div>
-                        <div class="layui-col-md4 layui-col-md-offset5">123456</div>
+                        <div class="layui-col-md4 layui-col-md-offset5" th:text="${download.month}"></div>
                     </div>
                 </div>
             </div>
@@ -64,15 +64,15 @@
                 <div class="layui-card-body">
                     <!-- 日量 -->
                     <div class="text-align-center">
-                        <p><h1>12345</h1></p>
+                        <p><h1 th:text="${active.day}"></h1></p>
                     </div>
                     <div class="layui-row layui-col-space15">
                         <div class="layui-col-md1 layui-col-md-offset2"><span class="layui-badge layui-bg-green">周</span></div>
-                        <div class="layui-col-md4 layui-col-md-offset5">123456</div>
+                        <div class="layui-col-md4 layui-col-md-offset5" th:text="${active.week}"></div>
                     </div>
                     <div class="layui-row layui-col-space15">
                         <div class="layui-col-md1 layui-col-md-offset2"><span class="layui-badge layui-bg-orange">月</span></div>
-                        <div class="layui-col-md4 layui-col-md-offset5">123456</div>
+                        <div class="layui-col-md4 layui-col-md-offset5" th:text="${active.month}"></div>
                     </div>
                 </div>
             </div>
@@ -84,15 +84,15 @@
                 <div class="layui-card-body">
                     <!-- 日量 -->
                     <div class="text-align-center">
-                        <p><h1>12345</h1></p>
+                        <p><h1 th:text="${register.day}"></h1></p>
                     </div>
                     <div class="layui-row layui-col-space15">
                         <div class="layui-col-md1 layui-col-md-offset2"><span class="layui-badge layui-bg-green">周</span></div>
-                        <div class="layui-col-md4 layui-col-md-offset5">123456</div>
+                        <div class="layui-col-md4 layui-col-md-offset5" th:text="${register.week}"></div>
                     </div>
                     <div class="layui-row layui-col-space15">
                         <div class="layui-col-md1 layui-col-md-offset2"><span class="layui-badge layui-bg-orange">月</span></div>
-                        <div class="layui-col-md4 layui-col-md-offset5">123456</div>
+                        <div class="layui-col-md4 layui-col-md-offset5" th:text="${register.month}"></div>
                     </div>
                 </div>
             </div>
@@ -101,7 +101,7 @@
     <!-- 趋势图 -->
     <div class="layui-row">
         <div class="layui-card">
-            <div class="layui-card-header"><i class="layui-icon"> &#xe770; </i>注册用户量</div>
+            <div class="layui-card-header"><i class="layui-icon"> &#xe629; </i>数据概览</div>
             <div class="layui-card-body">
                 <div id="main" class="line-report"></div>
             </div>
@@ -118,24 +118,90 @@
     var myChart = echarts.init(document.getElementById('main'));
 
     // 指定图表的配置项和数据
-    var option = {
-        title: {
-            text: 'ECharts 入门示例'
+    var colors = ['#5793f3', '#d14a61', '#675bba'];
+
+    option = {
+        color: colors,
+
+        tooltip: {
+            trigger: 'none',
+            axisPointer: {
+                type: 'cross'
+            }
         },
-        tooltip: {},
         legend: {
-            data:['销量']
+            data:['2015 降水量', '2016 降水量']
         },
-        xAxis: {
-            data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+        grid: {
+            top: 70,
+            bottom: 50
         },
-        yAxis: {},
-        series: [{
-            name: '销量',
-            type: 'bar',
-            data: [5, 20, 36, 10, 10, 20]
-        }]
+        xAxis: [
+            {
+                type: 'category',
+                axisTick: {
+                    alignWithLabel: true
+                },
+                axisLine: {
+                    onZero: false,
+                    lineStyle: {
+                        color: colors[1]
+                    }
+                },
+                axisPointer: {
+                    label: {
+                        formatter: function (params) {
+                            return '降水量  ' + params.value
+                                + (params.seriesData.length ? '：' + params.seriesData[0].data : '');
+                        }
+                    }
+                },
+                data: ["2016-1", "2016-2", "2016-3", "2016-4", "2016-5", "2016-6", "2016-7", "2016-8", "2016-9", "2016-10", "2016-11", "2016-12"]
+            },
+            {
+                type: 'category',
+                axisTick: {
+                    alignWithLabel: true
+                },
+                axisLine: {
+                    onZero: false,
+                    lineStyle: {
+                        color: colors[0]
+                    }
+                },
+                axisPointer: {
+                    label: {
+                        formatter: function (params) {
+                            return '降水量  ' + params.value
+                                + (params.seriesData.length ? '：' + params.seriesData[0].data : '');
+                        }
+                    }
+                },
+                data: ["2015-1", "2015-2", "2015-3", "2015-4", "2015-5", "2015-6", "2015-7", "2015-8", "2015-9", "2015-10", "2015-11", "2015-12"]
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value'
+            }
+        ],
+        series: [
+            {
+                name:'2015 降水量',
+                type:'line',
+                xAxisIndex: 1,
+                smooth: true,
+                data: [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3]
+            },
+            {
+                name:'2016 降水量',
+                type:'line',
+                smooth: true,
+                data: [3.9, 5.9, 11.1, 18.7, 48.3, 69.2, 231.6, 46.6, 55.4, 18.4, 10.3, 0.7]
+            }
+        ]
     };
+
 
     // 使用刚指定的配置项和数据显示图表。
     myChart.setOption(option);

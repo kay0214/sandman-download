@@ -5,22 +5,136 @@
     <title>header</title>
 </head>
 <body>
-<div th:fragment="admin" class="sandman-panel sandman-column">
+<div th:fragment="index" class="sandman-panel sandman-column">
     <div class="layui-container">
         <ul class="layui-clear">
             <li class="layui-hide-xs layui-this"><a href="/admin/index">管理员首页</a></li>
             <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
-            <li><a href="jie/index.html">会员管理</a></li>
+            <li><a href="/user_manager/init">会员管理</a></li>
             <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
-            <li><a href="jie/index.html">资源管理</a></li>
+            <li><a href="/resource_manager/init">资源管理</a></li>
             <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
-            <li><a href="jie/index.html">公告管理</a></li>
+            <li><a href="/notice_manager/init">公告管理</a></li>
             <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
-            <li><a href="jie/index.html">友情链接管理</a></li>
+            <li><a href="/friendly_link_manager/init">友情链接管理</a></li>
             <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
-            <li><a href="jie/index.html">模板管理</a></li>
+            <li><a href="/template_manager/init">模板管理</a></li>
             <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
-            <li><a href="jie/index.html">接口请求管理</a></li>
+            <li><a href="/link_manager/init">接口请求管理</a></li>
+        </ul>
+    </div>
+</div>
+<div th:fragment="user" class="sandman-panel sandman-column">
+    <div class="layui-container">
+        <ul class="layui-clear">
+            <li><a href="/admin/index">管理员首页</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li class="layui-hide-xs layui-this"><a href="/user_manager/init">会员管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/resource_manager/init">资源管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/notice_manager/init">公告管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/friendly_link_manager/init">友情链接管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/template_manager/init">模板管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/link_manager/init">接口请求管理</a></li>
+        </ul>
+    </div>
+</div>
+<div th:fragment="resource" class="sandman-panel sandman-column">
+    <div class="layui-container">
+        <ul class="layui-clear">
+            <li><a href="/admin/index">管理员首页</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/user_manager/init">会员管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li class="layui-hide-xs layui-this"><a href="/resource_manager/init">资源管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/notice_manager/init">公告管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/friendly_link_manager/init">友情链接管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/template_manager/init">模板管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/link_manager/init">接口请求管理</a></li>
+        </ul>
+    </div>
+</div>
+<div th:fragment="notice" class="sandman-panel sandman-column">
+    <div class="layui-container">
+        <ul class="layui-clear">
+            <li><a href="/admin/index">管理员首页</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/user_manager/init">会员管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/resource_manager/init">资源管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li class="layui-hide-xs layui-this"><a href="/notice_manager/init">公告管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/friendly_link_manager/init">友情链接管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/template_manager/init">模板管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/link_manager/init">接口请求管理</a></li>
+        </ul>
+    </div>
+</div>
+<div th:fragment="friendly_link" class="sandman-panel sandman-column">
+    <div class="layui-container">
+        <ul class="layui-clear">
+            <li><a href="/admin/index">管理员首页</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/user_manager/init">会员管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/resource_manager/init">资源管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/notice_manager/init">公告管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li class="layui-hide-xs layui-this"><a href="/friendly_link_manager/init">友情链接管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/template_manager/init">模板管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/link_manager/init">接口请求管理</a></li>
+        </ul>
+    </div>
+</div>
+<div th:fragment="template" class="sandman-panel sandman-column">
+    <div class="layui-container">
+        <ul class="layui-clear">
+            <li><a href="/admin/index">管理员首页</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/user_manager/init">会员管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/resource_manager/init">资源管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/notice_manager/init">公告管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/friendly_link_manager/init">友情链接管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li class="layui-hide-xs layui-this"><a href="/template_manager/init">模板管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/link_manager/init">接口请求管理</a></li>
+        </ul>
+    </div>
+</div>
+<div th:fragment="link" class="sandman-panel sandman-column">
+    <div class="layui-container">
+        <ul class="layui-clear">
+            <li><a href="/admin/index">管理员首页</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/user_manager/init">会员管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/resource_manager/init">资源管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/notice_manager/init">公告管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/friendly_link_manager/init">友情链接管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/template_manager/init">模板管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li class="layui-hide-xs layui-this"><a href="/link_manager/init">接口请求管理</a></li>
         </ul>
     </div>
 </div>

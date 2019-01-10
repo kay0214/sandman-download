@@ -7,6 +7,7 @@ import com.sandman.download.base.BaseServiceImpl;
 import com.sandman.download.dao.mysql.system.model.auto.FriendlyLink;
 import com.sandman.download.dao.mysql.system.model.auto.FriendlyLinkExample;
 import com.sandman.download.service.system.FriendlyLinkService;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,6 +26,7 @@ public class FriendlyLinkServiceImpl extends BaseServiceImpl implements Friendly
      * @return
      */
     @Override
+    //@Cacheable(value = "friendlyCache")
     public List<FriendlyLink> getFriendlyLinkList() {
         FriendlyLinkExample friendlyLinkExample = new FriendlyLinkExample();
         friendlyLinkExample.setOrderByClause("order_no asc");

@@ -1,15 +1,17 @@
 /*
  * @Copyright: 2005-2018 www.hyjf.com. All rights reserved.
  */
-package com.sandman.download.controller;
+package com.sandman.download.controller.admin;
 
 import com.sandman.download.base.BaseController;
 import com.sandman.download.base.BaseResult;
+import com.sandman.download.bean.system.ReportResultBean;
 import com.sandman.download.config.SystemConfig;
 import com.sandman.download.constant.CommonConstant;
 import com.sandman.download.constant.ReturnMessage;
 import com.sandman.download.dao.mysql.system.model.auto.User;
-import com.sandman.download.service.system.AdminService;
+import com.sandman.download.service.admin.AdminService;
+import com.sandman.download.utils.DateUtils;
 import com.sandman.download.utils.PasswordEncrypt;
 import com.sandman.download.utils.SessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Date;
 
 /**
  * @author sunpeikai
@@ -67,7 +71,21 @@ public class AdminController extends BaseController {
 
     @GetMapping(value = "/index")
     public ModelAndView index(){
-
-        return new ModelAndView("admin/index");
+        Date todayStart = DateUtils.getDayStart(new Date());
+        Date todayEnd = DateUtils.getDayEnd(new Date());
+        Date weekStart = DateUtils.getDayStart(DateUtils.getDaysAfter(new Date(),-7));
+        Date monthStart = DateUtils.getDayStart(DateUtils.getMonthsAfter(new Date(),-1));
+        // 管理员首页查询
+        ReportResultBean upload = new ReportResultBean(adminService.getUploadCount(todayStart,todayEnd),adminService.getUploadCount(weekStart,todayEnd),adminService.getUploadCount(monthStart,todayEnd));
+        ReportResultBean download = new ReportResultBean(adminService.getDownloadCount(todayStart,todayEnd),adminService.getDownloadCount(weekStart,todayEnd),adminService.getDownloadCount(monthStart,todayEnd));
+        ReportResultBean active = new ReportResultBean(adminService.getActiveCount(todayStart,todayEnd),adminService.getActiveCount(weekStart,todayEnd),adminService.getActiveCount(monthStart,todayEnd));
+        ReportResultBean register = new ReportResultBean(adminService.getRegisterCount(todayStart,todayEnd),adminService.getRegisterCount(weekStart,todayEnd),adminService.getRegisterCount(monthStart,todayEnd));
+        return new ModelAndView("admin/index")
+                .addObject("upload",upload)
+                .addObject("download",download)
+                .addObject("active",active)
+                .addObject("register",register);
     }
+
+    // TODO:还差一个折线图不知道怎么弄呢
 }

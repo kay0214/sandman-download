@@ -25,6 +25,68 @@ public class DateUtils {
     }
 
     /**
+     * 获取某一天的开始时间，即00:00:00
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    public static Date getDayStart(Date today){
+        String start = new SimpleDateFormat("yyyy-MM-dd").format(today) + " 00:00:00";
+        Date startDate = new Date();
+        try{
+            startDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(start);
+        }catch (Exception e){
+            System.out.println("抛出异常");
+        }
+        return startDate;
+    }
+
+    /**
+     * 获取某一天的结束时间，即23:59:59
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    public static Date getDayEnd(Date today){
+        String start = new SimpleDateFormat("yyyy-MM-dd").format(today) + " 23:59:59";
+        Date startDate = new Date();
+        try{
+            startDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(start);
+        }catch (Exception e){
+            System.out.println("抛出异常");
+        }
+        return startDate;
+    }
+
+    /**
+     * 获取afterMonth天后的日期
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    public static Date getMonthsAfter(Date date, int afterMonth){
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.MONTH, afterMonth);
+        date = cal.getTime();
+        return date;
+    }
+
+    /**
+     * 获取afterDay天后的日期
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    public static Date getDaysAfter(Date date, int afterDay){
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.DAY_OF_MONTH, afterDay);
+        date = cal.getTime();
+        return date;
+    }
+
+    /**
      * 获取afterHour小时后的日期
      * @param date
      * @param afterHour
