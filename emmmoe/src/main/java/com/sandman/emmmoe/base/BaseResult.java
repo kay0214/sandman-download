@@ -35,7 +35,7 @@ public class BaseResult{
         this.count = count;
         this.data = data;
         if(!CollectionUtils.isEmpty(data)){
-            msg = "无数据";
+            msg = "暂无数据";
         }
     }
 

@@ -5,6 +5,7 @@ package com.sandman.download.config;
 
 import com.sandman.download.base.BaseServiceImpl;
 import com.sandman.download.dao.mysql.system.model.auto.SecureConfig;
+import com.sandman.download.interceptor.AdminInterceptor;
 import com.sandman.download.interceptor.LoginInterceptor;
 import com.sandman.download.interceptor.RetUrlInterceptor;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author dongzeshan
+ * @author sunpeikai
  * @version InterceptorConfig, v0.1 2018/6/22 10:56
  */
 
@@ -34,18 +35,17 @@ public class InterceptorConfig extends BaseServiceImpl implements WebMvcConfigur
 				addPathPatternList.add(secureConfig.getApiUrl());
 			}
 		}
-		InterceptorRegistration addIn= registry.addInterceptor(new LoginInterceptor());
+
+		// 登录请求拦截
+		InterceptorRegistration addIn = registry.addInterceptor(new LoginInterceptor());
 		addIn.addPathPatterns(addPathPatternList);
-		//addIn.excludePathPatterns("/**");
+
+		// 请求路径拦截
 		registry.addInterceptor(new RetUrlInterceptor()).addPathPatterns("/**").excludePathPatterns("/**/**.js","/**/**.css");
-		//所有都拦截
-		/*addIn.addPathPatterns("/**");*/
-		//不拦截的请求
-/*		addIn.excludePathPatterns(
-				"/login/init",
-				"/login/login",
-				"/register/init",
-				"/register/register"
-		).excludePathPatterns("/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**");*/
+
+		// 管理员拦截
+		InterceptorRegistration adminIn = registry.addInterceptor(new AdminInterceptor());
+		adminIn.addPathPatterns("/admin/index");
+
 	}
 }

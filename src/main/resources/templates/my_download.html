@@ -46,14 +46,13 @@
         </div>
 
         <div class="margin-top-2p">
-            <div class="layui-card background-FD">
+            <div class="layui-card">
                 <div class="layui-card-header"><i class="layui-icon"> &#xe62a; </i>资源列表</div>
                 <div class="layui-card-body">
 
-                    <!-- TODO:无数据判断，前端还没做完 -->
                     <!-- 无数据 -->
                     <div class="layui-row margin-left-4p text-align-center" th:if="not ${myDownload}">
-                        <span>无数据</span>
+                        <span>暂无数据</span>
                     </div>
                     <!-- 有数据 -->
                     <div id="resourceList" class="layui-tab-item layui-show" th:if="${myDownload}">

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>首页-sandman资源共享平台</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="icon" href="/icon/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/icon/favicon.ico" type="image/x-icon"/>
+    <meta name="keywords" content="sandman,download,资源共享">
+    <meta name="description" content="sandman资源共享平台">
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/global.css">
+</head>
+<body>
+<div th:replace="common/header :: admin"></div>
+<div th:replace="admin/admin_header :: admin"></div>
+
+<div class="layui-container">
+    <div class="layui-row layui-col-space15">
+        <!-- 上传报表 -->
+        <div class="layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-header"><i class="layui-icon"> &#xe67c; </i>资源上传量<span class="layui-badge layui-bg-blue sandman-admin-report-label">日</span></div>
+                <div class="layui-card-body">
+                    <!-- 日量 -->
+                    <div class="text-align-center">
+                        <p><h1>12345</h1></p>
+                    </div>
+                    <div class="layui-row layui-col-space15">
+                        <div class="layui-col-md1 layui-col-md-offset2"><span class="layui-badge layui-bg-green">周</span></div>
+                        <div class="layui-col-md4 layui-col-md-offset5">123456</div>
+                    </div>
+                    <div class="layui-row layui-col-space15">
+                        <div class="layui-col-md1 layui-col-md-offset2"><span class="layui-badge layui-bg-orange">月</span></div>
+                        <div class="layui-col-md4 layui-col-md-offset5">123456</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 下载报表 -->
+        <div class="layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-header"><i class="layui-icon"> &#xe601; </i>资源下载量<span class="layui-badge layui-bg-blue sandman-admin-report-label">日</span></div>
+                <div class="layui-card-body">
+                    <!-- 日量 -->
+                    <div class="text-align-center">
+                        <p><h1>12345</h1></p>
+                    </div>
+                    <div class="layui-row layui-col-space15">
+                        <div class="layui-col-md1 layui-col-md-offset2"><span class="layui-badge layui-bg-green">周</span></div>
+                        <div class="layui-col-md4 layui-col-md-offset5">123456</div>
+                    </div>
+                    <div class="layui-row layui-col-space15">
+                        <div class="layui-col-md1 layui-col-md-offset2"><span class="layui-badge layui-bg-orange">月</span></div>
+                        <div class="layui-col-md4 layui-col-md-offset5">123456</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 活跃用户报表 -->
+        <div class="layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-header"><i class="layui-icon"> &#xe6af; </i>活跃用户量<span class="layui-badge layui-bg-blue sandman-admin-report-label">日</span></div>
+                <div class="layui-card-body">
+                    <!-- 日量 -->
+                    <div class="text-align-center">
+                        <p><h1>12345</h1></p>
+                    </div>
+                    <div class="layui-row layui-col-space15">
+                        <div class="layui-col-md1 layui-col-md-offset2"><span class="layui-badge layui-bg-green">周</span></div>
+                        <div class="layui-col-md4 layui-col-md-offset5">123456</div>
+                    </div>
+                    <div class="layui-row layui-col-space15">
+                        <div class="layui-col-md1 layui-col-md-offset2"><span class="layui-badge layui-bg-orange">月</span></div>
+                        <div class="layui-col-md4 layui-col-md-offset5">123456</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 注册用户报表 -->
+        <div class="layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-header"><i class="layui-icon"> &#xe770; </i>注册用户量<span class="layui-badge layui-bg-blue sandman-admin-report-label">日</span></div>
+                <div class="layui-card-body">
+                    <!-- 日量 -->
+                    <div class="text-align-center">
+                        <p><h1>12345</h1></p>
+                    </div>
+                    <div class="layui-row layui-col-space15">
+                        <div class="layui-col-md1 layui-col-md-offset2"><span class="layui-badge layui-bg-green">周</span></div>
+                        <div class="layui-col-md4 layui-col-md-offset5">123456</div>
+                    </div>
+                    <div class="layui-row layui-col-space15">
+                        <div class="layui-col-md1 layui-col-md-offset2"><span class="layui-badge layui-bg-orange">月</span></div>
+                        <div class="layui-col-md4 layui-col-md-offset5">123456</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 趋势图 -->
+    <div class="layui-row">
+        <div class="layui-card">
+            <div class="layui-card-header"><i class="layui-icon"> &#xe770; </i>注册用户量</div>
+            <div class="layui-card-body">
+                <div id="main" class="line-report"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<div th:replace="common/css3::html"></div>-->
+<script src="/layui/layui.js"></script>
+<script src="/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/footer.js"></script>
+<script src="/echarts/echarts.min.js"></script>
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+
+    // 指定图表的配置项和数据
+    var option = {
+        title: {
+            text: 'ECharts 入门示例'
+        },
+        tooltip: {},
+        legend: {
+            data:['销量']
+        },
+        xAxis: {
+            data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+        },
+        yAxis: {},
+        series: [{
+            name: '销量',
+            type: 'bar',
+            data: [5, 20, 36, 10, 10, 20]
+        }]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
+<script>
+    layui.config({
+        version: "3.0.0"
+        ,base: '/js/' //这里实际使用时，建议改成绝对路径
+    }).extend({
+        fly: 'index'
+    }).use('fly');
+</script>
+<script th:inline="javascript">
+    var count = [[${count}]];
+    var currPage = [[${currPage}]];
+    currPage = (currPage == null || currPage == undefined || currPage == 0)?1:currPage;
+</script>
+<script>
+    layui.use('laypage', function(){
+        var laypage = layui.laypage;
+        //执行一个laypage实例
+        laypage.render({
+            elem: 'page', //注意，这里的 test1 是 ID，不用加 # 号
+            count: count, //数据总数，从服务端得到
+            curr: currPage,
+            layout: ['count', 'prev', 'page', 'next', 'skip'],
+            jump: function(obj, first){
+
+                //首次不执行,其他的执行
+                if(!first){
+                    location.href = "/resource/list?currPage=" + obj.curr;
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>

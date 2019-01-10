@@ -6,8 +6,12 @@
 </head>
 <body>
 <div th:fragment="~{'common/resource_list'::html}">
-    <div id="resourceList" class="layui-tab-item layui-show">
-
+    <!-- 无数据 -->
+    <div class="layui-row margin-left-4p text-align-center" th:if="${count}==0">
+        <span>暂无数据</span>
+    </div>
+    <!-- 有数据 -->
+    <div id="resourceList" class="layui-tab-item layui-show" th:if="${count}>0">
         <!-- 最新上传 -->
         <div th:each="resource :${resourceList}" class="row">
             <div class="margin-0-2p">

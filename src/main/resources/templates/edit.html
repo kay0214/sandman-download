@@ -16,20 +16,20 @@
 
 <div class="layui-row sandman-content">
 
-    <div class="layui-col-md1 layui-col-md-offset1">
+    <div class="layui-col-md2 margin-left-2p">
         <!-- 左边内容(公告，友情链接等) -->
         <div th:replace="common/notice::html"></div>
         <div th:replace="common/friendly_link::html"></div>
     </div>
 
-    <div class="layui-col-md8" style="padding-left: 4%;padding-right: 4%;">
+    <div class="layui-col-md7 padding-left-4p">
         <!-- 中间内容 -->
 
         <div class="layui-row">
             <!-- form表单 -->
             <div class="layui-col-md9">
 
-                <div class="layui-card background-FD">
+                <div class="layui-card">
                     <div class="layui-card-header"><i class="layui-icon">    &#xe6b2;  </i>编辑资源</div>
                     <div class="layui-card-body">
                         <form class="layui-form" action="/my_resource/submit_edit" method="post">
@@ -67,7 +67,7 @@
             </div>
             <!-- 上传须知 -->
             <div class="layui-col-md2 layui-col-md-offset1">
-                <div class="layui-card background-FD">
+                <div class="layui-card">
                     <div class="layui-card-header">上传须知</div>
                     <div class="layui-card-body">
                         <div>
@@ -94,7 +94,7 @@
         </div>
     </div>
 
-    <div class="layui-col-md1">
+    <div class="layui-col-md2 margin-right-2p float-right">
         <!-- 右边内容(签到，热门资源列表) -->
         <div th:replace="common/resource_hot::html"></div>
     </div>
