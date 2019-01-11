@@ -4,6 +4,7 @@
 package com.sandman.download.service.admin;
 
 import com.sandman.download.base.BaseService;
+import com.sandman.download.bean.admin.NoticeManagerRequest;
 import com.sandman.download.dao.mysql.system.model.auto.Notice;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public interface NoticeManagerService extends BaseService {
      * @param
      * @return
      */
-    int getNoticeCount();
+    int getNoticeCount(NoticeManagerRequest noticeManagerRequest);
 
     /**
      * 分页获取公告列表
@@ -28,7 +29,7 @@ public interface NoticeManagerService extends BaseService {
      * @param
      * @return
      */
-    List<Notice> getNoticeList(Integer page,Integer limit);
+    List<Notice> getNoticeList(NoticeManagerRequest noticeManagerRequest);
 
     /**
      * 根据id获取公告

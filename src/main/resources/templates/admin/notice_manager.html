@@ -16,7 +16,38 @@
 <div th:replace="admin/admin_header :: notice"></div>
 
 <div class="layui-container sandman-background text-align-center">
+    <div class="demoTable">
+        <div class="padding-top-2p layui-form">
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-md2 layui-col-md-offset1">
+                    <div class="layui-inline">
+                        <input class="layui-input" placeholder="标题" id="title" autocomplete="off">
+                    </div>
+                </div>
 
+                <div class="layui-col-md2 layui-col-md-offset1">
+                    <div class="layui-inline">
+                        <input class="layui-input" placeholder="内容" id="content" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="layui-col-md2 layui-col-md-offset1">
+                    <div class="layui-input-inline">
+                        <select id="status">
+                            <option value="">状态</option>
+                            <option value="0">禁用</option>
+                            <option value="1">启用</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="layui-col-md2 layui-col-md-offset1">
+                    <button class="layui-btn" data-type="reload">搜索</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
     <table class="layui-hide" id="table"></table>
 
 </div>
@@ -37,6 +68,7 @@
 
         table.render({
             elem: '#table'
+            ,id:'notice'
             ,url:'/notice_manager/search'
             ,page: true
             ,limits : [10,15,20,25]
@@ -77,6 +109,29 @@
                     }}
                 ]
             ]
+        });
+        var $ = layui.$, active = {
+            reload: function(){
+                var title = $('#title');
+                var content = $('#content');
+                var status = $('#status');
+                //执行重载
+                table.reload('notice', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    ,where: {
+                        title: title.val(),
+                        content:content.val(),
+                        status:status.val()
+                    }
+                });
+            }
+        };
+
+        $('.demoTable .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
         });
     });
 </script>

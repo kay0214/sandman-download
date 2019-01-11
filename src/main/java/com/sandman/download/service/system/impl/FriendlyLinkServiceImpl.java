@@ -26,11 +26,11 @@ public class FriendlyLinkServiceImpl extends BaseServiceImpl implements Friendly
      * @return
      */
     @Override
-    //@Cacheable(value = "friendlyCache")
+    @Cacheable(value = "friendlyCache")
     public List<FriendlyLink> getFriendlyLinkList() {
         FriendlyLinkExample friendlyLinkExample = new FriendlyLinkExample();
         friendlyLinkExample.setOrderByClause("order_no asc");
-        friendlyLinkExample.createCriteria().andDelFlagEqualTo(0);
+        friendlyLinkExample.createCriteria().andDelFlagEqualTo(0).andStatusEqualTo(1);
         return friendlyLinkMapper.selectByExample(friendlyLinkExample);
     }
 }

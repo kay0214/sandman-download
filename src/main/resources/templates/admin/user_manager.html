@@ -16,7 +16,55 @@
 <div th:replace="admin/admin_header :: user"></div>
 
 <div class="layui-container sandman-background text-align-center">
+    <div class="demoTable">
+        <div class="padding-top-2p layui-form">
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-md2">
+                    <div class="layui-inline">
+                        <input class="layui-input" placeholder="用户名" name="id" id="username" autocomplete="off">
+                    </div>
+                </div>
 
+                <div class="layui-col-md2">
+                    <div class="layui-inline">
+                        <input class="layui-input" placeholder="手机号" name="id" id="mobile" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="layui-col-md2">
+                    <div class="layui-inline">
+                        <input class="layui-input" placeholder="邮箱" name="id" id="email" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="layui-col-md2">
+                    <div class="layui-input-inline">
+                        <select id="available">
+                            <option value="">状态</option>
+                            <option value="0">禁用</option>
+                            <option value="1">启用</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="layui-col-md2">
+                    <div class="layui-input-inline">
+                        <select id="role">
+                            <option value="">角色</option>
+                            <option value="0">管理员</option>
+                            <option value="1">普通用户</option>
+                            <option value="2">VIP用户</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="layui-col-md2">
+                    <button class="layui-btn" data-type="reload">搜索</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
     <table class="layui-hide" id="table"></table>
 
 </div>
@@ -37,6 +85,7 @@
 
         table.render({
             elem: '#table'
+            ,id:'user'
             ,url:'/user_manager/search_list'
             ,page: true
             ,limits : [10,15,20,25]
@@ -86,6 +135,33 @@
                     }}
                 ]
             ]
+        });
+        var $ = layui.$, active = {
+            reload: function(){
+                var username = $('#username');
+                var mobile = $('#mobile');
+                var email = $('#email');
+                var available = $('#available');
+                var role = $('#role');
+                //执行重载
+                table.reload('user', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    ,where: {
+                        username: username.val(),
+                        mobile:mobile.val(),
+                        email:email.val(),
+                        available:available.val(),
+                        role:role.val()
+                    }
+                });
+            }
+        };
+
+        $('.demoTable .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
         });
     });
 </script>

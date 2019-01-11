@@ -4,12 +4,19 @@
 package com.sandman.download.controller.admin;
 
 import com.sandman.download.base.BaseController;
+import com.sandman.download.base.BaseResult;
+import com.sandman.download.dao.mysql.system.model.auto.SecureConfig;
 import com.sandman.download.service.admin.LinkManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author sunpeikai
@@ -26,5 +33,55 @@ public class LinkManagerController extends BaseController {
     public ModelAndView init(){
 
         return new ModelAndView("admin/link_manager");
+    }
+
+    @ResponseBody
+    @GetMapping(value = "/search")
+    public BaseResult search(Integer page, Integer limit){
+        page = (page==null)?1:page;
+        limit = (limit==null)?10:limit;
+        logger.info("查询列表分页 -> page:[{}],limit:[{}]",page,limit);
+        int count = linkManagerService.getLinkCount();
+        List<SecureConfig> secureConfigList = linkManagerService.searchList(page,limit);
+        return new BaseResult(secureConfigList,count);
+    }
+
+    @GetMapping(value = "/available")
+    public ModelAndView available(Integer id,Integer status){
+        logger.info("管理员启用或禁用接口 -> id[{}],status:[{}]",id,status);
+        SecureConfig secureConfig = linkManagerService.getSecureConfigById(id);
+        if(secureConfig != null && !status.equals(secureConfig.getStatus())){
+            secureConfig.setStatus(status);
+            secureConfig.setUpdateTime(new Date());
+            linkManagerService.update(secureConfig);
+        }
+        return new ModelAndView("redirect:/link_manager/init");
+    }
+
+    @GetMapping(value = "/edit")
+    public ModelAndView edit(Integer id){
+        logger.info("管理员修改接口 -> id[{}]",id);
+        SecureConfig secureConfig = linkManagerService.getSecureConfigById(id);
+        return new ModelAndView("admin/link_audit").addObject("link",secureConfig);
+    }
+
+    @PostMapping(value = "/update")
+    public ModelAndView update(SecureConfig secureConfig){
+        logger.info("管理员提交修改接口 -> id[{}]",secureConfig.getId());
+        secureConfig.setUpdateTime(new Date());
+        linkManagerService.update(secureConfig);
+        return new ModelAndView("redirect:/link_manager/init");
+    }
+
+    @GetMapping(value = "/delete")
+    public ModelAndView delete(Integer id){
+        logger.info("管理员删除接口 -> id[{}]",id);
+        SecureConfig secureConfig = linkManagerService.getSecureConfigById(id);
+        if(secureConfig != null){
+            secureConfig.setDelFlag(1);
+            secureConfig.setUpdateTime(new Date());
+            linkManagerService.update(secureConfig);
+        }
+        return new ModelAndView("redirect:/link_manager/init");
     }
 }

@@ -4,6 +4,7 @@
 package com.sandman.download.service.admin;
 
 import com.sandman.download.base.BaseService;
+import com.sandman.download.bean.admin.ResourceManagerRequest;
 import com.sandman.download.dao.mysql.download.model.auto.Resource;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public interface ResourceManagerService extends BaseService {
      * @param
      * @return
      */
-    int getResourceCount();
+    int getResourceCount(ResourceManagerRequest resourceManagerRequest);
 
     /**
      * 分页获取资源列表
@@ -28,5 +29,5 @@ public interface ResourceManagerService extends BaseService {
      * @param
      * @return
      */
-    List<Resource> searchList(Integer page,Integer limit);
+    List<Resource> searchList(ResourceManagerRequest resourceManagerRequest);
 }

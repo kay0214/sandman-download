@@ -5,6 +5,7 @@ package com.sandman.download.controller.admin;
 
 import com.sandman.download.base.BaseController;
 import com.sandman.download.base.BaseResult;
+import com.sandman.download.bean.admin.NoticeManagerRequest;
 import com.sandman.download.dao.mysql.system.model.auto.Notice;
 import com.sandman.download.service.admin.NoticeManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,12 +37,10 @@ public class NoticeManagerController extends BaseController {
 
     @ResponseBody
     @GetMapping(value = "/search")
-    public BaseResult search(Integer page,Integer limit){
-        page = (page==null)?1:page;
-        limit = (limit==null)?10:limit;
-        logger.info("查询列表分页 -> page:[{}],limit:[{}]",page,limit);
-        int count = noticeManagerService.getNoticeCount();
-        List<Notice> noticeList = noticeManagerService.getNoticeList(page,limit);
+    public BaseResult search(NoticeManagerRequest noticeManagerRequest){
+        logger.info("查询列表分页 -> page:[{}],limit:[{}]",noticeManagerRequest.getPage(),noticeManagerRequest.getLimit());
+        int count = noticeManagerService.getNoticeCount(noticeManagerRequest);
+        List<Notice> noticeList = noticeManagerService.getNoticeList(noticeManagerRequest);
         return new BaseResult(noticeList,count);
     }
 

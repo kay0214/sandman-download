@@ -3,8 +3,10 @@
  */
 package com.sandman.download.controller.admin;
 
+import com.alibaba.fastjson.JSON;
 import com.sandman.download.base.BaseController;
 import com.sandman.download.base.BaseResult;
+import com.sandman.download.bean.admin.UserManagerRequest;
 import com.sandman.download.bean.download.UserResultBean;
 import com.sandman.download.dao.mysql.system.model.auto.User;
 import com.sandman.download.service.admin.UserManagerService;
@@ -45,12 +47,10 @@ public class UserManagerController extends BaseController {
 
     @ResponseBody
     @GetMapping(value = "/search_list")
-    public BaseResult searchList(Integer page,Integer limit){
-        page = (page==null)?1:page;
-        limit = (limit==null)?10:limit;
-        logger.info("查询列表分页 -> page:[{}],limit:[{}]",page,limit);
-        int count = userManagerService.getUserCount();
-        List<User> userList = userManagerService.searchList(page,limit);
+    public BaseResult searchList(UserManagerRequest userManagerRequest){
+        logger.info("查询列表分页 -> page:[{}],limit:[{}]",userManagerRequest.getPage(),userManagerRequest.getLimit());
+        int count = userManagerService.getUserCount(userManagerRequest);
+        List<User> userList = userManagerService.searchList(userManagerRequest);
         List<UserResultBean> userResultBeanList = new ArrayList<>();
         if(!CollectionUtils.isEmpty(userList)){
             userResultBeanList = BeanUtils.convertBeanList(userList,UserResultBean.class);

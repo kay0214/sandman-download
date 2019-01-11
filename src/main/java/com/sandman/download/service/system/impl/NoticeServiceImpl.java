@@ -27,8 +27,8 @@ public class NoticeServiceImpl extends BaseServiceImpl implements NoticeService 
     @Override
     public List<Notice> getNoticeList() {
         NoticeExample noticeExample = new NoticeExample();
-        noticeExample.setOrderByClause("create_time desc");
-        noticeExample.createCriteria().andDelFlagEqualTo(0);
+        noticeExample.setOrderByClause("order_no asc");
+        noticeExample.createCriteria().andDelFlagEqualTo(0).andStatusEqualTo(1);
         return noticeMapper.selectByExample(noticeExample);
     }
 }

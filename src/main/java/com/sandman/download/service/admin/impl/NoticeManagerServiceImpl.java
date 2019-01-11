@@ -4,9 +4,11 @@
 package com.sandman.download.service.admin.impl;
 
 import com.sandman.download.base.BaseServiceImpl;
+import com.sandman.download.bean.admin.NoticeManagerRequest;
 import com.sandman.download.dao.mysql.system.model.auto.Notice;
 import com.sandman.download.dao.mysql.system.model.auto.NoticeExample;
 import com.sandman.download.service.admin.NoticeManagerService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,9 +27,8 @@ public class NoticeManagerServiceImpl extends BaseServiceImpl implements NoticeM
      * @return
      */
     @Override
-    public int getNoticeCount() {
-        NoticeExample noticeExample = new NoticeExample();
-        noticeExample.createCriteria().andDelFlagEqualTo(0);
+    public int getNoticeCount(NoticeManagerRequest noticeManagerRequest) {
+        NoticeExample noticeExample = convertExample(noticeManagerRequest);
         return noticeMapper.countByExample(noticeExample);
     }
 
@@ -38,14 +39,28 @@ public class NoticeManagerServiceImpl extends BaseServiceImpl implements NoticeM
      * @return
      */
     @Override
-    public List<Notice> getNoticeList(Integer page, Integer limit) {
-        NoticeExample noticeExample = new NoticeExample();
+    public List<Notice> getNoticeList(NoticeManagerRequest noticeManagerRequest) {
+        NoticeExample noticeExample = convertExample(noticeManagerRequest);
         noticeExample.setOrderByClause("order_no asc");
-        computePage(page, limit);
+        computePage(noticeManagerRequest.getPage(), noticeManagerRequest.getLimit());
         noticeExample.setLimitStart(limitStart);
         noticeExample.setLimitEnd(limitEnd);
-        noticeExample.createCriteria().andDelFlagEqualTo(0);
         return noticeMapper.selectByExample(noticeExample);
+    }
+
+    private NoticeExample convertExample(NoticeManagerRequest noticeManagerRequest){
+        NoticeExample noticeExample = new NoticeExample();
+        NoticeExample.Criteria criteria = noticeExample.createCriteria().andDelFlagEqualTo(0);
+        if(StringUtils.isNotBlank(noticeManagerRequest.getTitle())){
+            criteria.andTitleLike("%"+ noticeManagerRequest.getTitle() + "%");
+        }
+        if(StringUtils.isNotBlank(noticeManagerRequest.getContent())){
+            criteria.andContentLike("%"+ noticeManagerRequest.getContent() + "%");
+        }
+        if(noticeManagerRequest.getStatus() != null){
+            criteria.andStatusEqualTo(noticeManagerRequest.getStatus());
+        }
+        return noticeExample;
     }
 
     /**

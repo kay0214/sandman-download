@@ -21,6 +21,13 @@ public class FriendlyLink implements Serializable {
     private String linkUrl;
 
     /**
+     * 状态(0:禁用;1:启用)
+     *
+     * @mbggenerated
+     */
+    private Integer status;
+
+    /**
      * 链接排序，决定链接顺序
      *
      * @mbggenerated
@@ -72,6 +79,14 @@ public class FriendlyLink implements Serializable {
 
     public void setLinkUrl(String linkUrl) {
         this.linkUrl = linkUrl == null ? null : linkUrl.trim();
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Integer getOrderNo() {

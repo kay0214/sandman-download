@@ -4,9 +4,11 @@
 package com.sandman.download.service.admin.impl;
 
 import com.sandman.download.base.BaseServiceImpl;
+import com.sandman.download.bean.admin.ResourceManagerRequest;
 import com.sandman.download.dao.mysql.download.model.auto.Resource;
 import com.sandman.download.dao.mysql.download.model.auto.ResourceExample;
 import com.sandman.download.service.admin.ResourceManagerService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,9 +27,8 @@ public class ResourceManagerServiceImpl extends BaseServiceImpl implements Resou
      * @return
      */
     @Override
-    public int getResourceCount() {
-        ResourceExample resourceExample = new ResourceExample();
-        resourceExample.createCriteria().andDelFlagEqualTo(0);
+    public int getResourceCount(ResourceManagerRequest resourceManagerRequest) {
+        ResourceExample resourceExample = convertExample(resourceManagerRequest);
         return resourceMapper.countByExample(resourceExample);
     }
 
@@ -38,13 +39,30 @@ public class ResourceManagerServiceImpl extends BaseServiceImpl implements Resou
      * @return
      */
     @Override
-    public List<Resource> searchList(Integer page, Integer limit) {
-        ResourceExample resourceExample = new ResourceExample();
+    public List<Resource> searchList(ResourceManagerRequest resourceManagerRequest) {
+        ResourceExample resourceExample = convertExample(resourceManagerRequest);
         resourceExample.setOrderByClause("create_time desc");
-        computePage(page, limit);
+        computePage(resourceManagerRequest.getPage(),resourceManagerRequest.getLimit());
         resourceExample.setLimitStart(limitStart);
         resourceExample.setLimitEnd(limitEnd);
-        resourceExample.createCriteria().andDelFlagEqualTo(0);
         return resourceMapper.selectByExample(resourceExample);
+    }
+
+    private ResourceExample convertExample(ResourceManagerRequest resourceManagerRequest){
+        ResourceExample resourceExample = new ResourceExample();
+        ResourceExample.Criteria criteria = resourceExample.createCriteria().andDelFlagEqualTo(0);
+        if(StringUtils.isNotBlank(resourceManagerRequest.getUsername())){
+            criteria.andUsernameLike("%" + resourceManagerRequest.getUsername() + "%");
+        }
+        if(StringUtils.isNotBlank(resourceManagerRequest.getResourceName())){
+            criteria.andResourceNameLike("%" + resourceManagerRequest.getResourceName() + "%");
+        }
+        if(StringUtils.isNotBlank(resourceManagerRequest.getResourceDesc())){
+            criteria.andResourceDescLike("%" + resourceManagerRequest.getResourceDesc() + "%");
+        }
+        if(resourceManagerRequest.getStatus()!=null){
+            criteria.andStatusEqualTo(resourceManagerRequest.getStatus());
+        }
+        return resourceExample;
     }
 }

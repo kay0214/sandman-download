@@ -4,6 +4,7 @@
 package com.sandman.download.service.admin;
 
 import com.sandman.download.base.BaseService;
+import com.sandman.download.bean.admin.UserManagerRequest;
 import com.sandman.download.dao.mysql.system.model.auto.User;
 
 import java.util.List;
@@ -20,12 +21,12 @@ public interface UserManagerService extends BaseService {
      * @param
      * @return
      */
-    int getUserCount();
+    int getUserCount(UserManagerRequest userManagerRequest);
     /**
      * 分页获取用户信息
      * @auth sunpeikai
      * @param
      * @return
      */
-    List<User> searchList(Integer page,Integer limit);
+    List<User> searchList(UserManagerRequest userManagerRequest);
 }

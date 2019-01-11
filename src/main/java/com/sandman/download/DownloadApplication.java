@@ -8,7 +8,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 // 取消数据库的自动配置，改为手动配置（用于多数据源的配置）
 @EnableScheduling
-//@EnableCaching
+@EnableCaching
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 public class DownloadApplication {
 

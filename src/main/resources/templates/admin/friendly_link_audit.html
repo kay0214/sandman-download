@@ -13,35 +13,35 @@
 </head>
 <body>
 <div th:replace="common/header :: admin"></div>
-<div th:replace="admin/admin_header :: notice"></div>
+<div th:replace="admin/admin_header :: friendly_link"></div>
 
 <div class="layui-container sandman-background text-align-center">
 
-    <form class="layui-form padding-4p-4p-4p-0" action="/notice_manager/update" method="post">
-        <input type="hidden" name="id" th:value="${notice.id}">
+    <form class="layui-form padding-4p-4p-4p-0" action="/friendly_link_manager/update" method="post">
+        <input type="hidden" name="id" th:value="${friendlyLink.id}">
 
         <div class="layui-form-item">
-            <label class="layui-form-label">标题</label>
+            <label class="layui-form-label">链接名</label>
             <div class="layui-input-block">
-                <input type="text" name="title" th:value="${notice.title}" class="layui-input">
+                <input type="text" name="linkName" th:value="${friendlyLink.linkName}" class="layui-input">
             </div>
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label">内容</label>
+            <label class="layui-form-label">链接</label>
             <div class="layui-input-block">
-                <input type="text" name="content" th:value="${notice.content}" class="layui-input">
+                <input type="text" name="linkUrl" th:value="${friendlyLink.linkUrl}" class="layui-input">
             </div>
         </div>
 
         <div class="layui-form-item">
             <label class="layui-form-label">状态</label>
             <div class="layui-input-block">
-                <select name="status" th:if="${notice.status} == 0">
+                <select name="status" th:if="${friendlyLink.status} == 0">
                     <option value="0" selected>禁用</option>
                     <option value="1">启用</option>
                 </select>
-                <select name="status" th:if="${notice.status} == 1">
+                <select name="status" th:if="${friendlyLink.status} == 1">
                     <option value="0">禁用</option>
                     <option value="1" selected>启用</option>
                 </select>
@@ -51,14 +51,14 @@
         <div class="layui-form-item">
             <label class="layui-form-label">排序</label>
             <div class="layui-input-block">
-                <input type="text" name="orderNo" th:value="${notice.orderNo}" class="layui-input">
+                <input type="text" name="orderNo" th:value="${friendlyLink.orderNo}" class="layui-input">
             </div>
         </div>
 
         <div class="layui-form-item">
             <div class="layui-input-block">
                 <button type="submit" class="layui-btn">提交修改</button>
-                <a href="/notice_manager/init" class="layui-btn layui-btn-primary">返回</a>
+                <a href="/friendly_link_manager/init" class="layui-btn layui-btn-primary">返回</a>
             </div>
         </div>
     </form>

@@ -5,6 +5,7 @@ package com.sandman.download.controller.admin;
 
 import com.sandman.download.base.BaseController;
 import com.sandman.download.base.BaseResult;
+import com.sandman.download.bean.admin.ResourceManagerRequest;
 import com.sandman.download.bean.download.UserResultBean;
 import com.sandman.download.dao.mysql.download.model.auto.Resource;
 import com.sandman.download.dao.mysql.system.model.auto.User;
@@ -42,12 +43,10 @@ public class ResourceManagerController extends BaseController {
 
     @ResponseBody
     @GetMapping(value = "/search")
-    public BaseResult search(Integer page,Integer limit){
-        page = (page==null)?1:page;
-        limit = (limit==null)?10:limit;
-        logger.info("查询列表分页 -> page:[{}],limit:[{}]",page,limit);
-        int count = resourceManagerService.getResourceCount();
-        List<Resource> resourceList = resourceManagerService.searchList(page,limit);
+    public BaseResult search(ResourceManagerRequest resourceManagerRequest){
+        logger.info("查询列表分页 -> page:[{}],limit:[{}]",resourceManagerRequest.getPage(),resourceManagerRequest.getLimit());
+        int count = resourceManagerService.getResourceCount(resourceManagerRequest);
+        List<Resource> resourceList = resourceManagerService.searchList(resourceManagerRequest);
         return new BaseResult(resourceList,count);
     }
 

@@ -13,35 +13,35 @@
 </head>
 <body>
 <div th:replace="common/header :: admin"></div>
-<div th:replace="admin/admin_header :: notice"></div>
+<div th:replace="admin/admin_header :: link"></div>
 
 <div class="layui-container sandman-background text-align-center">
 
-    <form class="layui-form padding-4p-4p-4p-0" action="/notice_manager/update" method="post">
-        <input type="hidden" name="id" th:value="${notice.id}">
+    <form class="layui-form padding-4p-4p-4p-0" action="/link_manager/update" method="post">
+        <input type="hidden" name="id" th:value="${link.id}">
 
         <div class="layui-form-item">
-            <label class="layui-form-label">标题</label>
+            <label class="layui-form-label">接口名</label>
             <div class="layui-input-block">
-                <input type="text" name="title" th:value="${notice.title}" class="layui-input">
+                <input type="text" name="apiName" th:value="${link.apiName}" class="layui-input">
             </div>
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label">内容</label>
+            <label class="layui-form-label">接口地址</label>
             <div class="layui-input-block">
-                <input type="text" name="content" th:value="${notice.content}" class="layui-input">
+                <input type="text" name="apiUrl" th:value="${link.apiUrl}" class="layui-input">
             </div>
         </div>
 
         <div class="layui-form-item">
             <label class="layui-form-label">状态</label>
             <div class="layui-input-block">
-                <select name="status" th:if="${notice.status} == 0">
+                <select name="status" th:if="${link.status} == 0">
                     <option value="0" selected>禁用</option>
                     <option value="1">启用</option>
                 </select>
-                <select name="status" th:if="${notice.status} == 1">
+                <select name="status" th:if="${link.status} == 1">
                     <option value="0">禁用</option>
                     <option value="1" selected>启用</option>
                 </select>
@@ -49,9 +49,16 @@
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label">排序</label>
+            <label class="layui-form-label">状态</label>
             <div class="layui-input-block">
-                <input type="text" name="orderNo" th:value="${notice.orderNo}" class="layui-input">
+                <select name="secureVisitFlag" th:if="${link.secureVisitFlag} == 0">
+                    <option value="0" selected>无需登陆</option>
+                    <option value="1">需要登陆</option>
+                </select>
+                <select name="secureVisitFlag" th:if="${link.secureVisitFlag} == 1">
+                    <option value="0">无需登陆</option>
+                    <option value="1" selected>需要登陆</option>
+                </select>
             </div>
         </div>
 
