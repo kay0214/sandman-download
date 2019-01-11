@@ -106,6 +106,7 @@ public class ResourceController extends BaseController {
     @ResponseBody
     @GetMapping(value = "/hot_resource")
     public BaseResult hotResources(){
-        return new BaseResult(CommonConstant.HOT_RESOURCES);
+        List<Resource> hotResources = resourceService.getHotResources();
+        return new BaseResult(hotResources);
     }
 }

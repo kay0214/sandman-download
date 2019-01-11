@@ -5,10 +5,12 @@ package com.sandman.download.service.download.impl;
 
 import com.sandman.download.base.BaseServiceImpl;
 import com.sandman.download.bean.download.ResourceBean;
+import com.sandman.download.constant.CommonConstant;
 import com.sandman.download.dao.mysql.download.model.auto.Resource;
 import com.sandman.download.dao.mysql.download.model.auto.ResourceExample;
 import com.sandman.download.service.download.ResourceService;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -68,6 +70,18 @@ public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServ
         return resourceMapper.selectByExample(resourceExample);
     }
 
+    /**
+     * 获取热门资源(调用其他方法，这里封装一个方法是为了方便缓存)
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    @Override
+    @Cacheable(value = "hotResourcesCache")
+    public List<Resource> getHotResources() {
+        logger.info("热门资源缓存");
+        return getResourceByType(new ResourceBean(1, CommonConstant.HOT_RESOURCES_LIMIT,1));
+    }
 
     private ResourceExample convertExample(ResourceBean resourceBean){
         ResourceExample resourceExample = new ResourceExample();

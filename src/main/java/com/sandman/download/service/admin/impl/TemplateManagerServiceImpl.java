@@ -11,6 +11,7 @@ import com.sandman.download.service.admin.TemplateManagerService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -94,5 +95,19 @@ public class TemplateManagerServiceImpl extends BaseServiceImpl implements Templ
     @Override
     public int deleteTemplate(Integer id) {
         return templateMapper.deleteByPrimaryKey(id);
+    }
+
+    /**
+     * 插入模板
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    @Override
+    public int insertTemplate(Template template) {
+        Date now = new Date();
+        template.setCreateTime(now);
+        template.setUpdateTime(now);
+        return templateMapper.insertSelective(template);
     }
 }

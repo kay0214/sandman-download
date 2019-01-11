@@ -71,6 +71,18 @@ public class NoticeManagerController extends BaseController {
         return new ModelAndView("redirect:/notice_manager/init");
     }
 
+    @GetMapping(value = "/insert_init")
+    public ModelAndView insertInit(){
+        return new ModelAndView("admin/notice_insert");
+    }
+
+    @PostMapping(value = "/insert")
+    public ModelAndView insert(Notice notice){
+        logger.info("管理员插入公告 -> title:[{}]",notice.getTitle());
+        noticeManagerService.insertNotice(notice);
+        return new ModelAndView("redirect:/notice_manager/init");
+    }
+
     @GetMapping(value = "/delete")
     public ModelAndView delete(Integer id){
         logger.info("管理员删除公告 -> id[{}]",id);

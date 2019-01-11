@@ -46,4 +46,12 @@ public interface ResourceService extends BaseService {
      * @return
      */
     List<Resource> getList(ResourceBean resourceBean);
+
+    /**
+     * 获取热门资源(调用其他方法，这里封装一个方法是为了方便缓存)
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    List<Resource> getHotResources();
 }

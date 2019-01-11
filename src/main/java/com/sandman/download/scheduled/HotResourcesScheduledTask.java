@@ -17,16 +17,16 @@ import org.springframework.util.CollectionUtils;
  * @author sunpeikai
  * @version HotResourcesScheduledTask, v0.1 2018/12/20 14:46
  */
-@Component
+//@Component
 public class HotResourcesScheduledTask {
 
     private static final Logger logger = LoggerFactory.getLogger(HotResourcesScheduledTask.class);
 
-    @Autowired
+    /*@Autowired
     private ResourceService resourceService;
 
     // 每5分钟获取一次热门资源列表
-    @Scheduled(fixedRate = 5 * 60 * 1000)
+    //@Scheduled(fixedRate = 5 * 60 * 1000)
     public void updateRootUrl(){
         CommonConstant.HOT_RESOURCES = resourceService.getResourceByType(new ResourceBean(1, CommonConstant.HOT_RESOURCES_LIMIT,1));
         if(!CollectionUtils.isEmpty(CommonConstant.HOT_RESOURCES)){
@@ -34,6 +34,6 @@ public class HotResourcesScheduledTask {
         }else{
             logger.info("获取热门资源列表失败（每5分钟获取一次）");
         }
-    }
+    }*/
 
 }

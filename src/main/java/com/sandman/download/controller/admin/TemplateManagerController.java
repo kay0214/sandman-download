@@ -72,6 +72,18 @@ public class TemplateManagerController extends BaseController {
         return new ModelAndView("redirect:/template_manager/init");
     }
 
+    @GetMapping(value = "/insert_init")
+    public ModelAndView insertInit(){
+        return new ModelAndView("admin/template_insert");
+    }
+
+    @PostMapping(value = "/insert")
+    public ModelAndView insert(Template template){
+        logger.info("管理员新建模板 -> tplName:[{}]",template.getTplName());
+        templateManagerService.insertTemplate(template);
+        return new ModelAndView("redirect:/template_manager/init");
+    }
+
     @GetMapping(value = "/delete")
     public ModelAndView delete(Integer id){
         logger.info("管理员删除模板 -> id[{}]",id);

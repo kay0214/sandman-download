@@ -72,6 +72,19 @@ public class LinkManagerController extends BaseController {
         return new ModelAndView("redirect:/link_manager/init");
     }
 
+    @GetMapping(value = "/insert_init")
+    public ModelAndView insertInit(){
+
+        return new ModelAndView("admin/link_insert");
+    }
+
+    @PostMapping(value = "/insert")
+    public ModelAndView insert(SecureConfig secureConfig){
+        logger.info("管理员新增接口 -> id[{}]",secureConfig.getApiName());
+        linkManagerService.insertApi(secureConfig);
+        return new ModelAndView("redirect:/link_manager/init");
+    }
+
     @GetMapping(value = "/delete")
     public ModelAndView delete(Integer id){
         logger.info("管理员删除接口 -> id[{}]",id);

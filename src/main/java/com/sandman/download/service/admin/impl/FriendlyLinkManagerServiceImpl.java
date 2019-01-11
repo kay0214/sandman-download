@@ -11,6 +11,7 @@ import com.sandman.download.service.admin.FriendlyLinkManagerService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -83,5 +84,20 @@ public class FriendlyLinkManagerServiceImpl extends BaseServiceImpl implements F
     @Override
     public int update(FriendlyLink friendlyLink) {
         return friendlyLinkMapper.updateByPrimaryKeySelective(friendlyLink);
+    }
+
+    /**
+     * 插入友情链接
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    @Override
+    public int insertFriendlyLink(FriendlyLink friendlyLink) {
+        Date now = new Date();
+        friendlyLink.setCreateTime(now);
+        friendlyLink.setUpdateTime(now);
+        friendlyLink.setDelFlag(0);
+        return friendlyLinkMapper.insertSelective(friendlyLink);
     }
 }

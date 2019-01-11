@@ -7,8 +7,33 @@
     <defaultCache eternal="false" maxElementsInMemory="1000"
                   overflowToDisk="false" diskPersistent="false" timeToIdleSeconds="0"
                   timeToLiveSeconds="600" memoryStoreEvictionPolicy="LRU" />
+    <!--
+    timeToIdleSeconds 最后一次访问到失效
+    timeToLiveSeconds 创建到失效
+    -->
+    <!-- 友情链接缓存 -->
     <cache
             name="friendlyCache"
+            maxElementsInMemory="1000"
+            eternal="false"
+            timeToIdleSeconds="600"
+            timeToLiveSeconds="86400"
+            overflowToDisk="false"
+            memoryStoreEvictionPolicy="LRU">
+    </cache>
+    <!-- 公告缓存 -->
+    <cache
+            name="noticeCache"
+            maxElementsInMemory="1000"
+            eternal="false"
+            timeToIdleSeconds="300"
+            timeToLiveSeconds="300"
+            overflowToDisk="false"
+            memoryStoreEvictionPolicy="LRU">
+    </cache>
+    <!-- 热门资源缓存 -->
+    <cache
+            name="hotResourcesCache"
             maxElementsInMemory="1000"
             eternal="false"
             timeToIdleSeconds="300"

@@ -54,4 +54,12 @@ public interface TemplateManagerService extends BaseService {
      * @return
      */
     int deleteTemplate(Integer id);
+
+    /**
+     * 插入模板
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    int insertTemplate(Template template);
 }

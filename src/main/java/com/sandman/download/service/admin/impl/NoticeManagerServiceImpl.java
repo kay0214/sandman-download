@@ -11,6 +11,7 @@ import com.sandman.download.service.admin.NoticeManagerService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -83,5 +84,20 @@ public class NoticeManagerServiceImpl extends BaseServiceImpl implements NoticeM
     @Override
     public int updateNotice(Notice notice) {
         return noticeMapper.updateByPrimaryKeySelective(notice);
+    }
+
+    /**
+     * 插入新公告
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    @Override
+    public int insertNotice(Notice notice) {
+        Date now = new Date();
+        notice.setCreateTime(now);
+        notice.setUpdateTime(now);
+        notice.setDelFlag(0);
+        return noticeMapper.insertSelective(notice);
     }
 }

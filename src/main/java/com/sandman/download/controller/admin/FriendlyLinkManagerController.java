@@ -72,6 +72,18 @@ public class FriendlyLinkManagerController extends BaseController {
         return new ModelAndView("redirect:/friendly_link_manager/init");
     }
 
+    @GetMapping(value = "/insert_init")
+    public ModelAndView insertInit(){
+        return new ModelAndView("admin/friendly_link_insert");
+    }
+
+    @PostMapping(value = "/insert")
+    public ModelAndView insert(FriendlyLink friendlyLink){
+        logger.info("管理员插入友情链接 -> linkName:[{}]",friendlyLink.getLinkName());
+        friendlyLinkManagerService.insertFriendlyLink(friendlyLink);
+        return new ModelAndView("redirect:/friendly_link_manager/init");
+    }
+
     @GetMapping(value = "/delete")
     public ModelAndView delete(Integer id){
         logger.info("管理员删除公告 -> id[{}]",id);

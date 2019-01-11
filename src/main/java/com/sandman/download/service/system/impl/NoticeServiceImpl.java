@@ -7,6 +7,7 @@ import com.sandman.download.base.BaseServiceImpl;
 import com.sandman.download.dao.mysql.system.model.auto.Notice;
 import com.sandman.download.dao.mysql.system.model.auto.NoticeExample;
 import com.sandman.download.service.system.NoticeService;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,6 +26,7 @@ public class NoticeServiceImpl extends BaseServiceImpl implements NoticeService 
      * @return
      */
     @Override
+    @Cacheable(value = "noticeCache")
     public List<Notice> getNoticeList() {
         NoticeExample noticeExample = new NoticeExample();
         noticeExample.setOrderByClause("order_no asc");

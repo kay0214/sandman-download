@@ -46,4 +46,12 @@ public interface NoticeManagerService extends BaseService {
      * @return
      */
     int updateNotice(Notice notice);
+
+    /**
+     * 插入新公告
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    int insertNotice(Notice notice);
 }

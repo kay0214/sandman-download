@@ -11,6 +11,7 @@ import com.sandman.download.service.admin.LinkManagerService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -86,5 +87,20 @@ public class LinkManagerServiceImpl extends BaseServiceImpl implements LinkManag
     @Override
     public int update(SecureConfig secureConfig) {
         return secureConfigMapper.updateByPrimaryKeySelective(secureConfig);
+    }
+
+    /**
+     * 新增接口
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    @Override
+    public int insertApi(SecureConfig secureConfig) {
+        Date now = new Date();
+        secureConfig.setCreateTime(now);
+        secureConfig.setUpdateTime(now);
+        secureConfig.setDelFlag(0);
+        return secureConfigMapper.insertSelective(secureConfig);
     }
 }

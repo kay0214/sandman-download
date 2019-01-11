@@ -46,4 +46,12 @@ public interface LinkManagerService extends BaseService {
      * @return
      */
     int update(SecureConfig secureConfig);
+
+    /**
+     * 新增接口
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    int insertApi(SecureConfig secureConfig);
 }

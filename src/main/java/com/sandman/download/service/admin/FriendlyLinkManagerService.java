@@ -46,4 +46,12 @@ public interface FriendlyLinkManagerService extends BaseService {
      * @return
      */
     int update(FriendlyLink friendlyLink);
+
+    /**
+     * 插入友情链接
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    int insertFriendlyLink(FriendlyLink friendlyLink);
 }
