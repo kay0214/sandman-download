@@ -4,6 +4,7 @@
 package com.sandman.download.service.admin;
 
 import com.sandman.download.base.BaseService;
+import com.sandman.download.bean.admin.FriendlyLinkManagerRequest;
 import com.sandman.download.dao.mysql.system.model.auto.FriendlyLink;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public interface FriendlyLinkManagerService extends BaseService {
      * @param
      * @return
      */
-    int getFriendlyLinkCount();
+    int getFriendlyLinkCount(FriendlyLinkManagerRequest friendlyLinkManagerRequest);
 
     /**
      * 分页获取友情链接列表
@@ -28,7 +29,7 @@ public interface FriendlyLinkManagerService extends BaseService {
      * @param
      * @return
      */
-    List<FriendlyLink> searchList(Integer page,Integer limit);
+    List<FriendlyLink> searchList(FriendlyLinkManagerRequest friendlyLinkManagerRequest);
 
     /**
      * 根据id获取友情链接

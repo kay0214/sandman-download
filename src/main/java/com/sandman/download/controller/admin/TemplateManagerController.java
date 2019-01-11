@@ -5,6 +5,7 @@ package com.sandman.download.controller.admin;
 
 import com.sandman.download.base.BaseController;
 import com.sandman.download.base.BaseResult;
+import com.sandman.download.bean.admin.TemplateManagerRequest;
 import com.sandman.download.dao.mysql.system.model.auto.Template;
 import com.sandman.download.service.admin.TemplateManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,12 +38,10 @@ public class TemplateManagerController extends BaseController {
 
     @ResponseBody
     @GetMapping(value = "/search")
-    public BaseResult search(Integer page, Integer limit){
-        page = (page==null)?1:page;
-        limit = (limit==null)?10:limit;
-        logger.info("查询列表分页 -> page:[{}],limit:[{}]",page,limit);
-        int count = templateManagerService.getTemplateCount();
-        List<Template> templateList = templateManagerService.searchList(page,limit);
+    public BaseResult search(TemplateManagerRequest templateManagerRequest){
+        logger.info("查询列表分页 -> page:[{}],limit:[{}]",templateManagerRequest.getPage(),templateManagerRequest.getLimit());
+        int count = templateManagerService.getTemplateCount(templateManagerRequest);
+        List<Template> templateList = templateManagerService.searchList(templateManagerRequest);
         return new BaseResult(templateList,count);
     }
 

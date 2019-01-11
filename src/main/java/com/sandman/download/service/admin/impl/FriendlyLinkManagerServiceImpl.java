@@ -4,9 +4,11 @@
 package com.sandman.download.service.admin.impl;
 
 import com.sandman.download.base.BaseServiceImpl;
+import com.sandman.download.bean.admin.FriendlyLinkManagerRequest;
 import com.sandman.download.dao.mysql.system.model.auto.FriendlyLink;
 import com.sandman.download.dao.mysql.system.model.auto.FriendlyLinkExample;
 import com.sandman.download.service.admin.FriendlyLinkManagerService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,9 +27,8 @@ public class FriendlyLinkManagerServiceImpl extends BaseServiceImpl implements F
      * @return
      */
     @Override
-    public int getFriendlyLinkCount() {
-        FriendlyLinkExample friendlyLinkExample = new FriendlyLinkExample();
-        friendlyLinkExample.createCriteria().andDelFlagEqualTo(0);
+    public int getFriendlyLinkCount(FriendlyLinkManagerRequest friendlyLinkManagerRequest) {
+        FriendlyLinkExample friendlyLinkExample = convertExample(friendlyLinkManagerRequest);
         return friendlyLinkMapper.countByExample(friendlyLinkExample);
     }
 
@@ -38,14 +39,28 @@ public class FriendlyLinkManagerServiceImpl extends BaseServiceImpl implements F
      * @return
      */
     @Override
-    public List<FriendlyLink> searchList(Integer page, Integer limit) {
-        FriendlyLinkExample friendlyLinkExample = new FriendlyLinkExample();
+    public List<FriendlyLink> searchList(FriendlyLinkManagerRequest friendlyLinkManagerRequest) {
+        FriendlyLinkExample friendlyLinkExample = convertExample(friendlyLinkManagerRequest);
         friendlyLinkExample.setOrderByClause("order_no asc");
-        computePage(page, limit);
+        computePage(friendlyLinkManagerRequest.getPage(), friendlyLinkManagerRequest.getLimit());
         friendlyLinkExample.setLimitStart(limitStart);
         friendlyLinkExample.setLimitEnd(limitEnd);
-        friendlyLinkExample.createCriteria().andDelFlagEqualTo(0);
         return friendlyLinkMapper.selectByExample(friendlyLinkExample);
+    }
+
+    private FriendlyLinkExample convertExample(FriendlyLinkManagerRequest friendlyLinkManagerRequest){
+        FriendlyLinkExample friendlyLinkExample = new FriendlyLinkExample();
+        FriendlyLinkExample.Criteria criteria = friendlyLinkExample.createCriteria().andDelFlagEqualTo(0);
+        if(StringUtils.isNotBlank(friendlyLinkManagerRequest.getLinkName())){
+            criteria.andLinkNameLike("%" + friendlyLinkManagerRequest.getLinkName() + "%");
+        }
+        if(StringUtils.isNotBlank(friendlyLinkManagerRequest.getLinkUrl())){
+            criteria.andLinkUrlLike("%" + friendlyLinkManagerRequest.getLinkUrl() + "%");
+        }
+        if(friendlyLinkManagerRequest.getStatus()!=null){
+            criteria.andStatusEqualTo(friendlyLinkManagerRequest.getStatus());
+        }
+        return friendlyLinkExample;
     }
 
     /**

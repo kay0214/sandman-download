@@ -68,6 +68,7 @@
 
         table.render({
             elem: '#table'
+            ,id:'friendlyLink'
             ,url:'/friendly_link_manager/search'
             ,page: true
             ,limits : [10,15,20,25]
@@ -117,7 +118,7 @@
                 var linkUrl = $('#linkUrl');
                 var status = $('#status');
                 //执行重载
-                table.reload('notice', {
+                table.reload('friendlyLink', {
                     page: {
                         curr: 1 //重新从第 1 页开始
                     }

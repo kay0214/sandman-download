@@ -16,7 +16,48 @@
 <div th:replace="admin/admin_header :: link"></div>
 
 <div class="layui-container sandman-background text-align-center">
+    <div class="demoTable">
+        <div class="padding-top-2p layui-form">
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-md2 layui-col-md-offset1">
+                    <div class="layui-inline">
+                        <input class="layui-input" placeholder="接口名" name="id" id="apiName" autocomplete="off">
+                    </div>
+                </div>
 
+                <div class="layui-col-md2">
+                    <div class="layui-inline">
+                        <input class="layui-input" placeholder="接口地址" name="id" id="apiUrl" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="layui-col-md2">
+                    <div class="layui-input-inline">
+                        <select id="status">
+                            <option value="">状态</option>
+                            <option value="0">禁用</option>
+                            <option value="1">启用</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="layui-col-md2">
+                    <div class="layui-input-inline">
+                        <select id="secureVisitFlag">
+                            <option value="">访问</option>
+                            <option value="0">无需登录</option>
+                            <option value="1">需要登录</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="layui-col-md2">
+                    <button class="layui-btn" data-type="reload">搜索</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
     <table class="layui-hide" id="table"></table>
 
 </div>
@@ -37,6 +78,7 @@
 
         table.render({
             elem: '#table'
+            ,id:'link'
             ,url:'/link_manager/search'
             ,page: true
             ,limits : [10,15,20,25]
@@ -83,6 +125,31 @@
                     }}
                 ]
             ]
+        });
+        var $ = layui.$, active = {
+            reload: function(){
+                var apiName = $('#apiName');
+                var apiUrl = $('#apiUrl');
+                var status = $('#status');
+                var secureVisitFlag = $('#secureVisitFlag');
+                //执行重载
+                table.reload('link', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    ,where: {
+                        apiName: apiName.val(),
+                        apiUrl:apiUrl.val(),
+                        status:status.val(),
+                        secureVisitFlag:secureVisitFlag.val()
+                    }
+                });
+            }
+        };
+
+        $('.demoTable .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
         });
     });
 </script>

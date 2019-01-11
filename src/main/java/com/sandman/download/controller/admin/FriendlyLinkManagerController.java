@@ -5,6 +5,7 @@ package com.sandman.download.controller.admin;
 
 import com.sandman.download.base.BaseController;
 import com.sandman.download.base.BaseResult;
+import com.sandman.download.bean.admin.FriendlyLinkManagerRequest;
 import com.sandman.download.dao.mysql.system.model.auto.FriendlyLink;
 import com.sandman.download.service.admin.FriendlyLinkManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,12 +38,10 @@ public class FriendlyLinkManagerController extends BaseController {
 
     @ResponseBody
     @GetMapping(value = "/search")
-    public BaseResult search(Integer page,Integer limit){
-        page = (page==null)?1:page;
-        limit = (limit==null)?10:limit;
-        logger.info("查询列表分页 -> page:[{}],limit:[{}]",page,limit);
-        int count = friendlyLinkManagerService.getFriendlyLinkCount();
-        List<FriendlyLink> friendlyLinkList = friendlyLinkManagerService.searchList(page, limit);
+    public BaseResult search(FriendlyLinkManagerRequest friendlyLinkManagerRequest){
+        logger.info("查询列表分页 -> page:[{}],limit:[{}]",friendlyLinkManagerRequest.getPage(),friendlyLinkManagerRequest.getLimit());
+        int count = friendlyLinkManagerService.getFriendlyLinkCount(friendlyLinkManagerRequest);
+        List<FriendlyLink> friendlyLinkList = friendlyLinkManagerService.searchList(friendlyLinkManagerRequest);
         return new BaseResult(friendlyLinkList,count);
     }
 

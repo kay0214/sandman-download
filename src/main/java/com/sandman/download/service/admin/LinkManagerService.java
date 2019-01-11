@@ -4,6 +4,7 @@
 package com.sandman.download.service.admin;
 
 import com.sandman.download.base.BaseService;
+import com.sandman.download.bean.admin.LinkManagerRequest;
 import com.sandman.download.dao.mysql.system.model.auto.SecureConfig;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public interface LinkManagerService extends BaseService {
      * @param
      * @return
      */
-    int getLinkCount();
+    int getLinkCount(LinkManagerRequest linkManagerRequest);
 
     /**
      * 分页获取接口列表
@@ -28,7 +29,7 @@ public interface LinkManagerService extends BaseService {
      * @param
      * @return
      */
-    List<SecureConfig> searchList(Integer page, Integer limit);
+    List<SecureConfig> searchList(LinkManagerRequest linkManagerRequest);
 
     /**
      * 根据id获取接口

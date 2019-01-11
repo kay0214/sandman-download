@@ -4,9 +4,11 @@
 package com.sandman.download.service.admin.impl;
 
 import com.sandman.download.base.BaseServiceImpl;
+import com.sandman.download.bean.admin.LinkManagerRequest;
 import com.sandman.download.dao.mysql.system.model.auto.SecureConfig;
 import com.sandman.download.dao.mysql.system.model.auto.SecureConfigExample;
 import com.sandman.download.service.admin.LinkManagerService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,9 +27,8 @@ public class LinkManagerServiceImpl extends BaseServiceImpl implements LinkManag
      * @return
      */
     @Override
-    public int getLinkCount() {
-        SecureConfigExample secureConfigExample = new SecureConfigExample();
-        secureConfigExample.createCriteria().andDelFlagEqualTo(0);
+    public int getLinkCount(LinkManagerRequest linkManagerRequest) {
+        SecureConfigExample secureConfigExample = convertExample(linkManagerRequest);
         return secureConfigMapper.countByExample(secureConfigExample);
     }
 
@@ -38,14 +39,31 @@ public class LinkManagerServiceImpl extends BaseServiceImpl implements LinkManag
      * @return
      */
     @Override
-    public List<SecureConfig> searchList(Integer page, Integer limit) {
-        SecureConfigExample secureConfigExample = new SecureConfigExample();
+    public List<SecureConfig> searchList(LinkManagerRequest linkManagerRequest) {
+        SecureConfigExample secureConfigExample = convertExample(linkManagerRequest);
         secureConfigExample.setOrderByClause("create_time desc");
-        computePage(page, limit);
+        computePage(linkManagerRequest.getPage(), linkManagerRequest.getLimit());
         secureConfigExample.setLimitStart(limitStart);
         secureConfigExample.setLimitEnd(limitEnd);
-        secureConfigExample.createCriteria().andDelFlagEqualTo(0);
         return secureConfigMapper.selectByExample(secureConfigExample);
+    }
+
+    private SecureConfigExample convertExample(LinkManagerRequest linkManagerRequest){
+        SecureConfigExample secureConfigExample = new SecureConfigExample();
+        SecureConfigExample.Criteria criteria = secureConfigExample.createCriteria().andDelFlagEqualTo(0);
+        if(StringUtils.isNotBlank(linkManagerRequest.getApiName())){
+            criteria.andApiNameLike("%" + linkManagerRequest.getApiName() + "%");
+        }
+        if(StringUtils.isNotBlank(linkManagerRequest.getApiUrl())){
+            criteria.andApiUrlLike("%" + linkManagerRequest.getApiUrl() + "%");
+        }
+        if(linkManagerRequest.getStatus() != null){
+            criteria.andStatusEqualTo(linkManagerRequest.getStatus());
+        }
+        if(linkManagerRequest.getSecureVisitFlag() != null){
+            criteria.andSecureVisitFlagEqualTo(linkManagerRequest.getSecureVisitFlag());
+        }
+        return secureConfigExample;
     }
 
     /**

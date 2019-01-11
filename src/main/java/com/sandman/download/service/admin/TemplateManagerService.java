@@ -4,6 +4,7 @@
 package com.sandman.download.service.admin;
 
 import com.sandman.download.base.BaseService;
+import com.sandman.download.bean.admin.TemplateManagerRequest;
 import com.sandman.download.dao.mysql.system.model.auto.Template;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public interface TemplateManagerService extends BaseService {
      * @param
      * @return
      */
-    int getTemplateCount();
+    int getTemplateCount(TemplateManagerRequest templateManagerRequest);
 
     /**
      * 分页获取模板列表
@@ -28,7 +29,7 @@ public interface TemplateManagerService extends BaseService {
      * @param
      * @return
      */
-    List<Template> searchList(Integer page, Integer limit);
+    List<Template> searchList(TemplateManagerRequest templateManagerRequest);
 
     /**
      * 根据id查询模板
