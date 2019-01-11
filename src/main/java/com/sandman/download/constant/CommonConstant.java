@@ -12,6 +12,22 @@ import java.util.List;
 public class CommonConstant {
 
     /**
+     * 手机号脱敏-开始
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    public static final int MOBILE_SENSITIVE_START = 3;
+
+    /**
+     * 手机号脱敏-结束
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    public static final int MOBILE_SENSITIVE_END = 7;
+
+    /**
      * 热门资源列表缓存
      * @auth sunpeikai
      * @param

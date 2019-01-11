@@ -58,6 +58,7 @@ public class RegisterServiceImpl extends BaseServiceImpl implements RegisterServ
         user.setGold(0);
         // 普通用户
         user.setRole(1);
+        user.setIconUrl(SystemConfig.getSandmanIconDefault());
         user.setRegIp(ClientIpAddress.getIpAddress(request));
         user.setRegTime(new Date());
         user.setCreateTime(new Date());

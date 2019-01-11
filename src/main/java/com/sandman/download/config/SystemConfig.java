@@ -45,6 +45,8 @@ public class SystemConfig {
     private static String BLOGGER_DEFAULT_IMG;
     private static String TEMPLATES_PATH;
 
+    private static String SANDMAN_ICON_DEFAULT;
+
     @Value("${sftpServer.userName}")
     private void setUSERNAME(String USERNAME) {
         SystemConfig.USERNAME = USERNAME;
@@ -140,6 +142,10 @@ public class SystemConfig {
         ICON_PREFIX = iconPrefix;
     }
 
+    @Value("${sandman.icon.default}")
+    public void setSandmanIconDefault(String sandmanIconDefault) {
+        SANDMAN_ICON_DEFAULT = sandmanIconDefault;
+    }
 
     //get方法位置
     public static String getSmtpHost() {
@@ -219,5 +225,9 @@ public class SystemConfig {
 
     public static String getIconPrefix() {
         return ICON_PREFIX;
+    }
+
+    public static String getSandmanIconDefault() {
+        return SANDMAN_ICON_DEFAULT;
     }
 }

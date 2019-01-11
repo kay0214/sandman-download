@@ -15,7 +15,7 @@
 <div th:replace="common/header :: admin"></div>
 <div th:replace="admin/admin_header :: resource"></div>
 
-<div class="layui-container sandman-background">
+<div class="layui-container sandman-background text-align-center">
 
     <table class="layui-hide" id="table"></table>
 
@@ -37,7 +37,7 @@
 
         table.render({
             elem: '#table'
-            ,url:'/my_gold/search'
+            ,url:'/resource_manager/search'
             ,page: true
             ,limits : [10,15,20,25]
             ,limit : 10
@@ -51,15 +51,29 @@
             ,cols: [
                 [
                     {field:'id', width:70, title: 'ID', sort: true,style:'text-align: left;'}
-                    ,{field:'resourceId', minWidth:180, title: '资源',style:'text-align: left;',templet:function (data) {
-                        return "<a href='/resource/get_info?id=" + data.resourceId + "' target='_blank'>" + data.resourceName + "</a>";
+                    ,{field:'username', minWidth:120, title: '上传用户',style:'text-align: left;'}
+                    ,{field:'resourceName', width:150, title: '名称',style:'text-align: left;'}
+                    ,{field:'resourceGold', width:60, title: '积分',style:'text-align: left;'}
+                    ,{field:'resourceType', width:70, title: '类型',style:'text-align: left;'}
+                    ,{field:'resourceDesc', minWidth:180, title: '描述',style:'text-align: left;'}
+                    ,{field:'downloadCount', width:100, title: '下载次数',style:'text-align: left;', sort: true}
+                    ,{field:'status', width:100, title: '状态',style:'text-align: left;', templet:function (data) {
+                        if(data.status===0){
+                            return "待审核";
+                        }else if(data.status===1){
+                            return "审核通过";
+                        }else if(data.status===2){
+                            return "审核失败";
+                        }else{
+                            return "预留状态";
+                        }
                     }}
-                    ,{field:'originalGold', width:80, title: '原积分',style:'text-align: left;'}
-                    ,{field:'resourceGold', width:100, title: '资源积分',style:'text-align: left;'}
-                    ,{field:'currentGold', width:80, title: '现积分',style:'text-align: left;'}
-                    ,{field:'operationDesc', minWidth:180, title: '操作说明',style:'text-align: left;'}
-                    ,{field:'createTime', width:150, title: '操作时间',style:'text-align: left;', sort: true,templet:function (data) {
+                    ,{field:'statusDesc', minWidth:100, title: '状态描述',style:'text-align: left;'}
+                    ,{field:'createTime', width:180, title: '上传时间',style:'text-align: left;', sort: true, templet:function (data) {
                         return timeFormat(data.createTime);
+                    }}
+                    ,{fixed:'right', width:125, title: '操作',style:'text-align: left;', templet:function (data) {
+                        return "<a href='/resource_manager/audit?id=" + data.id + "' class='layui-btn layui-btn-sm layui-btn-normal'>审核</a><a href='/resource_manager/delete?id=" + data.id + "' class='layui-btn layui-btn-sm layui-btn-danger'>删除</a>";
                     }}
                 ]
             ]
@@ -79,7 +93,9 @@
         h = h<10?("0"+h):h;
         var M = date.getMinutes();
         M = M<10?("0"+M):M;
-        var str = y+"-"+m+"-"+d+" "+h+":"+M;
+        var s = date.getSeconds();
+        s = s<10?("0"+s):s;
+        var str = y+"-"+m+"-"+d+" "+h+":"+M + ":" + s;
         return str;
     }
 </script>

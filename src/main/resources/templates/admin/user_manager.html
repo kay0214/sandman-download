@@ -15,7 +15,7 @@
 <div th:replace="common/header :: admin"></div>
 <div th:replace="admin/admin_header :: user"></div>
 
-<div class="layui-container sandman-background">
+<div class="layui-container sandman-background text-align-center">
 
     <table class="layui-hide" id="table"></table>
 
@@ -37,7 +37,7 @@
 
         table.render({
             elem: '#table'
-            ,url:'/my_gold/search'
+            ,url:'/user_manager/search_list'
             ,page: true
             ,limits : [10,15,20,25]
             ,limit : 10
@@ -50,23 +50,45 @@
             }
             ,cols: [
                 [
-                    {field:'id', width:70, title: 'ID', sort: true,style:'text-align: left;'}
-                    ,{field:'resourceId', minWidth:180, title: '资源',style:'text-align: left;',templet:function (data) {
-                        return "<a href='/resource/get_info?id=" + data.resourceId + "' target='_blank'>" + data.resourceName + "</a>";
+                    {field:'userId', width:70, title: 'ID', sort: true,style:'text-align: left;'}
+                    ,{field:'username', minWidth:100, title: '用户名',style:'text-align: left;'}
+                    ,{field:'mobile', width:100, title: '手机号',style:'text-align: left;'}
+                    ,{field:'email', minWidth:150, title: '邮箱',style:'text-align: left;'}
+                    ,{field:'gold', width:60, title: '积分',style:'text-align: left;'}
+                    ,{field:'available', width:80, title: '状态',style:'text-align: left;' ,templet:function (data) {
+                        if(data.available===0){
+                            return "禁用";
+                        }else{
+                            return "可用";
+                        }
                     }}
-                    ,{field:'originalGold', width:80, title: '原积分',style:'text-align: left;'}
-                    ,{field:'resourceGold', width:100, title: '资源积分',style:'text-align: left;'}
-                    ,{field:'currentGold', width:80, title: '现积分',style:'text-align: left;'}
-                    ,{field:'operationDesc', minWidth:180, title: '操作说明',style:'text-align: left;'}
-                    ,{field:'createTime', width:150, title: '操作时间',style:'text-align: left;', sort: true,templet:function (data) {
-                        return timeFormat(data.createTime);
+                    ,{field:'role', width:100, title: '角色',style:'text-align: left;', templet:function (data) {
+                        if(data.role===0){
+                            return "管理员";
+                        }else if(data.role===1){
+                            return "普通用户";
+                        }else if(data.role===2){
+                            return "VIP用户";
+                        }else{
+                            return "预留角色";
+                        }
+                    }}
+                    ,{field:'regIp', width:100, title: '注册IP',style:'text-align: left;'}
+                    ,{field:'regTime', width:180, title: '注册时间',style:'text-align: left;', sort: true,templet:function (data) {
+                        return timeFormat(data.regTime);
+                    }}
+                    ,{fixed:'right', width:80, title: '操作',style:'text-align: left;',templet:function (data) {
+                        if(data.available===0){
+                            return "<a href='/user_manager/update_status?userId= " + data.userId + "&status=1' class='layui-btn layui-btn-sm layui-btn-normal'>启用</a>";
+                        }else{
+                            return "<a href='/user_manager/update_status?userId= " + data.userId + "&status=0' class='layui-btn layui-btn-sm layui-btn-danger'>禁用</a>";
+                        }
                     }}
                 ]
             ]
         });
     });
 </script>
-
 <script type="text/javascript">
     function timeFormat(v){
         var date = new Date(v);
@@ -79,7 +101,9 @@
         h = h<10?("0"+h):h;
         var M = date.getMinutes();
         M = M<10?("0"+M):M;
-        var str = y+"-"+m+"-"+d+" "+h+":"+M;
+        var s = date.getSeconds();
+        s = s<10?("0"+s):s;
+        var str = y+"-"+m+"-"+d+" "+h+":"+M + ":" + s;
         return str;
     }
 </script>

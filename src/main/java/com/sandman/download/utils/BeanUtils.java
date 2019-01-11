@@ -1,5 +1,6 @@
 package com.sandman.download.utils;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,6 +22,25 @@ import java.util.stream.Collectors;
 public class BeanUtils {
 
 	private final static Logger logger = LoggerFactory.getLogger(BeanUtils.class);
+
+	/**
+	 * 数据脱敏
+	 * @auth sunpeikai
+	 * @param
+	 * @return
+	 */
+	public static String sensitiveReplace(String source,int from,int to){
+		if(StringUtils.isBlank(source)){
+			return "";
+		}
+		String replace = "";
+		int size = to - from;
+		for(int i=0;i<size;i++){
+			replace += "*";
+		}
+		String temp = source.substring(from,to);
+		return source.replace(temp,replace);
+	}
 
 	/**
 	 * 提供对象属性null转""方法，目前只支持String的属性

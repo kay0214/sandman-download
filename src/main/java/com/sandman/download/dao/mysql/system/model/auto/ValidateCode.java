@@ -28,7 +28,7 @@ public class ValidateCode implements Serializable {
     private Date deadLine;
 
     /**
-     * 可用(0:此验证码无效,1:此验证码有效)
+     * 可用(0:此验证码无效,1:此验证码有效,2:已验证通过)
      *
      * @mbggenerated
      */

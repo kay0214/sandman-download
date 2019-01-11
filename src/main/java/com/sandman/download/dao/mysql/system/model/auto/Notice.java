@@ -21,6 +21,20 @@ public class Notice implements Serializable {
     private String content;
 
     /**
+     * 启用状态(0:禁用;1:启用)
+     *
+     * @mbggenerated
+     */
+    private Integer status;
+
+    /**
+     * 排序
+     *
+     * @mbggenerated
+     */
+    private Integer orderNo;
+
+    /**
      * 创建时间
      *
      * @mbggenerated
@@ -65,6 +79,22 @@ public class Notice implements Serializable {
 
     public void setContent(String content) {
         this.content = content == null ? null : content.trim();
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Integer getOrderNo() {
+        return orderNo;
+    }
+
+    public void setOrderNo(Integer orderNo) {
+        this.orderNo = orderNo;
     }
 
     public Date getCreateTime() {

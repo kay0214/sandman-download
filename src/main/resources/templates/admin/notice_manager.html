@@ -15,7 +15,7 @@
 <div th:replace="common/header :: admin"></div>
 <div th:replace="admin/admin_header :: notice"></div>
 
-<div class="layui-container sandman-background">
+<div class="layui-container sandman-background text-align-center">
 
     <table class="layui-hide" id="table"></table>
 
@@ -37,7 +37,7 @@
 
         table.render({
             elem: '#table'
-            ,url:'/my_gold/search'
+            ,url:'/notice_manager/search'
             ,page: true
             ,limits : [10,15,20,25]
             ,limit : 10
@@ -51,15 +51,29 @@
             ,cols: [
                 [
                     {field:'id', width:70, title: 'ID', sort: true,style:'text-align: left;'}
-                    ,{field:'resourceId', minWidth:180, title: '资源',style:'text-align: left;',templet:function (data) {
-                        return "<a href='/resource/get_info?id=" + data.resourceId + "' target='_blank'>" + data.resourceName + "</a>";
+                    ,{field:'title', width:180, title: '标题',style:'text-align: left;'}
+                    ,{field:'content', minWidth:200, title: '内容',style:'text-align: left;'}
+                    ,{field:'status', width:80, title: '状态',style:'text-align: left;', templet:function (data) {
+                        if(data.status===0){
+                            return "禁用";
+                        }else{
+                            return "启用";
+                        }
                     }}
-                    ,{field:'originalGold', width:80, title: '原积分',style:'text-align: left;'}
-                    ,{field:'resourceGold', width:100, title: '资源积分',style:'text-align: left;'}
-                    ,{field:'currentGold', width:80, title: '现积分',style:'text-align: left;'}
-                    ,{field:'operationDesc', minWidth:180, title: '操作说明',style:'text-align: left;'}
-                    ,{field:'createTime', width:150, title: '操作时间',style:'text-align: left;', sort: true,templet:function (data) {
+                    ,{field:'orderNo', width:70, title: '排序',style:'text-align: left;',sort:true}
+                    ,{field:'createTime', width:180, title: '创建时间',style:'text-align: left;', sort: true,templet:function (data) {
                         return timeFormat(data.createTime);
+                    }}
+                    ,{fixed:'right', width:180, title: '操作',style:'text-align: left;',templet:function (data) {
+                        if(data.status===0){
+                            return "<a href='/notice_manager/available?id=" + data.id + "&status=1' class='layui-btn layui-btn-sm layui-btn-normal'>启用</a>" +
+                                "<a href='/notice_manager/edit?id=" + data.id + "' class='layui-btn layui-btn-sm layui-btn-normal'>修改</a>" +
+                                "<a href='/notice_manager/delete?id=" + data.id + "' class='layui-btn layui-btn-sm layui-btn-danger'>删除</a>";
+                        }else{
+                            return "<a href='/notice_manager/available?id=" + data.id + "&status=0' class='layui-btn layui-btn-sm layui-btn-danger'>禁用</a>" +
+                                "<a href='/notice_manager/edit?id=" + data.id + "' class='layui-btn layui-btn-sm layui-btn-normal'>修改</a>" +
+                                "<a href='/notice_manager/delete?id=" + data.id + "' class='layui-btn layui-btn-sm layui-btn-danger'>删除</a>";
+                        }
                     }}
                 ]
             ]
@@ -79,7 +93,9 @@
         h = h<10?("0"+h):h;
         var M = date.getMinutes();
         M = M<10?("0"+M):M;
-        var str = y+"-"+m+"-"+d+" "+h+":"+M;
+        var s = date.getSeconds();
+        s = s<10?("0"+s):s;
+        var str = y+"-"+m+"-"+d+" "+h+":"+M + ":" + s;
         return str;
     }
 </script>

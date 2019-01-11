@@ -15,7 +15,7 @@
 <div th:replace="common/header :: admin"></div>
 <div th:replace="admin/admin_header :: link"></div>
 
-<div class="layui-container sandman-background">
+<div class="layui-container sandman-background text-align-center">
 
     <table class="layui-hide" id="table"></table>
 
@@ -79,7 +79,9 @@
         h = h<10?("0"+h):h;
         var M = date.getMinutes();
         M = M<10?("0"+M):M;
-        var str = y+"-"+m+"-"+d+" "+h+":"+M;
+        var s = date.getSeconds();
+        s = s<10?("0"+s):s;
+        var str = y+"-"+m+"-"+d+" "+h+":"+M + ":" + s;
         return str;
     }
 </script>
