@@ -45,7 +45,7 @@ public class InterceptorConfig extends BaseServiceImpl implements WebMvcConfigur
 
 		// 管理员拦截
 		InterceptorRegistration adminIn = registry.addInterceptor(new AdminInterceptor());
-		adminIn.addPathPatterns("/admin/index");
+		adminIn.addPathPatterns("/admin/index","/friendly_link_manager/**","/link_manager/**","/notice_manager/**","/resource_manager/**","/template_manager/**","/user_manager/**");
 
 	}
 }

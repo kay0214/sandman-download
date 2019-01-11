@@ -29,16 +29,16 @@
             <!-- 搜索功能 -->
             <form action="/my_resource/search" method="get">
 
-                <div class="layui-form-item">
+                <div class="layui-form-item text-align-center">
 
-                    <div class="layui-inline width-40p">
+                    <div class="layui-inline">
                         <label class="layui-form-label">资源名称：</label>
                         <div class="layui-input-block">
                             <input type="text" name="resourceName" th:value="${resourceName}" placeholder="请输入资源名称" autocomplete="off" class="layui-input">
                         </div>
                     </div>
 
-                    <div class="layui-inline width-38p">
+                    <div class="layui-inline">
                         <label class="layui-form-label">审核状态：</label>
                         <div class="layui-input-block" th:switch="${status}">
                             <select name="status" th:case="0">
