@@ -8,13 +8,16 @@ import com.sandman.download.base.BaseController;
 import com.sandman.download.base.BaseResult;
 import com.sandman.download.bean.admin.UserManagerRequest;
 import com.sandman.download.bean.download.UserResultBean;
+import com.sandman.download.constant.ReturnMessage;
 import com.sandman.download.dao.mysql.system.model.auto.User;
 import com.sandman.download.service.admin.UserManagerService;
 import com.sandman.download.utils.BeanUtils;
+import com.sandman.download.utils.SessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -66,6 +69,36 @@ public class UserManagerController extends BaseController {
             user.setAvailable(status);
             user.setUpdateTime(new Date());
             userManagerService.updateUser(user);
+        }
+        return new ModelAndView("redirect:/user_manager/init");
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/recharge")
+    public BaseResult recharge(Integer userId,Integer gold){
+        User user = userManagerService.getUserByUserId(userId);
+        logger.info("管理员充值 -> userId:[{}],gold:[{}]",user.getUserId(),gold);
+        user.setGold(user.getGold() + gold);
+        int result = userManagerService.updateUser(user);
+        if(result>0){
+            return new BaseResult();
+        }else{
+            return new BaseResult(ReturnMessage.ERR_USER_RECHARGE);
+        }
+    }
+
+    @GetMapping(value = "/vip")
+    public ModelAndView vip(Integer userId,Integer role){
+        logger.info("管理员充会员 -> userId:[{}],更新后角色:[{}]",userId,role);
+        User user = userManagerService.getUserByUserId(userId);
+        if(user!=null){
+            if(!role.equals(user.getRole())){
+                // 不同时才更新
+                user.setRole(role);
+                user.setUpdateTime(new Date());
+                userManagerService.updateUser(user);
+            }
+
         }
         return new ModelAndView("redirect:/user_manager/init");
     }

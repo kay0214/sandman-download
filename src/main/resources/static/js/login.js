@@ -3,7 +3,6 @@ $("#login").click(function () {
     var password = $("#password").val();
     var login = loginConfirm(username,password);
     if(login){
-        console.info("可以向后台发送登录请求");
         $.ajax({
             type: "post",
             url: "/login/login",
@@ -14,20 +13,23 @@ $("#login").click(function () {
             }),
             async: false,
             success: function (data) {
-                console.info(data);
                 if(data.status !== '000'){
                     layer.msg(data.statusDesc,{icon: 5});
                 }else{
-                    console.info("登录成功，跳转");
                     layer.msg(data.statusDesc,{icon: 6});
-                    //console.info("retUrl=" + retUrl);
                     location.href = "/";
                 }
             }
         });
     }
-    console.info("login click -> username:" + username + ";password:" + password);
 });
+// 监听回车事件
+function keyPress(obj){
+    if (obj.keyCode == 13) {
+        $("#login").click();
+        obj.returnValue = false;
+    }
+};
 function loginConfirm(username,password) {
     if(username === null || username === undefined || username === ''){
         layer.msg('用户名不能为空',{icon: 5});

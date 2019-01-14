@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>首页-sandman资源共享平台</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="icon" href="/icon/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/icon/favicon.ico" type="image/x-icon"/>
+    <meta name="keywords" content="sandman,download,资源共享">
+    <meta name="description" content="sandman资源共享平台">
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/global.css">
+</head>
+<body>
+<div th:replace="common/header :: personal"></div>
+
+<div class="layui-row sandman-content">
+
+    <div class="layui-col-md2 margin-left-2p">
+        <!-- 左边内容(公告，友情链接等) -->
+        <div th:replace="common/notice::html"></div>
+        <div th:replace="common/friendly_link::html"></div>
+    </div>
+
+    <div class="layui-col-md7 padding-left-4p">
+        <!-- 中间内容 -->
+
+        <div class="margin-top-2p">
+            <div class="layui-card">
+                <div class="layui-card-header"><i class="layui-icon">    &#xe65e;  </i>充值说明</div>
+                <div class="layui-card-body">
+                    <div class="margin-top-2p">
+                        <p>由于技术原因，目前为止我们只能提供人工充值。自动充值的话，敬请期待吧O(∩_∩)O</p>
+                        <p>需要充值的请加一下<a style="cursor: pointer;" name="wechat">微信</a></p>
+                        <p>资费说明:0.2元/积分。每满1元送1积分。即6积分/元</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-col-md2 margin-right-2p float-right">
+        <!-- 右边内容(签到，热门资源列表) -->
+        <div th:replace="common/resource_hot::html"></div>
+    </div>
+
+
+</div>
+
+
+
+
+<div th:replace="common/footer::fixed"></div>
+
+
+<!--<div th:replace="common/css3::html"></div>-->
+<script src="/layui/layui.js"></script>
+<script src="/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/footer.js"></script>
+<script src="/js/global.js"></script>
+</body>
+</html>

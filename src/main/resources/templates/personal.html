@@ -104,7 +104,6 @@
                 });
             }
             , done: function (res) {
-                console.info(res);
                 //如果上传失败
                 if (res.status !== '000') {
                     return layer.msg(res.statusDesc);

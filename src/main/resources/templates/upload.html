@@ -135,7 +135,6 @@
 <script th:inline="javascript">
     var fileType = [[${resourceType}]];
     var fileName = [[${fileName}]];
-    console.info("fileType：：" + fileType + ";;;;fileName=" + fileName);
     if(fileType !== null && fileType !== undefined && fileType !== '' && fileName !== null && fileName !== undefined && fileName !== ''){
         replace(fileType,fileName);
     }

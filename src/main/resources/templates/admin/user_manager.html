@@ -119,11 +119,33 @@
                     ,{field:'regTime', width:180, title: '注册时间',style:'text-align: left;', sort: true,templet:function (data) {
                         return timeFormat(data.regTime);
                     }}
-                    ,{fixed:'right', width:80, title: '操作',style:'text-align: left;',templet:function (data) {
+                    ,{fixed:'right', width:220, title: '操作',style:'text-align: left;',templet:function (data) {
                         if(data.available===0){
-                            return "<a href='/user_manager/update_status?userId= " + data.userId + "&status=1' class='layui-btn layui-btn-sm layui-btn-normal'>启用</a>";
+                            // 账户被禁用
+                            if(data.role === 1){
+                                //非会员
+                                return "<a href='/user_manager/update_status?userId= " + data.userId + "&status=1' class='layui-btn layui-btn-sm layui-btn-normal'>启用</a>" +
+                                    "<a href='/user_manager/vip?userId=" + data.userId + "&role=2' class='layui-btn layui-btn-sm layui-btn-normal'>成为会员</a>" +
+                                    "<button onclick='recharge(" + data.userId + ")' class='layui-btn layui-btn-sm layui-btn-normal'>充积分</button>";
+                            }else if(data.role === 2){
+                                //会员
+                                return "<a href='/user_manager/update_status?userId= " + data.userId + "&status=1' class='layui-btn layui-btn-sm layui-btn-normal'>启用</a>" +
+                                    "<a href='/user_manager/vip?userId=" + data.userId + "&role=1' class='layui-btn layui-btn-sm layui-btn-danger'>失去会员</a>" +
+                                    "<button onclick='recharge(" + data.userId + ")' class='layui-btn layui-btn-sm layui-btn-normal'>充积分</button>";
+                            }
                         }else{
-                            return "<a href='/user_manager/update_status?userId= " + data.userId + "&status=0' class='layui-btn layui-btn-sm layui-btn-danger'>禁用</a>";
+                            // 账户可用
+                            if(data.role === 1){
+                                //非会员
+                                return "<a href='/user_manager/update_status?userId= " + data.userId + "&status=0' class='layui-btn layui-btn-sm layui-btn-danger'>禁用</a>" +
+                                    "<a href='/user_manager/vip?userId=" + data.userId + "&role=2' class='layui-btn layui-btn-sm layui-btn-normal'>成为会员</a>" +
+                                    "<button onclick='recharge(" + data.userId + ")' class='layui-btn layui-btn-sm layui-btn-normal'>充积分</button>";
+                            }else if(data.role === 2){
+                                //会员
+                                return "<a href='/user_manager/update_status?userId= " + data.userId + "&status=0' class='layui-btn layui-btn-sm layui-btn-danger'>禁用</a>" +
+                                    "<a href='/user_manager/vip?userId=" + data.userId + "&role=1' class='layui-btn layui-btn-sm layui-btn-danger'>失去会员</a>" +
+                                    "<button onclick='recharge(" + data.userId + ")' class='layui-btn layui-btn-sm layui-btn-normal'>充积分</button>";
+                            }
                         }
                     }}
                 ]
@@ -174,6 +196,40 @@
         s = s<10?("0"+s):s;
         var str = y+"-"+m+"-"+d+" "+h+":"+M + ":" + s;
         return str;
+    }
+</script>
+<script>
+    function recharge(userId) {
+        layer.open({
+            content: '<input class="layui-input" id="recharge" placeholder="请输入充值金额"/>',
+            title:'充值',
+            yes: function(index, layero){
+                var gold = $("#recharge").val();
+                if(gold !== null && gold !== undefined && gold !== '' && gold !== 0 && userId !== null && userId !== undefined && userId !== ''){
+                    $.ajax({
+                        type: "post",
+                        url: "/user_manager/recharge",
+                        data: {
+                            gold:gold,
+                            userId:userId
+                        },
+                        async: false,
+                        success: function (data) {
+                            if(data.status !== '000'){
+                                layer.msg(data.statusDesc,{icon: 5});
+                            }else{
+                                // 充值成功
+                                layer.close(index); //如果设定了yes回调，需进行手工关闭
+                                layer.msg(data.statusDesc,{icon: 6});
+                                window.location.href = "/user_manager/init";
+                            }
+                        }
+                    });
+                }else{
+                    layer.msg("输入无效",{icon: 5});
+                }
+            }
+        });
     }
 </script>
 </body>

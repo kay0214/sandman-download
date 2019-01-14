@@ -152,8 +152,17 @@
                     {
                         type : 'category',
                         boundaryGap : false,
+                        axisPointer: {
+                            label: {
+                                formatter: function (params) {
+                                    return params.value
+                                        + (params.seriesData.length ? '日：' + params.seriesData[0].data : '');
+                                }
+                            }
+                        },
                         data : date
                     }
+
                 ],
                 yAxis : [
                     {

@@ -3,7 +3,6 @@ $("#login").click(function () {
     var password = $("#password").val();
     var login = loginConfirm(username,password);
     if(login){
-        console.info("可以向后台发送登录请求");
         $.ajax({
             type: "post",
             url: "/login/login",
@@ -14,7 +13,6 @@ $("#login").click(function () {
             }),
             async: false,
             success: function (data) {
-                console.info(data);
                 if(data.code !== 0){
                     layer.msg("登录失败",{icon: 5});
                 }else{

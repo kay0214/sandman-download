@@ -147,7 +147,6 @@ function send_email() {
     var email = $("#email").val();
     var username = $("#username").val();
     var password = $("#password").val();
-    console.info("准备发送邮件::::username=" + username + ";;;password=" + password + ";;;;email = " + email);
     $("#emailConfirm").html("<b><i>" + email + "</i></b>");
     // ajax发送邮件
     $.ajax({
