@@ -12,6 +12,22 @@ import java.util.List;
 public class CommonConstant {
 
     /**
+     * 普通用户最大上传大小
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    public static final long NORMAL_MAX_FILE_SIZE = 100 * 1024 * 1024;
+
+    /**
+     * 会员最大上传大小
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    public static final long VIP_MAX_FILE_SIZE = 200 * 1024 * 1024;
+
+    /**
      * 手机号脱敏-开始
      * @auth sunpeikai
      * @param

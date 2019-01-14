@@ -28,6 +28,7 @@ public class NoticeServiceImpl extends BaseServiceImpl implements NoticeService 
     @Override
     @Cacheable(value = "noticeCache")
     public List<Notice> getNoticeList() {
+        logger.info("从mysql中获取公告");
         NoticeExample noticeExample = new NoticeExample();
         noticeExample.setOrderByClause("order_no asc");
         noticeExample.createCriteria().andDelFlagEqualTo(0).andStatusEqualTo(1);

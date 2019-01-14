@@ -41,7 +41,7 @@ public class InterceptorConfig extends BaseServiceImpl implements WebMvcConfigur
 		addIn.addPathPatterns(addPathPatternList);
 
 		// 请求路径拦截
-		registry.addInterceptor(new RetUrlInterceptor()).addPathPatterns("/**").excludePathPatterns("/**/**.js","/**/**.css");
+		//registry.addInterceptor(new RetUrlInterceptor()).addPathPatterns("/**").excludePathPatterns("/**/**.js","/**/**.css");
 
 		// 管理员拦截
 		InterceptorRegistration adminIn = registry.addInterceptor(new AdminInterceptor());

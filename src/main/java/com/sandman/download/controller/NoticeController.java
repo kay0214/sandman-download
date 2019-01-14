@@ -29,7 +29,6 @@ public class NoticeController extends BaseController {
     @ResponseBody
     @GetMapping(value = "/init")
     public BaseResult init(){
-        logger.info("entry notice view");
         List<Notice> noticeList = noticeService.getNoticeList();
         return new BaseResult(noticeList);
     }

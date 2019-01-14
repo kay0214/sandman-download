@@ -9,6 +9,7 @@ import com.sandman.download.dao.mysql.system.model.auto.Notice;
 import com.sandman.download.dao.mysql.system.model.auto.NoticeExample;
 import com.sandman.download.service.admin.NoticeManagerService;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -77,12 +78,15 @@ public class NoticeManagerServiceImpl extends BaseServiceImpl implements NoticeM
 
     /**
      * 更新notice
+     * allEntries = true 删除全部元素重新从数据库中获取
      * @auth sunpeikai
      * @param
      * @return
      */
     @Override
+    @CacheEvict(value = "noticeCache",allEntries = true)
     public int updateNotice(Notice notice) {
+        logger.info("删除公告缓存");
         return noticeMapper.updateByPrimaryKeySelective(notice);
     }
 
@@ -93,7 +97,9 @@ public class NoticeManagerServiceImpl extends BaseServiceImpl implements NoticeM
      * @return
      */
     @Override
+    @CacheEvict(value = "noticeCache",allEntries = true)
     public int insertNotice(Notice notice) {
+        logger.info("删除公告缓存");
         Date now = new Date();
         notice.setCreateTime(now);
         notice.setUpdateTime(now);

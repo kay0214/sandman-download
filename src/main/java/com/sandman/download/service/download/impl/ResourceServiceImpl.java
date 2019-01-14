@@ -79,7 +79,7 @@ public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServ
     @Override
     @Cacheable(value = "hotResourcesCache")
     public List<Resource> getHotResources() {
-        logger.info("热门资源缓存");
+        logger.info("从mysql中获取热门资源");
         return getResourceByType(new ResourceBean(1, CommonConstant.HOT_RESOURCES_LIMIT,1));
     }
 

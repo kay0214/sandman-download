@@ -40,7 +40,8 @@ public class UploadServiceImpl extends BaseServiceImpl implements UploadService 
         JSONObject result = new JSONObject();
         Resource resource = new Resource();
         Integer userId = SessionUtils.getUserId();
-        User user = getUserByUserId(userId);
+        // 未涉及到积分操作，直接从session中取
+        User user = SessionUtils.getUser();
         String fileType = FileUtils.getSuffixNameByFileName(multipartFile.getOriginalFilename());
         fileType = (fileType==null || "".equals(fileType))?"file":fileType;//如果utils给出的文件类型为null，将file赋值给fileType
         String filePath = SystemConfig.getPathPrefix() + SystemConfig.getFilePrefix() + "/" + userId + "/";//  /root/sandman/emmmoe/file + / + userId + /

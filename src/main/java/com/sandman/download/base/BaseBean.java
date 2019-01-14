@@ -47,7 +47,6 @@ public class BaseBean {
     public void computeLimit(){
         limitStart = (currPage-1) * pageSize;
         limitEnd = pageSize;
-        System.out.println("计算分页:limitStart=" + limitStart + "::limitEnd=" + limitEnd);
     }
 
     public Integer getCurrPage() {

@@ -132,13 +132,36 @@
 </script>
 <script>
     layui.use('upload', function () {
+
         var upload = layui.upload;
         //执行一个upload实例
         upload.render({
             elem: '#file'
             ,url: '/upload/uploadFile'
             ,accept: 'file' //普通文件
-            ,size: 220000 //限制文件大小，单位 KB
+            ,auto:false // 不自动上传
+            ,size: 409600 //限制文件大小，单位 KB
+            ,choose : function (obj) {
+                var role = [[${session.user.role}]];
+                obj.preview(function(index, file, result){
+                    if(role === 1){
+                        if(file.size > 100*1024*1024){
+                            layer.msg("您是普通用户,上传文件大小不能超过100MB",{icon: 5});
+                            return false;
+                        }
+                    }else if(role === 2){
+                        if(file.size > 200*1024*1024){
+                            layer.msg("您是VIP用户，上传文件大小不能超过200MB",{icon: 5});
+                            return false;
+                        }
+                    }
+                    console.info("符合大小要求，这里开始上传");
+                    obj.upload(index,file);
+                    return true;
+                });
+
+
+            }
             ,done: function(res){
                 if(res.status !== '000'){
                     // 出问题了
@@ -147,14 +170,19 @@
                     // 上传成功了
                     $("#resourceUrl").val(res.data.url);
                     console.info(res.data.fileName + ";;;;;;;;" + res.data.fileType);
-                    var text = "<img src='/images/zip.svg'>    " + res.data.fileName;
+                    var text;
                     switch (res.data.fileType) {
-                        case "zip":console.info("zip");break;
-                        case "rar":console.info("rar");break;
-                        case "png":console.info("png");break;
-                        case "jpg":console.info("jpg");break;
-                        case "txt":console.info("txt");break;
-                        case "exe":console.info("exe");break;
+                        case "doc":text = "<img src='/images/file/doc.svg'>    " + res.data.fileName;break;
+                        case "docx":text = "<img src='/images/file/docx.svg'>    " + res.data.fileName;break;
+                        case "exe":text = "<img src='/images/file/exe.svg'>    " + res.data.fileName;break;
+                        case "jpg":text = "<img src='/images/file/jpg.svg'>    " + res.data.fileName;break;
+                        case "pdf":text = "<img src='/images/file/pdf.svg'>    " + res.data.fileName;break;
+                        case "png":text = "<img src='/images/file/png.svg'>    " + res.data.fileName;break;
+                        case "ppt":text = "<img src='/images/file/ppt.svg'>    " + res.data.fileName;break;
+                        case "rar":text = "<img src='/images/file/rar.svg'>    " + res.data.fileName;break;
+                        case "txt":text = "<img src='/images/file/txt.svg'>    " + res.data.fileName;break;
+                        case "zip":text = "<img src='/images/file/zip.svg'>    " + res.data.fileName;break;
+                        default:text = "<img src='/images/file/unknown.svg'>    " + res.data.fileName;break;
                     }
 
                     $("#file").html(text);

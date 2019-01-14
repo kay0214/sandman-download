@@ -9,6 +9,7 @@ import com.sandman.download.dao.mysql.system.model.auto.FriendlyLink;
 import com.sandman.download.dao.mysql.system.model.auto.FriendlyLinkExample;
 import com.sandman.download.service.admin.FriendlyLinkManagerService;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -82,7 +83,9 @@ public class FriendlyLinkManagerServiceImpl extends BaseServiceImpl implements F
      * @return
      */
     @Override
+    @CacheEvict(value = "friendlyCache",allEntries = true)
     public int update(FriendlyLink friendlyLink) {
+        logger.info("删除友情链接缓存");
         return friendlyLinkMapper.updateByPrimaryKeySelective(friendlyLink);
     }
 
@@ -93,7 +96,9 @@ public class FriendlyLinkManagerServiceImpl extends BaseServiceImpl implements F
      * @return
      */
     @Override
+    @CacheEvict(value = "friendlyCache",allEntries = true)
     public int insertFriendlyLink(FriendlyLink friendlyLink) {
+        logger.info("删除友情链接缓存");
         Date now = new Date();
         friendlyLink.setCreateTime(now);
         friendlyLink.setUpdateTime(now);

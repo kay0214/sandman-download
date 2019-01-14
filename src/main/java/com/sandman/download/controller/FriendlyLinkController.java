@@ -29,7 +29,6 @@ public class FriendlyLinkController extends BaseController {
     @ResponseBody
     @GetMapping(value = "/init")
     public BaseResult init(){
-        logger.info("entry friendly link view");
         List<FriendlyLink> friendlyLinkList = friendlyLinkService.getFriendlyLinkList();
         return new BaseResult(friendlyLinkList);
     }

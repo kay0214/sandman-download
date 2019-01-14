@@ -28,6 +28,7 @@ public class FriendlyLinkServiceImpl extends BaseServiceImpl implements Friendly
     @Override
     @Cacheable(value = "friendlyCache")
     public List<FriendlyLink> getFriendlyLinkList() {
+        logger.info("从mysql中获取友情链接");
         FriendlyLinkExample friendlyLinkExample = new FriendlyLinkExample();
         friendlyLinkExample.setOrderByClause("order_no asc");
         friendlyLinkExample.createCriteria().andDelFlagEqualTo(0).andStatusEqualTo(1);

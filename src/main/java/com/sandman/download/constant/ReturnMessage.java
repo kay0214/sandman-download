@@ -48,6 +48,9 @@ public enum ReturnMessage {
     // 下载相关错误ERR_DOWNLOAD_
     ERR_DOWNLOAD("EDL000001","下载出错"),
 
+    // 上传相关错误ERR_UPLOAD_
+    ERR_UPLOAD_EXCEED_MAX_SIZE("EUP000001","您是{0},只能上传小于{1}的文件"),
+
     // 邮件相关错误信息ERR_EMAIL_
     ERR_EMAIL_USED("EEM000001", "邮箱已被占用"),
     ERR_EMAIL_FMT("EEM000002", "邮箱格式不正确"),
