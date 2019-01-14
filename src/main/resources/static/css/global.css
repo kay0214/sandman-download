@@ -709,3 +709,6 @@ body .sandman-user-main{position: relative; min-height: 600px;}
 .padding-4p-4p-4p-0{
   padding: 4% 4% 4% 0;
 }
+.pointer{
+  cursor: pointer;
+}

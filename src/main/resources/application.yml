@@ -22,7 +22,7 @@ spring:
         password: spkzq521
         driver-class-name: com.mysql.jdbc.Driver
   profiles:
-    active: prod
+    active: dev
   cache:
     type: ehcache
     ehcache:
@@ -30,5 +30,5 @@ spring:
   servlet:
     multipart:
       enabled: true
-      max-file-size: 200MB
+      max-file-size: 400MB
       max-request-size: 400MB

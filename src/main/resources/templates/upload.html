@@ -25,7 +25,7 @@
     <div class="layui-col-md7 padding-left-4p">
         <!-- 中间内容 -->
 
-        <div class="layui-row">
+        <div class="layui-row layui-col-space15">
             <!-- form表单 -->
             <div class="layui-col-md9">
 
@@ -53,7 +53,7 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label">资源积分</label>
                                 <div class="layui-input-block">
-                                    <div th:replace="common/resource_gold_select::html"></div>
+                                    <div th:replace="common/resource_gold_select::resourceGold"></div>
                                 </div>
                             </div>
                             <div class="layui-form-item layui-form-text">
@@ -73,7 +73,7 @@
 
             </div>
             <!-- 上传须知 -->
-            <div class="layui-col-md2 layui-col-md-offset1">
+            <div class="layui-col-md3">
                 <div class="layui-card">
                     <div class="layui-card-header">上传须知</div>
                     <div class="layui-card-body">
@@ -81,10 +81,6 @@
                             <div>
                                 <span class="layui-badge-dot layui-bg-black"></span>
                                 如涉及侵权内容,您的资源将被移除
-                            </div>
-                            <div>
-                                <span class="layui-badge-dot layui-bg-black"></span>
-                                请勿在未经授权的情况下上传任何涉及著作权侵权的资源，除非该资源完全由您个人创作
                             </div>
                             <div>
                                 <span class="layui-badge-dot layui-bg-black"></span>
@@ -116,19 +112,33 @@
 <script src="/layui/layui.js"></script>
 <script src="/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
 <script src="/js/footer.js"></script>
+<script src="/js/global.js"></script>
 <script>
-    layui.config({
-        version: "3.0.0"
-        , base: '/js/' //这里实际使用时，建议改成绝对路径
-    }).extend({
-        fly: 'index'
-    }).use('fly');
+    function replace(fileType,fileName) {
+        var text;
+        switch (fileType) {
+            case "doc":text = "<img src='/images/file/doc.svg'>    " + fileName;break;
+            case "docx":text = "<img src='/images/file/docx.svg'>    " + fileName;break;
+            case "exe":text = "<img src='/images/file/exe.svg'>    " + fileName;break;
+            case "jpg":text = "<img src='/images/file/jpg.svg'>    " + fileName;break;
+            case "pdf":text = "<img src='/images/file/pdf.svg'>    " + fileName;break;
+            case "png":text = "<img src='/images/file/png.svg'>    " + fileName;break;
+            case "ppt":text = "<img src='/images/file/ppt.svg'>    " + fileName;break;
+            case "rar":text = "<img src='/images/file/rar.svg'>    " + fileName;break;
+            case "txt":text = "<img src='/images/file/txt.svg'>    " + fileName;break;
+            case "zip":text = "<img src='/images/file/zip.svg'>    " + fileName;break;
+            default:text = "<img src='/images/file/unknown.svg'>    " + fileName;break;
+        }
+        $("#file").html(text);
+    }
 </script>
 <script th:inline="javascript">
     var fileType = [[${resourceType}]];
     var fileName = [[${fileName}]];
-    console.info("加载进来的fileType:" + fileType + ":::::fileName" + fileName);
-    //TODO:这里加载fileType和fileName是要把上传框的样式改变
+    console.info("fileType：：" + fileType + ";;;;fileName=" + fileName);
+    if(fileType !== null && fileType !== undefined && fileType !== '' && fileName !== null && fileName !== undefined && fileName !== ''){
+        replace(fileType,fileName);
+    }
 </script>
 <script>
     layui.use('upload', function () {
@@ -155,39 +165,22 @@
                             return false;
                         }
                     }
-                    console.info("符合大小要求，这里开始上传");
                     obj.upload(index,file);
+                    layer.load(); //上传loading
                     return true;
                 });
 
-
             }
             ,done: function(res){
+                layer.closeAll('loading'); //关闭loading
                 if(res.status !== '000'){
                     // 出问题了
                     layer.msg(res.statusDesc,{icon: 5});
                 }else{
                     // 上传成功了
                     $("#resourceUrl").val(res.data.url);
-                    console.info(res.data.fileName + ";;;;;;;;" + res.data.fileType);
-                    var text;
-                    switch (res.data.fileType) {
-                        case "doc":text = "<img src='/images/file/doc.svg'>    " + res.data.fileName;break;
-                        case "docx":text = "<img src='/images/file/docx.svg'>    " + res.data.fileName;break;
-                        case "exe":text = "<img src='/images/file/exe.svg'>    " + res.data.fileName;break;
-                        case "jpg":text = "<img src='/images/file/jpg.svg'>    " + res.data.fileName;break;
-                        case "pdf":text = "<img src='/images/file/pdf.svg'>    " + res.data.fileName;break;
-                        case "png":text = "<img src='/images/file/png.svg'>    " + res.data.fileName;break;
-                        case "ppt":text = "<img src='/images/file/ppt.svg'>    " + res.data.fileName;break;
-                        case "rar":text = "<img src='/images/file/rar.svg'>    " + res.data.fileName;break;
-                        case "txt":text = "<img src='/images/file/txt.svg'>    " + res.data.fileName;break;
-                        case "zip":text = "<img src='/images/file/zip.svg'>    " + res.data.fileName;break;
-                        default:text = "<img src='/images/file/unknown.svg'>    " + res.data.fileName;break;
-                    }
-
-                    $("#file").html(text);
-                    layer.msg(res.statusDesc,{icon: 6});
-
+                    replace(res.data.fileType,res.data.fileName);
+                    layer.msg("文件上传成功",{icon: 6});
                 }
             }
         });

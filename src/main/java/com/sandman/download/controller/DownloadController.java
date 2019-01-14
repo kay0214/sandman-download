@@ -143,6 +143,10 @@ public class DownloadController extends BaseController {
     public BaseResult checkInfo(@RequestBody CheckInfoBean checkInfoBean){
         // 检查 1：资源是否存在，2：积分是否足够，3：type为2是 是否是VIP
         logger.info("下载前检查 -> id:[{}],type:[{}]",checkInfoBean.getId(),checkInfoBean.getType());
+        User user = SessionUtils.getUser();
+        if(user == null){
+            return new BaseResult(ReturnMessage.ERR_USER_LOGIN_INVALID);
+        }
         Resource resource = downloadService.getResourceById(checkInfoBean.getId());
         if(resource == null){
             //资源不存在
@@ -156,7 +160,7 @@ public class DownloadController extends BaseController {
             checkSuccess(checkInfoBean.getId(),resourceLog.getId());
         }else{
             // 如果还没下载过
-            User user = downloadService.getUserByUserId(userId);
+            user = downloadService.getUserByUserId(userId);
             int curUserGold = user.getGold();//当前用户积分
             int resGold = resource.getResourceGold();//资源积分
             if(curUserGold<resGold){

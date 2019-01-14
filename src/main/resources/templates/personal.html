@@ -28,7 +28,7 @@
         <div class="layui-row">
             <!-- 资源详情 -->
             <div class="layui-card">
-                <div class="layui-card-header"><i class="layui-icon">    &#xe770;  </i>个人中心</div>
+                <div class="layui-card-header"><i class="layui-icon">    &#xe770;  </i>个人中心<a href="/personal/refresh" title="刷新" class="float-right pointer"><i class="layui-icon">    &#xe666;  </i></a></div>
                 <div class="layui-card-body">
                     <div class="layui-row">
                         <div class="padding-1p-2p">
@@ -87,16 +87,8 @@
 
 <script src="/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
 <script src="/layui/layui.js"></script>
-<script src="/layui/lay/modules/layer.js" type="text/javascript"></script>
 <script src="/js/footer.js"></script>
-<script>
-    layui.config({
-        version: "3.0.0"
-        , base: '/js/' //这里实际使用时，建议改成绝对路径
-    }).extend({
-        fly: 'index'
-    }).use('fly');
-</script>
+<script src="/js/global.js"></script>
 <script>
     layui.use('upload', function() {
         var upload = layui.upload;

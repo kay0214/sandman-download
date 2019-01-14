@@ -206,14 +206,7 @@
     // 使用刚指定的配置项和数据显示图表。
     myChart.setOption(option);
 </script>
-<script>
-    layui.config({
-        version: "3.0.0"
-        ,base: '/js/' //这里实际使用时，建议改成绝对路径
-    }).extend({
-        fly: 'index'
-    }).use('fly');
-</script>
+<script src="/js/global.js"></script>
 <script th:inline="javascript">
     var count = [[${count}]];
     var currPage = [[${currPage}]];
