@@ -3,7 +3,6 @@
  */
 package com.sandman.emmmoe.base;
 
-import com.alibaba.fastjson.JSON;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
@@ -69,10 +68,5 @@ public class BaseResult{
 
     public void setData(List data) {
         this.data = data;
-    }
-
-    @Override
-    public String toString() {
-        return JSON.toJSONString(this);
     }
 }
