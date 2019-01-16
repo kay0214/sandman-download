@@ -64,7 +64,12 @@
                 [
                     {field:'id', width:70, title: 'ID', sort: true,style:'text-align: left;'}
                     ,{field:'resourceId', minWidth:180, title: '资源',style:'text-align: left;',templet:function (data) {
-                        return "<a href='/resource/get_info?id=" + data.resourceId + "' target='_blank'>" + data.resourceName + "</a>";
+                        if(data.resourceId !== null && data.resourceId !== undefined && data.resourceId !== ''){
+                            return "<a href='/resource/get_info?id=" + data.resourceId + "' target='_blank'>" + data.resourceName + "</a>";
+                        }else{
+                            return data.resourceName;
+                        }
+
                     }}
                     ,{field:'originalGold', width:80, title: '原积分',style:'text-align: left;'}
                     ,{field:'resourceGold', width:100, title: '资源积分',style:'text-align: left;'}

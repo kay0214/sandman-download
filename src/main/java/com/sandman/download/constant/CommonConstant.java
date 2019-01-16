@@ -12,6 +12,22 @@ import java.util.List;
 public class CommonConstant {
 
     /**
+     * 用户充值积分时resourceName
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    public static final String ADMIN_OPERATE_GOLD = "管理员操作用户积分";
+
+    /**
+     * 用户充值会员时resourceName
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    public static final String ADMIN_OPERATE_ROLE = "管理员操作用户角色";
+
+    /**
      * 普通用户最大上传大小
      * @auth sunpeikai
      * @param

@@ -8,6 +8,7 @@ import com.sandman.download.base.BaseController;
 import com.sandman.download.base.BaseResult;
 import com.sandman.download.bean.admin.UserManagerRequest;
 import com.sandman.download.bean.download.UserResultBean;
+import com.sandman.download.constant.CommonConstant;
 import com.sandman.download.constant.ReturnMessage;
 import com.sandman.download.dao.mysql.system.model.auto.User;
 import com.sandman.download.service.admin.UserManagerService;
@@ -80,7 +81,7 @@ public class UserManagerController extends BaseController {
         User user = userManagerService.getUserByUserId(userId);
         logger.info("管理员充值 -> userId:[{}],gold:[{}]",user.getUserId(),gold);
         // 写入积分详情
-        userManagerService.goldOperation(userId,null,null,user.getGold(),null,user.getGold() + gold,"用户充值积分",2, DateUtils.getNow());
+        userManagerService.goldOperation(userId,null, CommonConstant.ADMIN_OPERATE_GOLD,user.getGold(),null,user.getGold() + gold,"用户充值积分",2, DateUtils.getNow());
         user.setGold(user.getGold() + gold);
         int result = userManagerService.updateUser(user);
         if(result>0){
@@ -97,7 +98,7 @@ public class UserManagerController extends BaseController {
         if(user!=null){
             if(user.getRole() == 1){
                 // 当用户是非会员时才写入积分详情
-                userManagerService.goldOperation(userId,null,null,user.getGold(),null,user.getGold(),"用户充值VIP",2, DateUtils.getNow());
+                userManagerService.goldOperation(userId,null,CommonConstant.ADMIN_OPERATE_ROLE,user.getGold(),null,user.getGold(),"用户充值VIP",2, DateUtils.getNow());
             }
             if(!role.equals(user.getRole())){
                 // 不同时才更新
