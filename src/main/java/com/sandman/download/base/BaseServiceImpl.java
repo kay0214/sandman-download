@@ -200,6 +200,7 @@ public class BaseServiceImpl extends CustomizeMapper implements BaseService {
         goldLog.setOperationDesc(desc);
         goldLog.setCreateTime(now);
         goldLog.setUpdateTime(now);
+        goldLog.setDelFlag(0);
         return goldLogMapper.insert(goldLog);
     }
 
