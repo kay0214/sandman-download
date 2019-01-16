@@ -57,6 +57,7 @@ public class ForgetPasswordServiceImpl extends BaseServiceImpl implements Forget
         replace.put("recipient",user.getUsername());
         replace.put("emailCode",validateCode.getCode());
         replace.put("code",code);
+        logger.info("发送找回密码邮件,username:[{}],email:[{}],code:[{}],url:[{}]",user.getUsername(),user.getEmail(),validateCode.getCode());
         return EmailSendUtils.sendEmail("找回密码",EmailSendUtils.emailContentReplace(emailTemplate.getTplContent(),replace),user.getEmail());
     }
 }

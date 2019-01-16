@@ -98,6 +98,7 @@ public class RegisterServiceImpl extends BaseServiceImpl implements RegisterServ
         replace.put("recipient",user.getUsername());
         replace.put("emailCode",validateCode.getCode());
         replace.put("activeUrl",activeUrl);
+        logger.info("发送注册邮件,username:[{}],email:[{}],code:[{}],url:[{}]",user.getUsername(),user.getEmail(),validateCode.getCode(),activeUrl);
         return EmailSendUtils.sendEmail("注册",EmailSendUtils.emailContentReplace(emailTemplate.getTplContent(),replace),user.getEmail());
     }
 }
