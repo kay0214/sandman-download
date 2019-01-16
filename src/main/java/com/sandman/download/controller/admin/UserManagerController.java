@@ -12,6 +12,7 @@ import com.sandman.download.constant.ReturnMessage;
 import com.sandman.download.dao.mysql.system.model.auto.User;
 import com.sandman.download.service.admin.UserManagerService;
 import com.sandman.download.utils.BeanUtils;
+import com.sandman.download.utils.DateUtils;
 import com.sandman.download.utils.SessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -78,6 +79,8 @@ public class UserManagerController extends BaseController {
     public BaseResult recharge(Integer userId,Integer gold){
         User user = userManagerService.getUserByUserId(userId);
         logger.info("管理员充值 -> userId:[{}],gold:[{}]",user.getUserId(),gold);
+        // 写入积分详情
+        userManagerService.goldOperation(userId,null,null,user.getGold(),null,user.getGold() + gold,"用户充值积分",2, DateUtils.getNow());
         user.setGold(user.getGold() + gold);
         int result = userManagerService.updateUser(user);
         if(result>0){
@@ -92,6 +95,10 @@ public class UserManagerController extends BaseController {
         logger.info("管理员充会员 -> userId:[{}],更新后角色:[{}]",userId,role);
         User user = userManagerService.getUserByUserId(userId);
         if(user!=null){
+            if(user.getRole() == 1){
+                // 当用户是非会员时才写入积分详情
+                userManagerService.goldOperation(userId,null,null,user.getGold(),null,user.getGold(),"用户充值VIP",2, DateUtils.getNow());
+            }
             if(!role.equals(user.getRole())){
                 // 不同时才更新
                 user.setRole(role);

@@ -115,6 +115,16 @@ public class DateUtils {
     }
 
     /**
+     * 获取当前时间
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    public static Date getNow(){
+        return new Date();
+    }
+
+    /**
      * 获取当前时间的String类型
      * @auth sunpeikai
      * @param

@@ -185,11 +185,11 @@ public class BaseServiceImpl extends CustomizeMapper implements BaseService {
      * @return
      */
     @Override
-    public GoldLog goldOperation(Integer userId, Integer resourceId,
-                                 String resourceName, Integer originalGold,
-                                 Integer resourceGold, Integer currentGold,
-                                 String desc, Integer type) {
-        Date now = new Date();
+    public int goldOperation(Integer userId, Integer resourceId,
+                             String resourceName, Integer originalGold,
+                             Integer resourceGold, Integer currentGold,
+                             String desc, Integer type, Date now) {
+        // 预留type，1积分扣除，2积分增加
         GoldLog goldLog = new GoldLog();
         goldLog.setUserId(userId);
         goldLog.setResourceId(resourceId);
@@ -200,14 +200,22 @@ public class BaseServiceImpl extends CustomizeMapper implements BaseService {
         goldLog.setOperationDesc(desc);
         goldLog.setCreateTime(now);
         goldLog.setUpdateTime(now);
-        int result = goldLogMapper.insert(goldLog);
-        if(result>0){
-            GoldLogExample example = new GoldLogExample();
-            example.createCriteria().andUserIdEqualTo(userId).andResourceNameEqualTo(resourceName).andCreateTimeEqualTo(now);
-            List<GoldLog> goldLogList = goldLogMapper.selectByExample(example);
-            if(!CollectionUtils.isEmpty(goldLogList)){
-                return goldLogList.get(0);
-            }
+        return goldLogMapper.insert(goldLog);
+    }
+
+    /**
+     * 查询积分记录
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    @Override
+    public GoldLog getGoldLog(Integer userId, Integer resourceId, Date createTime) {
+        GoldLogExample example = new GoldLogExample();
+        example.createCriteria().andUserIdEqualTo(userId).andResourceIdEqualTo(resourceId).andCreateTimeEqualTo(createTime).andUpdateTimeEqualTo(createTime);
+        List<GoldLog> goldLogList = goldLogMapper.selectByExample(example);
+        if(!CollectionUtils.isEmpty(goldLogList)){
+            return goldLogList.get(0);
         }
         return null;
     }

@@ -13,6 +13,7 @@ import com.sandman.download.dao.mysql.download.model.auto.Resource;
 import com.sandman.download.dao.mysql.download.model.auto.ResourceLog;
 import com.sandman.download.dao.mysql.system.model.auto.User;
 import com.sandman.download.service.download.DownloadService;
+import com.sandman.download.utils.DateUtils;
 import com.sandman.download.utils.FileUtils;
 import com.sandman.download.utils.SessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 
 /**
  * @author sunpeikai
@@ -70,11 +72,18 @@ public class DownloadController extends BaseController {
                 logger.info("上传下载不同人,fileName:[{}]",fileName);
                 //下载前的检查已经判断过用户积分是否足够
                 //下载者写入积分详情
-                GoldLog downloadUserRecord = downloadService.goldOperation(userId,resource.getId(),resource.getResourceName(),user.getGold(),resource.getResourceGold(),(user.getGold()-resource.getResourceGold()), CommonConstant.GOLD_REDUCE_DESC,1);
+                Date now = DateUtils.getNow();
+                downloadService.goldOperation(userId,resource.getId(),resource.getResourceName(),user.getGold(),resource.getResourceGold(),(user.getGold()-resource.getResourceGold()),
+                        CommonConstant.GOLD_REDUCE_DESC,1,now);
+                GoldLog downloadUserRecord = downloadService.getGoldLog(userId,resource.getId(),now);
+
                 //资源拥有者写入积分详情
+                now = DateUtils.getNow();
                 User owner = downloadService.getUserByUserId(resource.getUserId());
-                GoldLog ownerRecord = downloadService.goldOperation(owner.getUserId(),resource.getId(),resource.getResourceName(),owner.getGold(),resource.getResourceGold(),(owner.getGold()+resource.getResourceGold()), CommonConstant.GOLD_ADD_DESC,2);
-                //下载者写入下载记录
+                downloadService.goldOperation(owner.getUserId(),resource.getId(),resource.getResourceName(),owner.getGold(),resource.getResourceGold(),(owner.getGold()+resource.getResourceGold()),
+                        CommonConstant.GOLD_ADD_DESC,2,now);
+                GoldLog ownerRecord = downloadService.getGoldLog(owner.getUserId(),resource.getId(),now);
+                        //下载者写入下载记录
                 ResourceLog downloadRecord = downloadService.insertResourceLog(user.getUserId(),resource.getId(),resource.getResourceName(),2);
 
                 response.setHeader("content-type", "application/octet-stream");
