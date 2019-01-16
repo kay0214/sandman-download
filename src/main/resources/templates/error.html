@@ -17,8 +17,15 @@
 <div class="layui-container margin-top-2p">
     <div class="sandman-panel">
         <div class="sandman-none">
-            <h2><i class="iconfont icon-404"></i></h2>
-            <p>页面或者数据被<a href="/" target="_blank"> Sandman </a>运到火星了，啥都看不到了…</p>
+            <div th:if="${errorMsg} != ''">
+                <h2><i class="iconfont icon-wenda"></i></h2>
+                <p th:text="${errorMsg}"></p>
+            </div>
+            <div th:if="${errorMsg} == ''">
+                <h2><i class="iconfont icon-404"></i></h2>
+                <p>页面或者数据被<a href="/" target="_blank"> Sandman </a>运到火星了，啥都看不到了…</p>
+            </div>
+
         </div>
     </div>
 </div>

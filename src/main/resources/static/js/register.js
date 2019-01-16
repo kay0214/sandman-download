@@ -135,6 +135,8 @@ function email_valid() {
                 if(data.data){
                     // 可以发送邮件
                     email_available = true;
+                }else{
+                    layer.msg('该邮箱已被占用',{icon: 5});
                 }
             }
         });

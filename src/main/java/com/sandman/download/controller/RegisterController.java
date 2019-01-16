@@ -67,6 +67,11 @@ public class RegisterController extends BaseController {
     @GetMapping(value = "/email_valid")
     public BaseResult emailValid(String email){
         User user = registerService.getUserByEmail(email);
+        if(user!=null && user.getDelFlag()==1){
+            // 用户信息不为空且为删除状态，说明之前的注册没有完成。这会就需要删除
+            registerService.deleteUserByEmail(email);
+            user = null;
+        }
         boolean valid = (user == null);
         return new BaseResult(valid);
     }
@@ -113,30 +118,31 @@ public class RegisterController extends BaseController {
         logger.info("激活账户 -> userId:[{}],validateCode:[{}]",userId,validateCode);
         ModelAndView modelAndView = new ModelAndView();
         User user = registerService.getUserByUserId(userId);
-        // 待激活的用户存在
-        if(user != null){
+        // 待激活的用户存在,且为被删除状态
+        if(user != null && user.getDelFlag()==1){
             ValidateCode activeCode = registerService.getValidateCodeByContact(user.getEmail());
             // 验证码有效性检查
             if(codeValid(activeCode,validateCode)){
                 user.setAvailable(1);
                 user.setUpdateTime(new Date());
+                user.setDelFlag(0);
                 // 激活用户账户
                 int result = registerService.updateUserByUserId(user);
                 if(result>0){
                     // 激活成功
                     registerService.deleteByContact(activeCode.getContact());
-                    modelAndView.addObject("message","激活成功");
-                    modelAndView.setViewName("common/success");
+                    modelAndView.addObject("errorMsg","激活成功");
+                    modelAndView.setViewName("error");
                     return modelAndView;
                 }
             }
             // 激活链接失效
-            modelAndView.addObject("message","激活链接失效");
-            modelAndView.setViewName("common/error");
+            modelAndView.addObject("errorMsg","激活链接失效");
+            modelAndView.setViewName("error");
             return modelAndView;
         }
-        modelAndView.addObject("message","用户不存在");
-        modelAndView.setViewName("common/error");
+        modelAndView.addObject("errorMsg","用户不存在");
+        modelAndView.setViewName("error");
         return modelAndView;
     }
 

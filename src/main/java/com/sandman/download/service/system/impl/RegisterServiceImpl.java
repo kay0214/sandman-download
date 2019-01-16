@@ -63,7 +63,7 @@ public class RegisterServiceImpl extends BaseServiceImpl implements RegisterServ
         user.setRegTime(new Date());
         user.setCreateTime(new Date());
         user.setUpdateTime(new Date());
-        user.setDelFlag(0);
+        user.setDelFlag(1);
         return userMapper.insertSelective(user);
     }
     /**
