@@ -12,6 +12,7 @@ public enum ReturnMessage {
     // 正确信息
     SUCCESS_USER_USERNAME_AVAILABLE("000","可使用的用户名"),
     SUCCESS_USER_LOGIN("000","登录成功"),
+    SUCCESS_USER_SIGN_IN("000","签到成功"),
     SUCCESS_PASSWORD_MODIFY("000","密码修改成功"),
     SUCCESS_EMAIL_SEND("000","邮件发送成功"),
     SUCCESS_USER_UPDATE("000","用户信息更新成功"),
@@ -42,6 +43,8 @@ public enum ReturnMessage {
     ERR_USER_UPDATE("EUS000007","用户信息更新失败"),
     ERR_USER_IS_NOT_ADMIN("EUS000008","该用户不是管理员"),
     ERR_USER_RECHARGE("EUS000009","用户充值失败"),
+    ERR_USER_SIGN_IN("EUS000010","用户签到失败"),
+
     // 资源相关错误ERR_RESOURCE_
     ERR_RESOURCE_NOT_EXIST("ERS000001","资源不存在"),
     ERR_RESOURCE_DOWNLOAD_CHECK("ERS000002","未通过资格检查"),

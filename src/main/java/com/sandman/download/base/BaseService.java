@@ -177,4 +177,12 @@ public interface BaseService {
      */
     int deleteUserByEmail(String email);
 
+    /**
+     * 查询用户今日是否已经签到
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    boolean getSignInToday(Integer userId);
+
 }

@@ -78,7 +78,10 @@
         <table tableName="t_secure_config" domainObjectName="SecureConfig">
             <generatedKey column="id" sqlStatement="MySql" type="post" identity="true" />
         </table>
-
+        <!-- 签到表 -->
+        <table tableName="t_sign_in" domainObjectName="SignIn">
+            <generatedKey column="id" sqlStatement="MySql" type="post" identity="true" />
+        </table>
 
         <!-- 资源表 -->
         <table tableName="t_resource" domainObjectName="Resource">

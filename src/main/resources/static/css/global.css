@@ -129,7 +129,19 @@ pre{padding: 10px 15px; margin: 10px 0; font-size: 12px; border-left: 6px solid 
 .sandman-badge-accept{height: 18px; line-height: 18px; padding: 0 5px !important; background-color: #5FB878; border-radius: 2px;}
 
 /* 赞助商 */
-.sandman-zanzhu{display: block; position: relative; height: 60px; line-height: 60px; margin-top: 10px; padding: 0 20px; text-align: center; font-size: 16px; font-weight: 300; background-color: #009688; color: #fff;}
+.sandman-zanzhu{
+  display: block;
+  position: relative;
+  height: 60px;
+  line-height: 60px;
+  margin-top: 10px;
+  padding: 0 20px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 300;
+  background-color: #009688;
+  color: #fff;
+}
 .sandman-zanzhu:first-child{margin-top: 0;}
 .sandman-zanzhu:hover{opacity: 0.9; color: #fff;}
 
@@ -209,7 +221,17 @@ pre{padding: 10px 15px; margin: 10px 0; font-size: 12px; border-left: 6px solid 
 /* 面板 */
 .sandman-panel{margin-bottom: 15px; border-radius: 2px; background-color: #fff; box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);}
 .sandman-panel[pad20]{padding: 20px;}
-.sandman-panel-title{position: relative; height: 50px; line-height: 50px; padding: 0 15px; border-bottom: 1px dotted #E9E9E9; color: #333; border-radius: 2px 2px 0 0; font-size: 14px;}
+.sandman-panel-title{
+  background-color: white;
+  position: relative;
+  height: 50px;
+  line-height: 50px;
+  padding: 0 15px;
+  border-bottom: 1px dotted #E9E9E9;
+  color: #333;
+  border-radius: 2px 2px 0 0;
+  font-size: 14px;
+}
 .sandman-panel-main{padding: 10px 15px;}
 
 /* 专栏 */

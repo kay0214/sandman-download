@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>left-公告栏，友情链接</title>
+    <link rel="stylesheet" href="/css/sign.css">
+</head>
+<body>
+<div th:fragment="~{'common/sign_in'::html}">
+    <div class="margin-top-2p">
+        <div class="sandman-panel-title">
+            <i class="layui-icon"> &#xe642; </i> 签到栏
+        </div>
+        <div class="sandman-panel">
+            <div class="sandman-panel-main">
+                <input th:if="${session.user}" type="hidden" name="login" th:value="${session.user.userId}">
+                <a th:if="not ${session.sign}" id="sign" class="sandman-zanzhu pointer" style="background-color: #FF5722;">每日签到</a>
+                <a th:if="${session.sign}" class="sandman-zanzhu layui-btn-disabled" style="background-color: #FBFBFB;color: black;">今日已签到</a>
+                <div id="calendar" readonly class="sandman-zanzhu pointer" style="background-color: #5FB878;">查看签到日历</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/layui/lay/modules/layer.js"></script>
+<script src="/layui/lay/modules/laydate.js"></script>
+<script src="/js/sign.js"></script>
+<script src="/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+</body>
+</html>
+

@@ -51,6 +51,10 @@ public class LoginController extends BaseController {
                 user.setIconUrl(SystemConfig.getLinePathPrefix() + user.getIconUrl());
                 SessionUtils.setSessionAttribute("user",user);
                 SessionUtils.setSessionExpireTime(CommonConstant.LOGIN_EXPIRE);
+                // 今日是否已经签到
+                boolean sign = loginService.getSignInToday(user.getUserId());
+                SessionUtils.setSessionAttribute("sign",sign);
+
                 return new BaseResult(ReturnMessage.SUCCESS_USER_LOGIN);
             }else{
                 logger.info("与数据库密码不一致，不允许登录");

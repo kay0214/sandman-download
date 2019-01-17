@@ -2,6 +2,7 @@
 
     var $ = layui.jquery
         ,layer = layui.layer
+        ,laydate = layui.laydate
         ,form = layui.form
         ,element = layui.element
         ,upload = layui.upload

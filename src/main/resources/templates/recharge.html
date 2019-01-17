@@ -19,6 +19,7 @@
     <div class="layui-col-md2 margin-left-2p">
         <!-- 左边内容(公告，友情链接等) -->
         <div th:replace="common/notice::html"></div>
+        <div th:replace="common/knowledge::html"></div>
         <div th:replace="common/friendly_link::html"></div>
     </div>
 
@@ -41,6 +42,7 @@
 
     <div class="layui-col-md2 margin-right-2p float-right">
         <!-- 右边内容(签到，热门资源列表) -->
+        <div th:replace="common/sign_in::html"></div>
         <div th:replace="common/resource_hot::html"></div>
     </div>
 

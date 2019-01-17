@@ -12,6 +12,15 @@ import java.util.List;
 public class CommonConstant {
 
     /**
+     * 用户签到奖励积分
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    public static final String USER_SIGN_IN_DESC = "用户签到奖励积分";
+    public static final int USER_SIGN_IN_GOLD = 1;
+
+    /**
      * 用户充值积分时resourceName
      * @auth sunpeikai
      * @param

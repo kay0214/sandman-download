@@ -31,5 +31,7 @@ public class AutoMapper {
     protected NoticeMapper noticeMapper;
     @Autowired
     protected FriendlyLinkMapper friendlyLinkMapper;
+    @Autowired
+    protected SignInMapper signInMapper;
 }
 

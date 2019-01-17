@@ -6,9 +6,11 @@ package com.sandman.download.base;
 import com.sandman.download.dao.mysql.download.model.auto.*;
 import com.sandman.download.dao.mysql.mapper.CustomizeMapper;
 import com.sandman.download.dao.mysql.system.model.auto.*;
+import com.sandman.download.utils.DateUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -306,5 +308,21 @@ public class BaseServiceImpl extends CustomizeMapper implements BaseService {
         UserExample userExample = new UserExample();
         userExample.createCriteria().andEmailEqualTo(email);
         return userMapper.deleteByExample(userExample);
+    }
+
+    /**
+     * 查询用户今日是否已经签到
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    @Override
+    @Cacheable(value = "signInTodayCache",key = "#userId")
+    public boolean getSignInToday(Integer userId) {
+        logger.info("从数据库中查询用户userId:[{}]今日是否已经签到",userId);
+        SignInExample signInExample = new SignInExample();
+        signInExample.createCriteria().andUserIdEqualTo(userId).andDelFlagEqualTo(0)
+                .andCreateTimeBetween(DateUtils.getDayStart(new Date()),DateUtils.getDayEnd(new Date()));
+        return signInMapper.countByExample(signInExample) > 0;
     }
 }

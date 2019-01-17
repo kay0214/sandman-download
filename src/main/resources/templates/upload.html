@@ -19,6 +19,7 @@
     <div class="layui-col-md2 margin-left-2p">
         <!-- 左边内容(公告，友情链接等) -->
         <div th:replace="common/notice::html"></div>
+        <div th:replace="common/knowledge::html"></div>
         <div th:replace="common/friendly_link::html"></div>
     </div>
 
@@ -27,78 +28,55 @@
 
         <div class="layui-row layui-col-space15">
             <!-- form表单 -->
-            <div class="layui-col-md9">
 
-                <div class="layui-card">
-                    <div class="layui-card-header"><i class="layui-icon">    &#xe681;  </i>上传资源</div>
-                    <div class="layui-card-body">
-                        <form class="layui-form" action="/upload/upload_resource" method="post">
+            <div class="layui-card">
+                <div class="layui-card-header"><i class="layui-icon">    &#xe681;  </i>上传资源</div>
+                <div class="layui-card-body">
+                    <form class="layui-form" action="/upload/upload_resource" method="post">
 
-                            <input type="hidden" th:value="${resourceUrl}" id="resourceUrl" name="resourceUrl">
+                        <input type="hidden" th:value="${resourceUrl}" id="resourceUrl" name="resourceUrl">
 
-                            <div class="layui-form-item margin-4p">
-                                <div class="layui-form-item sandman-upload-file" id="file">
-                                    <i class="layui-icon"></i>
-                                    <p>点击上传，或将文件拖拽到此处</p>
-                                </div>
-                            </div>
-
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">资源名称</label>
-                                <div class="layui-input-block">
-                                    <input type="text" name="resourceName" th:value="${resourceName}" required lay-verify="required"
-                                           placeholder="请输入资源名称" autocomplete="off" class="layui-input">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">资源积分</label>
-                                <div class="layui-input-block">
-                                    <div th:replace="common/resource_gold_select::resourceGold"></div>
-                                </div>
-                            </div>
-                            <div class="layui-form-item layui-form-text">
-                                <label class="layui-form-label">资源描述</label>
-                                <div class="layui-input-block">
-                                    <textarea name="resourceDesc" th:text="${resourceDesc}" placeholder="请输入资源描述" class="layui-textarea"></textarea>
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <div class="layui-input-block">
-                                    <button class="layui-btn" lay-submit lay-filter="formDemo">发布</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-            </div>
-            <!-- 上传须知 -->
-            <div class="layui-col-md3">
-                <div class="layui-card">
-                    <div class="layui-card-header">上传须知</div>
-                    <div class="layui-card-body">
-                        <div>
-                            <div>
-                                <span class="layui-badge-dot layui-bg-black"></span>
-                                如涉及侵权内容,您的资源将被移除
-                            </div>
-                            <div>
-                                <span class="layui-badge-dot layui-bg-black"></span>
-                                点击上传资源即表示您确认该资源不违反资源分享的使用条款，并且您拥有该资源的所有版权或者上传资源的授权
-                            </div>
-                            <div>
-                                <span class="layui-badge-dot layui-bg-black"></span>
-                                您上传的资源如果因版权、使用、内容完整度 等原因被举报并通过官方审核，将扣除通过该资源获得的全部积分
+                        <div class="layui-form-item margin-4p">
+                            <div class="layui-form-item sandman-upload-file" id="file">
+                                <i class="layui-icon"></i>
+                                <p>点击上传，或将文件拖拽到此处</p>
                             </div>
                         </div>
-                    </div>
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">资源名称</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="resourceName" th:value="${resourceName}" required lay-verify="required"
+                                       placeholder="请输入资源名称" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">资源积分</label>
+                            <div class="layui-input-block">
+                                <div th:replace="common/resource_gold_select::resourceGold"></div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">资源描述</label>
+                            <div class="layui-input-block">
+                                <textarea name="resourceDesc" th:text="${resourceDesc}" placeholder="请输入资源描述" class="layui-textarea"></textarea>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <button class="layui-btn" lay-submit lay-filter="formDemo">发布</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
+
         </div>
     </div>
 
     <div class="layui-col-md2 margin-right-2p float-right">
         <!-- 右边内容(签到，热门资源列表) -->
+        <div th:replace="common/sign_in::html"></div>
         <div th:replace="common/resource_hot::html"></div>
     </div>
 
