@@ -734,3 +734,11 @@ body .sandman-user-main{position: relative; min-height: 600px;}
 .pointer{
   cursor: pointer;
 }
+.sign-description-label{
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+}
+.sign-description{
+  color: black;
+}

@@ -1,4 +1,4 @@
-var date;
+var signDesc;
 $("#sign").click(function () {
     var check = checkLogin();
     if(!check){
@@ -70,3 +70,10 @@ function checkLogin() {
         return false;
     }
 }
+
+$("#signDesc").mouseover(function () {
+    signDesc = layer.tips("<span class='sign-description'>每日签到可以获取下载积分,每人每天进行签到可获取1积分奖励</span>", $(this),{tips:[1,"#FFFFFF"],time: 30000});
+});
+$("#signDesc").mouseout(function () {
+    layer.close(signDesc);
+});

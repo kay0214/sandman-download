@@ -5,10 +5,8 @@ package com.sandman.download.controller;
 
 import com.sandman.download.base.BaseController;
 import com.sandman.download.base.BaseResult;
-import com.sandman.download.constant.CommonConstant;
 import com.sandman.download.constant.ReturnMessage;
 import com.sandman.download.service.system.SignInService;
-import com.sandman.download.utils.DateUtils;
 import com.sandman.download.utils.SessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**

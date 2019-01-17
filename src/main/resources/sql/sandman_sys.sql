@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50640
 File Encoding         : 65001
 
-Date: 2019-01-15 10:09:19
+Date: 2019-01-17 17:26:34
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -139,6 +139,25 @@ INSERT INTO `t_secure_config` VALUES ('37', '/upload/upload_resource', '上传�
 INSERT INTO `t_secure_config` VALUES ('38', '/haha/haha', '测试接口', '0', '0', '2019-01-11 20:55:20', '2019-01-11 20:55:27', '1');
 
 -- ----------------------------
+-- Table structure for t_sign_in
+-- ----------------------------
+DROP TABLE IF EXISTS `t_sign_in`;
+CREATE TABLE `t_sign_in` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL COMMENT '用户id',
+  `date_str` varchar(255) DEFAULT NULL,
+  `create_time` timestamp NULL DEFAULT NULL,
+  `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `del_flag` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `userId` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_sign_in
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for t_template
 -- ----------------------------
 DROP TABLE IF EXISTS `t_template`;
@@ -181,13 +200,13 @@ CREATE TABLE `t_user` (
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `del_flag` int(11) NOT NULL DEFAULT '0' COMMENT '删除标记(0:未被删除,1:已被删除)',
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_user
 -- ----------------------------
-INSERT INTO `t_user` VALUES ('6', 'sunpeikai', null, 'sunpeikai@yeah.net', 'd3bb2fb7cd3e033ee0caa3d31ed2f25a', null, 'XPbiO4', '2', '1', '1', '/icon/default.jpg', '10.10.2.77', '2019-01-11 21:18:05', '2018-12-04 18:02:56', '2019-01-13 19:34:27', '0');
-INSERT INTO `t_user` VALUES ('7', 'sandman', null, '929525390@qq.com', 'b32ede501aff96c95c6716a06d60cb8e', null, 'sandman', '0', '1', '0', '/icon/default.jpg', '0.0.0.0', '2019-01-11 14:36:41', '2019-01-10 11:21:32', '2019-01-10 11:21:35', '0');
+INSERT INTO `t_user` VALUES ('1', 'sandman', null, '929525390@qq.com', 'b32ede501aff96c95c6716a06d60cb8e', null, 'sandman', '0', '1', '0', '/icon/default.jpg', '0.0.0.0', '2019-01-11 14:36:41', '2019-01-10 11:21:32', '2019-01-16 08:02:01', '0');
+INSERT INTO `t_user` VALUES ('2', 'sunpeikai', null, 'sunpeikai@yeah.net', 'd3bb2fb7cd3e033ee0caa3d31ed2f25a', null, 'XPbiO4', '4', '1', '2', '/icon/default.jpg', '10.10.2.77', '2019-01-11 21:18:05', '2018-12-04 18:02:56', '2019-01-16 17:00:41', '0');
 
 -- ----------------------------
 -- Table structure for t_user_login_log
@@ -209,8 +228,8 @@ CREATE TABLE `t_user_login_log` (
 -- ----------------------------
 -- Records of t_user_login_log
 -- ----------------------------
-INSERT INTO `t_user_login_log` VALUES ('1', '6', '245', '119.166.181.232', '2019-01-13 19:25:27', '123.234.110.234', '2019-01-11 21:51:41', '2018-12-06 11:16:04', '2019-01-13 19:25:27');
-INSERT INTO `t_user_login_log` VALUES ('2', '7', '13', '10.10.2.77', '2019-01-15 09:32:37', '219.147.28.242', '2019-01-15 09:22:05', '2019-01-10 18:02:33', '2019-01-15 09:32:37');
+INSERT INTO `t_user_login_log` VALUES ('1', '1', '248', '219.147.28.242', '2019-01-16 14:31:55', '219.147.28.242', '2019-01-16 09:21:24', '2018-12-06 11:16:04', '2019-01-17 01:13:13');
+INSERT INTO `t_user_login_log` VALUES ('2', '2', '19', '10.10.2.77', '2019-01-16 15:13:38', '10.10.2.77', '2019-01-16 15:09:31', '2019-01-10 18:02:33', '2019-01-17 01:13:17');
 
 -- ----------------------------
 -- Table structure for t_validate_code
@@ -227,7 +246,7 @@ CREATE TABLE `t_validate_code` (
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `del_flag` int(11) NOT NULL DEFAULT '0' COMMENT '删除标记(0:未被删除,1:已被删除)',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_validate_code
