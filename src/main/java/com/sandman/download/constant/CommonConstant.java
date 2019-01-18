@@ -82,7 +82,7 @@ public class CommonConstant {
      * @param
      * @return
      */
-    public static final int HOT_RESOURCES_LIMIT = 30;
+    public static final int HOT_RESOURCES_LIMIT = 20;
 
     /**
      * 积分操作-下载资源默认描述desc

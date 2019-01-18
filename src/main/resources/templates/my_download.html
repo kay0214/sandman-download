@@ -123,14 +123,7 @@
 
 </div>
 
-<!-- >7 -->
-<div th:if="${count} gt 7">
-    <div th:replace="common/footer::stretched"></div>
-</div>
-<!-- <=7 -->
-<div th:if="${count} le 7">
-    <div th:replace="common/footer::fixed"></div>
-</div>
+<div th:replace="common/footer::stretched"></div>
 
 <!--<div th:replace="common/css3::html"></div>-->
 <script src="/layui/layui.js"></script>

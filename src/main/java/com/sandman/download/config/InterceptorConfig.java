@@ -28,6 +28,7 @@ public class InterceptorConfig extends BaseServiceImpl implements WebMvcConfigur
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
+		logger.info("初始化拦截器");
 		List<SecureConfig> secureConfigList = getSecureConfigList();
 		List<String> addPathPatternList = new ArrayList<>();
 		for(SecureConfig secureConfig:secureConfigList){
