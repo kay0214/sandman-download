@@ -6,7 +6,6 @@ package com.sandman.download.controller.admin;
 import com.sandman.download.base.BaseController;
 import com.sandman.download.base.BaseResult;
 import com.sandman.download.bean.admin.LinkManagerRequest;
-import com.sandman.download.config.InterceptorConfig;
 import com.sandman.download.dao.mysql.system.model.auto.SecureConfig;
 import com.sandman.download.service.admin.LinkManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 
+import java.io.*;
 import java.util.Date;
 import java.util.List;
 
@@ -31,8 +30,6 @@ public class LinkManagerController extends BaseController {
 
     @Autowired
     private LinkManagerService linkManagerService;
-    @Autowired
-    private InterceptorConfig interceptorConfig;
 
     @GetMapping(value = "/init")
     public ModelAndView init(){
@@ -57,7 +54,6 @@ public class LinkManagerController extends BaseController {
             secureConfig.setStatus(status);
             secureConfig.setUpdateTime(new Date());
             linkManagerService.update(secureConfig);
-            interceptorConfig.addInterceptors(new InterceptorRegistry());
         }
         return new ModelAndView("redirect:/link_manager/init");
     }
@@ -74,7 +70,6 @@ public class LinkManagerController extends BaseController {
         logger.info("管理员提交修改接口 -> id[{}]",secureConfig.getId());
         secureConfig.setUpdateTime(new Date());
         linkManagerService.update(secureConfig);
-        interceptorConfig.addInterceptors(new InterceptorRegistry());
         return new ModelAndView("redirect:/link_manager/init");
     }
 
@@ -88,7 +83,6 @@ public class LinkManagerController extends BaseController {
     public ModelAndView insert(SecureConfig secureConfig){
         logger.info("管理员新增接口 -> id[{}]",secureConfig.getApiName());
         linkManagerService.insertApi(secureConfig);
-        interceptorConfig.addInterceptors(new InterceptorRegistry());
         return new ModelAndView("redirect:/link_manager/init");
     }
 
@@ -100,7 +94,6 @@ public class LinkManagerController extends BaseController {
             secureConfig.setDelFlag(1);
             secureConfig.setUpdateTime(new Date());
             linkManagerService.update(secureConfig);
-            interceptorConfig.addInterceptors(new InterceptorRegistry());
         }
         return new ModelAndView("redirect:/link_manager/init");
     }

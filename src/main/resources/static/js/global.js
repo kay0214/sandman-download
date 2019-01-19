@@ -49,5 +49,31 @@
     shadeMobile.on('click', function(){
         $('body').removeClass('site-mobile');
     });
+    // 点击了重启程序
+    $("a[name='restart']").click(function () {
+        layer.confirm('<input class="layui-input" required  lay-verify="required" name="restartPassword" placeholder="请输入重启密码">',{title:'正在重启应用,请谨慎操作!'}, function(index){
+            var password = $("input[name='restartPassword']").val();
+            if(password!==null && password!==undefined && password!==''){
+                // 这里ajax请求
+                $.ajax({
+                    type: "post",
+                    url: "/project/restart",
+                    data:{"password": password},
+                    async: false,
+                    success: function (data) {
+                        if(data.status !== '000'){
+                            // 重启失败
+                            layer.msg(data.statusDesc,{icon: 5});
+                            return false;
+                        }
+                    }
+                });
+            }else{
+                // 这里直接提示错误
+                layer.msg("输入无效",{icon: 5});
+            }
+            layer.close(index);
+        });
+    });
 
 });

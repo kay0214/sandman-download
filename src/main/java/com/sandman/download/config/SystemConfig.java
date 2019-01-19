@@ -47,6 +47,8 @@ public class SystemConfig {
 
     private static String SANDMAN_ICON_DEFAULT;
 
+    private static String RESTART_PASSWORD;
+
     @Value("${sftpServer.userName}")
     private void setUSERNAME(String USERNAME) {
         SystemConfig.USERNAME = USERNAME;
@@ -147,6 +149,11 @@ public class SystemConfig {
         SANDMAN_ICON_DEFAULT = sandmanIconDefault;
     }
 
+    @Value("${sandman.restart.password}")
+    public void setRestartPassword(String restartPassword) {
+        RESTART_PASSWORD = restartPassword;
+    }
+
     //get方法位置
     public static String getSmtpHost() {
         return SMTP_HOST;
@@ -229,5 +236,9 @@ public class SystemConfig {
 
     public static String getSandmanIconDefault() {
         return SANDMAN_ICON_DEFAULT;
+    }
+
+    public static String getRestartPassword() {
+        return RESTART_PASSWORD;
     }
 }

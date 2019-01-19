@@ -70,6 +70,9 @@ public enum ReturnMessage {
     ERR_VALIDATE_CODE_EXPIRED("EVC000003","激活码已过期"),
     ERR_VALIDATE_CODE_NOT_PASS("EVC000004","验证未通过"),
 
+    // 重启应用错误信息
+    ERR_APPLICATION_RESTART("EAP000001","应用重启失败"),
+
     // 枚举终结
     ERR_ENUM("", "");
 
