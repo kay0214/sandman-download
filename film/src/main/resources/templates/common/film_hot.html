@@ -5,7 +5,7 @@
     <title>right-热门资源，签到信息</title>
 </head>
 <body>
-<div th:fragment="~{'common/resource_hot'::html}">
+<div th:fragment="~{'common/film_hot'::html}">
     <div class="margin-top-2p"><!-- th:each="notice : ${session.noticeList}"  -->
         <div class="layui-card">
             <div class="layui-card-header"><i class="layui-icon"> &#xe756; </i>热门资源</div>
@@ -17,22 +17,25 @@
 </div>
 <script src="/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
 <script>
-/*    $.ajax({
+    $.ajax({
         type: "get",
-        url: "/resource/hot_resource",
+        url: "/film/hot_film",
         success: function (data) {
             var hot = "";
             if(data.data !== null && data.data !== undefined && data.data.length > 0){
                 for(var i=0;i<data.data.length;i++){
                     var thisHot = data.data[i];
-                    hot = hot + "<p class='margin-top-2p'><span class='layui-badge-dot'></span><span class='margin-left-2p'><a href='/resource/get_info?id=" + thisHot.id + "' target='_blank'>" + thisHot.resourceName + "</a></span></p>"
+                    hot = hot + "<p class='margin-top-2p'>" +
+                        "<span class='layui-badge-dot'></span><span class='margin-left-2p'><a href='/film/get_info?id=" + thisHot.id + "' target='_blank'>" + thisHot.filmName + "</a></span>" +
+                        "<span class='float-right'>购买量:" + thisHot.buyCount + "</span>" +
+                        "</p>"
                 }
             }else{
                 hot = hot + "<p class='text-align-center'>暂无数据</p>";
             }
             $("#hot").html(hot);
         }
-    });*/
+    });
 </script>
 </body>
 </html>

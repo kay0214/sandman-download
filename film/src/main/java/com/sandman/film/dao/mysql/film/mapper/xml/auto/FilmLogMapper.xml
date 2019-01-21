@@ -6,6 +6,8 @@
     <result column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="film_id" property="filmId" jdbcType="INTEGER" />
     <result column="film_name" property="filmName" jdbcType="VARCHAR" />
+    <result column="film_url" property="filmUrl" jdbcType="VARCHAR" />
+    <result column="film_password" property="filmPassword" jdbcType="VARCHAR" />
     <result column="desc" property="desc" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
@@ -70,7 +72,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, user_id, film_id, film_name, `desc`, create_time, update_time, del_flag
+    id, user_id, film_id, film_name, film_url, film_password, `desc`, create_time, update_time, 
+    del_flag
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sandman.film.dao.mysql.film.model.auto.FilmLogExample" >
     select
@@ -110,11 +113,13 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into t_film_log (user_id, film_id, film_name, 
-      `desc`, create_time, update_time, 
-      del_flag)
+      film_url, film_password, `desc`, 
+      create_time, update_time, del_flag
+      )
     values (#{userId,jdbcType=INTEGER}, #{filmId,jdbcType=INTEGER}, #{filmName,jdbcType=VARCHAR}, 
-      #{desc,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{delFlag,jdbcType=INTEGER})
+      #{filmUrl,jdbcType=VARCHAR}, #{filmPassword,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{delFlag,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.sandman.film.dao.mysql.film.model.auto.FilmLog" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
@@ -130,6 +135,12 @@
       </if>
       <if test="filmName != null" >
         film_name,
+      </if>
+      <if test="filmUrl != null" >
+        film_url,
+      </if>
+      <if test="filmPassword != null" >
+        film_password,
       </if>
       <if test="desc != null" >
         `desc`,
@@ -153,6 +164,12 @@
       </if>
       <if test="filmName != null" >
         #{filmName,jdbcType=VARCHAR},
+      </if>
+      <if test="filmUrl != null" >
+        #{filmUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="filmPassword != null" >
+        #{filmPassword,jdbcType=VARCHAR},
       </if>
       <if test="desc != null" >
         #{desc,jdbcType=VARCHAR},
@@ -189,6 +206,12 @@
       <if test="record.filmName != null" >
         film_name = #{record.filmName,jdbcType=VARCHAR},
       </if>
+      <if test="record.filmUrl != null" >
+        film_url = #{record.filmUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filmPassword != null" >
+        film_password = #{record.filmPassword,jdbcType=VARCHAR},
+      </if>
       <if test="record.desc != null" >
         `desc` = #{record.desc,jdbcType=VARCHAR},
       </if>
@@ -212,6 +235,8 @@
       user_id = #{record.userId,jdbcType=INTEGER},
       film_id = #{record.filmId,jdbcType=INTEGER},
       film_name = #{record.filmName,jdbcType=VARCHAR},
+      film_url = #{record.filmUrl,jdbcType=VARCHAR},
+      film_password = #{record.filmPassword,jdbcType=VARCHAR},
       `desc` = #{record.desc,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
@@ -231,6 +256,12 @@
       </if>
       <if test="filmName != null" >
         film_name = #{filmName,jdbcType=VARCHAR},
+      </if>
+      <if test="filmUrl != null" >
+        film_url = #{filmUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="filmPassword != null" >
+        film_password = #{filmPassword,jdbcType=VARCHAR},
       </if>
       <if test="desc != null" >
         `desc` = #{desc,jdbcType=VARCHAR},
@@ -252,6 +283,8 @@
     set user_id = #{userId,jdbcType=INTEGER},
       film_id = #{filmId,jdbcType=INTEGER},
       film_name = #{filmName,jdbcType=VARCHAR},
+      film_url = #{filmUrl,jdbcType=VARCHAR},
+      film_password = #{filmPassword,jdbcType=VARCHAR},
       `desc` = #{desc,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},

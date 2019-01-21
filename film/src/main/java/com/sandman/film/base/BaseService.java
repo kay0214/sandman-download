@@ -184,4 +184,12 @@ public interface BaseService {
      */
     boolean getSignInToday(Integer userId);
 
+    /**
+     * 根据userId和filmId查询日志- 用于判断用户是否重复购买
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    FilmLog getFilmLogByUserIdAndFilmId(Integer userId,Integer filmId);
+
 }

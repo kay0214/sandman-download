@@ -375,6 +375,146 @@ public class FilmLogExample {
             return (Criteria) this;
         }
 
+        public Criteria andFilmUrlIsNull() {
+            addCriterion("film_url is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilmUrlIsNotNull() {
+            addCriterion("film_url is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilmUrlEqualTo(String value) {
+            addCriterion("film_url =", value, "filmUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilmUrlNotEqualTo(String value) {
+            addCriterion("film_url <>", value, "filmUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilmUrlGreaterThan(String value) {
+            addCriterion("film_url >", value, "filmUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilmUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("film_url >=", value, "filmUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilmUrlLessThan(String value) {
+            addCriterion("film_url <", value, "filmUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilmUrlLessThanOrEqualTo(String value) {
+            addCriterion("film_url <=", value, "filmUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilmUrlLike(String value) {
+            addCriterion("film_url like", value, "filmUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilmUrlNotLike(String value) {
+            addCriterion("film_url not like", value, "filmUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilmUrlIn(List<String> values) {
+            addCriterion("film_url in", values, "filmUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilmUrlNotIn(List<String> values) {
+            addCriterion("film_url not in", values, "filmUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilmUrlBetween(String value1, String value2) {
+            addCriterion("film_url between", value1, value2, "filmUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilmUrlNotBetween(String value1, String value2) {
+            addCriterion("film_url not between", value1, value2, "filmUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilmPasswordIsNull() {
+            addCriterion("film_password is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilmPasswordIsNotNull() {
+            addCriterion("film_password is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilmPasswordEqualTo(String value) {
+            addCriterion("film_password =", value, "filmPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilmPasswordNotEqualTo(String value) {
+            addCriterion("film_password <>", value, "filmPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilmPasswordGreaterThan(String value) {
+            addCriterion("film_password >", value, "filmPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilmPasswordGreaterThanOrEqualTo(String value) {
+            addCriterion("film_password >=", value, "filmPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilmPasswordLessThan(String value) {
+            addCriterion("film_password <", value, "filmPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilmPasswordLessThanOrEqualTo(String value) {
+            addCriterion("film_password <=", value, "filmPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilmPasswordLike(String value) {
+            addCriterion("film_password like", value, "filmPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilmPasswordNotLike(String value) {
+            addCriterion("film_password not like", value, "filmPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilmPasswordIn(List<String> values) {
+            addCriterion("film_password in", values, "filmPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilmPasswordNotIn(List<String> values) {
+            addCriterion("film_password not in", values, "filmPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilmPasswordBetween(String value1, String value2) {
+            addCriterion("film_password between", value1, value2, "filmPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilmPasswordNotBetween(String value1, String value2) {
+            addCriterion("film_password not between", value1, value2, "filmPassword");
+            return (Criteria) this;
+        }
+
         public Criteria andDescIsNull() {
             addCriterion("`desc` is null");
             return (Criteria) this;

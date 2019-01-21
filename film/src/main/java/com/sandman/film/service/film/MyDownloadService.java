@@ -5,7 +5,7 @@ package com.sandman.film.service.film;
 
 import com.sandman.film.base.BaseService;
 import com.sandman.film.bean.film.MyDownloadBean;
-import com.sandman.film.bean.film.MyDownloadResultBean;
+import com.sandman.film.dao.mysql.film.model.auto.FilmLog;
 
 import java.util.List;
 
@@ -29,5 +29,5 @@ public interface MyDownloadService extends BaseService {
      * @param
      * @return
      */
-    List<MyDownloadResultBean> getAllMyDownload(MyDownloadBean myDownloadBean);
+    List<FilmLog> getAllMyDownload(MyDownloadBean myDownloadBean);
 }

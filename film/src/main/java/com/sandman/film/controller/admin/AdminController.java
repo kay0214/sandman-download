@@ -79,14 +79,11 @@ public class AdminController extends BaseController {
         Date lastDayEnd = DateUtils.getDayEnd(DateUtils.getDaysAfter(new Date(),-1));
         Date weekStart = DateUtils.getDayStart(DateUtils.getDaysAfter(new Date(),-7));
         Date monthStart = DateUtils.getDayStart(DateUtils.getMonthsAfter(new Date(),-1));
-        // 上传数量
-        int uploadWeek = adminService.getUploadCountWeek(weekStart,lastDayEnd);
-        int uploadMonth = adminService.getUploadCountMonth(weekStart,lastDayEnd);
-        int uploadToday = adminService.getUploadCount(todayStart,todayEnd);
-        // 下载数量
-        int downloadWeek = adminService.getDownloadCountWeek(weekStart,lastDayEnd);
-        int downloadMonth = adminService.getDownloadCountMonth(monthStart,lastDayEnd);
-        int downloadToday = adminService.getDownloadCount(todayStart,todayEnd);
+
+        // 购买影片数量
+        int buyWeek = adminService.getBuyCountWeek(weekStart,lastDayEnd);
+        int buyMonth = adminService.getBuyCountMonth(monthStart,lastDayEnd);
+        int buyToday = adminService.getBuyCount(todayStart,todayEnd);
         // 活跃用户数量
         int activeWeek = adminService.getActiveCountWeek(weekStart,lastDayEnd);
         int activeMonth = adminService.getActiveCountMonth(monthStart,lastDayEnd);
@@ -96,14 +93,12 @@ public class AdminController extends BaseController {
         int registerMonth = adminService.getRegisterCountMonth(monthStart,lastDayEnd);
         int registerToday = adminService.getRegisterCount(todayStart,todayEnd);
         // 管理员首页查询
-        ReportResultBean upload = new ReportResultBean(uploadToday,uploadWeek + uploadToday,uploadMonth + uploadToday);
-        ReportResultBean download = new ReportResultBean(downloadToday,downloadWeek + downloadToday,downloadMonth + downloadToday);
+        ReportResultBean buy = new ReportResultBean(buyToday,buyWeek + buyToday,buyMonth + buyToday);
         ReportResultBean active = new ReportResultBean(activeToday,activeWeek + activeToday,activeMonth + activeToday);
         ReportResultBean register = new ReportResultBean(registerToday,registerWeek + registerToday,registerMonth + registerToday);
         logger.info("获取后台报表数据完成,耗时:[{}]",(System.currentTimeMillis() - start));
         return new ModelAndView("admin/index")
-                .addObject("upload",upload)
-                .addObject("download",download)
+                .addObject("buy",buy)
                 .addObject("active",active)
                 .addObject("register",register);
     }

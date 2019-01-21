@@ -3,17 +3,17 @@
  */
 package com.sandman.film.bean.film;
 
-import com.sandman.film.base.BaseBean;
+import com.sandman.film.base.BasePage;
 
 /**
  * @author sunpeikai
  * @version MyDownloadBean, v0.1 2018/12/18 18:01
  */
-public class MyDownloadBean extends BaseBean {
+public class MyDownloadBean extends BasePage {
 
     private Integer userId;
 
-    private String resourceName;
+    private String filmName;
 
     public Integer getUserId() {
         return userId;
@@ -23,11 +23,11 @@ public class MyDownloadBean extends BaseBean {
         this.userId = userId;
     }
 
-    public String getResourceName() {
-        return resourceName;
+    public String getFilmName() {
+        return filmName;
     }
 
-    public void setResourceName(String resourceName) {
-        this.resourceName = resourceName;
+    public void setFilmName(String filmName) {
+        this.filmName = filmName;
     }
 }

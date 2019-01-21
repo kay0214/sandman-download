@@ -10,6 +10,7 @@ import com.sandman.film.utils.DateUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -230,6 +231,7 @@ public class BaseServiceImpl extends CustomizeMapper implements BaseService {
      * @return
      */
     @Override
+    @CacheEvict(value = "hotFilmsCache")
     public int updateFilm(Film film) {
         return filmMapper.updateByPrimaryKeySelective(film);
     }
@@ -324,5 +326,22 @@ public class BaseServiceImpl extends CustomizeMapper implements BaseService {
         signInExample.createCriteria().andUserIdEqualTo(userId).andDelFlagEqualTo(0)
                 .andCreateTimeBetween(DateUtils.getDayStart(new Date()),DateUtils.getDayEnd(new Date()));
         return signInMapper.countByExample(signInExample) > 0;
+    }
+
+    /**
+     * 根据userId和filmId查询日志- 用于判断用户是否重复购买
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    @Override
+    public FilmLog getFilmLogByUserIdAndFilmId(Integer userId, Integer filmId) {
+        FilmLogExample filmLogExample = new FilmLogExample();
+        filmLogExample.createCriteria().andUserIdEqualTo(userId).andFilmIdEqualTo(filmId).andDelFlagEqualTo(0);
+        List<FilmLog> filmLogList = filmLogMapper.selectByExample(filmLogExample);
+        if(!CollectionUtils.isEmpty(filmLogList)){
+            return filmLogList.get(0);
+        }
+        return null;
     }
 }

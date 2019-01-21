@@ -43,17 +43,15 @@ public class MyDownloadServiceImpl extends BaseServiceImpl implements MyDownload
      * @return
      */
     @Override
-    public List<MyDownloadResultBean> getAllMyDownload(MyDownloadBean myDownloadBean) {
+    public List<FilmLog> getAllMyDownload(MyDownloadBean myDownloadBean) {
         FilmLogExample filmLogExample = convertExample(myDownloadBean);
+        computePage(myDownloadBean.getPage(), myDownloadBean.getLimit());
+        filmLogExample.setOrderByClause("create_time desc");
+        filmLogExample.setLimitStart(limitStart);
+        filmLogExample.setLimitEnd(limitEnd);
         List<FilmLog> filmLogList = filmLogMapper.selectByExample(filmLogExample);
         if(!CollectionUtils.isEmpty(filmLogList)){
-            // bean 转换
-            List<MyDownloadResultBean> myDownloadResultBeanList = BeanUtils.convertBeanList(filmLogList,MyDownloadResultBean.class);
-            for(MyDownloadResultBean myDownloadResultBean : myDownloadResultBeanList){
-                Film film = getFilmById(myDownloadResultBean.getResourceId());
-                myDownloadResultBean.setFilm(film);
-            }
-            return myDownloadResultBeanList;
+            return filmLogList;
         }
         return null;
     }
@@ -63,12 +61,8 @@ public class MyDownloadServiceImpl extends BaseServiceImpl implements MyDownload
         FilmLogExample filmLogExample = new FilmLogExample();
         FilmLogExample.Criteria criteria = filmLogExample.createCriteria();
         criteria.andUserIdEqualTo(myDownloadBean.getUserId()).andDelFlagEqualTo(0);
-        if(myDownloadBean.getLimitStart() >= 0){
-            filmLogExample.setLimitStart(myDownloadBean.getLimitStart());
-            filmLogExample.setLimitEnd(myDownloadBean.getLimitEnd());
-        }
-        if(StringUtils.isNotBlank(myDownloadBean.getResourceName())){
-            criteria.andFilmNameLike("%" + myDownloadBean.getResourceName() + "%");
+        if(StringUtils.isNotBlank(myDownloadBean.getFilmName())){
+            criteria.andFilmNameLike("%" + myDownloadBean.getFilmName() + "%");
         }
         return filmLogExample;
     }

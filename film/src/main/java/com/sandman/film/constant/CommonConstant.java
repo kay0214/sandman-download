@@ -9,6 +9,8 @@ import java.util.List;
  */
 public class CommonConstant {
 
+    public static final String USER_BUY_FILM = "用户购买影片";
+
     /**
      * 用户签到奖励积分
      * @auth sunpeikai
@@ -72,7 +74,7 @@ public class CommonConstant {
      * @param
      * @return
      */
-    public static final int HOT_RESOURCES_LIMIT = 20;
+    public static final int HOT_FILMS_LIMIT = 10;
 
     /**
      * 积分操作-下载资源默认描述desc

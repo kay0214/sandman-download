@@ -44,6 +44,8 @@ public enum ReturnMessage {
     ERR_USER_IS_NOT_ADMIN("EUS000008","该用户不是管理员"),
     ERR_USER_RECHARGE("EUS000009","用户充值失败"),
     ERR_USER_SIGN_IN("EUS000010","用户签到失败"),
+    ERR_USER_BUY_FILM("EUS000011","用户购买失败"),
+    ERR_USER_ALREADY_BUY("EUS000012","您已购买该影片"),
 
     // 资源相关错误ERR_RESOURCE_
     ERR_RESOURCE_NOT_EXIST("ERS000001","资源不存在"),

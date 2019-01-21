@@ -17,42 +17,22 @@
 
 <div class="layui-container">
     <div class="layui-row layui-col-space15">
-        <!-- 上传报表 -->
+        <!-- 购买报表 -->
         <div class="layui-col-md3">
             <div class="layui-card">
-                <div class="layui-card-header"><i class="layui-icon"> &#xe67c; </i>资源上传量<span class="layui-badge layui-bg-blue sandman-admin-report-label">日</span></div>
+                <div class="layui-card-header"><i class="layui-icon"> &#xe601; </i>影片购买量<span class="layui-badge layui-bg-blue sandman-admin-report-label">日</span></div>
                 <div class="layui-card-body">
                     <!-- 日量 -->
                     <div class="text-align-center">
-                        <p><h1 th:text="${upload.day}"></h1></p>
+                        <p><h1 th:text="${buy.day}"></h1></p>
                     </div>
                     <div class="layui-row layui-col-space15">
                         <div class="layui-col-md1 layui-col-md-offset2"><span class="layui-badge layui-bg-green">周</span></div>
-                        <div class="layui-col-md4 layui-col-md-offset5" th:text="${upload.week}"></div>
+                        <div class="layui-col-md4 layui-col-md-offset5" th:text="${buy.week}"></div>
                     </div>
                     <div class="layui-row layui-col-space15">
                         <div class="layui-col-md1 layui-col-md-offset2"><span class="layui-badge layui-bg-orange">月</span></div>
-                        <div class="layui-col-md4 layui-col-md-offset5" th:text="${upload.month}"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- 下载报表 -->
-        <div class="layui-col-md3">
-            <div class="layui-card">
-                <div class="layui-card-header"><i class="layui-icon"> &#xe601; </i>资源下载量<span class="layui-badge layui-bg-blue sandman-admin-report-label">日</span></div>
-                <div class="layui-card-body">
-                    <!-- 日量 -->
-                    <div class="text-align-center">
-                        <p><h1 th:text="${download.day}"></h1></p>
-                    </div>
-                    <div class="layui-row layui-col-space15">
-                        <div class="layui-col-md1 layui-col-md-offset2"><span class="layui-badge layui-bg-green">周</span></div>
-                        <div class="layui-col-md4 layui-col-md-offset5" th:text="${download.week}"></div>
-                    </div>
-                    <div class="layui-row layui-col-space15">
-                        <div class="layui-col-md1 layui-col-md-offset2"><span class="layui-badge layui-bg-orange">月</span></div>
-                        <div class="layui-col-md4 layui-col-md-offset5" th:text="${download.month}"></div>
+                        <div class="layui-col-md4 layui-col-md-offset5" th:text="${buy.month}"></div>
                     </div>
                 </div>
             </div>
@@ -178,18 +158,6 @@
                         type:'line',
                         smooth: true,
                         data:data.data.data[1].data
-                    },
-                    {
-                        name:legend[2],
-                        type:'line',
-                        smooth: true,
-                        data:data.data.data[2].data
-                    },
-                    {
-                        name:legend[3],
-                        type:'line',
-                        smooth: true,
-                        data:data.data.data[3].data
                     }
                 ]
             };

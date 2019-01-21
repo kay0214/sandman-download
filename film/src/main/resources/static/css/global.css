@@ -756,3 +756,8 @@ body .sandman-user-main{position: relative; min-height: 600px;}
   font-size: 12px;
   color: black;
 }
+.friendly-link{
+  float: left;
+  padding-left: 10px;
+  line-height: 25px;
+}

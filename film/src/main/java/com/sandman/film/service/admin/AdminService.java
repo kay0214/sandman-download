@@ -15,20 +15,12 @@ import java.util.Date;
 public interface AdminService extends BaseService {
 
     /**
-     * 根据日期获取上传资源数量
-     * @auth sunpeikai
-     * @param
-     * @return
-     */
-    int getUploadCount(Date start, Date end);
-
-    /**
      * 根据日期获取下载资源数量
      * @auth sunpeikai
      * @param
      * @return
      */
-    int getDownloadCount(Date start, Date end);
+    int getBuyCount(Date start, Date end);
 
     /**
      * 根据日期获取活跃用户数量
@@ -47,28 +39,12 @@ public interface AdminService extends BaseService {
     int getRegisterCount(Date start, Date end);
 
     /**
-     * 获取周上传量，封装起来比较好缓存
-     * @auth sunpeikai
-     * @param
-     * @return
-     */
-    int getUploadCountWeek(Date start, Date end);
-
-    /**
-     * 获取月上传量，封装起来比较好缓存
-     * @auth sunpeikai
-     * @param
-     * @return
-     */
-    int getUploadCountMonth(Date start, Date end);
-
-    /**
      * 获取周下载量，封装起来比较好缓存
      * @auth sunpeikai
      * @param
      * @return
      */
-    int getDownloadCountWeek(Date start, Date end);
+    int getBuyCountWeek(Date start, Date end);
 
     /**
      * 获取月下载量，封装起来比较好缓存
@@ -76,7 +52,7 @@ public interface AdminService extends BaseService {
      * @param
      * @return
      */
-    int getDownloadCountMonth(Date start, Date end);
+    int getBuyCountMonth(Date start, Date end);
 
     /**
      * 获取周活跃用户数量

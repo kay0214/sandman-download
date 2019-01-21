@@ -13,6 +13,20 @@ public class FilmLog implements Serializable {
     private String filmName;
 
     /**
+     * 影片地址
+     *
+     * @mbggenerated
+     */
+    private String filmUrl;
+
+    /**
+     * 影片提取码
+     *
+     * @mbggenerated
+     */
+    private String filmPassword;
+
+    /**
      * 描述
      *
      * @mbggenerated
@@ -72,6 +86,22 @@ public class FilmLog implements Serializable {
 
     public void setFilmName(String filmName) {
         this.filmName = filmName == null ? null : filmName.trim();
+    }
+
+    public String getFilmUrl() {
+        return filmUrl;
+    }
+
+    public void setFilmUrl(String filmUrl) {
+        this.filmUrl = filmUrl == null ? null : filmUrl.trim();
+    }
+
+    public String getFilmPassword() {
+        return filmPassword;
+    }
+
+    public void setFilmPassword(String filmPassword) {
+        this.filmPassword = filmPassword == null ? null : filmPassword.trim();
     }
 
     public String getDesc() {

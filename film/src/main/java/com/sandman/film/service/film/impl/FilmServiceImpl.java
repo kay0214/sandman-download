@@ -8,11 +8,16 @@ import com.sandman.film.bean.film.FilmBean;
 import com.sandman.film.constant.CommonConstant;
 import com.sandman.film.dao.mysql.film.model.auto.Film;
 import com.sandman.film.dao.mysql.film.model.auto.FilmExample;
+import com.sandman.film.dao.mysql.film.model.auto.FilmLog;
+import com.sandman.film.dao.mysql.film.model.auto.FilmLogExample;
+import com.sandman.film.dao.mysql.system.model.auto.User;
 import com.sandman.film.service.film.FilmService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,6 +26,37 @@ import java.util.List;
  */
 @Service
 public class FilmServiceImpl extends BaseServiceImpl implements FilmService {
+
+    /**
+     * 购买影片
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    @Override
+    public int buyFilm(User user, Film film) {
+        Date now = new Date();
+        // 写入资源log
+        FilmLog filmLog = new FilmLog();
+        filmLog.setUserId(user.getUserId());
+        filmLog.setFilmId(film.getId());
+        filmLog.setFilmName(film.getFilmName());
+        filmLog.setFilmUrl(film.getFilmUrl());
+        filmLog.setFilmPassword(film.getFilmPassword());
+        filmLog.setDesc(CommonConstant.USER_BUY_FILM);
+        filmLog.setCreateTime(now);
+        filmLog.setUpdateTime(now);
+        filmLog.setDelFlag(0);
+        int result = filmLogMapper.insert(filmLog);
+        // 写入积分记录
+        goldOperation(user.getUserId(),film.getId(),film.getFilmName(),user.getGold(),film.getFilmGold(),user.getGold()-film.getFilmGold(),CommonConstant.USER_BUY_FILM,1,now);
+        user.setGold(user.getGold() - film.getFilmGold());
+        updateUser(user);
+        // 写入资源下载量
+        film.setBuyCount(film.getBuyCount() + 1);
+        updateFilm(film);
+        return result;
+    }
 
     /**
      * 获取资源信息（type：1 -> 按照下载次数倒叙排序，else -> 按照创建时间倒叙)
@@ -77,10 +113,10 @@ public class FilmServiceImpl extends BaseServiceImpl implements FilmService {
      * @return
      */
     @Override
-    @Cacheable(value = "hotResourcesCache")
+    @Cacheable(value = "hotFilmsCache")
     public List<Film> getHotFilm() {
         logger.info("从mysql中获取热门资源");
-        return getFilmByType(new FilmBean(1, CommonConstant.HOT_RESOURCES_LIMIT,1));
+        return getFilmByType(new FilmBean(1, CommonConstant.HOT_FILMS_LIMIT,1));
     }
 
     private FilmExample convertExample(FilmBean filmBean){
@@ -98,7 +134,7 @@ public class FilmServiceImpl extends BaseServiceImpl implements FilmService {
         if(filmBean.getType() == 1){
             resourceExample.setOrderByClause("buy_count desc");
         }else{
-            resourceExample.setOrderByClause("create_time desc");
+            resourceExample.setOrderByClause("update_time desc");
         }
         return resourceExample;
     }

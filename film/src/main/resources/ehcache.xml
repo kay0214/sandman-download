@@ -53,7 +53,7 @@
     </cache>
     <!-- 热门资源缓存 -->
     <cache
-            name="hotResourcesCache"
+            name="hotFilmsCache"
             maxElementsInMemory="1000"
             eternal="false"
             timeToIdleSeconds="300"
@@ -62,31 +62,9 @@
             memoryStoreEvictionPolicy="LRU">
     </cache>
 
-    <!-- 后台报表-上传(周) -->
-    <cache
-            name="uploadWeekCache"
-            maxElementsInMemory="1000"
-            eternal="false"
-            timeToIdleSeconds="3600"
-            timeToLiveSeconds="86400"
-            overflowToDisk="false"
-            memoryStoreEvictionPolicy="LRU">
-    </cache>
-
-    <!-- 后台报表-上传(月) -->
-    <cache
-            name="uploadMonthCache"
-            maxElementsInMemory="1000"
-            eternal="false"
-            timeToIdleSeconds="3600"
-            timeToLiveSeconds="86400"
-            overflowToDisk="false"
-            memoryStoreEvictionPolicy="LRU">
-    </cache>
-
     <!-- 后台报表-下载(周) -->
     <cache
-            name="downloadWeekCache"
+            name="buyWeekCache"
             maxElementsInMemory="1000"
             eternal="false"
             timeToIdleSeconds="3600"
@@ -97,7 +75,7 @@
 
     <!-- 后台报表-下载(月) -->
     <cache
-            name="downloadMonthCache"
+            name="buyMonthCache"
             maxElementsInMemory="1000"
             eternal="false"
             timeToIdleSeconds="3600"

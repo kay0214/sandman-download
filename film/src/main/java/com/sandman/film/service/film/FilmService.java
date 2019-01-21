@@ -6,6 +6,7 @@ package com.sandman.film.service.film;
 import com.sandman.film.base.BaseService;
 import com.sandman.film.bean.film.FilmBean;
 import com.sandman.film.dao.mysql.film.model.auto.Film;
+import com.sandman.film.dao.mysql.system.model.auto.User;
 
 import java.util.List;
 
@@ -14,6 +15,15 @@ import java.util.List;
  * @version FilmService, v0.1 2019/1/21 14:12
  */
 public interface FilmService extends BaseService {
+
+    /**
+     * 购买影片
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    int buyFilm(User user,Film film);
+
     /**
      * 获取资源信息（type：1 -> 按照下载次数倒叙排序，else -> 按照创建时间倒叙)
      * @auth sunpeikai
