@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>用户管理-sandman资源共享平台</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="icon" href="/icon/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/icon/favicon.ico" type="image/x-icon"/>
+    <meta name="keywords" content="sandman,download,资源共享">
+    <meta name="description" content="sandman资源共享平台">
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/global.css">
+</head>
+<body>
+<div th:replace="common/header :: admin"></div>
+<div th:replace="admin/admin_header :: user"></div>
+
+<div class="layui-container sandman-background text-align-center">
+    <div class="demoTable">
+        <div class="padding-top-2p layui-form">
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-md2">
+                    <div class="layui-inline">
+                        <input class="layui-input" placeholder="用户名" name="id" id="username" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="layui-col-md2">
+                    <div class="layui-inline">
+                        <input class="layui-input" placeholder="手机号" name="id" id="mobile" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="layui-col-md2">
+                    <div class="layui-inline">
+                        <input class="layui-input" placeholder="邮箱" name="id" id="email" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="layui-col-md2">
+                    <div class="layui-input-inline">
+                        <select id="available">
+                            <option value="">状态</option>
+                            <option value="0">禁用</option>
+                            <option value="1">启用</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="layui-col-md2">
+                    <div class="layui-input-inline">
+                        <select id="role">
+                            <option value="">角色</option>
+                            <option value="0">管理员</option>
+                            <option value="1">普通用户</option>
+                            <option value="2">VIP用户</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="layui-col-md2">
+                    <button class="layui-btn" data-type="reload">搜索</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <table class="layui-hide" id="table"></table>
+
+</div>
+<!--<div th:replace="common/css3::html"></div>-->
+<script src="/layui/layui.js"></script>
+<script src="/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/global.js"></script>
+<script>
+    layui.use('table', function(){
+        var table = layui.table;
+
+        table.render({
+            elem: '#table'
+            ,id:'user'
+            ,url:'/user_manager/search_list'
+            ,page: true
+            ,limits : [10,15,20,25]
+            ,limit : 10
+            ,response:{
+                statusName:"status"
+                ,statusCode:'000'
+                ,msgName:"statusDesc"
+                ,countName:"totalCount"
+                ,dataName:"data"
+            }
+            ,cols: [
+                [
+                    {field:'userId', width:70, title: 'ID', sort: true,style:'text-align: left;'}
+                    ,{field:'username', minWidth:100, title: '用户名',style:'text-align: left;'}
+                    ,{field:'mobile', width:100, title: '手机号',style:'text-align: left;'}
+                    ,{field:'email', minWidth:150, title: '邮箱',style:'text-align: left;'}
+                    ,{field:'gold', width:60, title: '积分',style:'text-align: left;'}
+                    ,{field:'available', width:80, title: '状态',style:'text-align: left;' ,templet:function (data) {
+                        if(data.available===0){
+                            return "禁用";
+                        }else{
+                            return "可用";
+                        }
+                    }}
+                    ,{field:'role', width:100, title: '角色',style:'text-align: left;', templet:function (data) {
+                        if(data.role===0){
+                            return "管理员";
+                        }else if(data.role===1){
+                            return "普通用户";
+                        }else if(data.role===2){
+                            return "VIP用户";
+                        }else{
+                            return "预留角色";
+                        }
+                    }}
+                    ,{field:'regIp', width:100, title: '注册IP',style:'text-align: left;'}
+                    ,{field:'regTime', width:180, title: '注册时间',style:'text-align: left;', sort: true,templet:function (data) {
+                        return timeFormat(data.regTime);
+                    }}
+                    ,{fixed:'right', width:220, title: '操作',style:'text-align: left;',templet:function (data) {
+                        if(data.available===0){
+                            // 账户被禁用
+                            if(data.role === 1){
+                                //非会员
+                                return "<a href='/user_manager/update_status?userId= " + data.userId + "&status=1' class='layui-btn layui-btn-sm layui-btn-normal'>启用</a>" +
+                                    "<a href='/user_manager/vip?userId=" + data.userId + "&role=2' class='layui-btn layui-btn-sm layui-btn-normal'>成为会员</a>" +
+                                    "<button onclick='recharge(" + data.userId + ")' class='layui-btn layui-btn-sm layui-btn-normal'>充积分</button>";
+                            }else if(data.role === 2){
+                                //会员
+                                return "<a href='/user_manager/update_status?userId= " + data.userId + "&status=1' class='layui-btn layui-btn-sm layui-btn-normal'>启用</a>" +
+                                    "<a href='/user_manager/vip?userId=" + data.userId + "&role=1' class='layui-btn layui-btn-sm layui-btn-danger'>失去会员</a>" +
+                                    "<button onclick='recharge(" + data.userId + ")' class='layui-btn layui-btn-sm layui-btn-normal'>充积分</button>";
+                            }
+                        }else{
+                            // 账户可用
+                            if(data.role === 1){
+                                //非会员
+                                return "<a href='/user_manager/update_status?userId= " + data.userId + "&status=0' class='layui-btn layui-btn-sm layui-btn-danger'>禁用</a>" +
+                                    "<a href='/user_manager/vip?userId=" + data.userId + "&role=2' class='layui-btn layui-btn-sm layui-btn-normal'>成为会员</a>" +
+                                    "<button onclick='recharge(" + data.userId + ")' class='layui-btn layui-btn-sm layui-btn-normal'>充积分</button>";
+                            }else if(data.role === 2){
+                                //会员
+                                return "<a href='/user_manager/update_status?userId= " + data.userId + "&status=0' class='layui-btn layui-btn-sm layui-btn-danger'>禁用</a>" +
+                                    "<a href='/user_manager/vip?userId=" + data.userId + "&role=1' class='layui-btn layui-btn-sm layui-btn-danger'>失去会员</a>" +
+                                    "<button onclick='recharge(" + data.userId + ")' class='layui-btn layui-btn-sm layui-btn-normal'>充积分</button>";
+                            }
+                        }
+                    }}
+                ]
+            ]
+        });
+        var $ = layui.$, active = {
+            reload: function(){
+                var username = $('#username');
+                var mobile = $('#mobile');
+                var email = $('#email');
+                var available = $('#available');
+                var role = $('#role');
+                //执行重载
+                table.reload('user', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    ,where: {
+                        username: username.val(),
+                        mobile:mobile.val(),
+                        email:email.val(),
+                        available:available.val(),
+                        role:role.val()
+                    }
+                });
+            }
+        };
+
+        $('.demoTable .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+    });
+</script>
+<script type="text/javascript">
+    function timeFormat(v){
+        var date = new Date(v);
+        var y = date.getFullYear();
+        var m = date.getMonth()+1;
+        m = m<10?'0'+m:m;
+        var d = date.getDate();
+        d = d<10?("0"+d):d;
+        var h = date.getHours();
+        h = h<10?("0"+h):h;
+        var M = date.getMinutes();
+        M = M<10?("0"+M):M;
+        var s = date.getSeconds();
+        s = s<10?("0"+s):s;
+        var str = y+"-"+m+"-"+d+" "+h+":"+M + ":" + s;
+        return str;
+    }
+</script>
+<script>
+    function recharge(userId) {
+        layer.open({
+            content: '<input class="layui-input" id="recharge" placeholder="请输入积分数量"/>',
+            title:'充值',
+            yes: function(index, layero){
+                var gold = $("#recharge").val();
+                if(gold !== null && gold !== undefined && gold !== '' && gold !== 0 && userId !== null && userId !== undefined && userId !== ''){
+                    $.ajax({
+                        type: "post",
+                        url: "/user_manager/recharge",
+                        data: {
+                            gold:gold,
+                            userId:userId
+                        },
+                        async: false,
+                        success: function (data) {
+                            if(data.status !== '000'){
+                                layer.msg(data.statusDesc,{icon: 5});
+                            }else{
+                                // 充值成功
+                                layer.close(index); //如果设定了yes回调，需进行手工关闭
+                                layer.msg(data.statusDesc,{icon: 6});
+                                window.location.href = "/user_manager/init";
+                            }
+                        }
+                    });
+                }else{
+                    layer.msg("输入无效",{icon: 5});
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>

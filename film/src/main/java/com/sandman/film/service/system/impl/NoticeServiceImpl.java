@@ -1,0 +1,37 @@
+/*
+ * @Copyright: 2005-2018 www.hyjf.com. All rights reserved.
+ */
+package com.sandman.film.service.system.impl;
+
+import com.sandman.film.base.BaseServiceImpl;
+import com.sandman.film.dao.mysql.system.model.auto.Notice;
+import com.sandman.film.dao.mysql.system.model.auto.NoticeExample;
+import com.sandman.film.service.system.NoticeService;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/**
+ * @author sunpeikai
+ * @version NoticeServiceImpl, v0.1 2019/1/9 14:08
+ */
+@Service
+public class NoticeServiceImpl extends BaseServiceImpl implements NoticeService {
+
+    /**
+     * 获取公告列表
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    @Override
+    @Cacheable(value = "noticeCache")
+    public List<Notice> getNoticeList() {
+        logger.info("从mysql中获取公告");
+        NoticeExample noticeExample = new NoticeExample();
+        noticeExample.setOrderByClause("order_no asc");
+        noticeExample.createCriteria().andDelFlagEqualTo(0).andStatusEqualTo(1);
+        return noticeMapper.selectByExample(noticeExample);
+    }
+}

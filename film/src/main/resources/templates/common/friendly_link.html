@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>left-公告栏，友情链接</title>
+</head>
+<body>
+<div class="margin-top-4p" th:fragment="~{'common/friendly_link'::html}">
+    <div class="margin-top-2p"><!-- th:each="notice : ${session.noticeList}"  -->
+        <div class="layui-card">
+            <div class="layui-card-header"><i class="layui-icon"> &#xe64c; </i>友情链接</div>
+            <div class="layui-card-body">
+                <span id="friendly"></span>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+<script>
+    $.ajax({
+        type: "get",
+        url: "/friendly/init",
+        success: function (data) {
+            var friendly = "";
+            if(data.data !== null && data.data !== undefined && data.data.length > 0){
+                for(var i=0;i<data.data.length;i++){
+                    var thisFriendly = data.data[i];
+                    friendly = friendly + "<p class='margin-top-2p'><span class='layui-badge-dot'></span><span class='margin-left-2p'><a href='" + thisFriendly.linkUrl + "' target='_blank'>" + thisFriendly.linkName + "</a></span></p>"
+                }
+            }else{
+                friendly = friendly + "<p class='text-align-center'>暂无友情链接数据</p>";
+            }
+            $("#friendly").html(friendly);
+        }
+    });
+</script>
+</body>
+</html>
+

@@ -4,7 +4,7 @@
 <generatorConfiguration>
 
     <!-- 引入配置文件 -->
-    <properties resource="init_system.properties"/>
+    <properties resource="init_film.properties"/>
 
     <classPathEntry location="${classPath}"/>
 
@@ -96,6 +96,15 @@
             <generatedKey column="id" sqlStatement="MySql" type="post" identity="true" />
         </table>
 
+        <!-- film项目 -->
+        <!-- 资源表 -->
+        <table tableName="t_film" domainObjectName="Film">
+            <generatedKey column="id" sqlStatement="MySql" type="post" identity="true" />
+        </table>
+        <!-- 资源操作表 -->
+        <table tableName="t_film_log" domainObjectName="FilmLog">
+            <generatedKey column="id" sqlStatement="MySql" type="post" identity="true" />
+        </table>
 
         <!-- emmmoe -->
         <table tableName="t_page_info" domainObjectName="PageInfo">

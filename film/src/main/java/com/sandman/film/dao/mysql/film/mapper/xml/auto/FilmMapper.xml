@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sandman.film.dao.mysql.film.mapper.auto.FilmMapper" >
+  <resultMap id="BaseResultMap" type="com.sandman.film.dao.mysql.film.model.auto.Film" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="film_name" property="filmName" jdbcType="VARCHAR" />
+    <result column="film_url" property="filmUrl" jdbcType="VARCHAR" />
+    <result column="film_password" property="filmPassword" jdbcType="VARCHAR" />
+    <result column="film_image" property="filmImage" jdbcType="VARCHAR" />
+    <result column="film_actor" property="filmActor" jdbcType="VARCHAR" />
+    <result column="film_type" property="filmType" jdbcType="INTEGER" />
+    <result column="film_time" property="filmTime" jdbcType="VARCHAR" />
+    <result column="film_clarity" property="filmClarity" jdbcType="VARCHAR" />
+    <result column="film_area" property="filmArea" jdbcType="VARCHAR" />
+    <result column="film_director" property="filmDirector" jdbcType="VARCHAR" />
+    <result column="film_language" property="filmLanguage" jdbcType="VARCHAR" />
+    <result column="film_desc" property="filmDesc" jdbcType="VARCHAR" />
+    <result column="film_gold" property="filmGold" jdbcType="INTEGER" />
+    <result column="buy_count" property="buyCount" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="del_flag" property="delFlag" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, film_name, film_url, film_password, film_image, film_actor, film_type, film_time, 
+    film_clarity, film_area, film_director, film_language, film_desc, film_gold, buy_count, 
+    `status`, create_time, update_time, del_flag
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sandman.film.dao.mysql.film.model.auto.FilmExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_film
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_film
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_film
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sandman.film.dao.mysql.film.model.auto.FilmExample" >
+    delete from t_film
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sandman.film.dao.mysql.film.model.auto.Film" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_film (film_name, film_url, film_password, 
+      film_image, film_actor, film_type, 
+      film_time, film_clarity, film_area, 
+      film_director, film_language, film_desc, 
+      film_gold, buy_count, `status`, 
+      create_time, update_time, del_flag
+      )
+    values (#{filmName,jdbcType=VARCHAR}, #{filmUrl,jdbcType=VARCHAR}, #{filmPassword,jdbcType=VARCHAR}, 
+      #{filmImage,jdbcType=VARCHAR}, #{filmActor,jdbcType=VARCHAR}, #{filmType,jdbcType=INTEGER}, 
+      #{filmTime,jdbcType=VARCHAR}, #{filmClarity,jdbcType=VARCHAR}, #{filmArea,jdbcType=VARCHAR}, 
+      #{filmDirector,jdbcType=VARCHAR}, #{filmLanguage,jdbcType=VARCHAR}, #{filmDesc,jdbcType=VARCHAR}, 
+      #{filmGold,jdbcType=INTEGER}, #{buyCount,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{delFlag,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sandman.film.dao.mysql.film.model.auto.Film" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_film
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="filmName != null" >
+        film_name,
+      </if>
+      <if test="filmUrl != null" >
+        film_url,
+      </if>
+      <if test="filmPassword != null" >
+        film_password,
+      </if>
+      <if test="filmImage != null" >
+        film_image,
+      </if>
+      <if test="filmActor != null" >
+        film_actor,
+      </if>
+      <if test="filmType != null" >
+        film_type,
+      </if>
+      <if test="filmTime != null" >
+        film_time,
+      </if>
+      <if test="filmClarity != null" >
+        film_clarity,
+      </if>
+      <if test="filmArea != null" >
+        film_area,
+      </if>
+      <if test="filmDirector != null" >
+        film_director,
+      </if>
+      <if test="filmLanguage != null" >
+        film_language,
+      </if>
+      <if test="filmDesc != null" >
+        film_desc,
+      </if>
+      <if test="filmGold != null" >
+        film_gold,
+      </if>
+      <if test="buyCount != null" >
+        buy_count,
+      </if>
+      <if test="status != null" >
+        `status`,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="delFlag != null" >
+        del_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="filmName != null" >
+        #{filmName,jdbcType=VARCHAR},
+      </if>
+      <if test="filmUrl != null" >
+        #{filmUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="filmPassword != null" >
+        #{filmPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="filmImage != null" >
+        #{filmImage,jdbcType=VARCHAR},
+      </if>
+      <if test="filmActor != null" >
+        #{filmActor,jdbcType=VARCHAR},
+      </if>
+      <if test="filmType != null" >
+        #{filmType,jdbcType=INTEGER},
+      </if>
+      <if test="filmTime != null" >
+        #{filmTime,jdbcType=VARCHAR},
+      </if>
+      <if test="filmClarity != null" >
+        #{filmClarity,jdbcType=VARCHAR},
+      </if>
+      <if test="filmArea != null" >
+        #{filmArea,jdbcType=VARCHAR},
+      </if>
+      <if test="filmDirector != null" >
+        #{filmDirector,jdbcType=VARCHAR},
+      </if>
+      <if test="filmLanguage != null" >
+        #{filmLanguage,jdbcType=VARCHAR},
+      </if>
+      <if test="filmDesc != null" >
+        #{filmDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="filmGold != null" >
+        #{filmGold,jdbcType=INTEGER},
+      </if>
+      <if test="buyCount != null" >
+        #{buyCount,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sandman.film.dao.mysql.film.model.auto.FilmExample" resultType="java.lang.Integer" >
+    select count(*) from t_film
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_film
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.filmName != null" >
+        film_name = #{record.filmName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filmUrl != null" >
+        film_url = #{record.filmUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filmPassword != null" >
+        film_password = #{record.filmPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filmImage != null" >
+        film_image = #{record.filmImage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filmActor != null" >
+        film_actor = #{record.filmActor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filmType != null" >
+        film_type = #{record.filmType,jdbcType=INTEGER},
+      </if>
+      <if test="record.filmTime != null" >
+        film_time = #{record.filmTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filmClarity != null" >
+        film_clarity = #{record.filmClarity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filmArea != null" >
+        film_area = #{record.filmArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filmDirector != null" >
+        film_director = #{record.filmDirector,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filmLanguage != null" >
+        film_language = #{record.filmLanguage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filmDesc != null" >
+        film_desc = #{record.filmDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filmGold != null" >
+        film_gold = #{record.filmGold,jdbcType=INTEGER},
+      </if>
+      <if test="record.buyCount != null" >
+        buy_count = #{record.buyCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        `status` = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.delFlag != null" >
+        del_flag = #{record.delFlag,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_film
+    set id = #{record.id,jdbcType=INTEGER},
+      film_name = #{record.filmName,jdbcType=VARCHAR},
+      film_url = #{record.filmUrl,jdbcType=VARCHAR},
+      film_password = #{record.filmPassword,jdbcType=VARCHAR},
+      film_image = #{record.filmImage,jdbcType=VARCHAR},
+      film_actor = #{record.filmActor,jdbcType=VARCHAR},
+      film_type = #{record.filmType,jdbcType=INTEGER},
+      film_time = #{record.filmTime,jdbcType=VARCHAR},
+      film_clarity = #{record.filmClarity,jdbcType=VARCHAR},
+      film_area = #{record.filmArea,jdbcType=VARCHAR},
+      film_director = #{record.filmDirector,jdbcType=VARCHAR},
+      film_language = #{record.filmLanguage,jdbcType=VARCHAR},
+      film_desc = #{record.filmDesc,jdbcType=VARCHAR},
+      film_gold = #{record.filmGold,jdbcType=INTEGER},
+      buy_count = #{record.buyCount,jdbcType=INTEGER},
+      `status` = #{record.status,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      del_flag = #{record.delFlag,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sandman.film.dao.mysql.film.model.auto.Film" >
+    update t_film
+    <set >
+      <if test="filmName != null" >
+        film_name = #{filmName,jdbcType=VARCHAR},
+      </if>
+      <if test="filmUrl != null" >
+        film_url = #{filmUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="filmPassword != null" >
+        film_password = #{filmPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="filmImage != null" >
+        film_image = #{filmImage,jdbcType=VARCHAR},
+      </if>
+      <if test="filmActor != null" >
+        film_actor = #{filmActor,jdbcType=VARCHAR},
+      </if>
+      <if test="filmType != null" >
+        film_type = #{filmType,jdbcType=INTEGER},
+      </if>
+      <if test="filmTime != null" >
+        film_time = #{filmTime,jdbcType=VARCHAR},
+      </if>
+      <if test="filmClarity != null" >
+        film_clarity = #{filmClarity,jdbcType=VARCHAR},
+      </if>
+      <if test="filmArea != null" >
+        film_area = #{filmArea,jdbcType=VARCHAR},
+      </if>
+      <if test="filmDirector != null" >
+        film_director = #{filmDirector,jdbcType=VARCHAR},
+      </if>
+      <if test="filmLanguage != null" >
+        film_language = #{filmLanguage,jdbcType=VARCHAR},
+      </if>
+      <if test="filmDesc != null" >
+        film_desc = #{filmDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="filmGold != null" >
+        film_gold = #{filmGold,jdbcType=INTEGER},
+      </if>
+      <if test="buyCount != null" >
+        buy_count = #{buyCount,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        `status` = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null" >
+        del_flag = #{delFlag,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sandman.film.dao.mysql.film.model.auto.Film" >
+    update t_film
+    set film_name = #{filmName,jdbcType=VARCHAR},
+      film_url = #{filmUrl,jdbcType=VARCHAR},
+      film_password = #{filmPassword,jdbcType=VARCHAR},
+      film_image = #{filmImage,jdbcType=VARCHAR},
+      film_actor = #{filmActor,jdbcType=VARCHAR},
+      film_type = #{filmType,jdbcType=INTEGER},
+      film_time = #{filmTime,jdbcType=VARCHAR},
+      film_clarity = #{filmClarity,jdbcType=VARCHAR},
+      film_area = #{filmArea,jdbcType=VARCHAR},
+      film_director = #{filmDirector,jdbcType=VARCHAR},
+      film_language = #{filmLanguage,jdbcType=VARCHAR},
+      film_desc = #{filmDesc,jdbcType=VARCHAR},
+      film_gold = #{filmGold,jdbcType=INTEGER},
+      buy_count = #{buyCount,jdbcType=INTEGER},
+      `status` = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      del_flag = #{delFlag,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

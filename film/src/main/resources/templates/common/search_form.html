@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>search</title>
+</head>
+<body>
+<div th:fragment="~{'common/header'::html}">
+    <!-- 搜索功能 -->
+    <form action="/resource/search" method="get">
+        <div class="layui-row">
+            <div class="layui-col-md1">
+                <label class="layui-form-label" style="text-align: left;">关键词 ： </label>
+            </div>
+            <div class="layui-col-md9">
+                <input type="text" id="search" name="search" th:value="${search}" placeholder="请输入您要搜索的内容" autocomplete="off" class="layui-input">
+            </div>
+            <input type="hidden" name="currPage" th:value="${currPage}">
+            <div class="layui-col-md1" style="padding-left: 4%;">
+                <button type="submit" class="layui-btn layui-btn-radius layui-btn-normal"><i class="layui-icon">    &#xe615;  </i>搜 索      </button>
+            </div>
+        </div>
+
+    </form>
+
+</div>
+</body>
+</html>
+

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>header</title>
+</head>
+<body>
+<div th:fragment="index" class="sandman-panel sandman-column">
+    <div class="layui-container">
+        <ul class="layui-clear">
+            <li class="layui-hide-xs layui-this"><a href="/admin/index">管理员首页</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/user_manager/init">会员管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/resource_manager/init">资源管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/notice_manager/init">公告管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/friendly_link_manager/init">友情链接管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/template_manager/init">模板管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/link_manager/init">接口请求管理</a></li>
+            <li><a class="layui-btn layui-btn-danger layui-btn-radius layui-btn-sm" name="restart">重启程序</a></li>
+        </ul>
+    </div>
+</div>
+<div th:fragment="user" class="sandman-panel sandman-column">
+    <div class="layui-container">
+        <ul class="layui-clear">
+            <li><a href="/admin/index">管理员首页</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li class="layui-hide-xs layui-this"><a href="/user_manager/init">会员管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/resource_manager/init">资源管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/notice_manager/init">公告管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/friendly_link_manager/init">友情链接管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/template_manager/init">模板管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/link_manager/init">接口请求管理</a></li>
+            <li><a class="layui-btn layui-btn-danger layui-btn-radius layui-btn-sm" name="restart">重启程序</a></li>
+        </ul>
+    </div>
+</div>
+<div th:fragment="resource" class="sandman-panel sandman-column">
+    <div class="layui-container">
+        <ul class="layui-clear">
+            <li><a href="/admin/index">管理员首页</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/user_manager/init">会员管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li class="layui-hide-xs layui-this"><a href="/resource_manager/init">资源管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/notice_manager/init">公告管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/friendly_link_manager/init">友情链接管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/template_manager/init">模板管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/link_manager/init">接口请求管理</a></li>
+            <li><a class="layui-btn layui-btn-danger layui-btn-radius layui-btn-sm" name="restart">重启程序</a></li>
+        </ul>
+    </div>
+</div>
+<div th:fragment="notice" class="sandman-panel sandman-column">
+    <div class="layui-container">
+        <ul class="layui-clear">
+            <li><a href="/admin/index">管理员首页</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/user_manager/init">会员管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/resource_manager/init">资源管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li class="layui-hide-xs layui-this"><a href="/notice_manager/init">公告管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/friendly_link_manager/init">友情链接管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/template_manager/init">模板管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/link_manager/init">接口请求管理</a></li>
+            <li><a class="layui-btn layui-btn-danger layui-btn-radius layui-btn-sm" name="restart">重启程序</a></li>
+        </ul>
+    </div>
+</div>
+<div th:fragment="friendly_link" class="sandman-panel sandman-column">
+    <div class="layui-container">
+        <ul class="layui-clear">
+            <li><a href="/admin/index">管理员首页</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/user_manager/init">会员管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/resource_manager/init">资源管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/notice_manager/init">公告管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li class="layui-hide-xs layui-this"><a href="/friendly_link_manager/init">友情链接管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/template_manager/init">模板管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/link_manager/init">接口请求管理</a></li>
+            <li><a class="layui-btn layui-btn-danger layui-btn-radius layui-btn-sm" name="restart">重启程序</a></li>
+        </ul>
+    </div>
+</div>
+<div th:fragment="template" class="sandman-panel sandman-column">
+    <div class="layui-container">
+        <ul class="layui-clear">
+            <li><a href="/admin/index">管理员首页</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/user_manager/init">会员管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/resource_manager/init">资源管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/notice_manager/init">公告管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/friendly_link_manager/init">友情链接管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li class="layui-hide-xs layui-this"><a href="/template_manager/init">模板管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/link_manager/init">接口请求管理</a></li>
+            <li><a class="layui-btn layui-btn-danger layui-btn-radius layui-btn-sm" name="restart">重启程序</a></li>
+        </ul>
+    </div>
+</div>
+<div th:fragment="link" class="sandman-panel sandman-column">
+    <div class="layui-container">
+        <ul class="layui-clear">
+            <li><a href="/admin/index">管理员首页</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/user_manager/init">会员管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/resource_manager/init">资源管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/notice_manager/init">公告管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/friendly_link_manager/init">友情链接管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li><a href="/template_manager/init">模板管理</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="sandman-mid"></span></li>
+            <li class="layui-hide-xs layui-this"><a href="/link_manager/init">接口请求管理</a></li>
+            <li><a class="layui-btn layui-btn-danger layui-btn-radius layui-btn-sm" name="restart">重启程序</a></li>
+        </ul>
+    </div>
+</div>
+</body>
+<script src="/layui/layui.js"></script>
+<script src="/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/global.js"></script>
+</html>
+
