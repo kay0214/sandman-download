@@ -14,12 +14,12 @@ import org.springframework.web.servlet.ModelAndView;
  * @version RechargeController, v0.1 2019/1/14 19:28
  */
 @Controller
-@RequestMapping(value = "/recharge")
+@RequestMapping(value = "/sponsor")
 public class RechargeController extends BaseController {
 
     @GetMapping(value = "/init")
     public ModelAndView init(){
 
-        return new ModelAndView("recharge");
+        return new ModelAndView("sponsor");
     }
 }

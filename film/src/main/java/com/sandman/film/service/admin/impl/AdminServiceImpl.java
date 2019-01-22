@@ -6,6 +6,9 @@ package com.sandman.film.service.admin.impl;
 import com.sandman.film.base.BaseServiceImpl;
 import com.sandman.film.bean.admin.OverviewDataResult;
 import com.sandman.film.bean.admin.OverviewResultBean;
+import com.sandman.film.dao.mysql.film.model.auto.FilmLog;
+import com.sandman.film.dao.mysql.film.model.auto.FilmLogExample;
+import com.sandman.film.dao.mysql.film.model.auto.FindPlzExample;
 import com.sandman.film.dao.mysql.system.model.auto.UserExample;
 import com.sandman.film.dao.mysql.system.model.auto.UserLoginLogExample;
 import com.sandman.film.service.admin.AdminService;
@@ -31,10 +34,9 @@ public class AdminServiceImpl extends BaseServiceImpl implements AdminService {
      */
     @Override
     public int getBuyCount(Date start, Date end) {
-        /*ResourceLogExample resourceLogExample = new ResourceLogExample();
-        resourceLogExample.createCriteria().andTypeEqualTo(2).andCreateTimeBetween(start, end);
-        return resourceLogMapper.countByExample(resourceLogExample);*/
-        return 1;
+        FilmLogExample filmLogExample = new FilmLogExample();
+        filmLogExample.createCriteria().andDelFlagEqualTo(0).andCreateTimeBetween(start, end);
+        return filmLogMapper.countByExample(filmLogExample);
     }
 
     /**
@@ -74,6 +76,19 @@ public class AdminServiceImpl extends BaseServiceImpl implements AdminService {
         UserExample userExample = new UserExample();
         userExample.createCriteria().andAvailableEqualTo(1).andRoleNotEqualTo(0).andRegTimeBetween(start, end);
         return userMapper.countByExample(userExample);
+    }
+
+    /**
+     * 根据日期获取留言数量
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    @Override
+    public int getFindPlzCount(Date start, Date end) {
+        FindPlzExample findPlzExample = new FindPlzExample();
+        findPlzExample.createCriteria().andDelFlagEqualTo(0).andCreateTimeBetween(start, end);
+        return findPlzMapper.countByExample(findPlzExample);
     }
 
     /**
@@ -155,6 +170,32 @@ public class AdminServiceImpl extends BaseServiceImpl implements AdminService {
     }
 
     /**
+     * 获取周留言数量
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    @Override
+    @Cacheable(value = "findPlzWeekCache")
+    public int getFindPlzCountWeek(Date start, Date end) {
+        logger.info("后台报表-留言求片数量(周),从MySQL中获取数据");
+        return getFindPlzCount(start, end);
+    }
+
+    /**
+     * 获取月留言数量
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    @Override
+    @Cacheable(value = "findPlzMonthCache")
+    public int getFindPlzCountMonth(Date start, Date end) {
+        logger.info("后台报表-留言求片数量(月),从MySQL中获取数据");
+        return getFindPlzCount(start, end);
+    }
+
+    /**
      * 获取折线图数据
      * @auth sunpeikai
      * @param
@@ -170,6 +211,7 @@ public class AdminServiceImpl extends BaseServiceImpl implements AdminService {
         List<OverviewDataResult> dataList = new ArrayList<>();
         legend.add("购买数量");
         legend.add("注册用户数量");
+        legend.add("留言数量");
         // 获取近30天的日期
         for(int i=30;i>0;i--){
             String dateString = dateFormat.format(DateUtils.getDaysAfter(new Date(),-i));
@@ -196,6 +238,7 @@ public class AdminServiceImpl extends BaseServiceImpl implements AdminService {
         switch (type){
             case 0:result = getBuyCount(start, end);break;
             case 1:result = getRegisterCount(start, end);break;
+            case 2:result = getFindPlzCount(start, end);break;
         }
         return result;
     }

@@ -62,6 +62,28 @@
             memoryStoreEvictionPolicy="LRU">
     </cache>
 
+    <!-- 用户留言缓存 -->
+    <cache
+            name="findPlzCache"
+            maxElementsInMemory="1000"
+            eternal="false"
+            timeToIdleSeconds="300"
+            timeToLiveSeconds="300"
+            overflowToDisk="false"
+            memoryStoreEvictionPolicy="LRU">
+    </cache>
+
+    <!-- 电影类型缓存 -->
+    <cache
+            name="filmTypeCache"
+            maxElementsInMemory="1000"
+            eternal="false"
+            timeToIdleSeconds="0"
+            timeToLiveSeconds="0"
+            overflowToDisk="false"
+            memoryStoreEvictionPolicy="LRU">
+    </cache>
+
     <!-- 后台报表-下载(周) -->
     <cache
             name="buyWeekCache"
@@ -120,6 +142,28 @@
     <!-- 后台报表-注册用户(月) -->
     <cache
             name="registerMonthCache"
+            maxElementsInMemory="1000"
+            eternal="false"
+            timeToIdleSeconds="3600"
+            timeToLiveSeconds="86400"
+            overflowToDisk="false"
+            memoryStoreEvictionPolicy="LRU">
+    </cache>
+
+    <!-- 后台报表-留言(周) -->
+    <cache
+            name="findPlzWeekCache"
+            maxElementsInMemory="1000"
+            eternal="false"
+            timeToIdleSeconds="3600"
+            timeToLiveSeconds="86400"
+            overflowToDisk="false"
+            memoryStoreEvictionPolicy="LRU">
+    </cache>
+
+    <!-- 后台报表-留言(月) -->
+    <cache
+            name="findPlzMonthCache"
             maxElementsInMemory="1000"
             eternal="false"
             timeToIdleSeconds="3600"

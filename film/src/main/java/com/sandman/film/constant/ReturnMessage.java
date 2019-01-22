@@ -44,8 +44,8 @@ public enum ReturnMessage {
     ERR_USER_IS_NOT_ADMIN("EUS000008","该用户不是管理员"),
     ERR_USER_RECHARGE("EUS000009","用户充值失败"),
     ERR_USER_SIGN_IN("EUS000010","用户签到失败"),
-    ERR_USER_BUY_FILM("EUS000011","用户购买失败"),
-    ERR_USER_ALREADY_BUY("EUS000012","您已购买该影片"),
+    ERR_USER_BUY_FILM("EUS000011","用户兑换失败"),
+    ERR_USER_ALREADY_BUY("EUS000012","您已兑换该影片"),
 
     // 资源相关错误ERR_RESOURCE_
     ERR_RESOURCE_NOT_EXIST("ERS000001","资源不存在"),
@@ -56,6 +56,7 @@ public enum ReturnMessage {
 
     // 上传相关错误ERR_UPLOAD_
     ERR_UPLOAD_EXCEED_MAX_SIZE("EUP000001","您是{0},只能上传小于{1}的文件"),
+    ERR_UPLOAD_FAILED("EUP000002","上传失败"),
 
     // 邮件相关错误信息ERR_EMAIL_
     ERR_EMAIL_USED("EEM000001", "邮箱已被占用"),
@@ -65,6 +66,9 @@ public enum ReturnMessage {
     // 密码相关错误ERR_PASSWORD_
     ERR_PASSWORD("EPS000001","密码不正确"),
     ERR_PASSWORD_MODIFY("EPS000002","密码修改失败"),
+
+    // 回复相关错误ERR_REPAY_
+    ERR_REPAY("ERP000001","回复失败"),
 
     // 激活码相关错误ERR_VALIDATE_CODE_
     ERR_VALIDATE_CODE("EVC000001","激活码不正确"),

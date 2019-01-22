@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 /**
  * @author sunpeikai
  * @version IndexController, v0.1 2018/11/23 14:47
@@ -33,6 +35,7 @@ public class IndexController extends BaseController {
         // 最新上传count
         modelAndView.addObject("count", filmService.getFilmCountByType(new FilmBean(1,CommonConstant.DEFAULT_LIMIT,0)));
 
+        modelAndView.addObject("filmTypeList",filmService.getAllType());
 
         // 最多下载
         //modelAndView.addObject("hotResources",filmService.getResourceByType(new FilmBean(1,CommonConstant.DEFAULT_LIMIT,1)));

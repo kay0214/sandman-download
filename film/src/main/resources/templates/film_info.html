@@ -114,7 +114,7 @@
     function checkInfo(id, type) {
         var username = $("input[name='login']").val();
         if (username !== null && username !== undefined && username !== '') {
-            layer.confirm('确定花费积分购买影片?', {title: '正在购买'}, function (index) {
+            layer.confirm('确定使用积分兑换影片?', {title: '正在兑换'}, function (index) {
                 // 这里ajax请求
                 $.ajax({
                     type: "get",

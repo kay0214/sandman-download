@@ -19,8 +19,11 @@
                 <div>
                     <a th:href="'/film/get_info?id=' + ${film.id}">
                         <img width="128px" height="180px" th:src="${film.filmImage}">
-                        <p class="film-name" th:text="'片名：' + ${film.filmName}"></p>
-                        <div class="film-type" th:text="'分类：' + ${film.filmType}"></div>
+                        <p class="film-name" th:text="${film.filmName}"></p>
+                        <div th:each="filmType :${filmTypeList}">
+                            <div th:if="${filmType.id} == ${film.filmType}" class="film-type" th:text="'分类：' + ${filmType.name}"></div>
+                        </div>
+
                     </a>
 
                 </div>

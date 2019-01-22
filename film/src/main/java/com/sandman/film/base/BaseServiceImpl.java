@@ -344,4 +344,18 @@ public class BaseServiceImpl extends CustomizeMapper implements BaseService {
         }
         return null;
     }
+
+    /**
+     * 电影类型
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    @Override
+    @Cacheable(value = "filmTypeCache")
+    public List<FilmType> getAllType() {
+        FilmTypeExample filmTypeExample = new FilmTypeExample();
+        filmTypeExample.createCriteria().andDelFlagEqualTo(0).andStatusEqualTo(1);
+        return filmTypeMapper.selectByExample(filmTypeExample);
+    }
 }

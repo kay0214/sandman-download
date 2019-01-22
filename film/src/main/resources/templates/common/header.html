@@ -12,8 +12,9 @@
         <!-- 菜单 -->
         <ul class="layui-nav sandman-nav layui-hide-xs">
             <li class="layui-nav-item layui-this"><a href="/">首页</a></li>
-            <li class="layui-nav-item"><a href="/my_download/init">已购买</a></li>
+            <li class="layui-nav-item"><a href="/my_download/init">已兑换</a></li>
             <li class="layui-nav-item"><a href="/my_gold/init">积分记录</a></li>
+            <li class="layui-nav-item"><a href="/find/init">留言求片</a></li>
         </ul>
         <ul class="layui-nav sandman-nav-user">
             <!-- 登录状态 -->
@@ -23,7 +24,7 @@
                     <dl class="layui-nav-child"> <!-- 二级菜单 -->
                         <dd th:if="${session.user.role} == 0"><a href="/admin/index">管理员首页</a></dd>
                         <dd><a href="/personal/init">个人中心</a></dd>
-                        <dd><a href="/recharge/init">充值积分</a></dd>
+                        <dd><a href="/sponsor/init">友情赞助</a></dd>
                         <dd><a href="/forget/init">修改密码</a></dd>
                         <dd><a href="/login/logOut">退出登录</a></dd>
                     </dl>
@@ -49,8 +50,9 @@
         <!-- 菜单 -->
         <ul class="layui-nav sandman-nav layui-hide-xs">
             <li class="layui-nav-item"><a href="/">首页</a></li>
-            <li class="layui-nav-item layui-this"><a href="/my_download/init">已购买</a></li>
+            <li class="layui-nav-item layui-this"><a href="/my_download/init">已兑换</a></li>
             <li class="layui-nav-item"><a href="/my_gold/init">积分记录</a></li>
+            <li class="layui-nav-item"><a href="/find/init">留言求片</a></li>
         </ul>
         <ul class="layui-nav sandman-nav-user">
             <!-- 登录状态 -->
@@ -60,7 +62,7 @@
                     <dl class="layui-nav-child"> <!-- 二级菜单 -->
                         <dd th:if="${session.user.role} == 0"><a href="/admin/index">管理员首页</a></dd>
                         <dd><a href="/personal/init">个人中心</a></dd>
-                        <dd><a href="/recharge/init">充值积分</a></dd>
+                        <dd><a href="/sponsor/init">友情赞助</a></dd>
                         <dd><a href="/forget/init">修改密码</a></dd>
                         <dd><a href="/login/logOut">退出登录</a></dd>
                     </dl>
@@ -86,8 +88,9 @@
         <!-- 菜单 -->
         <ul class="layui-nav sandman-nav layui-hide-xs">
             <li class="layui-nav-item"><a href="/">首页</a></li>
-            <li class="layui-nav-item"><a href="/my_download/init">已购买</a></li>
+            <li class="layui-nav-item"><a href="/my_download/init">已兑换</a></li>
             <li class="layui-nav-item layui-this"><a href="/my_gold/init">积分记录</a></li>
+            <li class="layui-nav-item"><a href="/find/init">留言求片</a></li>
         </ul>
         <ul class="layui-nav sandman-nav-user">
             <!-- 登录状态 -->
@@ -97,7 +100,45 @@
                     <dl class="layui-nav-child"> <!-- 二级菜单 -->
                         <dd th:if="${session.user.role} == 0"><a href="/admin/index">管理员首页</a></dd>
                         <dd><a href="/personal/init">个人中心</a></dd>
-                        <dd><a href="/recharge/init">充值积分</a></dd>
+                        <dd><a href="/sponsor/init">友情赞助</a></dd>
+                        <dd><a href="/forget/init">修改密码</a></dd>
+                        <dd><a href="/login/logOut">退出登录</a></dd>
+                    </dl>
+                </li>
+            </div>
+            <!-- 未登录状态 -->
+            <div th:unless="${session.user}">
+                <li class="layui-nav-item">
+                    <a href="/login/init">登录</a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="/register/init">注册</a>
+                </li>
+            </div>
+
+        </ul>
+    </div>
+</div>
+<div th:fragment="find" class="layui-bg-black">
+    <div class="layui-container">
+        <!-- logo -->
+        <a class="sandman-logo" href="/"><img src="/images/logo.png" alt="sandman下载"></a>
+        <!-- 菜单 -->
+        <ul class="layui-nav sandman-nav layui-hide-xs">
+            <li class="layui-nav-item"><a href="/">首页</a></li>
+            <li class="layui-nav-item"><a href="/my_download/init">已兑换</a></li>
+            <li class="layui-nav-item"><a href="/my_gold/init">积分记录</a></li>
+            <li class="layui-nav-item layui-this"><a href="/find/init">留言求片</a></li>
+        </ul>
+        <ul class="layui-nav sandman-nav-user">
+            <!-- 登录状态 -->
+            <div th:if="${session.user}">
+                <li class="layui-nav-item sandman-avatar">
+                    <a href="javascript:;"><img th:src="${session.user.iconUrl}"><span th:text="${session.user.username}"></span></a>
+                    <dl class="layui-nav-child"> <!-- 二级菜单 -->
+                        <dd th:if="${session.user.role} == 0"><a href="/admin/index">管理员首页</a></dd>
+                        <dd><a href="/personal/init">个人中心</a></dd>
+                        <dd><a href="/sponsor/init">友情赞助</a></dd>
                         <dd><a href="/forget/init">修改密码</a></dd>
                         <dd><a href="/login/logOut">退出登录</a></dd>
                     </dl>
@@ -123,8 +164,9 @@
         <!-- 菜单 -->
         <ul class="layui-nav sandman-nav layui-hide-xs">
             <li class="layui-nav-item"><a href="/">首页</a></li>
-            <li class="layui-nav-item"><a href="/my_download/init">已购买</a></li>
+            <li class="layui-nav-item"><a href="/my_download/init">已兑换</a></li>
             <li class="layui-nav-item"><a href="/my_gold/init">积分记录</a></li>
+            <li class="layui-nav-item"><a href="/find/init">留言求片</a></li>
         </ul>
         <ul class="layui-nav sandman-nav-user">
             <!-- 登录状态 -->
@@ -134,7 +176,7 @@
                     <dl class="layui-nav-child"> <!-- 二级菜单 -->
                         <dd th:if="${session.user.role} == 0"><a href="/admin/index">管理员首页</a></dd>
                         <dd><a href="/personal/init">个人中心</a></dd>
-                        <dd><a href="/recharge/init">充值积分</a></dd>
+                        <dd><a href="/sponsor/init">友情赞助</a></dd>
                         <dd><a href="/forget/init">修改密码</a></dd>
                         <dd><a href="/login/logOut">退出登录</a></dd>
                     </dl>
@@ -160,8 +202,9 @@
         <!-- 菜单 -->
         <ul class="layui-nav sandman-nav layui-hide-xs">
             <li class="layui-nav-item"><a href="/">首页</a></li>
-            <li class="layui-nav-item"><a href="/my_download/init">已购买</a></li>
+            <li class="layui-nav-item"><a href="/my_download/init">已兑换</a></li>
             <li class="layui-nav-item"><a href="/my_gold/init">积分记录</a></li>
+            <li class="layui-nav-item"><a href="/find/init">留言求片</a></li>
         </ul>
         <ul class="layui-nav sandman-nav-user">
             <!-- 登录状态 -->
@@ -171,7 +214,7 @@
                     <dl class="layui-nav-child"> <!-- 二级菜单 -->
                         <dd th:if="${session.user.role} == 0"><a href="/admin/index">管理员首页</a></dd>
                         <dd><a href="/personal/init">个人中心</a></dd>
-                        <dd><a href="/recharge/init">充值积分</a></dd>
+                        <dd><a href="/sponsor/init">友情赞助</a></dd>
                         <dd><a href="/forget/init">修改密码</a></dd>
                         <dd><a href="/login/logOut">退出登录</a></dd>
                     </dl>

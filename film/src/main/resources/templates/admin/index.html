@@ -77,6 +77,26 @@
                 </div>
             </div>
         </div>
+        <!-- 留言报表 -->
+        <div class="layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-header"><i class="layui-icon"> &#xe66e; </i>留言量<span class="layui-badge layui-bg-blue sandman-admin-report-label">日</span></div>
+                <div class="layui-card-body">
+                    <!-- 日量 -->
+                    <div class="text-align-center">
+                        <p><h1 th:text="${findPlz.day}"></h1></p>
+                    </div>
+                    <div class="layui-row layui-col-space15">
+                        <div class="layui-col-md1 layui-col-md-offset2"><span class="layui-badge layui-bg-green">周</span></div>
+                        <div class="layui-col-md4 layui-col-md-offset5" th:text="${findPlz.week}"></div>
+                    </div>
+                    <div class="layui-row layui-col-space15">
+                        <div class="layui-col-md1 layui-col-md-offset2"><span class="layui-badge layui-bg-orange">月</span></div>
+                        <div class="layui-col-md4 layui-col-md-offset5" th:text="${findPlz.month}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- 趋势图 -->
     <div class="layui-row">
@@ -158,6 +178,12 @@
                         type:'line',
                         smooth: true,
                         data:data.data.data[1].data
+                    },
+                    {
+                        name:legend[2],
+                        type:'line',
+                        smooth: true,
+                        data:data.data.data[2].data
                     }
                 ]
             };

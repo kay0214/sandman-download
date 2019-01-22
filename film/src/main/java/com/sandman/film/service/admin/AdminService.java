@@ -39,6 +39,14 @@ public interface AdminService extends BaseService {
     int getRegisterCount(Date start, Date end);
 
     /**
+     * 根据日期获取留言数量
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    int getFindPlzCount(Date start, Date end);
+
+    /**
      * 获取周下载量，封装起来比较好缓存
      * @auth sunpeikai
      * @param
@@ -85,6 +93,22 @@ public interface AdminService extends BaseService {
      * @return
      */
     int getRegisterCountMonth(Date start, Date end);
+
+    /**
+     * 获取周留言数量
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    int getFindPlzCountWeek(Date start, Date end);
+
+    /**
+     * 获取月留言数量
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    int getFindPlzCountMonth(Date start, Date end);
 
     /**
      * 获取折线图数据

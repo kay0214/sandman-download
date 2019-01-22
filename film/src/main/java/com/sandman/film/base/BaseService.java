@@ -5,6 +5,7 @@ package com.sandman.film.base;
 
 import com.sandman.film.dao.mysql.film.model.auto.Film;
 import com.sandman.film.dao.mysql.film.model.auto.FilmLog;
+import com.sandman.film.dao.mysql.film.model.auto.FilmType;
 import com.sandman.film.dao.mysql.film.model.auto.GoldLog;
 import com.sandman.film.dao.mysql.system.model.auto.*;
 
@@ -191,5 +192,13 @@ public interface BaseService {
      * @return
      */
     FilmLog getFilmLogByUserIdAndFilmId(Integer userId,Integer filmId);
+
+    /**
+     * 电影类型
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    List<FilmType> getAllType();
 
 }

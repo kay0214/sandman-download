@@ -49,6 +49,10 @@ public class SystemConfig {
 
     private static String RESTART_PASSWORD;
 
+    private static String FILM_IMAGE_PATH;
+
+    private static String FILM_IMAGE;
+
     @Value("${sftpServer.userName}")
     private void setUSERNAME(String USERNAME) {
         SystemConfig.USERNAME = USERNAME;
@@ -154,6 +158,16 @@ public class SystemConfig {
         RESTART_PASSWORD = restartPassword;
     }
 
+    @Value("${sandman.film.path}")
+    public void setFilmImagePath(String filmImagePath) {
+        FILM_IMAGE_PATH = filmImagePath;
+    }
+
+    @Value("${sandman.film.image}")
+    public void setFilmImage(String filmImage) {
+        FILM_IMAGE = filmImage;
+    }
+
     //get方法位置
     public static String getSmtpHost() {
         return SMTP_HOST;
@@ -240,5 +254,13 @@ public class SystemConfig {
 
     public static String getRestartPassword() {
         return RESTART_PASSWORD;
+    }
+
+    public static String getFilmImagePath() {
+        return FILM_IMAGE_PATH;
+    }
+
+    public static String getFilmImage() {
+        return FILM_IMAGE;
     }
 }

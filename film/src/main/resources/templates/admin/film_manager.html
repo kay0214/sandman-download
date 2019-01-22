@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>资源管理-sandman资源共享平台</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="icon" href="/icon/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/icon/favicon.ico" type="image/x-icon"/>
+    <meta name="keywords" content="sandman,download,资源共享">
+    <meta name="description" content="sandman资源共享平台">
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/global.css">
+</head>
+<body>
+<div th:replace="common/header :: admin"></div>
+<div th:replace="admin/admin_header :: film"></div>
+
+<div class="layui-container sandman-background text-align-center">
+    <div class="demoTable">
+        <div class="padding-top-2p layui-form">
+            <div class="layui-row layui-col-space15">
+
+                <div class="layui-col-md2 layui-col-md-offset1">
+                    <div class="layui-inline">
+                        <input class="layui-input" placeholder="影片名称" name="filmName" id="filmName" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="layui-col-md2">
+                    <div class="layui-input-inline">
+                        <select id="filmType">
+                            <option value="">状态</option>
+                            <div th:each="filmType :${filmTypeList}">
+                                <option th:value="${filmType.id}" th:text="${filmType.name}"></option>
+                            </div>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="layui-col-md2">
+                    <div class="layui-input-inline">
+                        <select id="status">
+                            <option value="">状态</option>
+                            <option value="0">禁用</option>
+                            <option value="1">启用</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="layui-col-md2">
+                    <button class="layui-btn" data-type="reload">搜索</button>
+                </div>
+                <div class="layui-col-md2">
+                    <a href="/film_manager/insert_init" class="layui-btn layui-btn-normal">添加</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <table class="layui-hide" id="table"></table>
+    <!--<input hidden type="hidden" id="type" th:value="${filmTypeList}">-->
+</div>
+<!--<div th:replace="common/css3::html"></div>-->
+<script src="/layui/layui.js"></script>
+<script src="/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/global.js"></script>
+<script th:inline="javascript">
+    var filmTypeList = [[${filmTypeList}]];
+</script>
+<script>
+    layui.use('table', function(){
+        var table = layui.table;
+        table.render({
+            elem: '#table'
+            ,id:'film'
+            ,url:'/film_manager/search'
+            ,page: true
+            ,limits : [10,15,20,25]
+            ,limit : 10
+            ,response:{
+                statusName:"status"
+                ,statusCode:'000'
+                ,msgName:"statusDesc"
+                ,countName:"totalCount"
+                ,dataName:"data"
+            }
+            ,cols: [
+                [
+                    {field:'id', width:70, title: 'ID', sort: true,style:'text-align: left;'}
+                    ,{field:'filmName', minWidth:120, title: '名称',style:'text-align: left;', templet:function (data) {
+                        return "<a href='/film/get_info?id=" + data.id + "' target='_blank'>" + data.filmName + "</a>";
+                    }}
+                    ,{field:'filmUrl', width:150, title: 'url',style:'text-align: left;', templet:function (data) {
+                        return "<a href='" + data.filmUrl + "' target='_blank'>" + data.filmUrl + "</a>";
+                    }}
+                    ,{field:'filmPassword', width:80, title: '密码',style:'text-align: left;'}
+                    ,{field:'filmActor', width:80, title: '主演',style:'text-align: left;'}
+                    ,{field:'filmType', width:80, title: '类型',style:'text-align: left;', templet:function (data) {
+                        for(var i=0;i<filmTypeList.length;i++){
+                            if(data.filmType === filmTypeList[i].id){
+                                return filmTypeList[i].name;
+                            }
+                        }
+                    }}
+                    ,{field:'filmTime', width:90, title: '时间',style:'text-align: left;', sort: true}
+                    ,{field:'filmGold', width:70, title: '积分',style:'text-align: left;', sort: true}
+                    ,{field:'status', width:70, title: '状态',style:'text-align: left;', templet:function (data) {
+                        if(data.status===0){
+                            return "禁用";
+                        }else if(data.status===1){
+                            return "启用";
+                        }else{
+                            return "预留状态";
+                        }
+                    }}
+                    ,{field:'createTime', width:180, title: '上传时间',style:'text-align: left;', sort: true, templet:function (data) {
+                        return timeFormat(data.createTime);
+                    }}
+                    ,{fixed:'right', width:125, title: '操作',style:'text-align: left;', templet:function (data) {
+                        return "<a href='/film_manager/audit?id=" + data.id + "' class='layui-btn layui-btn-sm layui-btn-normal'>修改</a><a href='/film_manager/delete?id=" + data.id + "' class='layui-btn layui-btn-sm layui-btn-danger'>删除</a>";
+                    }}
+                ]
+            ]
+        });
+        var $ = layui.$, active = {
+            reload: function(){
+                var filmName = $('#filmName');
+                var filmType = $('#filmType');
+                var status = $('#status');
+                console.info("filmType:" + filmType);
+                //执行重载
+                table.reload('film', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    ,where: {
+                        filmName: filmName.val(),
+                        filmType:filmType.val(),
+                        status:status.val()
+                    }
+                });
+            }
+        };
+
+        $('.demoTable .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    function timeFormat(v){
+        var date = new Date(v);
+        var y = date.getFullYear();
+        var m = date.getMonth()+1;
+        m = m<10?'0'+m:m;
+        var d = date.getDate();
+        d = d<10?("0"+d):d;
+        var h = date.getHours();
+        h = h<10?("0"+h):h;
+        var M = date.getMinutes();
+        M = M<10?("0"+M):M;
+        var s = date.getSeconds();
+        s = s<10?("0"+s):s;
+        var str = y+"-"+m+"-"+d+" "+h+":"+M + ":" + s;
+        return str;
+    }
+</script>
+</body>
+</html>

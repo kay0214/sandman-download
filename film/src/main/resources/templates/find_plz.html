@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>首页-sandman资源共享平台</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="icon" href="/icon/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="/icon/favicon.ico" type="image/x-icon"/>
+    <meta name="keywords" content="sandman,download,资源共享">
+    <meta name="description" content="sandman资源共享平台">
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/global.css">
+</head>
+<body>
+<div>
+    <div th:replace="common/header :: find"></div>
+
+    <!-- 中间内容 -->
+    <div class="layui-container sandman-content">
+
+        <!-- 留言说明 -->
+
+        <div class="layui-row layui-col-space15 margin-top-2p">
+            <div class="layui-card">
+                <div class="layui-card-body">
+                    <h2 class="text-align-center">留言求片</h2>
+                    <span class='layui-badge-dot'></span><span class="margin-left-2p">留言求片（人家会尽力去找的嘛）</span><br/>
+                    <span class='layui-badge-dot'></span><span class="margin-left-2p">吐槽我们（我们肯定还有很多不足之处，放心大胆的提出来吧~）</span>
+                </div>
+            </div>
+
+
+        </div>
+
+        <!-- 留言内容 -->
+        <div class="layui-row layui-col-space15 margin-top-2p sandman-background">
+
+            <div th:if="${findPlzList}">
+                <div class="layui-card margin-top-2p" th:each="findplz :${findPlzList}">
+                    <div class="layui-card-body">
+                        <div class="layui-row layui-col-space15">
+                            <div class="layui-col-md1"><img class="findPlz-icon" src="http://117.48.197.114/icon/default.jpg"></div>
+                            <div class="layui-col-md11 line-height-26">
+                                <div class="layui-row">
+                                    <span th:text="${findplz.name}"></span>
+                                </div>
+                                <div class="layui-row">
+                                    <span th:text="${#dates.format(findplz.createTime,'yyyy-MM-dd HH:mm:ss')}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-row margin-top-2p">
+                            <div class="layui-row">
+                                <span th:text="${findplz.content}"></span>
+                                <span class="color-red float-right" th:if="${findplz.statusdesc}" th:text="'回复：'+${findplz.statusdesc}"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div th:if="not ${findPlzList}">
+                <div class="layui-card margin-top-2p">
+                    <div class="layui-card-body">
+                        <div>暂无留言</div>
+                    </div>
+                </div>
+            </div>
+
+            <div align="center" id="page"></div>
+
+        </div>
+
+        <div class="layui-row layui-col-space15 margin-top-2p">
+
+            <div class="layui-card">
+                <div class="layui-card-header"><i class="layui-icon"> &#xe615; </i>留言求片</div>
+                <div class="layui-card-body">
+
+                    <form class="layui-form layui-form-pane" action="/find/save" method="post">
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">写下来吧 =></label>
+                            <div class="layui-input-block">
+                                <textarea name="content" required lay-verify="required" placeholder="留言" class="layui-textarea"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item" pane>
+                            <label class="layui-form-label"><i class="layui-icon">&#xe66f;</i></label>
+                            <div class="layui-input-block">
+                                <input type="text" name="name" required lay-verify="required" placeholder="称呼"
+                                       autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item" pane>
+                            <label class="layui-form-label"><i class="layui-icon">&#xe678;</i></label>
+                            <div class="layui-input-block">
+                                <input type="text" name="contact" required lay-verify="required" placeholder="联系方式"
+                                       autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item" pane>
+                            <label class="layui-form-label"><i class="layui-icon">&#xe676;</i></label>
+                            <div class="layui-input-block">
+                                <input type="text" name="qq" placeholder="QQ(选填)" autocomplete="off"
+                                       class="layui-input">
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item" pane>
+                            <label class="layui-form-label"><i class="layui-icon">&#xe677;</i></label>
+                            <div class="layui-input-block">
+                                <input type="text" name="wechat" placeholder="微信(选填)" autocomplete="off"
+                                       class="layui-input">
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+        <!-- 友情链接放到最下面 -->
+        <div th:replace="common/friendly_link::html"></div>
+    </div>
+
+    <div th:replace="common/footer::stretched"></div>
+
+</div>
+
+<!--<div th:replace="common/css3::html"></div>-->
+<script src="/layui/layui.js"></script>
+<script src="/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/footer.js"></script>
+<script src="/js/global.js"></script>
+<script th:inline="javascript">
+    var count = [[${count}]];
+    var currPage = [[${currPage}]];
+    currPage = (currPage == null || currPage == undefined || currPage == 0)?1:currPage;
+</script>
+<script>
+    layui.use('laypage', function(){
+        var laypage = layui.laypage;
+        //执行一个laypage实例
+        laypage.render({
+            elem: 'page', //注意，这里的 test1 是 ID，不用加 # 号
+            count: count, //数据总数，从服务端得到
+            curr: currPage,
+            layout: ['count', 'prev', 'page', 'next', 'skip'],
+            jump: function(obj, first){
+
+                //首次不执行,其他的执行
+                if(!first){
+                    location.href = "/find/list?currPage=" + obj.curr;
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>

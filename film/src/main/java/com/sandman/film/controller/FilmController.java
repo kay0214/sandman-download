@@ -3,14 +3,17 @@
  */
 package com.sandman.film.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.sandman.film.base.BaseController;
 import com.sandman.film.base.BaseResult;
+import com.sandman.film.bean.film.FilmBean;
 import com.sandman.film.constant.ReturnMessage;
 import com.sandman.film.dao.mysql.film.model.auto.Film;
 import com.sandman.film.dao.mysql.film.model.auto.FilmLog;
 import com.sandman.film.dao.mysql.system.model.auto.User;
 import com.sandman.film.service.film.FilmService;
 import com.sandman.film.utils.SessionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -70,6 +73,31 @@ public class FilmController extends BaseController {
             return new BaseResult(ReturnMessage.ERR_USER_ALREADY_BUY);
         }
         return new BaseResult(ReturnMessage.ERR_USER_LOGIN_INVALID);
+    }
+
+    @GetMapping(value = "/search")
+    public ModelAndView search(FilmBean filmBean){
+        logger.info("搜索资源 -> search:[{}]", JSON.toJSONString(filmBean));
+        if(StringUtils.isBlank(filmBean.getSearch()) || "undefined".equals(filmBean.getSearch())){
+            filmBean.setSearch(null);
+        }
+        if(null != filmBean.getCurrPage()){
+            filmBean.setCurrPage((filmBean.getCurrPage()<1)?1:filmBean.getCurrPage());
+            filmBean.computeLimit();
+        }else{
+            filmBean.setCurrPage(1);
+            filmBean.computeLimit();
+        }
+
+        // 按照创建时间排序
+        filmBean.setType(0);
+        int count = filmService.getFilmCountByType(filmBean);
+        List<Film> filmList = filmService.searchFilm(filmBean);
+        return new ModelAndView("search")
+                .addObject("filmList",filmList)
+                .addObject("search",filmBean.getSearch())
+                .addObject("count",count)
+                .addObject("currPage",filmBean.getCurrPage());
     }
 
     @ResponseBody

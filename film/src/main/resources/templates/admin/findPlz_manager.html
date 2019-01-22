@@ -13,7 +13,7 @@
 </head>
 <body>
 <div th:replace="common/header :: admin"></div>
-<div th:replace="admin/admin_header :: resource"></div>
+<div th:replace="admin/admin_header :: findPlz"></div>
 
 <div class="layui-container sandman-background text-align-center">
     <div class="demoTable">
@@ -21,19 +21,13 @@
             <div class="layui-row layui-col-space15">
                 <div class="layui-col-md2 layui-col-md-offset1">
                     <div class="layui-inline">
-                        <input class="layui-input" placeholder="用户名" name="id" id="username" autocomplete="off">
+                        <input class="layui-input" placeholder="称呼" name="name" id="name" autocomplete="off">
                     </div>
                 </div>
 
                 <div class="layui-col-md2">
                     <div class="layui-inline">
-                        <input class="layui-input" placeholder="资源名" name="id" id="resourceName" autocomplete="off">
-                    </div>
-                </div>
-
-                <div class="layui-col-md2">
-                    <div class="layui-inline">
-                        <input class="layui-input" placeholder="描述" name="id" id="resourceDesc" autocomplete="off">
+                        <input class="layui-input" placeholder="联系方式" name="contact" id="contact" autocomplete="off">
                     </div>
                 </div>
 
@@ -41,9 +35,8 @@
                     <div class="layui-input-inline">
                         <select id="status">
                             <option value="">状态</option>
-                            <option value="0">待审核</option>
-                            <option value="1">审核通过</option>
-                            <option value="2">审核失败</option>
+                            <option value="0">未回复</option>
+                            <option value="1">已回复</option>
                         </select>
                     </div>
                 </div>
@@ -68,8 +61,8 @@
 
         table.render({
             elem: '#table'
-            ,id:'resource'
-            ,url:'/resource_manager/search'
+            ,id:'findPlz'
+            ,url:'/findPlz_manager/search'
             ,page: true
             ,limits : [10,15,20,25]
             ,limit : 10
@@ -83,48 +76,43 @@
             ,cols: [
                 [
                     {field:'id', width:70, title: 'ID', sort: true,style:'text-align: left;'}
-                    ,{field:'username', minWidth:120, title: '上传用户',style:'text-align: left;'}
-                    ,{field:'resourceName', width:150, title: '名称',style:'text-align: left;'}
-                    ,{field:'resourceGold', width:60, title: '积分',style:'text-align: left;'}
-                    ,{field:'resourceType', width:70, title: '类型',style:'text-align: left;'}
-                    ,{field:'resourceDesc', minWidth:180, title: '描述',style:'text-align: left;'}
-                    ,{field:'downloadCount', width:100, title: '下载次数',style:'text-align: left;', sort: true}
+                    ,{field:'name', width:120, title: '称呼',style:'text-align: left;'}
+                    ,{field:'contact', width:150, title: '联系方式',style:'text-align: left;'}
+                    ,{field:'content', minWidth:180, title: '留言内容',style:'text-align: left;'}
+                    ,{field:'qq', width:120, title: 'QQ',style:'text-align: left;'}
+                    ,{field:'wechat', width:120, title: '微信',style:'text-align: left;'}
                     ,{field:'status', width:100, title: '状态',style:'text-align: left;', templet:function (data) {
                         if(data.status===0){
-                            return "待审核";
+                            return "未回复";
                         }else if(data.status===1){
-                            return "审核通过";
-                        }else if(data.status===2){
-                            return "审核失败";
+                            return "已回复";
                         }else{
                             return "预留状态";
                         }
                     }}
-                    ,{field:'statusDesc', minWidth:100, title: '状态描述',style:'text-align: left;'}
-                    ,{field:'createTime', width:180, title: '上传时间',style:'text-align: left;', sort: true, templet:function (data) {
+                    ,{field:'statusDesc', minWidth:100, title: '回复',style:'text-align: left;'}
+                    ,{field:'createTime', width:180, title: '留言时间',style:'text-align: left;', sort: true, templet:function (data) {
                         return timeFormat(data.createTime);
                     }}
                     ,{fixed:'right', width:125, title: '操作',style:'text-align: left;', templet:function (data) {
-                        return "<a href='/resource_manager/audit?id=" + data.id + "' class='layui-btn layui-btn-sm layui-btn-normal'>审核</a><a href='/resource_manager/delete?id=" + data.id + "' class='layui-btn layui-btn-sm layui-btn-danger'>删除</a>";
+                        return "<button onclick='repay(" + data.id + ")' class='layui-btn layui-btn-sm layui-btn-normal'>回复</button><a href='/findPlz_manager/delete?id=" + data.id + "' class='layui-btn layui-btn-sm layui-btn-danger'>删除</a>";
                     }}
                 ]
             ]
         });
         var $ = layui.$, active = {
             reload: function(){
-                var username = $('#username');
-                var resourceName = $('#resourceName');
-                var resourceDesc = $('#resourceDesc');
+                var name = $('#name');
+                var contact = $('#contact');
                 var status = $('#status');
                 //执行重载
-                table.reload('resource', {
+                table.reload('findPlz', {
                     page: {
                         curr: 1 //重新从第 1 页开始
                     }
                     ,where: {
-                        username: username.val(),
-                        resourceName:resourceName.val(),
-                        resourceDesc:resourceDesc.val(),
+                        name: name.val(),
+                        contact:contact.val(),
                         status:status.val()
                     }
                 });
@@ -137,7 +125,35 @@
         });
     });
 </script>
-
+<script>
+    function repay(id) {
+        layer.confirm('<input class="layui-input" required  lay-verify="required" name="content" placeholder="请输入回复内容">',{title:'正在回复'}, function(index){
+            var content = $("input[name='content']").val();
+            if(content!==null && content!==undefined && content!==''){
+                // 这里ajax请求
+                $.ajax({
+                    type: "post",
+                    url: "/findPlz_manager/repay",
+                    data:{"id": id,"content":content},
+                    async: false,
+                    success: function (data) {
+                        if(data.status !== '000'){
+                            // 回复失败
+                            layer.msg(data.statusDesc,{icon: 5});
+                            return false;
+                        }else{
+                            window.location.reload();
+                        }
+                    }
+                });
+            }else{
+                // 这里直接提示错误
+                layer.msg("输入无效",{icon: 5});
+            }
+            layer.close(index);
+        });
+    }
+</script>
 <script type="text/javascript">
     function timeFormat(v){
         var date = new Date(v);

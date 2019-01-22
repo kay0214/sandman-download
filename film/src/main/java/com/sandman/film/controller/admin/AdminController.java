@@ -92,15 +92,21 @@ public class AdminController extends BaseController {
         int registerWeek = adminService.getRegisterCountWeek(weekStart,lastDayEnd);
         int registerMonth = adminService.getRegisterCountMonth(monthStart,lastDayEnd);
         int registerToday = adminService.getRegisterCount(todayStart,todayEnd);
+        // 留言数量
+        int findPlzWeek = adminService.getFindPlzCountWeek(weekStart,lastDayEnd);
+        int findPlzMonth = adminService.getFindPlzCountMonth(monthStart,lastDayEnd);
+        int findPlzToday = adminService.getFindPlzCount(todayStart,todayEnd);
         // 管理员首页查询
         ReportResultBean buy = new ReportResultBean(buyToday,buyWeek + buyToday,buyMonth + buyToday);
         ReportResultBean active = new ReportResultBean(activeToday,activeWeek + activeToday,activeMonth + activeToday);
         ReportResultBean register = new ReportResultBean(registerToday,registerWeek + registerToday,registerMonth + registerToday);
+        ReportResultBean findPlz = new ReportResultBean(findPlzToday,findPlzWeek + findPlzToday,findPlzMonth + findPlzToday);
         logger.info("获取后台报表数据完成,耗时:[{}]",(System.currentTimeMillis() - start));
         return new ModelAndView("admin/index")
                 .addObject("buy",buy)
                 .addObject("active",active)
-                .addObject("register",register);
+                .addObject("register",register)
+                .addObject("findPlz",findPlz);
     }
 
     @ResponseBody

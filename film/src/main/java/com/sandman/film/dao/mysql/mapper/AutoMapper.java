@@ -1,8 +1,6 @@
 package com.sandman.film.dao.mysql.mapper;
 
-import com.sandman.film.dao.mysql.film.mapper.auto.FilmLogMapper;
-import com.sandman.film.dao.mysql.film.mapper.auto.FilmMapper;
-import com.sandman.film.dao.mysql.film.mapper.auto.GoldLogMapper;
+import com.sandman.film.dao.mysql.film.mapper.auto.*;
 import com.sandman.film.dao.mysql.system.mapper.auto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +20,10 @@ public class AutoMapper {
     protected FilmMapper filmMapper;
     @Autowired
     protected FilmLogMapper filmLogMapper;
+    @Autowired
+    protected FindPlzMapper findPlzMapper;
+    @Autowired
+    protected FilmTypeMapper filmTypeMapper;
     @Autowired
     protected TemplateMapper templateMapper;
     @Autowired

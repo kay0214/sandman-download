@@ -105,6 +105,14 @@
         <table tableName="t_film_log" domainObjectName="FilmLog">
             <generatedKey column="id" sqlStatement="MySql" type="post" identity="true" />
         </table>
+        <!-- 留言表 -->
+        <table tableName="t_find_plz" domainObjectName="FindPlz">
+            <generatedKey column="id" sqlStatement="MySql" type="post" identity="true" />
+        </table>
+        <!-- 分类表 -->
+        <table tableName="t_film_type" domainObjectName="FilmType">
+            <generatedKey column="id" sqlStatement="MySql" type="post" identity="true" />
+        </table>
 
         <!-- emmmoe -->
         <table tableName="t_page_info" domainObjectName="PageInfo">

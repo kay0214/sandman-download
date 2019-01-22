@@ -22,7 +22,7 @@ spring:
         password: spkzq521
         driver-class-name: com.mysql.jdbc.Driver
   profiles:
-    active: prod
+    active: dev
   cache:
     type: ehcache
     ehcache:
