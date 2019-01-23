@@ -51,7 +51,7 @@
                     <p id="reload"></p>
                 </div>
             </div>
-            <input type="hidden" name="filmImage">
+            <input type="hidden" name="filmImage" th:value="${film.filmImage}">
         </div>
 
         <div class="layui-form-item">
@@ -64,7 +64,19 @@
         <div class="layui-form-item">
             <label class="layui-form-label">类型</label>
             <div class="layui-input-block">
-                <input type="text" th:value="${film.filmType}" name="filmType" class="layui-input">
+
+                <select name="filmType" required lay-verify="required">
+                    <div th:each="filmType :${filmTypeList}">
+                        <div th:if="${filmType.id} == ${film.filmType}">
+                            <option th:value="${filmType.id}" th:text="${filmType.name}" selected></option>
+                        </div>
+                        <div th:if="${filmType.id} != ${film.filmType}">
+                            <option th:value="${filmType.id}" th:text="${filmType.name}"></option>
+                        </div>
+                    </div>
+                </select>
+
+                <!--<input type="text" th:value="${film.filmType}" name="filmType" class="layui-input">-->
             </div>
         </div>
 

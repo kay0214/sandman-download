@@ -6,22 +6,16 @@ package com.sandman.film.controller;
 import com.sandman.film.base.BaseController;
 import com.sandman.film.base.BaseResult;
 import com.sandman.film.bean.film.MyDownloadBean;
-import com.sandman.film.bean.film.UserResultBean;
 import com.sandman.film.dao.mysql.film.model.auto.FilmLog;
-import com.sandman.film.dao.mysql.system.model.auto.User;
 import com.sandman.film.service.film.MyDownloadService;
-import com.sandman.film.utils.BeanUtils;
 import com.sandman.film.utils.SessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,7 +31,7 @@ public class MyDownloadController extends BaseController {
 
     @GetMapping(value = "/init")
     public ModelAndView init(){
-        return new ModelAndView("my_download");
+        return new ModelAndView("my_exchange");
     }
 
     @ResponseBody

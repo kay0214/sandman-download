@@ -21,7 +21,7 @@ public class DateUtils {
      */
     public static boolean beforeNow(Date date){
         Date now = new Date();
-        return now.getTime()>date.getTime();
+        return now.getTime()<date.getTime();
     }
 
     /**

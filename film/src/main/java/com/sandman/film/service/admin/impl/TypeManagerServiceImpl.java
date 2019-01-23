@@ -10,6 +10,7 @@ import com.sandman.film.dao.mysql.film.model.auto.FilmTypeExample;
 import com.sandman.film.service.admin.TypeManagerService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -41,7 +42,9 @@ public class TypeManagerServiceImpl extends BaseServiceImpl implements TypeManag
      * @return
      */
     @Override
+    @Cacheable(value = "filmTypeCache",key = "#typeManagerRequest.page+'_'+#typeManagerRequest.limit+'_'+#typeManagerRequest.name+'_'+#typeManagerRequest.status")
     public List<FilmType> searchList(TypeManagerRequest typeManagerRequest) {
+        logger.info("从MySQL中取出类型list");
         FilmTypeExample filmTypeExample = convertExample(typeManagerRequest);
         filmTypeExample.setOrderByClause("create_time desc");
         computePage(typeManagerRequest.getPage(),typeManagerRequest.getLimit());
