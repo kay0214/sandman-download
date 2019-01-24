@@ -31,9 +31,9 @@ public class IndexController extends BaseController {
         ModelAndView modelAndView = new ModelAndView("index");
         // 获取资源信息（type：1 -> 按照下载次数倒叙排序，else -> 按照创建时间倒叙)
         // 最新上传,默认排序
-        modelAndView.addObject("filmList", filmService.getFilmByType(new FilmBean(1, CommonConstant.DEFAULT_LIMIT,0)));
+        modelAndView.addObject("filmList", filmService.getFilmByType(new FilmBean(1, CommonConstant.DEFAULT_FILM_LIMIT,0)));
         // 最新上传count
-        modelAndView.addObject("count", filmService.getFilmCountByType(new FilmBean(1,CommonConstant.DEFAULT_LIMIT,0)));
+        modelAndView.addObject("count", filmService.getFilmCountByType(new FilmBean(1,CommonConstant.DEFAULT_FILM_LIMIT,0)));
 
         modelAndView.addObject("filmTypeList",filmService.getAllType());
 

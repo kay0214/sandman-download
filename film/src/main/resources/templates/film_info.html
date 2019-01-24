@@ -37,26 +37,26 @@
                                     <div class="layui-row margin-top-2p"><h2 th:text="${film.filmName}"></h2></div>
                                     <div class="layui-row margin-top-2p"><p th:text="'主演：'+${film.filmActor}"></p></div>
                                     <div class="layui-row margin-top-2p">
-                                        <div class="layui-col-md6">
+                                        <div class="layui-col-md5">
                                             <span th:text="'更新时间：'+${#dates.format(film.updateTime,'yyyy-MM-dd')}"></span>
                                         </div>
-                                        <div class="layui-col-md6">
+                                        <div class="layui-col-md7">
                                             <span th:text="'上映时间：'+${film.filmTime}"></span>
                                         </div>
                                     </div>
                                     <div class="layui-row margin-top-2p">
-                                        <div class="layui-col-md6">
+                                        <div class="layui-col-md5">
                                             <span th:text="'清晰度：'+${film.filmClarity}"></span>
                                         </div>
-                                        <div class="layui-col-md6">
+                                        <div class="layui-col-md7">
                                             <span th:text="'地区：'+${film.filmArea}"></span>
                                         </div>
                                     </div>
                                     <div class="layui-row margin-top-2p">
-                                        <div class="layui-col-md6">
+                                        <div class="layui-col-md5">
                                             <span th:text="'语言：'+${film.filmLanguage}"></span>
                                         </div>
-                                        <div class="layui-col-md6">
+                                        <div class="layui-col-md7">
                                             <span th:text="'导演：'+${film.filmDirector}"></span>
                                         </div>
                                     </div>

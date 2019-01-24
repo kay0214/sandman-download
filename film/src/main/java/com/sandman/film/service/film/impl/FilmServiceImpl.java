@@ -120,22 +120,22 @@ public class FilmServiceImpl extends BaseServiceImpl implements FilmService {
     }
 
     private FilmExample convertExample(FilmBean filmBean){
-        FilmExample resourceExample = new FilmExample();
+        FilmExample filmExample = new FilmExample();
         if(StringUtils.isNotBlank(filmBean.getSearch())){
-            resourceExample.or().andStatusEqualTo(1).andDelFlagEqualTo(0).andFilmNameLike("%" + filmBean.getSearch() + "%");
-            resourceExample.or().andStatusEqualTo(1).andDelFlagEqualTo(0).andFilmDescLike("%" + filmBean.getSearch() + "%");
+            filmExample.or().andStatusEqualTo(1).andDelFlagEqualTo(0).andFilmNameLike("%" + filmBean.getSearch() + "%");
+            filmExample.or().andStatusEqualTo(1).andDelFlagEqualTo(0).andFilmDescLike("%" + filmBean.getSearch() + "%");
         }else{
-            resourceExample.createCriteria().andStatusEqualTo(1).andDelFlagEqualTo(0);
+            filmExample.createCriteria().andStatusEqualTo(1).andDelFlagEqualTo(0);
         }
         if(filmBean.getLimitStart()>=0){
-            resourceExample.setLimitStart(filmBean.getLimitStart());
-            resourceExample.setLimitEnd(filmBean.getLimitEnd());
+            filmExample.setLimitStart(filmBean.getLimitStart());
+            filmExample.setLimitEnd(filmBean.getLimitEnd());
         }
         if(filmBean.getType() == 1){
-            resourceExample.setOrderByClause("buy_count desc");
+            filmExample.setOrderByClause("buy_count,create_time desc");
         }else{
-            resourceExample.setOrderByClause("update_time desc");
+            filmExample.setOrderByClause("create_time desc");
         }
-        return resourceExample;
+        return filmExample;
     }
 }

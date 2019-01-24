@@ -9,6 +9,8 @@ import java.util.List;
  */
 public class CommonConstant {
 
+    public static final int DEFAULT_FILM_LIMIT = 18;
+
     public static final String USER_BUY_FILM = "用户购买影片";
 
     /**

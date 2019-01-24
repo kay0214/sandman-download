@@ -71,12 +71,14 @@
             elem: 'page', //注意，这里的 test1 是 ID，不用加 # 号
             count: count, //数据总数，从服务端得到
             curr: currPage,
+            limit: 18,
+            limits: [18, 36, 54],
             layout: ['count', 'prev', 'page', 'next', 'skip'],
             jump: function(obj, first){
                 var search = $("#search").val();
                 //首次不执行,其他的执行
                 if(!first){
-                    location.href = "/resource/search?search=" + search + "&currPage=" + obj.curr;
+                    location.href = "/film/search?search=" + search + "&currPage=" + obj.curr;
                 }
             }
         });
