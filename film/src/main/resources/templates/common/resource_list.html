@@ -16,19 +16,20 @@
         <div class="layui-row layui-col-space15">
 
             <div th:each="film :${filmList}" class="layui-col-md2">
-                <div>
+
                     <a th:href="'/film/get_info?id=' + ${film.id}">
                         <img width="128px" height="180px" th:src="${film.filmImage}">
                         <p class="film-name" th:text="${film.filmName}"></p>
-                        <div th:each="filmType :${filmTypeList}" th:if="${filmType.id} == ${film.filmType}">
-                            <div class="film-type" th:text="'分类：' + ${filmType.name}"></div>
-                        </div>
-
                     </a>
-
+                    <div th:each="filmType :${filmTypeList}" th:if="${filmType.id} == ${film.filmType}" class="film-type">
+                        <div class="layui-row">
+                            <div class="layui-col-md8" th:text="'分类：' + ${filmType.name}"></div>
+                            <div class="layui-col-md4 color-red" th:text="'积分:' + ${film.filmGold}"></div>
+                        </div>
+                    </div>
                 </div>
 
-            </div>
+
 
         </div>
     </div>

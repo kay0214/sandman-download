@@ -49,7 +49,7 @@ public class MyDownloadServiceImpl extends BaseServiceImpl implements MyDownload
         filmLogExample.setOrderByClause("create_time desc");
         filmLogExample.setLimitStart(limitStart);
         filmLogExample.setLimitEnd(limitEnd);
-        List<FilmLog> filmLogList = filmLogMapper.selectByExample(filmLogExample);
+        List<FilmLog> filmLogList = filmLogCustomizeMapper.selectByExample(filmLogExample);
         if(!CollectionUtils.isEmpty(filmLogList)){
             return filmLogList;
         }

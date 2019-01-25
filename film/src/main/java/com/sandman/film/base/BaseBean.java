@@ -27,7 +27,7 @@ public class BaseBean {
     /**
      * 当前页条数
      */
-    private Integer pageSize = 10;
+    private Integer pageSize = 18;
 
     /**
      * 数据库用limitStart
