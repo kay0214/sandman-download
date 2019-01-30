@@ -325,73 +325,283 @@ public class FilmExample {
             return (Criteria) this;
         }
 
-        public Criteria andFilmPasswordIsNull() {
-            addCriterion("film_password is null");
+        public Criteria andMagnetUrlIsNull() {
+            addCriterion("magnet_url is null");
             return (Criteria) this;
         }
 
-        public Criteria andFilmPasswordIsNotNull() {
-            addCriterion("film_password is not null");
+        public Criteria andMagnetUrlIsNotNull() {
+            addCriterion("magnet_url is not null");
             return (Criteria) this;
         }
 
-        public Criteria andFilmPasswordEqualTo(String value) {
-            addCriterion("film_password =", value, "filmPassword");
+        public Criteria andMagnetUrlEqualTo(String value) {
+            addCriterion("magnet_url =", value, "magnetUrl");
             return (Criteria) this;
         }
 
-        public Criteria andFilmPasswordNotEqualTo(String value) {
-            addCriterion("film_password <>", value, "filmPassword");
+        public Criteria andMagnetUrlNotEqualTo(String value) {
+            addCriterion("magnet_url <>", value, "magnetUrl");
             return (Criteria) this;
         }
 
-        public Criteria andFilmPasswordGreaterThan(String value) {
-            addCriterion("film_password >", value, "filmPassword");
+        public Criteria andMagnetUrlGreaterThan(String value) {
+            addCriterion("magnet_url >", value, "magnetUrl");
             return (Criteria) this;
         }
 
-        public Criteria andFilmPasswordGreaterThanOrEqualTo(String value) {
-            addCriterion("film_password >=", value, "filmPassword");
+        public Criteria andMagnetUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("magnet_url >=", value, "magnetUrl");
             return (Criteria) this;
         }
 
-        public Criteria andFilmPasswordLessThan(String value) {
-            addCriterion("film_password <", value, "filmPassword");
+        public Criteria andMagnetUrlLessThan(String value) {
+            addCriterion("magnet_url <", value, "magnetUrl");
             return (Criteria) this;
         }
 
-        public Criteria andFilmPasswordLessThanOrEqualTo(String value) {
-            addCriterion("film_password <=", value, "filmPassword");
+        public Criteria andMagnetUrlLessThanOrEqualTo(String value) {
+            addCriterion("magnet_url <=", value, "magnetUrl");
             return (Criteria) this;
         }
 
-        public Criteria andFilmPasswordLike(String value) {
-            addCriterion("film_password like", value, "filmPassword");
+        public Criteria andMagnetUrlLike(String value) {
+            addCriterion("magnet_url like", value, "magnetUrl");
             return (Criteria) this;
         }
 
-        public Criteria andFilmPasswordNotLike(String value) {
-            addCriterion("film_password not like", value, "filmPassword");
+        public Criteria andMagnetUrlNotLike(String value) {
+            addCriterion("magnet_url not like", value, "magnetUrl");
             return (Criteria) this;
         }
 
-        public Criteria andFilmPasswordIn(List<String> values) {
-            addCriterion("film_password in", values, "filmPassword");
+        public Criteria andMagnetUrlIn(List<String> values) {
+            addCriterion("magnet_url in", values, "magnetUrl");
             return (Criteria) this;
         }
 
-        public Criteria andFilmPasswordNotIn(List<String> values) {
-            addCriterion("film_password not in", values, "filmPassword");
+        public Criteria andMagnetUrlNotIn(List<String> values) {
+            addCriterion("magnet_url not in", values, "magnetUrl");
             return (Criteria) this;
         }
 
-        public Criteria andFilmPasswordBetween(String value1, String value2) {
-            addCriterion("film_password between", value1, value2, "filmPassword");
+        public Criteria andMagnetUrlBetween(String value1, String value2) {
+            addCriterion("magnet_url between", value1, value2, "magnetUrl");
             return (Criteria) this;
         }
 
-        public Criteria andFilmPasswordNotBetween(String value1, String value2) {
-            addCriterion("film_password not between", value1, value2, "filmPassword");
+        public Criteria andMagnetUrlNotBetween(String value1, String value2) {
+            addCriterion("magnet_url not between", value1, value2, "magnetUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andThunderUrlIsNull() {
+            addCriterion("thunder_url is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andThunderUrlIsNotNull() {
+            addCriterion("thunder_url is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andThunderUrlEqualTo(String value) {
+            addCriterion("thunder_url =", value, "thunderUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andThunderUrlNotEqualTo(String value) {
+            addCriterion("thunder_url <>", value, "thunderUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andThunderUrlGreaterThan(String value) {
+            addCriterion("thunder_url >", value, "thunderUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andThunderUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("thunder_url >=", value, "thunderUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andThunderUrlLessThan(String value) {
+            addCriterion("thunder_url <", value, "thunderUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andThunderUrlLessThanOrEqualTo(String value) {
+            addCriterion("thunder_url <=", value, "thunderUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andThunderUrlLike(String value) {
+            addCriterion("thunder_url like", value, "thunderUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andThunderUrlNotLike(String value) {
+            addCriterion("thunder_url not like", value, "thunderUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andThunderUrlIn(List<String> values) {
+            addCriterion("thunder_url in", values, "thunderUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andThunderUrlNotIn(List<String> values) {
+            addCriterion("thunder_url not in", values, "thunderUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andThunderUrlBetween(String value1, String value2) {
+            addCriterion("thunder_url between", value1, value2, "thunderUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andThunderUrlNotBetween(String value1, String value2) {
+            addCriterion("thunder_url not between", value1, value2, "thunderUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPanUrlIsNull() {
+            addCriterion("pan_url is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPanUrlIsNotNull() {
+            addCriterion("pan_url is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPanUrlEqualTo(String value) {
+            addCriterion("pan_url =", value, "panUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPanUrlNotEqualTo(String value) {
+            addCriterion("pan_url <>", value, "panUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPanUrlGreaterThan(String value) {
+            addCriterion("pan_url >", value, "panUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPanUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("pan_url >=", value, "panUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPanUrlLessThan(String value) {
+            addCriterion("pan_url <", value, "panUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPanUrlLessThanOrEqualTo(String value) {
+            addCriterion("pan_url <=", value, "panUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPanUrlLike(String value) {
+            addCriterion("pan_url like", value, "panUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPanUrlNotLike(String value) {
+            addCriterion("pan_url not like", value, "panUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPanUrlIn(List<String> values) {
+            addCriterion("pan_url in", values, "panUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPanUrlNotIn(List<String> values) {
+            addCriterion("pan_url not in", values, "panUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPanUrlBetween(String value1, String value2) {
+            addCriterion("pan_url between", value1, value2, "panUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPanUrlNotBetween(String value1, String value2) {
+            addCriterion("pan_url not between", value1, value2, "panUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPanPasswordIsNull() {
+            addCriterion("pan_password is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPanPasswordIsNotNull() {
+            addCriterion("pan_password is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPanPasswordEqualTo(String value) {
+            addCriterion("pan_password =", value, "panPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andPanPasswordNotEqualTo(String value) {
+            addCriterion("pan_password <>", value, "panPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andPanPasswordGreaterThan(String value) {
+            addCriterion("pan_password >", value, "panPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andPanPasswordGreaterThanOrEqualTo(String value) {
+            addCriterion("pan_password >=", value, "panPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andPanPasswordLessThan(String value) {
+            addCriterion("pan_password <", value, "panPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andPanPasswordLessThanOrEqualTo(String value) {
+            addCriterion("pan_password <=", value, "panPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andPanPasswordLike(String value) {
+            addCriterion("pan_password like", value, "panPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andPanPasswordNotLike(String value) {
+            addCriterion("pan_password not like", value, "panPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andPanPasswordIn(List<String> values) {
+            addCriterion("pan_password in", values, "panPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andPanPasswordNotIn(List<String> values) {
+            addCriterion("pan_password not in", values, "panPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andPanPasswordBetween(String value1, String value2) {
+            addCriterion("pan_password between", value1, value2, "panPassword");
+            return (Criteria) this;
+        }
+
+        public Criteria andPanPasswordNotBetween(String value1, String value2) {
+            addCriterion("pan_password not between", value1, value2, "panPassword");
             return (Criteria) this;
         }
 

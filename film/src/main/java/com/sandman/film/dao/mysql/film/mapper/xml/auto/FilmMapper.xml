@@ -5,7 +5,10 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="film_name" property="filmName" jdbcType="VARCHAR" />
     <result column="film_url" property="filmUrl" jdbcType="VARCHAR" />
-    <result column="film_password" property="filmPassword" jdbcType="VARCHAR" />
+    <result column="magnet_url" property="magnetUrl" jdbcType="VARCHAR" />
+    <result column="thunder_url" property="thunderUrl" jdbcType="VARCHAR" />
+    <result column="pan_url" property="panUrl" jdbcType="VARCHAR" />
+    <result column="pan_password" property="panPassword" jdbcType="VARCHAR" />
     <result column="film_image" property="filmImage" jdbcType="VARCHAR" />
     <result column="film_actor" property="filmActor" jdbcType="VARCHAR" />
     <result column="film_type" property="filmType" jdbcType="INTEGER" />
@@ -81,9 +84,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, film_name, film_url, film_password, film_image, film_actor, film_type, film_time, 
-    film_clarity, film_area, film_director, film_language, film_desc, film_gold, buy_count, 
-    `status`, create_time, update_time, del_flag
+    id, film_name, film_url, magnet_url, thunder_url, pan_url, pan_password, film_image, 
+    film_actor, film_type, film_time, film_clarity, film_area, film_director, film_language, 
+    film_desc, film_gold, buy_count, `status`, create_time, update_time, del_flag
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sandman.film.dao.mysql.film.model.auto.FilmExample" >
     select
@@ -122,14 +125,16 @@
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into t_film (film_name, film_url, film_password, 
+    insert into t_film (film_name, film_url, magnet_url, 
+      thunder_url, pan_url, pan_password, 
       film_image, film_actor, film_type, 
       film_time, film_clarity, film_area, 
       film_director, film_language, film_desc, 
       film_gold, buy_count, `status`, 
       create_time, update_time, del_flag
       )
-    values (#{filmName,jdbcType=VARCHAR}, #{filmUrl,jdbcType=VARCHAR}, #{filmPassword,jdbcType=VARCHAR}, 
+    values (#{filmName,jdbcType=VARCHAR}, #{filmUrl,jdbcType=VARCHAR}, #{magnetUrl,jdbcType=VARCHAR}, 
+      #{thunderUrl,jdbcType=VARCHAR}, #{panUrl,jdbcType=VARCHAR}, #{panPassword,jdbcType=VARCHAR}, 
       #{filmImage,jdbcType=VARCHAR}, #{filmActor,jdbcType=VARCHAR}, #{filmType,jdbcType=INTEGER}, 
       #{filmTime,jdbcType=VARCHAR}, #{filmClarity,jdbcType=VARCHAR}, #{filmArea,jdbcType=VARCHAR}, 
       #{filmDirector,jdbcType=VARCHAR}, #{filmLanguage,jdbcType=VARCHAR}, #{filmDesc,jdbcType=VARCHAR}, 
@@ -149,8 +154,17 @@
       <if test="filmUrl != null" >
         film_url,
       </if>
-      <if test="filmPassword != null" >
-        film_password,
+      <if test="magnetUrl != null" >
+        magnet_url,
+      </if>
+      <if test="thunderUrl != null" >
+        thunder_url,
+      </if>
+      <if test="panUrl != null" >
+        pan_url,
+      </if>
+      <if test="panPassword != null" >
+        pan_password,
       </if>
       <if test="filmImage != null" >
         film_image,
@@ -205,8 +219,17 @@
       <if test="filmUrl != null" >
         #{filmUrl,jdbcType=VARCHAR},
       </if>
-      <if test="filmPassword != null" >
-        #{filmPassword,jdbcType=VARCHAR},
+      <if test="magnetUrl != null" >
+        #{magnetUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="thunderUrl != null" >
+        #{thunderUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="panUrl != null" >
+        #{panUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="panPassword != null" >
+        #{panPassword,jdbcType=VARCHAR},
       </if>
       <if test="filmImage != null" >
         #{filmImage,jdbcType=VARCHAR},
@@ -273,8 +296,17 @@
       <if test="record.filmUrl != null" >
         film_url = #{record.filmUrl,jdbcType=VARCHAR},
       </if>
-      <if test="record.filmPassword != null" >
-        film_password = #{record.filmPassword,jdbcType=VARCHAR},
+      <if test="record.magnetUrl != null" >
+        magnet_url = #{record.magnetUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.thunderUrl != null" >
+        thunder_url = #{record.thunderUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.panUrl != null" >
+        pan_url = #{record.panUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.panPassword != null" >
+        pan_password = #{record.panPassword,jdbcType=VARCHAR},
       </if>
       <if test="record.filmImage != null" >
         film_image = #{record.filmImage,jdbcType=VARCHAR},
@@ -331,7 +363,10 @@
     set id = #{record.id,jdbcType=INTEGER},
       film_name = #{record.filmName,jdbcType=VARCHAR},
       film_url = #{record.filmUrl,jdbcType=VARCHAR},
-      film_password = #{record.filmPassword,jdbcType=VARCHAR},
+      magnet_url = #{record.magnetUrl,jdbcType=VARCHAR},
+      thunder_url = #{record.thunderUrl,jdbcType=VARCHAR},
+      pan_url = #{record.panUrl,jdbcType=VARCHAR},
+      pan_password = #{record.panPassword,jdbcType=VARCHAR},
       film_image = #{record.filmImage,jdbcType=VARCHAR},
       film_actor = #{record.filmActor,jdbcType=VARCHAR},
       film_type = #{record.filmType,jdbcType=INTEGER},
@@ -360,8 +395,17 @@
       <if test="filmUrl != null" >
         film_url = #{filmUrl,jdbcType=VARCHAR},
       </if>
-      <if test="filmPassword != null" >
-        film_password = #{filmPassword,jdbcType=VARCHAR},
+      <if test="magnetUrl != null" >
+        magnet_url = #{magnetUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="thunderUrl != null" >
+        thunder_url = #{thunderUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="panUrl != null" >
+        pan_url = #{panUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="panPassword != null" >
+        pan_password = #{panPassword,jdbcType=VARCHAR},
       </if>
       <if test="filmImage != null" >
         film_image = #{filmImage,jdbcType=VARCHAR},
@@ -415,7 +459,10 @@
     update t_film
     set film_name = #{filmName,jdbcType=VARCHAR},
       film_url = #{filmUrl,jdbcType=VARCHAR},
-      film_password = #{filmPassword,jdbcType=VARCHAR},
+      magnet_url = #{magnetUrl,jdbcType=VARCHAR},
+      thunder_url = #{thunderUrl,jdbcType=VARCHAR},
+      pan_url = #{panUrl,jdbcType=VARCHAR},
+      pan_password = #{panPassword,jdbcType=VARCHAR},
       film_image = #{filmImage,jdbcType=VARCHAR},
       film_actor = #{filmActor,jdbcType=VARCHAR},
       film_type = #{filmType,jdbcType=INTEGER},

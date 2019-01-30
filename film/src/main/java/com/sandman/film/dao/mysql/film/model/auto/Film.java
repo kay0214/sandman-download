@@ -14,18 +14,39 @@ public class Film implements Serializable {
     private String filmName;
 
     /**
-     * 电影url
+     * 在线电影url
      *
      * @mbggenerated
      */
     private String filmUrl;
 
     /**
+     * 磁力链接
+     *
+     * @mbggenerated
+     */
+    private String magnetUrl;
+
+    /**
+     * 迅雷链接
+     *
+     * @mbggenerated
+     */
+    private String thunderUrl;
+
+    /**
+     * 百度网盘url
+     *
+     * @mbggenerated
+     */
+    private String panUrl;
+
+    /**
      * 链接的密码
      *
      * @mbggenerated
      */
-    private String filmPassword;
+    private String panPassword;
 
     /**
      * 电影封面
@@ -138,12 +159,36 @@ public class Film implements Serializable {
         this.filmUrl = filmUrl == null ? null : filmUrl.trim();
     }
 
-    public String getFilmPassword() {
-        return filmPassword;
+    public String getMagnetUrl() {
+        return magnetUrl;
     }
 
-    public void setFilmPassword(String filmPassword) {
-        this.filmPassword = filmPassword == null ? null : filmPassword.trim();
+    public void setMagnetUrl(String magnetUrl) {
+        this.magnetUrl = magnetUrl == null ? null : magnetUrl.trim();
+    }
+
+    public String getThunderUrl() {
+        return thunderUrl;
+    }
+
+    public void setThunderUrl(String thunderUrl) {
+        this.thunderUrl = thunderUrl == null ? null : thunderUrl.trim();
+    }
+
+    public String getPanUrl() {
+        return panUrl;
+    }
+
+    public void setPanUrl(String panUrl) {
+        this.panUrl = panUrl == null ? null : panUrl.trim();
+    }
+
+    public String getPanPassword() {
+        return panPassword;
+    }
+
+    public void setPanPassword(String panPassword) {
+        this.panPassword = panPassword == null ? null : panPassword.trim();
     }
 
     public String getFilmImage() {
