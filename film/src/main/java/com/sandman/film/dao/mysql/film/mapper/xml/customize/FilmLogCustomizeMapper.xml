@@ -6,8 +6,8 @@
     <result column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="film_id" property="filmId" jdbcType="INTEGER" />
     <result column="film_name" property="filmName" jdbcType="VARCHAR" />
-    <result column="film_url" property="filmUrl" jdbcType="VARCHAR" />
-    <result column="film_password" property="filmPassword" jdbcType="VARCHAR" />
+    <result column="magnet_url" property="filmUrl" jdbcType="VARCHAR" />
+    <result column="thunder_url" property="filmPassword" jdbcType="VARCHAR" />
     <result column="desc" property="desc" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
@@ -73,7 +73,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    log.id, log.user_id, log.film_id, film.film_name, film.film_url, film.film_password, log.`desc`, log.create_time, log.update_time,
+    log.id, log.user_id, log.film_id, film.film_name, film.magnet_url, film.thunder_url, log.`desc`, log.create_time, log.update_time,
     log.del_flag
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sandman.film.dao.mysql.film.model.auto.FilmLogExample" >

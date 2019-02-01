@@ -42,7 +42,7 @@ public class FilmServiceImpl extends BaseServiceImpl implements FilmService {
         filmLog.setFilmId(film.getId());
         filmLog.setFilmName(film.getFilmName());
         filmLog.setFilmUrl(film.getFilmUrl());
-        filmLog.setFilmPassword(film.getFilmPassword());
+        filmLog.setFilmPassword(film.getPanPassword());
         filmLog.setDesc(CommonConstant.USER_BUY_FILM);
         filmLog.setCreateTime(now);
         filmLog.setUpdateTime(now);

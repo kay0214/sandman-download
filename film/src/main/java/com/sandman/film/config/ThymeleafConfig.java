@@ -4,6 +4,7 @@
 package com.sandman.film.config;
 
 import com.sandman.film.config.thymeleaf.FileSizeDialect;
+import com.sandman.film.config.thymeleaf.FilmNameDialect;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,5 +20,11 @@ public class ThymeleafConfig {
     @ConditionalOnMissingBean
     public FileSizeDialect fileSizeDialect(){
         return new FileSizeDialect();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public FilmNameDialect filmNameDialect(){
+        return new FilmNameDialect();
     }
 }

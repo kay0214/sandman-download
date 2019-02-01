@@ -88,10 +88,12 @@
                     ,{field:'filmName', minWidth:100, title: '电影名',style:'text-align: left;' ,templet:function (data) {
                         return "<a href='/film/get_info?id=" + data.filmId + "' target='_blank'>" + data.filmName + "</a>";
                     }}
-                    ,{field:'filmUrl', minWidth:200, title: '云盘地址',style:'text-align: left;',templet:function (data) {
+                    ,{field:'filmUrl', minWidth:200, title: '磁力链接',style:'text-align: left;',templet:function (data) {
                         return "<a href='" + data.filmUrl + "' target='_blank'>" + data.filmUrl + "</a>";
                     }}
-                    ,{field:'filmPassword', minWidth:80, title: '提取码',style:'text-align: left;'}
+                    ,{field:'filmPassword', minWidth:200, title: '迅雷链接',style:'text-align: left;',templet:function (data) {
+                        return "<a href='" + data.filmPassword + "' target='_blank'>" + data.filmUrl + "</a>";
+                    }}
                     ,{field:'desc', minWidth:100, title: '描述',style:'text-align: left;'}
                     ,{field:'createTime', width:180, title: '兑换时间',style:'text-align: left;', sort: true,templet:function (data) {
                         return timeFormat(data.createTime);

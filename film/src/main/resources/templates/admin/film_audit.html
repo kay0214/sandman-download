@@ -28,16 +28,37 @@
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label">url</label>
+            <label class="layui-form-label">在线观看</label>
             <div class="layui-input-block">
                 <input type="text" th:value="${film.filmUrl}" name="filmUrl" class="layui-input">
             </div>
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label">密码</label>
+            <label class="layui-form-label">磁力链接</label>
             <div class="layui-input-block">
-                <input type="text" th:value="${film.filmPassword}" name="filmPassword" class="layui-input">
+                <input type="text" th:value="${film.magnetUrl}" name="magnetUrl" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">迅雷链接</label>
+            <div class="layui-input-block">
+                <input type="text" th:value="${film.thunderUrl}" name="thunderUrl" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">百度网盘</label>
+            <div class="layui-input-block">
+                <input type="text" th:value="${film.panUrl}" name="panUrl" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">网盘密码</label>
+            <div class="layui-input-block">
+                <input type="text" th:value="${film.panPassword}" name="panPassword" class="layui-input">
             </div>
         </div>
 

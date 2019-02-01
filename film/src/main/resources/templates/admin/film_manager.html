@@ -29,7 +29,7 @@
                 <div class="layui-col-md2">
                     <div class="layui-input-inline">
                         <select id="filmType">
-                            <option value="">状态</option>
+                            <option value="">类别</option>
                             <div th:each="filmType :${filmTypeList}">
                                 <option th:value="${filmType.id}" th:text="${filmType.name}"></option>
                             </div>
@@ -90,10 +90,13 @@
                     ,{field:'filmName', minWidth:120, title: '名称',style:'text-align: left;', templet:function (data) {
                         return "<a href='/film/get_info?id=" + data.id + "' target='_blank'>" + data.filmName + "</a>";
                     }}
-                    ,{field:'filmUrl', width:150, title: 'url',style:'text-align: left;', templet:function (data) {
-                        return "<a href='" + data.filmUrl + "' target='_blank'>" + data.filmUrl + "</a>";
+                    ,{field:'magnetUrl', width:150, title: '磁力',style:'text-align: left;', templet:function (data) {
+                        return "<a href='" + data.magnetUrl + "' target='_blank'>" + data.magnetUrl + "</a>";
                     }}
-                    ,{field:'filmPassword', width:80, title: '密码',style:'text-align: left;'}
+                    ,{field:'thunderUrl', width:150, title: '迅雷',style:'text-align: left;', templet:function (data) {
+                        return "<a href='" + data.thunderUrl + "' target='_blank'>" + data.thunderUrl + "</a>";
+                    }}
+                    //,{field:'panPassword', width:80, title: '密码',style:'text-align: left;'}
                     ,{field:'filmActor', width:80, title: '主演',style:'text-align: left;'}
                     ,{field:'filmType', width:80, title: '类型',style:'text-align: left;', templet:function (data) {
                         for(var i=0;i<filmTypeList.length;i++){

@@ -10,6 +10,7 @@ import com.sandman.film.bean.film.FilmBean;
 import com.sandman.film.constant.ReturnMessage;
 import com.sandman.film.dao.mysql.film.model.auto.Film;
 import com.sandman.film.dao.mysql.film.model.auto.FilmLog;
+import com.sandman.film.dao.mysql.film.model.auto.FilmType;
 import com.sandman.film.dao.mysql.system.model.auto.User;
 import com.sandman.film.service.film.FilmService;
 import com.sandman.film.utils.SessionUtils;
@@ -93,11 +94,13 @@ public class FilmController extends BaseController {
         filmBean.setType(0);
         int count = filmService.getFilmCountByType(filmBean);
         List<Film> filmList = filmService.searchFilm(filmBean);
+        List<FilmType> filmTypeList = filmService.getAllType();
         return new ModelAndView("search")
                 .addObject("filmList",filmList)
                 .addObject("search",filmBean.getSearch())
                 .addObject("count",count)
-                .addObject("currPage",filmBean.getCurrPage());
+                .addObject("currPage",filmBean.getCurrPage())
+                .addObject("filmTypeList",filmTypeList);
     }
 
     @ResponseBody
