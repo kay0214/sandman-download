@@ -123,7 +123,7 @@ public class FilmServiceImpl extends BaseServiceImpl implements FilmService {
         FilmExample filmExample = new FilmExample();
         if(StringUtils.isNotBlank(filmBean.getSearch())){
             filmExample.or().andStatusEqualTo(1).andDelFlagEqualTo(0).andFilmNameLike("%" + filmBean.getSearch() + "%");
-            filmExample.or().andStatusEqualTo(1).andDelFlagEqualTo(0).andFilmDescLike("%" + filmBean.getSearch() + "%");
+            //filmExample.or().andStatusEqualTo(1).andDelFlagEqualTo(0).andFilmDescLike("%" + filmBean.getSearch() + "%");
         }else{
             filmExample.createCriteria().andStatusEqualTo(1).andDelFlagEqualTo(0);
         }

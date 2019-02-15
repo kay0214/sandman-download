@@ -23,7 +23,7 @@
                     </a>
                     <div th:each="filmType :${filmTypeList}" th:if="${filmType.id} == ${film.filmType}" class="film-type">
                         <div class="layui-row">
-                            <div class="layui-col-md8" th:text="'分类：' + ${filmType.name}"></div>
+                            <div class="layui-col-md10" th:text="'分类：' + ${filmType.name}"></div>
                             <!--<div class="layui-col-md4 color-red" th:text="'积分:' + ${film.filmGold}"></div>-->
                         </div>
                     </div>
