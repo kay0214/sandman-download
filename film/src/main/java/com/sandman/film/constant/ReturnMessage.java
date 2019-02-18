@@ -25,7 +25,7 @@ public enum ReturnMessage {
     ERR_OBJECT_DIGIT("ETY000003","{0}不能存在非数字"),
     ERR_OBJECT_DATE("ETY000004","{0}非日期格式"),
     ERR_OBJECT_MAIL("ETY000005","{0}非法邮件地址"),
-    ERR_OBJECT_VALUE("ETY000006","传入参数{0}的值非法"),
+    ERR_OBJECT_VALUE("ETY000006","{0}非法"),
     ERR_OBJECT_GET("ETY000007","获取{0}失败"),//提取通用
     ERR_OBJECT_INVALID("ETY000008","无效的{0}"),//提取通用
     ERR_OBJECT_UNMATCH("ETY000009","{0}不符合接口要求，请重新传入"),

@@ -67,11 +67,12 @@
                             <hr class="layui-bg-black">
 
                             <div class="layui-row">
+                                <div class="layui-col-md3">免费下载链接：</div>
                                 <div class="layui-col-md1" th:if="${film.magnetUrl}">
-                                    <a th:href="${film.magnetUrl}" target="_blank" th:title="${film.filmName}">磁力链接</a>
+                                    <a class="pointer" th:onclick="'getDownloadUrl(' + ${film.id} + ',1)'" target="_blank" th:title="${film.filmName}">磁力链接</a>
                                 </div>
                                 <div class="layui-col-md1" th:if="${film.thunderUrl}">
-                                    <a th:href="${film.thunderUrl}" target="_blank" th:title="${film.filmName}">迅雷链接</a>
+                                    <a class="pointer" th:onclick="'getDownloadUrl(' + ${film.id} + ',2)'" target="_blank" th:title="${film.filmName}">迅雷链接</a>
                                 </div>
 <!--                                <div class="layui-col-md2">
                                     <span class="color-red text-align-center" th:text="'所需积分：'+${film.filmGold}"></span>
@@ -112,6 +113,27 @@
     }
 </script>
 <script>
+    function getDownloadUrl(id,type) {
+        // type -> 1:磁力链接,2:迅雷链接
+        $.ajax({
+            type: "get",
+            url: "/film/get_download_url",
+            data: {
+                "id": id,
+                "type":type
+            },
+            async: false,
+            success: function (data) {
+                if (data.status !== '000') {
+                    // 获取下载链接失败
+                    layer.msg(data.statusDesc, {icon: 5});
+                    return false;
+                } else {
+                    window.open(data.data,"_blank");
+                }
+            }
+        });
+    }
     function checkInfo(id, type) {
         var username = $("input[name='login']").val();
         if (username !== null && username !== undefined && username !== '') {

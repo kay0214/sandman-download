@@ -104,6 +104,26 @@ public class FilmController extends BaseController {
     }
 
     @ResponseBody
+    @GetMapping(value = "/get_download_url")
+    public BaseResult getDownloadUrl(Integer id,Integer type){
+        // type -> 1:磁力链接,2:迅雷链接
+        logger.info("get film download url -> id:[{}],type:[{}]",id,type);
+        if(type != null){
+            Film film = filmService.getFilmById(id);
+            film.setBuyCount(film.getBuyCount() + 1);
+            filmService.updateFilm(film);
+            if(type == 1){
+                return new BaseResult(film.getMagnetUrl());
+            }else if(type == 2){
+                return new BaseResult(film.getThunderUrl());
+            }else{
+                return new BaseResult(ReturnMessage.ERR_OBJECT_VALUE,"传入类型");
+            }
+        }
+        return new BaseResult(ReturnMessage.ERR_OBJECT_VALUE,"传入类型");
+    }
+
+    @ResponseBody
     @GetMapping(value = "/hot_film")
     public BaseResult hotResources(){
         List<Film> hotFilm = filmService.getHotFilm();
