@@ -25,8 +25,13 @@
             if(data.data !== null && data.data !== undefined && data.data.length > 0){
                 for(var i=0;i<data.data.length;i++){
                     var thisHot = data.data[i];
+                    var filmName = thisHot.filmName;
+                    if(filmName.length>8){
+                        filmName = filmName.substring(0,8) + "...";
+                    }
+                    console.info(filmName);
                     hot = hot + "<p class='margin-top-2p'>" +
-                        "<span class='layui-badge-dot'></span><span class='margin-left-2p'><a href='/film/get_info?id=" + thisHot.id + "' target='_blank'>" + thisHot.filmName + "</a></span>" +
+                        "<span class='layui-badge-dot'></span><span class='margin-left-2p'><a href='/film/get_info?id=" + thisHot.id + "' target='_blank'>" + filmName + "</a></span>" +
                         "<span class='float-right'>观看数量:" + thisHot.buyCount + "</span>" +
                         "</p>"
                 }

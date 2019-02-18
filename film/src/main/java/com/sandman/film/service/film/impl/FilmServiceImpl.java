@@ -132,7 +132,7 @@ public class FilmServiceImpl extends BaseServiceImpl implements FilmService {
             filmExample.setLimitEnd(filmBean.getLimitEnd());
         }
         if(filmBean.getType() == 1){
-            filmExample.setOrderByClause("buy_count,create_time desc");
+            filmExample.setOrderByClause("buy_count desc,create_time desc");
         }else{
             filmExample.setOrderByClause("create_time desc");
         }
