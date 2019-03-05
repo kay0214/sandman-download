@@ -38,7 +38,9 @@ public class DyttLinkThread implements Runnable {
                 // 等待120秒后线程停止
                 if(stop == 120){
                     logger.error("正在停止线程...");
+                    run = false;
                     Thread.currentThread().interrupt();
+                    Thread.currentThread().join();
                     break;
                 }
                 if(Link.films.size()==0 && count==0){

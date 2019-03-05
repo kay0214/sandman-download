@@ -33,12 +33,19 @@ public class DyttRootThread implements Runnable {
     public void run() {
         String url = Link.getRootOne();
         while (run){
-            String realUrl = url.replace("{index}",""+page);
-            if(StringUtils.isNotBlank(realUrl)){
-                crawler(realUrl);
-                page ++ ;
-            }else{
-                run = false;
+            try{
+                String realUrl = url.replace("{index}",""+page);
+                if(StringUtils.isNotBlank(realUrl)){
+                    crawler(realUrl);
+                    page ++ ;
+                }else{
+                    run = false;
+                    Thread.currentThread().interrupt();
+                    Thread.currentThread().join();
+                    break;
+                }
+            }catch (Exception e){
+                logger.error(e.getLocalizedMessage());
             }
         }
         Link.reduceThreadCount();
