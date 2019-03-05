@@ -13,7 +13,7 @@
 
     //阻止IE7以下访问
     if(device.ie && device.ie < 8){
-        layer.alert('如果您非得使用 IE 浏览器访问Fly社区，那么请使用 IE8+');
+        layer.alert('IE浏览器兼容性较差，为了您的友好体验，请使用IE8以上版本');
     }
 
     layui.focusInsert = function(obj, str){
