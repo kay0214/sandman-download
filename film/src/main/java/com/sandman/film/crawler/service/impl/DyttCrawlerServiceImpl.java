@@ -279,11 +279,12 @@ public class DyttCrawlerServiceImpl extends BaseServiceImpl implements DyttCrawl
             boolean success = FileUtils.upload(SystemConfig.getFilmImagePath(),name,file);//上传服务器
             if(success){
                 file.delete();
+                return path + name;
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return path + name;
+        return url;
     }
 
 }
