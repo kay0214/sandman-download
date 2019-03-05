@@ -12,9 +12,9 @@
         ,DISABLED = 'layui-btn-disabled';
 
     //阻止IE7以下访问
-    if(device.ie && device.ie < 8){
+/*    if(device.ie && device.ie < 8){
         layer.alert('IE浏览器兼容性较差，为了您的友好体验，请使用IE8以上版本');
-    }
+    }*/
 
     layui.focusInsert = function(obj, str){
         var result, val = obj.value;

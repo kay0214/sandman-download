@@ -3,31 +3,30 @@
  */
 package com.sandman.film.utils;
 
-import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.beans.factory.support.BeanDefinitionBuilder;
-import org.springframework.beans.factory.support.BeanDefinitionRegistry;
-import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Component;
 
 /**
  * @author sunpeikai
  * @version SpringBeanUtils, v0.1 2019/1/18 17:38
  */
-public class SpringBeanUtils {
-    private static ApplicationContext context = new ClassPathXmlApplicationContext();
-    private static ConfigurableApplicationContext applicationContext = (ConfigurableApplicationContext)context;
-    private static BeanDefinitionRegistry beanDefinitionRegistry = (DefaultListableBeanFactory)applicationContext.getBeanFactory();
-    public static void registerBean(String beanId,String className){
-        BeanDefinitionBuilder beanDefinitionBuilder = BeanDefinitionBuilder.genericBeanDefinition(className);
-        BeanDefinition beanDefinition=beanDefinitionBuilder.getBeanDefinition();
-        beanDefinitionRegistry.registerBeanDefinition(beanId,beanDefinition);
+@Component
+public class SpringBeanUtils implements ApplicationContextAware {
+
+    private static ApplicationContext applicationContext;
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        SpringBeanUtils.applicationContext = applicationContext;
     }
-    public static void unregisterBean(String beanId){
-        beanDefinitionRegistry.removeBeanDefinition(beanId);
+
+    public static <T> T getBean(Class<T> clazz) {
+        return (T) applicationContext.getBean(clazz);
     }
-    public static <T> T getBean(String name) {
-        return (T) context.getBean(name);
+
+    public static Object getBean(String name) throws BeansException {
+        return applicationContext.getBean(name);
     }
 }
