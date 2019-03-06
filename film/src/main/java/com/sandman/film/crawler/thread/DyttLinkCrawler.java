@@ -21,35 +21,19 @@ import java.util.Date;
 
 /**
  * @author sunpeikai
- * @version DyttLinkThread, v0.1 2019/1/29 10:59
+ * @version DyttLinkCrawler, v0.1 2019/1/29 10:59
  */
-public class DyttLinkThread implements Runnable {
+public class DyttLinkCrawler{
 
-    private static final Logger logger = LoggerFactory.getLogger(DyttLinkThread.class);
+    private static final Logger logger = LoggerFactory.getLogger(DyttLinkCrawler.class);
 
     private boolean run = true;
     private int count = 0;
     private String url = "";
     private String title = "";
-    private int stop = 0;
-    public void run() {
+    public void crawFilmInfo() {
         while (run){
             try{
-                // 等待120秒后线程停止
-                if(stop == 120){
-                    logger.error("正在停止线程...");
-                    run = false;
-                    Thread.currentThread().interrupt();
-                    Thread.currentThread().join();
-                    break;
-                }
-                if(Link.films.size()==0 && count==0){
-                    stop ++;
-                    logger.debug("正在等待root线程执行 -> time:[{}]",stop);
-                    Thread.sleep(1000);
-                    continue;
-                }
-                stop = 0;
                 Film film = Link.getOneFilm();
                 if(film != null){
                     url = film.getFilmUrl();
@@ -62,22 +46,19 @@ public class DyttLinkThread implements Runnable {
                     film.setDelFlag(0);
                     getFilmInfo(film);
                     // 加入到队列
-                    Link.putMap(film); //FilmDataUtils.insertFilm(film);
+                    Link.putMap(film);
                     count++;
                 }else{
                     run = false;
                 }
-                System.out.println("URL线程:[" + Thread.currentThread().getName() + "],已处理个数:[" + count + "]");
             }catch (Exception e){
                 logger.error(e.getLocalizedMessage() + ";;;;;;\turl::" + url + ";;;;\ntitle::" + title);
             }
         }
-        Link.reduceThreadCount();
-        logger.info("INFO线程:[" + Thread.currentThread().getName() + "]，收录[" + count + "]");
+        logger.info("爬取详情 -> 收录[" + count + "]");
     }
 
     private static void getFilmInfo(Film film)throws Exception{
-        System.out.println("获取电影详情线程:[" + Thread.currentThread().getName() + "],url:[" + film.getFilmUrl() + "]");
         WebClient webClient = WebClientUtils.getWebClient();
         HtmlPage htmlPage = webClient.getPage(film.getFilmUrl());
         if(!htmlPage.getTitleText().contains("您的访问出错了") && !htmlPage.getTitleText().contains("404")){
