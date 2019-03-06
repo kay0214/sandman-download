@@ -20,39 +20,42 @@ import java.util.Date;
 
 /**
  * @author sunpeikai
- * @version DyttLinkCrawler, v0.1 2019/1/29 10:59
+ * @version DyttLinkThread, v0.1 2019/1/29 10:59
  */
-public class DyttRootCrawler{
+public class DyttRootThread implements Runnable {
 
-    private static final Logger logger = LoggerFactory.getLogger(DyttRootCrawler.class);
+    private static final Logger logger = LoggerFactory.getLogger(DyttRootThread.class);
 
     private boolean run = true;
     private int page = 1;
     private int count = 0;
 
-    public void crawRootPage() {
+    public void run() {
         String url = Link.getRootOne();
         while (run){
             try{
                 String realUrl = url.replace("{index}",""+page);
-                System.out.println(realUrl);
                 if(StringUtils.isNotBlank(realUrl)){
                     crawler(realUrl);
                     page ++ ;
                 }else{
                     run = false;
+                    Thread.currentThread().interrupt();
+                    Thread.currentThread().join();
+                    break;
                 }
             }catch (Exception e){
                 logger.error(e.getLocalizedMessage());
             }
         }
-        logger.info("爬取root页面 -> 收录[" + count + "]");
+        Link.reduceThreadCount();
+        logger.info("ROOT线程:[" + Thread.currentThread().getName() + "]，收录[" + count + "]");
     }
 
     private void crawler(String url){
+        WebClient webClient = WebClientUtils.getWebClient();
         try{
             String root = "http://www.ygdy8.net";
-            WebClient webClient = WebClientUtils.getWebClient();
             HtmlPage htmlPage = webClient.getPage(url);
             DomNodeList<DomElement> tables = htmlPage.getElementsByTagName("table");
             if(!htmlPage.getTitleText().contains("您的访问出错了")){
@@ -120,6 +123,8 @@ public class DyttRootCrawler{
         }catch (Exception e){
             e.printStackTrace();
             logger.error(e.getLocalizedMessage() + "\turl:::" + url);
+        }finally {
+            WebClientUtils.close(webClient);
         }
 
     }

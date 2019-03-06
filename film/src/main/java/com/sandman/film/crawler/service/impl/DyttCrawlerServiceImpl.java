@@ -10,11 +10,12 @@ import com.sandman.film.base.BaseServiceImpl;
 import com.sandman.film.config.SystemConfig;
 import com.sandman.film.crawler.bean.Link;
 import com.sandman.film.crawler.service.DyttCrawlerService;
-import com.sandman.film.crawler.thread.DyttLinkCrawler;
-import com.sandman.film.crawler.thread.DyttRootCrawler;
+import com.sandman.film.crawler.thread.DyttLinkThread;
+import com.sandman.film.crawler.thread.DyttRootThread;
 import com.sandman.film.dao.mysql.film.model.auto.Film;
 import com.sandman.film.dao.mysql.film.model.auto.FilmExample;
 import com.sandman.film.dao.mysql.film.model.auto.FilmTypeExample;
+import com.sandman.film.utils.DateUtils;
 import com.sandman.film.utils.FileUtils;
 import com.sandman.film.utils.HttpUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -53,21 +54,28 @@ public class DyttCrawlerServiceImpl extends BaseServiceImpl implements DyttCrawl
         Link.root.add("http://www.ygdy8.net/html/gndy/oumei/list_7_{index}.html");
         Link.root.add("http://www.ygdy8.net/html/gndy/china/list_4_{index}.html");
         Link.root.add("http://www.ygdy8.net/html/gndy/jddy/list_63_{index}.html");
-        // 爬取页面
-        int size = Link.root.size();
-        for(int i=0;i<size;i++){
-            DyttRootCrawler dyttRootCrawler = new DyttRootCrawler();
-            dyttRootCrawler.crawRootPage();
+        for(int i=0;i<5;i++){
+            Thread root = new Thread(new DyttRootThread());
+            root.setName("ROOT" + i);
+            root.start();
+            Link.addThreadCount();
         }
-
+        // 阻塞掉主进程，等待ROOT线程结束再运行Link线程
+        canRun();
         // 去重
         removeObj();
-        // 爬取详情
-        DyttLinkCrawler dyttLinkCrawler = new DyttLinkCrawler();
-        dyttLinkCrawler.crawFilmInfo();
-
+        for(int i=0;i<5;i++){
+            Thread thread = new Thread(new DyttLinkThread());
+            thread.setName("URL" + i);
+            thread.start();
+            Link.addThreadCount();
+        }
+        // 阻塞掉主进程，等待Link线程结束再将剩余的数据插入数据库
+        canRun();
         // flush缓存
         Link.finishCrawler();
+        //FileUtils.writeInfoFile("URL线程共收录[" + Link.filmMap.size() + "]");
+
     }
 
     /**
@@ -113,8 +121,8 @@ public class DyttCrawlerServiceImpl extends BaseServiceImpl implements DyttCrawl
      */
     private List<Film> getNeedUpdateImage(){
         FilmExample filmExample = new FilmExample();
-        filmExample.createCriteria().andDelFlagEqualTo(0).andFilmImageIsNull();
-        filmExample.or().andFilmImageNotLike(startWith + "%");
+        filmExample.createCriteria().andDelFlagEqualTo(0).andStatusEqualTo(1).andFilmImageIsNull();
+        filmExample.or().andDelFlagEqualTo(0).andStatusEqualTo(1).andFilmImageNotLike(startWith + "%");
         List<Film> films = filmMapper.selectByExample(filmExample);
         logger.info("一共需要更新 -> [" + films.size() + "]条数据");
         return films;
@@ -182,16 +190,32 @@ public class DyttCrawlerServiceImpl extends BaseServiceImpl implements DyttCrawl
                     }else{
                         newImage = downloadPic(film.getFilmImage(),film.getFilmName());
                     }
-                    //System.out.println(newImage);
                     film.setFilmImage(newImage);
-                    filmMapper.updateByPrimaryKeySelective(film);
-                    count ++;
-                    System.out.println("第[" + count + "]条数据更新image成功 -> id:[" + film.getId() + "],name:[" + film.getFilmName() + "]");
+
+                }else if(StringUtils.isBlank(film.getFilmImage()) && DateUtils.beforeSixHours(film.getUpdateTime())){
+                    // 如果爬取完了图片还是空且更新日期是6小时之前
+                    film.setStatus(0);
                 }
+
+                // 更新数据库
+                filmMapper.updateByPrimaryKeySelective(film);
+                count ++;
+                System.out.println("第[" + count + "]条数据更新image成功 -> id:[" + film.getId() + "],name:[" + film.getFilmName() + "]");
 
             } catch (Exception e) {
                 e.printStackTrace();
                 logger.error(JSON.toJSONString(film));
+            }
+        }
+    }
+
+    private static void canRun(){
+        while (Link.threadCount != 0){
+            try{
+                // 线程休眠3秒
+                Thread.sleep(3000);
+            }catch (Exception e){
+                e.printStackTrace();
             }
         }
     }
