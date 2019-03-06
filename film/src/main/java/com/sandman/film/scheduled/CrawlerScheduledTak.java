@@ -24,7 +24,6 @@ public class CrawlerScheduledTak {
 
     // 每12小时爬取一次电影天堂
     @Scheduled(fixedRate = 12 * 60 * 60 * 1000)
-    //@Scheduled(fixedRate = 60 * 1000)
     public void crawler(){
         logger.info("开始爬取电影天堂...");
         // 爬取

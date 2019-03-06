@@ -13,11 +13,6 @@ import java.util.Date;
  */
 public class DateUtils {
 
-    public static boolean beforeSixHours(Date date){
-        Date now = new Date();
-        return date.getTime()<getHoursAfter(now,-6).getTime();
-    }
-
     /**
      * 判断传入的日期是否在当前日期之前(用于判断是否过期)
      * @auth sunpeikai

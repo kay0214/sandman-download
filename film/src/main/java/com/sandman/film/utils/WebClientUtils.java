@@ -29,17 +29,4 @@ public class WebClientUtils {
         //webClient.waitForBackgroundJavaScript(5 * 1000);//异步JS执行需要耗时,所以这里线程要阻塞5秒,等待异步JS执行结束
         return webClient;
     }
-
-    /**
-     * 关闭webClient
-     * @auth sunpeikai
-     * @param
-     * @return
-     */
-    public static void close(WebClient webClient){
-        webClient.getCurrentWindow().getJobManager().removeAllJobs();
-        webClient.close();
-        webClient = null;
-        System.gc();
-    }
 }
