@@ -15,6 +15,7 @@ import com.sandman.film.crawler.thread.DyttRootThread;
 import com.sandman.film.dao.mysql.film.model.auto.Film;
 import com.sandman.film.dao.mysql.film.model.auto.FilmExample;
 import com.sandman.film.dao.mysql.film.model.auto.FilmTypeExample;
+import com.sandman.film.utils.DateUtils;
 import com.sandman.film.utils.FileUtils;
 import com.sandman.film.utils.HttpUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -120,8 +121,8 @@ public class DyttCrawlerServiceImpl extends BaseServiceImpl implements DyttCrawl
      */
     private List<Film> getNeedUpdateImage(){
         FilmExample filmExample = new FilmExample();
-        filmExample.createCriteria().andDelFlagEqualTo(0).andFilmImageIsNull();
-        filmExample.or().andFilmImageNotLike(startWith + "%");
+        filmExample.createCriteria().andDelFlagEqualTo(0).andStatusEqualTo(1).andFilmImageIsNull();
+        filmExample.or().andDelFlagEqualTo(0).andStatusEqualTo(1).andFilmImageNotLike(startWith + "%");
         List<Film> films = filmMapper.selectByExample(filmExample);
         logger.info("一共需要更新 -> [" + films.size() + "]条数据");
         return films;
@@ -189,12 +190,17 @@ public class DyttCrawlerServiceImpl extends BaseServiceImpl implements DyttCrawl
                     }else{
                         newImage = downloadPic(film.getFilmImage(),film.getFilmName());
                     }
-                    //System.out.println(newImage);
                     film.setFilmImage(newImage);
-                    filmMapper.updateByPrimaryKeySelective(film);
-                    count ++;
-                    System.out.println("第[" + count + "]条数据更新image成功 -> id:[" + film.getId() + "],name:[" + film.getFilmName() + "]");
+
+                }else if(StringUtils.isBlank(film.getFilmImage()) && DateUtils.beforeSixHours(film.getUpdateTime())){
+                    // 如果爬取完了图片还是空且更新日期是6小时之前
+                    film.setStatus(0);
                 }
+
+                // 更新数据库
+                filmMapper.updateByPrimaryKeySelective(film);
+                count ++;
+                System.out.println("第[" + count + "]条数据更新image成功 -> id:[" + film.getId() + "],name:[" + film.getFilmName() + "]");
 
             } catch (Exception e) {
                 e.printStackTrace();

@@ -53,9 +53,9 @@ public class DyttRootThread implements Runnable {
     }
 
     private void crawler(String url){
+        WebClient webClient = WebClientUtils.getWebClient();
         try{
             String root = "http://www.ygdy8.net";
-            WebClient webClient = WebClientUtils.getWebClient();
             HtmlPage htmlPage = webClient.getPage(url);
             DomNodeList<DomElement> tables = htmlPage.getElementsByTagName("table");
             if(!htmlPage.getTitleText().contains("您的访问出错了")){
@@ -123,6 +123,8 @@ public class DyttRootThread implements Runnable {
         }catch (Exception e){
             e.printStackTrace();
             logger.error(e.getLocalizedMessage() + "\turl:::" + url);
+        }finally {
+            WebClientUtils.close(webClient);
         }
 
     }

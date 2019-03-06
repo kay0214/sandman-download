@@ -182,6 +182,8 @@ public class DyttLinkThread implements Runnable {
             throw new Exception("页面中资源已经不存在");
         }
 
+        WebClientUtils.close(webClient);
+
     }
 
     private static String formatStr(String source,String format){
