@@ -10,8 +10,8 @@ import com.sandman.film.base.BaseServiceImpl;
 import com.sandman.film.config.SystemConfig;
 import com.sandman.film.crawler.bean.Link;
 import com.sandman.film.crawler.service.DyttCrawlerService;
-import com.sandman.film.crawler.thread.DyttLinkThread;
-import com.sandman.film.crawler.thread.DyttRootThread;
+import com.sandman.film.crawler.thread.DyttLinkCrawler;
+import com.sandman.film.crawler.thread.DyttRootCrawler;
 import com.sandman.film.dao.mysql.film.model.auto.Film;
 import com.sandman.film.dao.mysql.film.model.auto.FilmExample;
 import com.sandman.film.dao.mysql.film.model.auto.FilmTypeExample;
@@ -53,28 +53,21 @@ public class DyttCrawlerServiceImpl extends BaseServiceImpl implements DyttCrawl
         Link.root.add("http://www.ygdy8.net/html/gndy/oumei/list_7_{index}.html");
         Link.root.add("http://www.ygdy8.net/html/gndy/china/list_4_{index}.html");
         Link.root.add("http://www.ygdy8.net/html/gndy/jddy/list_63_{index}.html");
-        for(int i=0;i<5;i++){
-            Thread root = new Thread(new DyttRootThread());
-            root.setName("ROOT" + i);
-            root.start();
-            Link.addThreadCount();
+        // 爬取页面
+        int size = Link.root.size();
+        for(int i=0;i<size;i++){
+            DyttRootCrawler dyttRootCrawler = new DyttRootCrawler();
+            dyttRootCrawler.crawRootPage();
         }
-        // 阻塞掉主进程，等待ROOT线程结束再运行Link线程
-        canRun();
+
         // 去重
         removeObj();
-        for(int i=0;i<5;i++){
-            Thread thread = new Thread(new DyttLinkThread());
-            thread.setName("URL" + i);
-            thread.start();
-            Link.addThreadCount();
-        }
-        // 阻塞掉主进程，等待Link线程结束再将剩余的数据插入数据库
-        canRun();
+        // 爬取详情
+        DyttLinkCrawler dyttLinkCrawler = new DyttLinkCrawler();
+        dyttLinkCrawler.crawFilmInfo();
+
         // flush缓存
         Link.finishCrawler();
-        //FileUtils.writeInfoFile("URL线程共收录[" + Link.filmMap.size() + "]");
-
     }
 
     /**
@@ -199,17 +192,6 @@ public class DyttCrawlerServiceImpl extends BaseServiceImpl implements DyttCrawl
             } catch (Exception e) {
                 e.printStackTrace();
                 logger.error(JSON.toJSONString(film));
-            }
-        }
-    }
-
-    private static void canRun(){
-        while (Link.threadCount != 0){
-            try{
-                // 线程休眠3秒
-                Thread.sleep(3000);
-            }catch (Exception e){
-                e.printStackTrace();
             }
         }
     }

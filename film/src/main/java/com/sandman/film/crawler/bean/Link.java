@@ -19,14 +19,12 @@ public class Link {
     public static List<String> root = new ArrayList<String>();
     public static List<Film> films = new ArrayList<Film>();
     public static Map<String,Integer> filmTypes = new HashMap<String, Integer>();
-    public static int threadCount = 0;
     public static Map<String,Film> filmMap = new HashMap<String, Film>();
-    public static List<String> failUrl = new ArrayList<String>();
 
     public static synchronized void putMap(Film film){
         filmMap.put(film.getFilmName(),film);
 
-        if((filmMap.size()>=10 && threadCount>0) || threadCount==0){
+        if((filmMap.size()>=10)){
             System.out.println("开始插入数据库啦:size[" + filmMap.size() + "]");
             Map<String,Film> filmMaps = new HashMap<>();
             filmMap.forEach((name,films) ->{
@@ -42,7 +40,7 @@ public class Link {
     }
 
     public static synchronized void finishCrawler(){
-        if(threadCount==0 && filmMap.size()>0){
+        if(filmMap.size()>0){
             System.out.println("最后插入数据库啦:size[" + filmMap.size() + "]");
             Map<String,Film> filmMaps = new HashMap<>();
             filmMap.forEach((name,films) ->{
@@ -57,12 +55,6 @@ public class Link {
         }
     }
 
-    public static synchronized void addThreadCount(){
-        threadCount ++;
-    }
-    public static synchronized void reduceThreadCount(){
-        threadCount --;
-    }
     public static synchronized String getRootOne(){
         String result = "";
         if(root.size()>0){

@@ -20,36 +20,33 @@ import java.util.Date;
 
 /**
  * @author sunpeikai
- * @version DyttLinkThread, v0.1 2019/1/29 10:59
+ * @version DyttLinkCrawler, v0.1 2019/1/29 10:59
  */
-public class DyttRootThread implements Runnable {
+public class DyttRootCrawler{
 
-    private static final Logger logger = LoggerFactory.getLogger(DyttRootThread.class);
+    private static final Logger logger = LoggerFactory.getLogger(DyttRootCrawler.class);
 
     private boolean run = true;
     private int page = 1;
     private int count = 0;
 
-    public void run() {
+    public void crawRootPage() {
         String url = Link.getRootOne();
         while (run){
             try{
                 String realUrl = url.replace("{index}",""+page);
+                System.out.println(realUrl);
                 if(StringUtils.isNotBlank(realUrl)){
                     crawler(realUrl);
                     page ++ ;
                 }else{
                     run = false;
-                    Thread.currentThread().interrupt();
-                    Thread.currentThread().join();
-                    break;
                 }
             }catch (Exception e){
                 logger.error(e.getLocalizedMessage());
             }
         }
-        Link.reduceThreadCount();
-        logger.info("ROOT线程:[" + Thread.currentThread().getName() + "]，收录[" + count + "]");
+        logger.info("爬取root页面 -> 收录[" + count + "]");
     }
 
     private void crawler(String url){
