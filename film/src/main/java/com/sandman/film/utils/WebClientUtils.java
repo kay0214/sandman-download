@@ -7,18 +7,32 @@ import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
 import com.gargoylesoftware.htmlunit.WebClient;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author sunpeikai
  * @version HttpUnitUtils, v0.1 2018/12/19 16:55
  */
 public class WebClientUtils {
+
+    private static List<WebClient> webClients = new ArrayList<>();
+
+    static{
+        // 客户端池
+        for(int i=0;i<5;i++){
+            WebClient webClient = createWebClient();
+            webClients.add(webClient);
+        }
+    }
+
     /**
-     * 获取webclint
+     * new一个webclient
      * @auth sunpeikai
      * @param
      * @return
      */
-    public static WebClient getWebClient(){
+    private static WebClient createWebClient(){
         WebClient webClient=new WebClient(BrowserVersion.BEST_SUPPORTED); // 实例化Web客户端
         webClient.getOptions().setThrowExceptionOnScriptError(false);//当JS执行出错的时候是否抛出异常, 这里选择不需要
         webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);//当HTTP的状态非200时是否抛出异常, 这里选择不需要
@@ -31,15 +45,30 @@ public class WebClientUtils {
     }
 
     /**
+     * 获取webclint
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    public static WebClient getWebClient(){
+        WebClient webClient = null;
+        if(webClients.size()>0){
+            webClient = webClients.remove(0);
+        }else{
+            webClient = createWebClient();
+        }
+        return webClient;
+    }
+
+    /**
      * 关闭webClient
      * @auth sunpeikai
      * @param
      * @return
      */
     public static void close(WebClient webClient){
-        webClient.getCurrentWindow().getJobManager().removeAllJobs();
-        webClient.close();
-        webClient = null;
-        System.gc();
+        if(webClient != null){
+            webClients.add(webClient);
+        }
     }
 }
