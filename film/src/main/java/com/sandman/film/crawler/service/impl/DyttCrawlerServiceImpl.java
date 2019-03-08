@@ -49,11 +49,11 @@ public class DyttCrawlerServiceImpl extends BaseServiceImpl implements DyttCrawl
         Link.putFilmTypes(filmTypeMapper.selectByExample(new FilmTypeExample()));
         // 获取电影天堂最近一次的更新时间
         Link.deadLine = getDeadLine();
-        Link.root.add("http://www.ygdy8.net/html/gndy/rihan/list_6_{index}.html");
-        Link.root.add("http://www.ygdy8.net/html/gndy/dyzz/list_23_{index}.html");
-        Link.root.add("http://www.ygdy8.net/html/gndy/oumei/list_7_{index}.html");
-        Link.root.add("http://www.ygdy8.net/html/gndy/china/list_4_{index}.html");
-        Link.root.add("http://www.ygdy8.net/html/gndy/jddy/list_63_{index}.html");
+        Link.root.add("https://www.dytt8.net/html/gndy/rihan/list_6_{index}.html");
+        Link.root.add("https://www.dytt8.net/html/gndy/dyzz/list_23_{index}.html");
+        Link.root.add("https://www.dytt8.net/html/gndy/oumei/list_7_{index}.html");
+        Link.root.add("https://www.dytt8.net/html/gndy/china/list_4_{index}.html");
+        Link.root.add("https://www.dytt8.net/html/gndy/jddy/list_63_{index}.html");
         for(int i=0;i<5;i++){
             Thread root = new Thread(new DyttRootThread());
             root.setName("ROOT" + i);

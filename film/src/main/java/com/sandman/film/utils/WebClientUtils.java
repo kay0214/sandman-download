@@ -57,6 +57,7 @@ public class WebClientUtils {
         }else{
             webClient = createWebClient();
         }
+        System.out.println("获取 -> webclient连接池,目前client剩余数量 -> [" + webClients.size() + "]");
         return webClient;
     }
 
@@ -70,5 +71,6 @@ public class WebClientUtils {
         if(webClient != null){
             webClients.add(webClient);
         }
+        System.out.println("归还 -> webclient连接池,目前client剩余数量 -> [" + webClients.size() + "]");
     }
 }
