@@ -73,4 +73,19 @@ public class WebClientUtils {
         }
         System.out.println("归还 -> webclient连接池,目前client剩余数量 -> [" + webClients.size() + "]");
     }
+
+    /**
+     * 永久池中所有webClient
+     * @auth sunpeikai
+     * @param
+     * @return
+     */
+    public static void closePool(){
+        for(WebClient webClient:webClients){
+            webClient.getCurrentWindow().getJobManager().removeAllJobs();
+            webClient.close();
+        }
+        webClients = null;
+        System.gc();
+    }
 }
