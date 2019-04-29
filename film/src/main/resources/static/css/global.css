@@ -777,3 +777,7 @@ body .sandman-user-main{position: relative; min-height: 600px;}
 .line-height-26{
   line-height: 26px;
 }
+.layui-table-cell{
+  text-align: center;
+  display: block;
+}

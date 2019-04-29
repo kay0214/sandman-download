@@ -1,3 +1,10 @@
+// 监听回车事件
+function keyPress(obj){
+    if (obj.keyCode == 13) {
+        $("#login").click();
+        obj.returnValue = false;
+    }
+};
 $("#login").click(function () {
     var username = $("#username").val();
     var password = $("#password").val();

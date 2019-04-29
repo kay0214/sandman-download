@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>用户管理-Sandman影片分享</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="icon" href="/icon/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/icon/favicon.ico" type="image/x-icon"/>
+    <meta name="keywords" content="sandman,download,影片分享">
+    <meta name="description" content="Sandman影片分享">
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/formSelects/formSelects-v4.css">
+</head>
+<body>
+<div th:replace="common/header :: admin"></div>
+<div th:replace="admin/admin_header :: user"></div>
+
+<div class="layui-container sandman-background text-align-center">
+    <div class="demoTable">
+        <div class="padding-top-2p layui-form">
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-md2">
+                    <div class="layui-inline">
+                        <input class="layui-input" placeholder="用户名" name="id" id="username" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="layui-col-md2">
+                    <div class="layui-inline">
+                        <input class="layui-input" placeholder="手机号" name="id" id="mobile" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="layui-col-md2">
+                    <div class="layui-inline">
+                        <input class="layui-input" placeholder="邮箱" name="id" id="email" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="layui-col-md2">
+                    <div class="layui-input-inline">
+                        <select id="available">
+                            <option value="">状态</option>
+                            <option value="0">禁用</option>
+                            <option value="1">启用</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="layui-col-md2">
+                    <div class="layui-input-inline">
+                        <select id="role">
+                            <option value="">角色</option>
+                            <option value="0">管理员</option>
+                            <option value="1">普通用户</option>
+                            <option value="2">VIP用户</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="layui-col-md2">
+                    <button class="layui-btn" data-type="reload">搜索</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- 一定要加lay-filter="user",否则表格监听绑定不上 -->
+    <table class="layui-hide" id="table" lay-filter="user"></table>
+    <!-- 开启头部工具栏--开始 -->
+    <script type="text/html" id="toolbar">
+        <div class="layui-btn-container">
+            <button class="layui-btn layui-btn-sm" lay-event="add">新增</button>
+            <button class="layui-btn layui-btn-sm" lay-event="edit">编辑</button>
+            <button class="layui-btn layui-btn-sm" lay-event="dele">删除</button>
+            <button class="layui-btn layui-btn-sm" lay-event="save">保存到数据库</button>
+        </div>
+    </script>
+    <!-- 开启头部工具栏--结束 -->
+</div>
+<!--<div th:replace="common/css3::html"></div>-->
+<script src="/layui/layui.js"></script>
+<script src="/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/global.js"></script>
+<script src="/formSelects/formSelects-v4.js"></script>
+<script>
+    var formselects;
+    var laydate;
+    var laydatevalue;
+    layui.use('table', function(){
+        var table = layui.table;
+        //第一个实例
+        table.render({  //定了一个变量  tableIns 用来存放编辑过的数据
+            elem:  '#table'
+            ,height: 300
+            ,id:'user'
+            ,toolbar: '#toolbar'
+            ,loading:true //是否显示加载条（默认：true）
+            ,title:'操作员'	//String	定义 table 的大标题
+            ,totalRow:true //是否开启 合计行区域
+            ,url:'/user_manager/search_list'//数据接口
+            ,page: true//开启分页
+            ,limit:20  //每页显示的条数（默认：10）。值务必对应 limits 参数的选项:10,20,30 ....
+            ,toolbar:true//若需要“列显示隐藏”、“导出”、“打印”等功能，则必须开启该参数
+            ,totalRow:false//是否开启合计行区域。layui 2.4.0 新增
+            //,autoSort:Boolean  默认 true，即直接由 table 组件在前端自动处理排序。 若为 false，则需自主排序，通常由服务端直接返回排序好的数据。
+            //,initSort:Object	初始排序状态。用于在数据表格渲染完毕时，默认按某个字段排序。
+            //,skin     设定表格各种外观、尺寸等
+            ,even:true   //隔行背景\
+            ,response:{
+                statusName:"status"
+                ,statusCode:'000'
+                ,msgName:"statusDesc"
+                ,countName:"totalCount"
+                ,dataName:"data"
+            }
+            ,cols: [
+                [
+                    {field:'userId', width:70, title: 'ID', sort: true,style:'text-align: left;'}
+                    ,{field:'username', minWidth:100, title: '用户名',style:'text-align: left;'}
+                    ,{field:'mobile', width:100, title: '手机号',style:'text-align: left;'}
+                    ,{field:'email', minWidth:150, title: '邮箱',style:'text-align: left;'}
+                    ,{field:'gold', width:60, title: '积分',style:'text-align: left;'}
+                    ,{field:'available', width:80, title: '状态',style:'text-align: left;' ,templet:function (data) {
+                        if(data.available===0){
+                            return "禁用";
+                        }else{
+                            return "可用";
+                        }
+                    }}
+                    ,{field:'role', width:100, title: '角色',style:'text-align: left;', templet:function (data) {
+                        if(data.role===0){
+                            return "管理员";
+                        }else if(data.role===1){
+                            return "普通用户";
+                        }else if(data.role===2){
+                            return "VIP用户";
+                        }else{
+                            return "预留角色";
+                        }
+                    }}
+                    ,{field:'regIp', width:100, title: '注册IP',style:'text-align: left;'}
+                    ,{field:'regTime', width:180, title: '注册时间',style:'text-align: left;', sort: true,templet:function (data) {
+                        return timeFormat(data.regTime);
+                    }}
+                    ,{fixed:'right', width:220, title: '操作',style:'text-align: left;',templet:function (data) {
+                        if(data.available===0){
+                            // 账户被禁用
+                            if(data.role === 1){
+                                //非会员
+                                return "<a href='/user_manager/update_status?userId= " + data.userId + "&status=1' class='layui-btn layui-btn-sm layui-btn-normal'>启用</a>" +
+                                    "<a href='/user_manager/vip?userId=" + data.userId + "&role=2' class='layui-btn layui-btn-sm layui-btn-normal'>成为会员</a>" +
+                                    "<button onclick='recharge(" + data.userId + ")' class='layui-btn layui-btn-sm layui-btn-normal'>充积分</button>";
+                            }else if(data.role === 2){
+                                //会员
+                                return "<a href='/user_manager/update_status?userId= " + data.userId + "&status=1' class='layui-btn layui-btn-sm layui-btn-normal'>启用</a>" +
+                                    "<a href='/user_manager/vip?userId=" + data.userId + "&role=1' class='layui-btn layui-btn-sm layui-btn-danger'>失去会员</a>" +
+                                    "<button onclick='recharge(" + data.userId + ")' class='layui-btn layui-btn-sm layui-btn-normal'>充积分</button>";
+                            }
+                        }else{
+                            // 账户可用
+                            if(data.role === 1){
+                                //非会员
+                                return "<a href='/user_manager/update_status?userId= " + data.userId + "&status=0' class='layui-btn layui-btn-sm layui-btn-danger'>禁用</a>" +
+                                    "<a href='/user_manager/vip?userId=" + data.userId + "&role=2' class='layui-btn layui-btn-sm layui-btn-normal'>成为会员</a>" +
+                                    "<button onclick='recharge(" + data.userId + ")' class='layui-btn layui-btn-sm layui-btn-normal'>充积分</button>";
+                            }else if(data.role === 2){
+                                //会员
+                                return "<a href='/user_manager/update_status?userId= " + data.userId + "&status=0' class='layui-btn layui-btn-sm layui-btn-danger'>禁用</a>" +
+                                    "<a href='/user_manager/vip?userId=" + data.userId + "&role=1' class='layui-btn layui-btn-sm layui-btn-danger'>失去会员</a>" +
+                                    "<button onclick='recharge(" + data.userId + ")' class='layui-btn layui-btn-sm layui-btn-normal'>充积分</button>";
+                            }
+                        }
+                    }}
+                ]
+            ]
+
+            // done - 数据渲染完的回调    无论是异步请求数据，还是直接赋值数据，都会触发该回调。你可以利用该回调做一些表格以外元素的渲染。
+            ,done:function(res, curr, count){
+            }
+            // done - 数据渲染完的回调    无论是异步请求数据，还是直接赋值数据，都会触发该回调。你可以利用该回调做一些表格以外元素的渲染。
+        })
+
+        //头部工具栏事件
+        table.on('toolbar(user)', function(obj){
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch(obj.event){
+                case 'getCheckData':
+                    var data = checkStatus.data;
+                    layer.alert(JSON.stringify(data));
+                    break;
+                case 'getCheckLength':
+                    var data = checkStatus.data;
+                    layer.msg('选中了：'+ data.length + ' 个');
+                    break;
+                case 'isAll':
+                    layer.msg(checkStatus.isAll ? '全选': '未全选');
+                    break;
+            };
+        });
+        //头部工具栏事件
+
+        //监听事件
+        table.on('tool(user)', function(obj){
+            var data = obj.data; //获得当前行数据
+            if(obj.event === 'click'){
+                layer.open({
+                    content: '<select name="city" xm-select="selectId"   xm-select-skin="danger" ></select>',
+                    btn: ['确定', '取消'],
+                    btnAlign: 'c',
+                    area: ['600px', '450px'],
+                    yes: function(index, layero){
+                        // 按钮【确定（也即设置的第一个按钮）】的回调
+                        // 获取formSelects的数据
+                        var select = formSelects.value('selectId','nameStr');
+                        //这里可以写你自己的逻辑
+                        // 这个data就是你选中行的全部数据，这一行的所有数据都有，所以这里你可以ajax调用后台去更新数据
+                        obj.update({
+                            username:select,
+                        });
+                        // 手动关闭一下弹出框
+                        layer.close(index);
+                    },
+                    btn2: function(index, layero){
+                        // 按钮【取消（也即设置的第二个按钮）】的回调，直接关闭弹出框
+                        layer.close(index)
+                    }
+                });
+            }
+
+            //---这是我新增加的--开始
+            if(obj.event === 'click2'){
+
+                layer.open({
+                    content: '<input type="text" class="layui-input" id="datetime">',
+                    btn: ['确定', '取消'],
+                    btnAlign: 'c',
+                    area: ['600px', '450px'],
+                    yes: function(index, layero){
+                        obj.update({
+                            createdate: laydatevalue,
+                        });
+                        layer.close(index);
+                    },
+                    btn2: function(index, layero){
+                        // 按钮【取消（也即设置的第二个按钮）】的回调，直接关闭弹出框
+                        layer.close(index)
+                    }
+                });
+            }
+            //---这是我新增加的--结束
+
+            //加载模块   formSelects
+            layui.use(['jquery', 'formSelects'], function(){
+                formSelects = layui.formSelects;
+                formSelects.data('selectId', 'server', {
+                    url: '/user/loadall/ee',
+                    keyword: ""
+                });
+            });
+
+            //--这是我新增加的 --开始
+            //加载模块  laydate
+            layui.use('laydate', function(){
+                laydate = layui.laydate;
+                laydate.render({
+                    elem: '#datetime' //指定元素
+                    ,type: 'datetime'
+                    ,done: function(value, date, endDate){
+                        laydatevalue=value;
+                        console.log(value); //  按f12 能看到选择的日期
+                    }
+                });
+            });
+            //--这是我新增加的 --结束
+            // 监听结束
+        });
+
+
+    });
+</script>
+<script type="text/javascript">
+    function timeFormat(v){
+        var date = new Date(v);
+        var y = date.getFullYear();
+        var m = date.getMonth()+1;
+        m = m<10?'0'+m:m;
+        var d = date.getDate();
+        d = d<10?("0"+d):d;
+        var h = date.getHours();
+        h = h<10?("0"+h):h;
+        var M = date.getMinutes();
+        M = M<10?("0"+M):M;
+        var s = date.getSeconds();
+        s = s<10?("0"+s):s;
+        var str = y+"-"+m+"-"+d+" "+h+":"+M + ":" + s;
+        return str;
+    }
+</script>
+<script>
+    function recharge(userId) {
+        layer.open({
+            content: '<input class="layui-input" id="recharge" placeholder="请输入积分数量"/>',
+            title:'充值',
+            yes: function(index, layero){
+                var gold = $("#recharge").val();
+                if(gold !== null && gold !== undefined && gold !== '' && gold !== 0 && userId !== null && userId !== undefined && userId !== ''){
+                    $.ajax({
+                        type: "post",
+                        url: "/user_manager/recharge",
+                        data: {
+                            gold:gold,
+                            userId:userId
+                        },
+                        async: false,
+                        success: function (data) {
+                            if(data.status !== '000'){
+                                layer.msg(data.statusDesc,{icon: 5});
+                            }else{
+                                // 充值成功
+                                layer.close(index); //如果设定了yes回调，需进行手工关闭
+                                layer.msg(data.statusDesc,{icon: 6});
+                                window.location.href = "/user_manager/init";
+                            }
+                        }
+                    });
+                }else{
+                    layer.msg("输入无效",{icon: 5});
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>
