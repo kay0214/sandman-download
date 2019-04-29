@@ -36,6 +36,8 @@ public class EmmmoeService extends BaseServiceImpl {
     @Value("${emmmoe.urlRel}")
     private String[] urlRel;
 
+    private String[] otherPan = {"openload.co","i.loli.net","files.catbox.moe"};
+
     /**
      * 获取每页的数据列表的链接
      * @auth sunpeikai
@@ -156,19 +158,9 @@ public class EmmmoeService extends BaseServiceImpl {
                                         pageInfo.setSuccess(1);
                                         pageInfoMapper.updateByPrimaryKeySelective(pageInfo);
                                     }
-                                }else if(netDiskUrl.contains("openload.co")){
+                                }else if(contains(netDiskUrl,otherPan)){
                                     // openload网盘
-                                    logger.info("获取到的openload网盘url:[{}]",netDiskUrl);
-                                    boolean success = updateNetDisk(pageInfo.getTitle(),pageInfo.getUri(),netDiskUrl,pageInfo.getPage(),"其他网盘资源",3);
-                                    if(success){
-                                        result += 1;
-                                        // 处理完了以后，把pageInfo的success置为1
-                                        pageInfo.setSuccess(1);
-                                        pageInfoMapper.updateByPrimaryKeySelective(pageInfo);
-                                    }
-                                }else if(netDiskUrl.contains("i.loli.net")){
-                                    // 恶魔喵地址
-                                    logger.info("获取到的恶魔喵url:[{}]",netDiskUrl);
+                                    logger.info("获取到的其他网盘url:[{}]",netDiskUrl);
                                     boolean success = updateNetDisk(pageInfo.getTitle(),pageInfo.getUri(),netDiskUrl,pageInfo.getPage(),"其他网盘资源",3);
                                     if(success){
                                         result += 1;
@@ -241,7 +233,7 @@ public class EmmmoeService extends BaseServiceImpl {
         return false;
     }
 
-    public boolean check(String title,String uri){
+    public boolean check(String uri){
         return checkNetDiskExist(uri);
     }
 

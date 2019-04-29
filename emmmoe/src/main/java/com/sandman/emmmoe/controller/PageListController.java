@@ -47,7 +47,7 @@ public class PageListController extends BaseController {
     @GetMapping(value = "/test")
     public void test(String title,String uri){
         logger.info("参数title:[{}],uri:[{}]",title,uri);
-        boolean exist = emmmoeService.check(title, uri);
+        boolean exist = emmmoeService.check(uri);
         logger.info("是否存在:[{}]",exist);
     }
 
