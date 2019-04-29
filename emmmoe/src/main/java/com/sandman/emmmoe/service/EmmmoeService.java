@@ -29,11 +29,11 @@ public class EmmmoeService extends BaseServiceImpl {
 
     private String emmmoePage = "";
 
-    @Value("mainPageTag")
+    @Value("${emmmoe.mainPageTag}")
     private String mainPageTag;
-    @Value("urlClass")
+    @Value("${emmmoe.urlClass}")
     private String urlClass;
-    @Value("urlRel")
+    @Value("${emmmoe.urlRel}")
     private String urlRel;
 
     /**
@@ -43,6 +43,7 @@ public class EmmmoeService extends BaseServiceImpl {
      * @return
      */
     public Map<String,Integer> getEmmmoePageList(String emmmoe){
+        logger.info(mainPageTag);
         Map<String,Integer> resultMap = new HashMap<>();
         emmmoePage = emmmoe + SystemConfig.getEmmmoePrefix();
         int result = 0;
