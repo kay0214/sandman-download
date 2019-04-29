@@ -22,5 +22,5 @@ spring:
     prefix: classpath:/templates/
 emmmoe:
   mainPageTag: main
-  urlClass: downbtn
-  urlRel: noreferrer
+  urlClass: downbtn,downcloud
+  urlRel: noreferrer,nofollow,noopener

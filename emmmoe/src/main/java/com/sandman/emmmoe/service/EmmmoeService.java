@@ -32,9 +32,9 @@ public class EmmmoeService extends BaseServiceImpl {
     @Value("${emmmoe.mainPageTag}")
     private String mainPageTag;
     @Value("${emmmoe.urlClass}")
-    private String urlClass;
+    private String[] urlClass;
     @Value("${emmmoe.urlRel}")
-    private String urlRel;
+    private String[] urlRel;
 
     /**
      * 获取每页的数据列表的链接
@@ -43,7 +43,6 @@ public class EmmmoeService extends BaseServiceImpl {
      * @return
      */
     public Map<String,Integer> getEmmmoePageList(String emmmoe){
-        logger.info(mainPageTag);
         Map<String,Integer> resultMap = new HashMap<>();
         emmmoePage = emmmoe + SystemConfig.getEmmmoePrefix();
         int result = 0;
@@ -85,7 +84,8 @@ public class EmmmoeService extends BaseServiceImpl {
                     }
                 }
             }catch (Exception e){
-                scan = false;
+                e.printStackTrace();
+                //scan = false;
             }
             result += pageCount;
             insert += insertCount;
@@ -123,7 +123,7 @@ public class EmmmoeService extends BaseServiceImpl {
                     for(DomElement a:aList){
                         String aClass = a.getAttribute("class");
                         String rel = a.getAttribute("rel");
-                        if(aClass.contains(urlClass) || urlRel.equals(rel)){
+                        if(contains(aClass,urlClass) || contains(rel,urlRel)){
                             String url = a.getAttribute("href");
                             // 只保留百度网盘
                             String netDiskUrl = "";
@@ -144,7 +144,7 @@ public class EmmmoeService extends BaseServiceImpl {
                             }
 
                             // 判断重复
-                            boolean exist = checkNetDiskExist(pageInfo.getTitle(),netDiskUrl);
+                            boolean exist = checkNetDiskExist(netDiskUrl);
                             if(!exist){
                                 if(netDiskUrl.contains("pan.baidu.com")){
                                     // 百度网盘
@@ -204,7 +204,7 @@ public class EmmmoeService extends BaseServiceImpl {
         List<PageInfo> notSuccessList = getNotSuccessPage();
         if(!CollectionUtils.isEmpty(notSuccessList)){
             for(PageInfo notSuccess:notSuccessList){
-                if(canCrawlUrl(rootUrl + notSuccess.getUri()) && !checkNetDiskExist(notSuccess.getTitle(),rootUrl + notSuccess.getUri())){
+                if(canCrawlUrl(rootUrl + notSuccess.getUri()) && !checkNetDiskExist(rootUrl + notSuccess.getUri())){
                     logger.info("在线资源 -> title:[{}],url[{}]",notSuccess.getTitle(),rootUrl + notSuccess.getUri());
                     // success=4  在线资源
                     boolean success = updateNetDisk(notSuccess.getTitle(),notSuccess.getUri(),rootUrl + notSuccess.getUri(),notSuccess.getPage(),"在线资源无需密码",4);
@@ -228,7 +228,7 @@ public class EmmmoeService extends BaseServiceImpl {
      */
     private boolean checkPageInfoExist(PageInfo pageInfo){
         PageInfoExample pageInfoExample = new PageInfoExample();
-        pageInfoExample.createCriteria().andUriEqualTo(pageInfo.getUri()).andTitleEqualTo(pageInfo.getTitle());
+        pageInfoExample.createCriteria().andUriEqualTo(pageInfo.getUri());
         List<PageInfo> pageInfoList = pageInfoMapper.selectByExample(pageInfoExample);
         if(!CollectionUtils.isEmpty(pageInfoList)){
             PageInfo database = pageInfoList.get(0);
@@ -242,7 +242,7 @@ public class EmmmoeService extends BaseServiceImpl {
     }
 
     public boolean check(String title,String uri){
-        return checkNetDiskExist(title, uri);
+        return checkNetDiskExist(uri);
     }
 
     /**
@@ -251,13 +251,12 @@ public class EmmmoeService extends BaseServiceImpl {
      * @param
      * @return
      */
-    private boolean checkNetDiskExist(String title,String uri){
+    private boolean checkNetDiskExist(String uri){
         if(StringUtils.isBlank(uri)){
             return true;
         }
         NetDiskExample netDiskExample = new NetDiskExample();
-        netDiskExample.createCriteria().andTitleEqualTo(title).andNetDiskEqualTo(uri);
-        netDiskExample.or().andNetDiskEqualTo(uri);
+        netDiskExample.createCriteria().andNetDiskEqualTo(uri);
         return netDiskMapper.selectByExample(netDiskExample).size()>0;
     }
 
@@ -298,5 +297,14 @@ public class EmmmoeService extends BaseServiceImpl {
             }
         }
         return true;
+    }
+
+    private boolean contains(String str,String... compare){
+        for(String source:compare){
+            if(str.contains(source)){
+                return true;
+            }
+        }
+        return false;
     }
 }
