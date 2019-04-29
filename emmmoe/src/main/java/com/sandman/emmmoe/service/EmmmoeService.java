@@ -11,6 +11,7 @@ import com.sandman.emmmoe.constant.CommonConstant;
 import com.sandman.emmmoe.dao.mysql.emmmoe.model.auto.*;
 import com.sandman.emmmoe.utils.HttpUnitUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -27,6 +28,13 @@ import java.util.Map;
 public class EmmmoeService extends BaseServiceImpl {
 
     private String emmmoePage = "";
+
+    @Value("mainPageTag")
+    private String mainPageTag;
+    @Value("urlClass")
+    private String urlClass;
+    @Value("urlRel")
+    private String urlRel;
 
     /**
      * 获取每页的数据列表的链接
@@ -55,7 +63,7 @@ public class EmmmoeService extends BaseServiceImpl {
                     scan = false;
                     break;
                 }
-                DomNodeList<DomElement> domElements = htmlPage.getElementsByTagName("article");
+                DomNodeList<DomElement> domElements = htmlPage.getElementsByTagName(mainPageTag);
                 for(DomElement domElement:domElements){
                     DomNodeList<HtmlElement> h2List = domElement.getElementsByTagName("h2");
                     for(HtmlElement htmlElement:h2List){
@@ -114,7 +122,7 @@ public class EmmmoeService extends BaseServiceImpl {
                     for(DomElement a:aList){
                         String aClass = a.getAttribute("class");
                         String rel = a.getAttribute("rel");
-                        if(aClass.contains("downcloud") || "nofollow".equals(rel)){
+                        if(aClass.contains(urlClass) || urlRel.equals(rel)){
                             String url = a.getAttribute("href");
                             // 只保留百度网盘
                             String netDiskUrl = "";
