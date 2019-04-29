@@ -125,7 +125,7 @@ public class EmmmoeService extends BaseServiceImpl {
                     for(DomElement a:aList){
                         String aClass = a.getAttribute("class");
                         String rel = a.getAttribute("rel");
-                        if(contains(aClass,urlClass) || contains(rel,urlRel)){
+                        if(contains(aClass,urlClass) && contains(rel,urlRel)){
                             String url = a.getAttribute("href");
                             // 只保留百度网盘
                             String netDiskUrl = "";
